@@ -6,47 +6,46 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "heading": "India's Biggest Lunch Sale",
             "subheading": "UPTO 80% OFF",
-            "text": "Premium Lunch Boxes & Bottles at Best Prices",
+            "heading": "India's Biggest Lunch Sale",
+            "text": "<p>Premium Lunch Boxes & Bottles at Best Prices</p>",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/all",
-            "heading_color": "#ffffff",
-            "text_color": "#ffffff"
+            "button_style": "primary"
           }
         },
         "slide-2": {
           "type": "slide",
           "settings": {
-            "heading": "New Arrivals",
-            "subheading": "Fresh Collection",
-            "text": "Explore Our Latest Lunch Boxes & Bottles",
+            "subheading": "NEW ARRIVALS",
+            "heading": "Fresh Collection 2024",
+            "text": "<p>Explore Our Latest Lunch Boxes & Bottles</p>",
             "button_label": "View All",
             "button_link": "shopify://collections/new-arrivals",
-            "heading_color": "#ffffff",
-            "text_color": "#ffffff"
+            "button_style": "primary"
           }
         },
         "slide-3": {
           "type": "slide",
           "settings": {
-            "heading": "Premium Quality",
-            "subheading": "Insulated & Microwave Safe",
-            "text": "Best Lunch Boxes for Kids & Adults",
+            "subheading": "PREMIUM QUALITY",
+            "heading": "Insulated & Microwave Safe",
+            "text": "<p>Best Lunch Boxes for Kids & Adults</p>",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/lunch-box",
-            "heading_color": "#ffffff",
-            "text_color": "#ffffff"
+            "button_style": "primary"
           }
         }
       },
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 5,
+        "primary_color": "#ff6b9d",
+        "accent_color": "#e84a7f",
         "heading_color": "#ffffff",
         "text_color": "#ffffff",
         "overlay_color": "#000000",
-        "overlay_opacity": 50
+        "overlay_opacity": 30
       }
     },
     "featured_collection": {
@@ -55,20 +54,26 @@
         "title": "Featured Products",
         "collection": "frontpage",
         "products_to_show": 8,
-        "columns_desktop": 4
+        "columns_desktop": 4,
+        "show_view_all": true
       }
     },
     "richtext": {
       "type": "rich-text",
       "settings": {
-        "text": "<p>Premium quality lunch boxes and bottles for kids & adults. Free shipping above ₹499, COD available across India.</p>"
+        "heading": "Welcome to CatFat India",
+        "text": "<p>Premium quality lunch boxes and bottles for kids & adults. Free shipping above ₹499, COD available across India.</p>",
+        "button_label": "Shop All Products",
+        "button_link": "shopify://collections/all",
+        "text_alignment": "center"
       }
     },
     "multicolumn": {
       "type": "multicolumn",
       "settings": {
         "title": "Why Choose Us",
-        "columns_desktop": 4
+        "columns_desktop": 4,
+        "heading_alignment": "center"
       }
     }
   },
