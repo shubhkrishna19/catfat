@@ -1,0 +1,403 @@
+﻿node.exe : Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò
+«
+At C:\Users\shubh\AppData\Roaming\npm\shopify.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/@shopify/cli/bin/run.js" $ar ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Γò¡ΓöÇ info ΓöÇ...ΓöÇΓöÇΓöÇΓöÇΓò«:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\config\settings_schema.json             Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: ValidJSON                                                          Γöé
+Γöé  Missing property "theme_support_email".                                     Γöé
+Γöé                                                                              Γöé
+Γöé  2  {                                                                        Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: ValidJSON                                                          Γöé
+Γöé  Missing property "theme_documentation_url".                                 Γöé
+Γöé                                                                              Γöé
+Γöé  2  {                                                                        Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\layout\theme.liquid                     Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: TranslationKeyExists                                               Γöé
+Γöé  'accessibility.refresh_page' does not have a matching entry in              Γöé
+Γöé  'locales/en.default.json'                                                   Γöé
+Γöé                                                                              Γöé
+Γöé  144  <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' |   Γöé
+Γöé  t }}</li>                                                                   Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\locales\en.default.json                 Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: ValidJSON                                                          Γöé
+Γöé  Duplicate object key                                                        Γöé
+Γöé                                                                              Γöé
+Γöé  182  "order": "Order",                                                      Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: ValidJSON                                                          Γöé
+Γöé  Duplicate object key                                                        Γöé
+Γöé                                                                              Γöé
+Γöé  104  "order": {                                                             Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: ValidJSON                                                          Γöé
+Γöé  Duplicate object key                                                        Γöé
+Γöé                                                                              Γöé
+Γöé  260  "quantity": {                                                          Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: ValidJSON                                                          Γöé
+Γöé  Duplicate object key                                                        Γöé
+Γöé                                                                              Γöé
+Γöé  251  "quantity": "Quantity",                                                Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\sections\footer.liquid                  Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/language-localization.liquid' does not exist                      Γöé
+Γöé                                                                              Γöé
+Γöé  358  {%- render 'language-localization', localPosition: 'FooterLanguage'    Γöé
+Γöé  -%}                                                                         Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\sections\main-article.liquid            Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/share-button.liquid' does not exist                               Γöé
+Γöé                                                                              Γöé
+Γöé  67  {% render 'share-button', block: block, share_link: share_url %}        Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/pagination.liquid' does not exist                                 Γöé
+Γöé                                                                              Γöé
+Γöé  109  {% render 'pagination', paginate: paginate, anchor: anchorId %}        Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/icon-error.liquid' does not exist                                 Γöé
+Γöé                                                                              Γöé
+Γöé  124  {% render 'icon-error' %}                                              Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/icon-success.liquid' does not exist                               Γöé
+Γöé                                                                              Γöé
+Γöé  147  {% render 'icon-success' %}                                            Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/icon-error.liquid' does not exist                                 Γöé
+Γöé                                                                              Γöé
+Γöé  178  {%- render 'icon-error' -%}                                            Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/icon-error.liquid' does not exist                                 Γöé
+Γöé                                                                              Γöé
+Γöé  210  {%- render 'icon-error' -%}                                            Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/icon-error.liquid' does not exist                                 Γöé
+Γöé                                                                              Γöé
+Γöé  240  {%- render 'icon-error' -%}                                            Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [warning]: VariableName                                                     Γöé
+Γöé  The variable 'anchorId' uses wrong naming format                            Γöé
+Γöé                                                                              Γöé
+Γöé  82  {%- assign anchorId = '#Comments-' | append: article.id -%}             Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\sections\main-blog.liquid               Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/article-card.liquid' does not exist                               Γöé
+Γöé                                                                              Γöé
+Γöé  72  {%- render 'article-card',                                              Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/pagination.liquid' does not exist                                 Γöé
+Γöé                                                                              Γöé
+Γöé  86  {%- render 'pagination', paginate: paginate -%}                         Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\sections\main-collection.liquid         Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/facets.liquid' does not exist                                     Γöé
+Γöé                                                                              Γöé
+Γöé  160  {% render 'facets',                                                    Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/card-product.liquid' does not exist                               Γöé
+Γöé                                                                              Γöé
+Γöé  200  {% render 'card-product',                                              Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/pagination.liquid' does not exist                                 Γöé
+Γöé                                                                              Γöé
+Γöé  216  {% render 'pagination', paginate: paginate, anchor: '' %}              Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/mask-arch.liquid' does not exist                                  Γöé
+Γöé                                                                              Γöé
+Γöé  225  {% render 'mask-arch' %}                                               Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/quick-add.js' does not exist                                        Γöé
+Γöé                                                                              Γöé
+Γöé  17  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>  Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/product-form.js' does not exist                                     Γöé
+Γöé                                                                              Γöé
+Γöé  18  <script src="{{ 'product-form.js' | asset_url }}"                       Γöé
+Γöé  defer="defer"></script>                                                     Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\sections\main-product.liquid            Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/section-main-product.css' does not exist                            Γöé
+Γöé                                                                              Γöé
+Γöé  1  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}            Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/pickup-availability.liquid' does not exist                        Γöé
+Γöé                                                                              Γöé
+Γöé  175  {%- render 'pickup-availability', product: product -%}                 Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/component-accordion.css' does not exist                             Γöé
+Γöé                                                                              Γöé
+Γöé  2  {{ 'component-accordion.css' | asset_url | stylesheet_tag }}             Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: TranslationKeyExists                                               Γöé
+Γöé  'products.modal.label' does not have a matching entry in                    Γöé
+Γöé  'locales/en.default.json'                                                   Γöé
+Γöé                                                                              Γöé
+Γöé  193  <div class="product-media-modal__content" role="document"              Γöé
+Γöé  aria-label="{{ 'products.modal.label' | t }}" tabindex="0">                 Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: TranslationKeyExists                                               Γöé
+Γöé  'products.modal.label' does not have a matching entry in                    Γöé
+Γöé  'locales/en.default.json'                                                   Γöé
+Γöé                                                                              Γöé
+Γöé  189  <div class="product-media-modal__dialog" role="dialog" aria-label="{{  Γöé
+Γöé   'products.modal.label' | t }}" aria-modal="true">                          Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/component-slider.css' does not exist                                Γöé
+Γöé                                                                              Γöé
+Γöé  4  {{ 'component-slider.css' | asset_url | stylesheet_tag }}                Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/component-rating.css' does not exist                                Γöé
+Γöé                                                                              Γöé
+Γöé  5  {{ 'component-rating.css' | asset_url | stylesheet_tag }}                Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/component-deferred-media.css' does not exist                        Γöé
+Γöé                                                                              Γöé
+Γöé  7  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}        Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/component-volume-pricing.css' does not exist                        Γöé
+Γöé                                                                              Γöé
+Γöé  9  {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}        Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/product-info.js' does not exist                                     Γöé
+Γöé                                                                              Γöé
+Γöé  88  <script src="{{ 'product-info.js' | asset_url }}"                       Γöé
+Γöé  defer="defer"></script>                                                     Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/product-form.js' does not exist                                     Γöé
+Γöé                                                                              Γöé
+Γöé  89  <script src="{{ 'product-form.js' | asset_url }}"                       Γöé
+Γöé  defer="defer"></script>                                                     Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/show-more.js' does not exist                                        Γöé
+Γöé                                                                              Γöé
+Γöé  91  <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>  Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/price-per-item.js' does not exist                                   Γöé
+Γöé                                                                              Γöé
+Γöé  92  <script src="{{ 'price-per-item.js' | asset_url }}"                     Γöé
+Γöé  defer="defer"></script>                                                     Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/magnify.js' does not exist                                          Γöé
+Γöé                                                                              Γöé
+Γöé  96  <script id="EnableZoomOnHover-main" src="{{ 'magnify.js' | asset_url    Γöé
+Γöé  }}" defer="defer"></script>                                                 Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [warning]: UndefinedObject                                                  Γöé
+Γöé  Unknown object 'block' used.                                                Γöé
+Γöé                                                                              Γöé
+Γöé  149  class="product-form__submit button button--full-width {% if            Γöé
+Γöé  block.settings.show_dynamic_checkout %}button--secondary{% else             Γöé
+Γöé  %}button--primary{% endif %}"                                               Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [warning]: UndefinedObject                                                  Γöé
+Γöé  Unknown object 'block' used.                                                Γöé
+Γöé                                                                              Γöé
+Γöé  141  <div {{ block.shopify_attributes }}>                                   Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [warning]: UndefinedObject                                                  Γöé
+Γöé  Unknown object 'block' used.                                                Γöé
+Γöé                                                                              Γöé
+Γöé  171  <div class="product__description rte" {{ block.shopify_attributes }}>  Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\sections\main-search.liquid             Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: LiquidHTMLSyntaxError                                              Γöé
+Γöé  SyntaxError: expected ">" or "/>"                                           Γöé
+Γöé                                                                              Γöé
+Γöé  267  <aside aria-labelledby="verticalTitle" class="{{                       Γöé
+Γöé  facets_wrapper_classes }}" id="main-search-filters" data-id="{{ section.id  Γöé
+Γöé   }}">                                                                       Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  :\Users\shubh\Downloads\CatfatIndia\snippets\cart-drawer.liquid             Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingAsset                                                       Γöé
+Γöé  'assets/cart-drawer.js' does not exist                                      Γöé
+Γöé                                                                              Γöé
+Γöé  9  <script src="{{ 'cart-drawer.js' | asset_url }}"                         Γöé
+Γöé  defer="defer"></script>                                                     Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: TranslationKeyExists                                               Γöé
+Γöé  'customer.order.discount' does not have a matching entry in                 Γöé
+Γöé  'locales/en.default.json'                                                   Γöé
+Γöé                                                                              Γöé
+Γöé  215  <ul class="discounts list-unstyled" role="list" aria-label="{{         Γöé
+Γöé  'customer.order.discount' | t }}">                                          Γöé
+Γöé                                                                              Γöé
+Γöé                                                                              Γöé
+Γöé  [error]: MissingTemplate                                                    Γöé
+Γöé  'snippets/icon-discount.liquid' does not exist                              Γöé
+Γöé                                                                              Γöé
+Γöé  218  {%- render 'icon-discount' -%}                                         Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Γò¡ΓöÇ info ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓò«
+Γöé                                                                              Γöé
+Γöé  Theme Check Summary.                                                        Γöé
+Γöé                                                                              Γöé
+Γöé  56 files inspected with 45 total offenses found across 10 files.            Γöé
+Γöé  41 errors.                                                                  Γöé
+Γöé  4 warnings.                                                                 Γöé
+Γöé                                                                              Γöé
+Γò░ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö
+ÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓ
+ò»
+
+Assertion failed: !(handle->flags & UV_HANDLE_CLOSING), file src\win\async.c, line 76

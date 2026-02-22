@@ -1,0 +1,947 @@
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\layout\theme.liquid                     │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'accessibility.refresh_page' does not have a matching entry in              │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  139  <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' |   │
+│  t }}</li>                                                                   │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'accessibility.link_messages.new_window' does not have a matching entry in  │
+│   'locales/en.default.json'                                                  │
+│                                                                              │
+│  140  <li id="a11y-new-window-message">{{                                    │
+│  'accessibility.link_messages.new_window' | t }}</li>                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.cart_error' does not have a matching entry in                │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  154  error: `{{ 'sections.cart.cart_error' | t }}`,                         │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.cart_quantity_error_html' does not have a matching entry in  │
+│   'locales/en.default.json'                                                  │
+│                                                                              │
+│  155  quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t:       │
+│  quantity: '[quantity]' }}`                                                  │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\locales\en.default.json                 │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  163  "first_name": "First name",                                            │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  52  "first_name": "First name",                                             │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  164  "last_name": "Last name",                                              │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  53  "last_name": "Last name",                                               │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  165  "email": "Email",                                                      │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  45  "email": "Email",                                                       │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  166  "phone": "Phone",                                                      │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  60  "phone": "Phone",                                                       │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  167  "password": "Password",                                                │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  46  "password": "Password",                                                 │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  316  "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at    │
+│  checkout",                                                                  │
+│                                                                              │
+│                                                                              │
+│  [error]: ValidJSON                                                          │
+│  Duplicate object key                                                        │
+│                                                                              │
+│  314  "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at    │
+│  checkout",                                                                  │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\footer.liquid                  │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/section-footer.css' does not exist                                  │
+│                                                                              │
+│  1  {{ 'section-footer.css' | asset_url | stylesheet_tag }}                  │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/language-localization.liquid' does not exist                      │
+│                                                                              │
+│  358  {%- render 'language-localization', localPosition: 'FooterLanguage'    │
+│  -%}                                                                         │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\header.liquid                  │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-list-menu.css' does not exist                             │
+│                                                                              │
+│  1  {{ 'component-list-menu.css' | asset_url | stylesheet_tag }}             │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-search.css' does not exist                                │
+│                                                                              │
+│  2  {{ 'component-search.css' | asset_url | stylesheet_tag }}                │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.search.search' does not have a matching entry in                   │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  397  {{ 'general.search.search' | t }}                                      │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'templates.cart.cart' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  419  <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>   │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-menu-drawer.css' does not exist                           │
+│                                                                              │
+│  3  {{ 'component-menu-drawer.css' | asset_url | stylesheet_tag }}           │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-cart-notification.css' does not exist                     │
+│                                                                              │
+│  4  {{ 'component-cart-notification.css' | asset_url | stylesheet_tag }}     │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-404.liquid                │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'templates.404.subtext' does not have a matching entry in                   │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  63  {{ 'templates.404.subtext' | t }}                                       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'templates.404.title' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  66  {{ 'templates.404.title' | t }}                                         │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-article.liquid            │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/share-button.liquid' does not exist                               │
+│                                                                              │
+│  67  {% render 'share-button', block: block, share_link: share_url %}        │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/section-blog-post.css' does not exist                               │
+│                                                                              │
+│  1  {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}               │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/pagination.liquid' does not exist                                 │
+│                                                                              │
+│  109  {% render 'pagination', paginate: paginate, anchor: anchorId %}        │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-error.liquid' does not exist                                 │
+│                                                                              │
+│  124  {% render 'icon-error' %}                                              │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.back_to_blog' does not have a matching entry in              │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  75  {{ 'blogs.article.back_to_blog' | t: title: blog.title }}               │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.comments' does not have a matching entry in                  │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  85  {{ 'blogs.article.comments' | t: count: article.comments_count }}       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.comment_form_title' does not have a matching entry in        │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  120  <h2>{{ 'blogs.article.comment_form_title' | t }}</h2>                  │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'templates.contact.form.error_heading' does not have a matching entry in    │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  125  {{ 'templates.contact.form.error_heading' | t }}                       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.name' does not have a matching entry in                      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  133  {{ 'blogs.article.name' | t }}                                         │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.message' does not have a matching entry in                   │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  135  {{ 'blogs.article.message' | t }}                                      │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.name' does not have a matching entry in                      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  169  placeholder="{{ 'blogs.article.name' | t }}"                           │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.name' does not have a matching entry in                      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  172  {{- 'blogs.article.name' | t }}                                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.name' does not have a matching entry in                      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  179  {{- 'blogs.article.name' | t }}                                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.email' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  201  placeholder="{{ 'blogs.article.email' | t }}"                          │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.email' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  204  {{- 'blogs.article.email' | t }}                                       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.email' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  211  {{- 'blogs.article.email' | t }}                                       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.message' does not have a matching entry in                   │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  230  placeholder="{{ 'blogs.article.message' | t }}"                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.message' does not have a matching entry in                   │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  233  {{- 'blogs.article.message' | t }}                                     │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.message' does not have a matching entry in                   │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  241  {{- 'blogs.article.message' | t }}                                     │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.moderated' does not have a matching entry in                 │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  248  <p class="article-template__comment-warning caption">{{                │
+│  'blogs.article.moderated' | t }}</p>                                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'blogs.article.post' does not have a matching entry in                      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  250  <input type="submit" class="button" value="{{ 'blogs.article.post' |   │
+│  t }}">                                                                      │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-success.liquid' does not exist                               │
+│                                                                              │
+│  147  {% render 'icon-success' %}                                            │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-error.liquid' does not exist                                 │
+│                                                                              │
+│  178  {%- render 'icon-error' -%}                                            │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-error.liquid' does not exist                                 │
+│                                                                              │
+│  210  {%- render 'icon-error' -%}                                            │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-error.liquid' does not exist                                 │
+│                                                                              │
+│  240  {%- render 'icon-error' -%}                                            │
+│                                                                              │
+│                                                                              │
+│  [warning]: VariableName                                                     │
+│  The variable 'anchorId' uses wrong naming format                            │
+│                                                                              │
+│  82  {%- assign anchorId = '#Comments-' | append: article.id -%}             │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-blog.liquid               │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/article-card.liquid' does not exist                               │
+│                                                                              │
+│  72  {%- render 'article-card',                                              │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-article-card.css' does not exist                          │
+│                                                                              │
+│  1  {{ 'component-article-card.css' | asset_url | stylesheet_tag }}          │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/pagination.liquid' does not exist                                 │
+│                                                                              │
+│  86  {%- render 'pagination', paginate: paginate -%}                         │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-card.css' does not exist                                  │
+│                                                                              │
+│  2  {{ 'component-card.css' | asset_url | stylesheet_tag }}                  │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/section-main-blog.css' does not exist                               │
+│                                                                              │
+│  3  {{ 'section-main-blog.css' | asset_url | stylesheet_tag }}               │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-collection.liquid         │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/template-collection.css' does not exist                             │
+│                                                                              │
+│  1  {{ 'template-collection.css' | asset_url | stylesheet_tag }}             │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/facets.liquid' does not exist                                     │
+│                                                                              │
+│  160  {% render 'facets',                                                    │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/card-product.liquid' does not exist                               │
+│                                                                              │
+│  200  {% render 'card-product',                                              │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-loading-overlay.css' does not exist                       │
+│                                                                              │
+│  2  {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}       │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/pagination.liquid' does not exist                                 │
+│                                                                              │
+│  216  {% render 'pagination', paginate: paginate, anchor: '' %}              │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.facets.sort_by_label' does not have a matching entry in           │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  99  <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>   │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.facets.sort_button' does not have a matching entry in             │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  125  {{ 'products.facets.sort_button' | t }}                                │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'templates.search.results_with_count' does not have a matching entry in     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  134  {{ 'templates.search.results_with_count' | t: terms:                   │
+│  collection.terms, count: collection.results_count }}                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.facets.product_count_simple' does not have a matching entry in    │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  136  {{ 'products.facets.product_count_simple' | t: count:                  │
+│  collection.products_count }}                                                │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.facets.product_count' does not have a matching entry in           │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  138  {{ 'products.facets.product_count' | t: product_count:                 │
+│  collection.products_count, count: collection.all_products_count }}          │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.collection_template.empty' does not have a matching entry in      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  179  {{ 'sections.collection_template.empty' | t }}                         │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.collection_template.use_fewer_filters_html' does not have a       │
+│  matching entry in 'locales/en.default.json'                                 │
+│                                                                              │
+│  181  {{ 'sections.collection_template.use_fewer_filters_html' | t: link:    │
+│  collection.url, class: 'underlined-link link' }}                            │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/mask-arch.liquid' does not exist                                  │
+│                                                                              │
+│  225  {% render 'mask-arch' %}                                               │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-card.css' does not exist                                  │
+│                                                                              │
+│  3  {{ 'component-card.css' | asset_url | stylesheet_tag }}                  │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-price.css' does not exist                                 │
+│                                                                              │
+│  4  {{ 'component-price.css' | asset_url | stylesheet_tag }}                 │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/component-facets.css' does not exist                                │
+│                                                                              │
+│  7  {{ 'component-facets.css' | asset_url | stylesheet_tag }}                │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/facets.js' does not exist                                           │
+│                                                                              │
+│  8  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>      │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/mask-blobs.css' does not exist                                      │
+│                                                                              │
+│  12  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}                     │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/quick-add.css' does not exist                                       │
+│                                                                              │
+│  16  {{ 'quick-add.css' | asset_url | stylesheet_tag }}                      │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/quick-add.js' does not exist                                        │
+│                                                                              │
+│  17  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>  │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/product-form.js' does not exist                                     │
+│                                                                              │
+│  18  <script src="{{ 'product-form.js' | asset_url }}"                       │
+│  defer="defer"></script>                                                     │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-page.liquid               │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/section-main-page.css' does not exist                               │
+│                                                                              │
+│  1  {{ 'section-main-page.css' | asset_url | stylesheet_tag }}               │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-product.liquid            │
+│                                                                              │
+│                                                                              │
+│  [error]: LiquidHTMLSyntaxError                                              │
+│  Attempting to close HtmlElement 'section' before HtmlElement 'div' was      │
+│  closed                                                                      │
+│                                                                              │
+│  111    <div class="{{ product_grid_classes }}">                             │
+│  112      <div class="grid__item product__media-wrapper">                    │
+│  113        <div class="product__media-list">                                │
+│  114          {%- if                                                         │
+│  product.selected_or_first_available_variant.featured_media != null -%}      │
+│  115            <div class="product__media-item" data-media-id="{{           │
+│  product.selected_or_first_available_variant.featured_media.id }}">          │
+│  116              {{                                                         │
+│  product.selected_or_first_available_variant.featured_media | image_url:     │
+│  width: 1946 | image_tag: loading: 'lazy', sizes: '(min-width: 1200px)       │
+│  715px, (min-width: 990px) 55vw, 90vw', widths: '246, 493, 600, 713, 823,    │
+│  990, 1100, 1206, 1346, 1426, 1646, 1946' }}                                 │
+│  117            </div>                                                       │
+│  118          {%- endif -%}                                                  │
+│  119                                                                         │
+│  120          {%- for media in product.media -%}                             │
+│  121            {%- unless media.id ==                                       │
+│  product.selected_or_first_available_variant.featured_media.id -%}           │
+│  122              <div class="product__media-item" data-media-id="{{         │
+│  media.id }}">                                                               │
+│  123                {{ media | image_url: width: 1946 | image_tag: loading:  │
+│   'lazy', sizes: '(min-width: 1200px) 715px, (min-width: 990px) 55vw,        │
+│  90vw', widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426,       │
+│  1646, 1946' }}                                                              │
+│  124              </div>                                                     │
+│  125            {%- endunless -%}                                            │
+│  126          {%- endfor -%}                                                 │
+│  127        </div>                                                           │
+│  128      </div>                                                             │
+│  129                                                                         │
+│  130      <div class="product__info-wrapper grid__item">                     │
+│  131        <div class="product__info-container">                            │
+│  132          {%- assign product_form_id = 'product-form-' | append:         │
+│  section.id -%}                                                              │
+│  133                                                                         │
+│  134          <section class="page-width title-wrapper-with-link             │
+│  title-wrapper--self-padded-mobile title-wrapper--no-top-margin">            │
+│  135            <h1 class="product__title">{{ product.title | escape         │
+│  }}</h1>                                                                     │
+│  136            <div id="price-{{ section.id }}" role="status"               │
+│  aria-live="polite">                                                         │
+│  137              {%- render 'price', product: product, use_variant: true,   │
+│  show_badges: true, price_class: 'price--large' -%}                          │
+│  138            </div>                                                       │
+│  139          </section>                                                     │
+│  140                                                                         │
+│  141          <div {{ block.shopify_attributes }}>                           │
+│  142            {%- form 'product', product, id: product_form_id, class:     │
+│  'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}         │
+│  143              <input type="hidden" name="id" value="{{                   │
+│  product.selected_or_first_available_variant.id }}" disabled>                │
+│  144                                                                         │
+│  145              <div class="product-form__buttons">                        │
+│  146                <button                                                  │
+│  147                  type="submit"                                          │
+│  148                  name="add"                                             │
+│  149                  class="product-form__submit button button--full-width  │
+│   {% if block.settings.show_dynamic_checkout %}button--secondary{% else      │
+│  %}button--primary{% endif %}"                                               │
+│  150                {% if                                                    │
+│  product.selected_or_first_available_variant.available == false %}           │
+│  151                  disabled                                               │
+│  152                {% endif %}                                              │
+│  153                >                                                        │
+│  154                  <span>                                                 │
+│  155                    {%- if                                               │
+│  product.selected_or_first_available_variant.available -%}                   │
+│  156                      {{ 'products.product.add_to_cart' | t }}           │
+│  157                    {%- else -%}                                         │
+│  158                      {{ 'products.product.sold_out' | t }}              │
+│  159                    {%- endif -%}                                        │
+│  160                  </span>                                                │
+│  161                  <div class="loading-overlay__spinner">                 │
+│  162                    <svg aria-hidden="true" focusable="false"            │
+│  class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">     │
+│  163                      <circle class="path" fill="none" stroke-width="6"  │
+│   cx="33" cy="33" r="30"></circle>                                           │
+│  164                    </svg>                                               │
+│  165                  </div>                                                 │
+│  166                </button>                                                │
+│  167              </div>                                                     │
+│  168            {%- endform -%}                                              │
+│  169          </div>                                                         │
+│  170                                                                         │
+│  171          <div class="product__description rte" {{                       │
+│  block.shopify_attributes }}>                                                │
+│  172            {{ product.description }}                                    │
+│  173          </div>                                                         │
+│  174                                                                         │
+│  175        {%- render 'pickup-availability', product: product -%}           │
+│  176                                                                         │
+│  177        <div class="product__tax">                                       │
+│  178          {%- if shop.taxes_included -%}                                 │
+│  179            {{ 'products.product.taxes_included' | t }}                  │
+│  180          {%- else -%}                                                   │
+│  181            {{ 'products.product.taxes_excluded' | t }}                  │
+│  182          {%- endif -%}                                                  │
+│  183        </div>                                                           │
+│  184      </div>                                                             │
+│  185    </div>                                                               │
+│  186                                                                         │
+│  187    <product-modal id="ProductModal-{{ section.id }}"                    │
+│  class="product-media-modal media-modal">                                    │
+│  188      <div class="product-media-modal__dialog" role="dialog"             │
+│  aria-label="{{ 'products.modal.label' | t }}" aria-modal="true">            │
+│  189        <button id="ModalClose-{{ section.id }}" type="button"           │
+│  class="product-media-modal__toggle" aria-label="{{ 'accessibility.close' |  │
+│   t }}">                                                                     │
+│  190          {% render 'icon-close' %}                                      │
+│  191        </button>                                                        │
+│  192        <div class="product-media-modal__content" role="document"        │
+│  aria-label="{{ 'products.modal.label' | t }}" tabindex="0">                 │
+│  193          {%- for media in product.media -%}                             │
+│  194            {%- render 'media', media: media, loop:                      │
+│  section.settings.enable_video_looping, modal_id: 'ProductModal-' | append:  │
+│   section.id -%}                                                             │
+│  195          {%- endfor -%}                                                 │
+│  196        </div>                                                           │
+│  197      </div>                                                             │
+│  198    </product-modal>                                                     │
+│  199  </section>                                                             │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-search.liquid             │
+│                                                                              │
+│                                                                              │
+│  [error]: LiquidHTMLSyntaxError                                              │
+│  SyntaxError: expected ">" or "/>"                                           │
+│                                                                              │
+│  267  <aside aria-labelledby="verticalTitle" class="{{                       │
+│  facets_wrapper_classes }}" id="main-search-filters" data-id="{{ section.id  │
+│   }}">                                                                       │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\snippets\badge.liquid                   │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.product.new' does not have a matching entry in                    │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  21  {%- assign badge_content = 'products.product.new' | t -%}               │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\snippets\cart-drawer.liquid             │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/cart-drawer.js' does not exist                                      │
+│                                                                              │
+│  9  <script src="{{ 'cart-drawer.js' | asset_url }}"                         │
+│  defer="defer"></script>                                                     │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.empty' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  19  <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.title' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  32  <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.headings.image' does not have a matching entry in            │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  47  <span class="visually-hidden">{{ 'sections.cart.headings.image' | t     │
+│  }}</span>                                                                   │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.headings.product' does not have a matching entry in          │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  50  {{ 'sections.cart.headings.product' | t }}                              │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.headings.total' does not have a matching entry in            │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  53  {{ 'sections.cart.headings.total' | t }}                                │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.headings.quantity' does not have a matching entry in         │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  56  <span class="visually-hidden">{{ 'sections.cart.headings.quantity' | t  │
+│   }}</span>                                                                  │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.product.quantity.decrease' does not have a matching entry in      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  171  <span class="visually-hidden">{{ 'products.product.quantity.decrease'  │
+│   | t: product: item.product.title | escape }}</span>                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.product.quantity.input_label' does not have a matching entry in   │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  179  aria-label="{{ 'products.product.quantity.input_label' | t: product:   │
+│  item.product.title | escape }}"                                             │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.product.quantity.increase' does not have a matching entry in      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  184  <span class="visually-hidden">{{ 'products.product.quantity.increase'  │
+│   | t: product: item.product.title | escape }}</span>                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.remove_title' does not have a matching entry in              │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  190  <button type="button" class="button button--tertiary                   │
+│  cart-remove-button" aria-label="{{ 'sections.cart.remove_title' | t:        │
+│  title: item.title }}">                                                      │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.subtotal' does not have a matching entry in                  │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  209  <h3 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h3>   │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'customer.order.discount' does not have a matching entry in                 │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  215  <ul class="discounts list-unstyled" role="list" aria-label="{{         │
+│  'customer.order.discount' | t }}">                                          │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.taxes_included_and_shipping_policy_html' does not have a     │
+│  matching entry in 'locales/en.default.json'                                 │
+│                                                                              │
+│  229  {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link:  │
+│   shop.shipping_policy.url }}                                                │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.taxes_included_but_shipping_at_checkout' does not have a     │
+│  matching entry in 'locales/en.default.json'                                 │
+│                                                                              │
+│  231  {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}      │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.taxes_and_shipping_policy_at_checkout_html' does not have a  │
+│   matching entry in 'locales/en.default.json'                                │
+│                                                                              │
+│  233  {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t:     │
+│  link: shop.shipping_policy.url }}                                           │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.taxes_and_shipping_at_checkout' does not have a matching     │
+│  entry in 'locales/en.default.json'                                          │
+│                                                                              │
+│  235  {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}               │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.update' does not have a matching entry in                    │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  243  {{ 'sections.cart.update' | t }}                                       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.checkout' does not have a matching entry in                  │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  248  {{ 'sections.cart.checkout' | t }}                                     │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.cart.title' does not have a matching entry in                     │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  14  <div class="drawer__inner" role="dialog" aria-modal="true"              │
+│  aria-label="{{ 'sections.cart.title' | t }}" tabindex="-1">                 │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-discount.liquid' does not exist                              │
+│                                                                              │
+│  218  {%- render 'icon-discount' -%}                                         │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\snippets\collection-card.liquid         │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.collections.product' does not have a matching entry in            │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  29  {{ 'sections.collections.product' | t }}                                │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.collections.products' does not have a matching entry in           │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  31  {{ 'sections.collections.products' | t }}                               │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'sections.collections.shop_now' does not have a matching entry in           │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  42  {{ 'sections.collections.shop_now' | t }}                               │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\snippets\product-card.liquid            │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.product.select_options' does not have a matching entry in         │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  35  <span>{{ 'products.product.select_options' | t }}</span>                │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  Theme Check Summary.                                                        │
+│                                                                              │
+│  55 files inspected with 107 total offenses found across 15 files.           │
+│  106 errors.                                                                 │
+│  1 warnings.                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

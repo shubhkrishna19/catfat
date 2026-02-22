@@ -1,0 +1,89 @@
+{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* CATFATINDIA Pink/Coral Theme Customizations */
+  .main-page-title {
+    color: #e84a7f;
+  }
+
+  .page-width--narrow .rte {
+    color: #333333;
+  }
+
+  .page-width--narrow .rte h1,
+  .page-width--narrow .rte h2,
+  .page-width--narrow .rte h3,
+  .page-width--narrow .rte h4,
+  .page-width--narrow .rte h5,
+  .page-width--narrow .rte h6 {
+    color: #ff6b9d;
+  }
+
+  .page-width--narrow .rte a {
+    color: #e84a7f;
+  }
+
+  .page-width--narrow .rte a:hover {
+    color: #ff8e53;
+  }
+
+  .page-width--narrow .rte blockquote {
+    border-left-color: #ff6b9d;
+    background-color: #fff0f5;
+  }
+{%- endstyle -%}
+
+<div class="page-width page-width--narrow section-{{ section.id }}-padding">
+  <h1 class="main-page-title page-title h0">
+    {{ page.title | escape }}
+  </h1>
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page content",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,223 @@
+{% comment %}
+  Facets Snippet
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+<details class="filter-group" {{ block.shopify_attributes }}>
+  <summary class="filter-group__summary">
+    <span>
+      <span class="filter-group__title">{{ filter.label | escape }}</span>
+      <span class="filter-group__count">({{ filter.active_values.size }})</span>
+    </span>
+  </summary>
+  <div class="filter-group__content">
+    {%- case filter.type -%}
+      {%- when 'list' -%}
+        <ul class="filter-group__list" role="list">
+          {%- for filter_value in filter.values -%}
+            <li class="filter-group__item">
+              <label class="filter-checkbox">
+                <input type="checkbox"
+                  name="{{ filter_value.param_name }}"
+                  value="{{ filter_value.value }}"
+                  {% if filter_value.active %}checked{% endif %}
+                >
+                <span class="filter-checkbox__mark"></span>
+                <span class="filter-checkbox__label">{{ filter_value.label }}</span>
+                <span class="filter-checkbox__count">({{ filter_value.count }})</span>
+              </label>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- when 'price_range' -%}
+        <div class="filter-price-range">
+          <div class="filter-price-range__fields">
+            <div class="field">
+              <label for="Filter-{{ filter.min_value.param_name }}">{{ filter.min_value.label }}</label>
+              <input type="number"
+                id="Filter-{{ filter.min_value.param_name }}"
+                name="{{ filter.min_value.param_name }}"
+                value="{{ filter.min_value.value }}"
+                min="0"
+                placeholder="0"
+              >
+            </div>
+            <span class="filter-price-range__separator">-</span>
+            <div class="field">
+              <label for="Filter-{{ filter.max_value.param_name }}">{{ filter.max_value.label }}</label>
+              <input type="number"
+                id="Filter-{{ filter.max_value.param_name }}"
+                name="{{ filter.max_value.param_name }}"
+                value="{{ filter.max_value.value }}"
+                min="0"
+                placeholder="{{ filter.range_max | money }}"
+              >
+            </div>
+          </div>
+        </div>
+    {%- endcase -%}
+  </div>
+</details>
+
+<style>
+  .filter-group {
+    border-bottom: 1px solid #eee;
+    padding: 16px 0;
+  }
+
+  .filter-group:first-child {
+    border-top: 1px solid #eee;
+  }
+
+  .filter-group__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+    padding: 8px 0;
+  }
+
+  .filter-group__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .filter-group__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .filter-group__count {
+    font-size: 13px;
+    color: #999;
+    margin-left: 4px;
+  }
+
+  .filter-group__summary::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #e84a7f;
+    border-bottom: 2px solid #e84a7f;
+    transform: rotate(-45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .filter-group[open] .filter-group__summary::after {
+    transform: rotate(45deg);
+  }
+
+  .filter-group__content {
+    padding-top: 12px;
+  }
+
+  .filter-group__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .filter-group__item {
+    margin-bottom: 12px;
+  }
+
+  .filter-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+  }
+
+  .filter-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .filter-checkbox__mark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .filter-checkbox__mark::after {
+    content: '';
+    display: none;
+    width: 6px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+  }
+
+  .filter-checkbox input:checked ~ .filter-checkbox__mark {
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    border-color: #ff6b9d;
+  }
+
+  .filter-checkbox input:checked ~ .filter-checkbox__mark::after {
+    display: block;
+  }
+
+  .filter-checkbox__label {
+    font-size: 14px;
+    color: #1a1a1a;
+    flex: 1;
+  }
+
+  .filter-checkbox__count {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .filter-price-range {
+    padding: 8px 0;
+  }
+
+  .filter-price-range__fields {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .filter-price-range__fields .field {
+    flex: 1;
+  }
+
+  .filter-price-range__fields input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .filter-price-range__fields input:focus {
+    outline: none;
+    border-color: #ff6b9d;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.15);
+  }
+
+  .filter-price-range__separator {
+    color: #999;
+    font-weight: 500;
+  }
+
+  .filter-price-range__fields label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+</style>

@@ -1,0 +1,150 @@
+{% comment %}
+  Article Card Snippet
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+<article class="article-card">
+  <div class="article-card__media">
+    {%- if article.image -%}
+      <img srcset="{{ article.image | image_url: width: 533 }} 533w,
+                    {{ article.image | image_url: width: 1066 }} 1066w,
+                    {{ article.image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 1200px) 1066px, (min-width: 750px) 533px, 100vw"
+            src="{{ article.image | image_url: width: 533 }}"
+            alt="{{ article.image.alt | escape }}"
+            loading="lazy"
+            width="{{ article.image.width }}"
+            height="{{ article.image.height }}"
+            class="article-card__image">
+    {%- else -%}
+      <div class="article-card__image--placeholder">
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="article-card__content">
+    <div class="article-card__info">
+      <h2 class="article-card__title">
+        <a href="{{ article.url }}" class="full-unstyled-link">
+          {{ article.title | truncate: 50 | escape }}
+        </a>
+      </h2>
+      <div class="article-card__excerpt">
+        {%- if article.excerpt.size > 0 -%}
+          {{ article.excerpt | strip_html | truncate: 120 }}
+        {%- else -%}
+          {{ article.content | strip_html | truncate: 120 }}
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="article-card__footer">
+      <span class="article-card__date">
+        {{ article.published_at | time_tag: format: 'date' }}
+      </span>
+      <a href="{{ article.url }}" class="article-card__link">
+        {{ 'blogs.article.read_more' | t }}
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .article-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+  }
+
+  .article-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(255, 107, 157, 0.2);
+  }
+
+  .article-card__media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+  }
+
+  .article-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .article-card:hover .article-card__image {
+    transform: scale(1.05);
+  }
+
+  .article-card__image--placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .article-card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+  }
+
+  .article-card__title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 12px 0;
+    color: #1a1a1a;
+  }
+
+  .article-card__title a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+
+  .article-card__title a:hover {
+    color: #e84a7f;
+  }
+
+  .article-card__excerpt {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 16px;
+    flex: 1;
+  }
+
+  .article-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+  }
+
+  .article-card__date {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .article-card__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e84a7f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .article-card__link:hover {
+    color: #ff6b9d;
+  }
+</style>

@@ -1,0 +1,97 @@
+{% comment %}
+  Language Localization Snippet
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+{%- unless localization.available_languages.size <= 1 -%}
+  <div class="language-localization no-js-hidden" {{ block.shopify_attributes }}>
+    <h2 class="visually-hidden" id="FooterLanguageLabel">{{ 'localization.language' | t }}</h2>
+    {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+      <div class="no-js-hidden">
+        <h2 class="visually-hidden" id="FooterLanguageLabel">{{ 'localization.language' | t }}</h2>
+        {%- render 'icon-globe' -%}
+        <div class="localization-form__select">
+          <select class="localization-selector link" name="language_code" aria-labelledby="FooterLanguageLabel">
+            {%- for language in localization.available_languages -%}
+              <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}" {%- if language.iso_code == localization.language.iso_code %} selected{% endif %}>
+                {{ language.endonym_name | capitalize }}
+              </option>
+            {%- endfor -%}
+          </select>
+          {% render 'icon-caret' %}
+        </div>
+      </div>
+      <noscript>
+        <button type="submit" class="button button--tertiary">{{ 'localization.language' | t }}</button>
+      </noscript>
+    {%- endform -%}
+  </div>
+{%- endunless -%}
+
+<style>
+  .language-localization {
+    position: relative;
+    display: inline-block;
+  }
+
+  .language-localization .localization-form {
+    display: inline-block;
+  }
+
+  .language-localization .localization-form__select {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .language-localization select.localization-selector {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 10px 36px 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #e84a7f;
+    background: rgba(255, 107, 157, 0.1);
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .language-localization select.localization-selector:hover {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.15) 0%, rgba(232, 74, 127, 0.15) 100%);
+    border-color: #ff6b9d;
+  }
+
+  .language-localization select.localization-selector:focus {
+    outline: none;
+    border-color: #ff6b9d;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.15);
+  }
+
+  .language-localization .localization-form__select svg {
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    width: 12px;
+    height: 12px;
+    fill: #e84a7f;
+  }
+
+  .language-localization .button--tertiary {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .language-localization .button--tertiary:hover {
+    background: linear-gradient(135deg, #ff8e53 0%, #ff6b9d 100%);
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+  }
+</style>

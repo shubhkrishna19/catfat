@@ -1,0 +1,106 @@
+{% comment %}
+  Icon Plus Snippet
+  A plus/add icon for quantity selectors, accordions, etc.
+  Uses the pink/coral color scheme styling
+{% endcomment %}
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size | default: 24 }}"
+  height="{{ size | default: 24 }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width | default: 2 }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-plus{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+  <line x1="12" y1="5" x2="12" y2="19"></line>
+  <line x1="5" y1="12" x2="19" y2="12"></line>
+</svg>
+
+<style>
+  .icon-plus {
+    color: #e84a7f;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .icon-plus:hover {
+    color: #ff6b9d;
+    transform: rotate(90deg);
+  }
+
+  .icon-plus--small {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-plus--medium {
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon-plus--large {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon-plus--circle {
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(255, 107, 157, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .icon-plus--circle:hover {
+    background: rgba(255, 107, 157, 0.2);
+    transform: rotate(90deg);
+  }
+
+  .icon-plus--rounded {
+    padding: 6px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    color: #fff;
+    stroke-width: 2.5;
+    transition: all 0.2s ease;
+  }
+
+  .icon-plus--rounded:hover {
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+    transform: scale(1.1);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Icon Plus",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Icon Plus Settings"
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24,
+      "label": "Icon size"
+    },
+    {
+      "type": "range",
+      "id": "stroke_width",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "label": "Stroke width"
+    }
+  ]
+}
+{% endschema %}

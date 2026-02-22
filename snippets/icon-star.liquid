@@ -1,0 +1,89 @@
+{% comment %}
+  Icon Star Snippet
+  A star icon for ratings, favorites, etc.
+  Uses the pink/coral color scheme styling
+{% endcomment %}
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size | default: 24 }}"
+  height="{{ size | default: 24 }}"
+  viewBox="0 0 24 24"
+  fill="{% if filled %}currentColor{% else %}none{% endif %}"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width | default: 2 }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-star{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+
+<style>
+  .icon-star {
+    color: #ff8e53;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .icon-star:hover {
+    color: #ff6b9d;
+    transform: scale(1.1);
+  }
+
+  .icon-star--small {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-star--medium {
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon-star--large {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon-star--filled {
+    fill: #ff8e53;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Icon Star",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Icon Star Settings"
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24,
+      "label": "Icon size"
+    },
+    {
+      "type": "range",
+      "id": "stroke_width",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "label": "Stroke width"
+    },
+    {
+      "type": "checkbox",
+      "id": "filled",
+      "default": false,
+      "label": "Fill the star"
+    }
+  ]
+}
+{% endschema %}

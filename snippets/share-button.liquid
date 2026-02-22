@@ -1,0 +1,130 @@
+{% comment %}
+  Share Button Snippet
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+{%- if settings.shareacebook or settings.shareTwitter or settings.sharePinterest -%}
+  <div class="share-button" {{ block.shopify_attributes }}>
+    <button class="share-button__button button button--tertiary" type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 18 19">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" fill="currentColor">
+      </path>
+      </svg>
+      {{ 'general.share' | t }}
+    </button>
+    <details id="Details-{{ block.id }}">
+      <summary class="share-button__button" aria-haspopup="dialog">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 18 19">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" fill="currentColor">
+        </path>
+        </svg>
+        {{ 'general.share' | t }}
+      </summary>
+      <div class="share-button__fallback">
+        <div class="field">
+          <input type="text"
+                class="field__input"
+                id="url"
+                value="{{ share_link }}"
+                placeholder="{{ 'general.share.share_url' | t }}"
+                readonly>
+          <label class="field__label" for="url">{{ 'general.share.share_url' | t }}</label>
+        </div>
+        <button class="button button--tertiary share-button__copy" type="button">
+          {% render 'icon-clipboard' %}
+          {{ 'general.share.copy_to_clipboard' | t }}
+        </button>
+      </div>
+    </details>
+  </div>
+{%- endif -%}
+
+<style>
+  .share-button {
+    position: relative;
+    display: inline-block;
+  }
+
+  .share-button__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #e84a7f;
+    background: rgba(255, 107, 157, 0.1);
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .share-button__button:hover {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2) 0%, rgba(232, 74, 127, 0.2) 100%);
+    border-color: #ff6b9d;
+  }
+
+  .share-button__button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .share-button details {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    z-index: 100;
+  }
+
+  .share-button__fallback {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    min-width: 280px;
+    border: 1px solid #eee;
+  }
+
+  .share-button__fallback .field {
+    margin-bottom: 12px;
+  }
+
+  .share-button__fallback .field__input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #f9f9f9;
+  }
+
+  .share-button__fallback .field__input:focus {
+    outline: none;
+    border-color: #ff6b9d;
+    background: #fff;
+  }
+
+  .share-button__fallback .field__label {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .share-button__copy {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .share-button__copy:hover {
+    background: linear-gradient(135deg, #ff8e53 0%, #ff6b9d 100%);
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+  }
+</style>

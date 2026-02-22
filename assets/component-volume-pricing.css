@@ -1,0 +1,385 @@
+/* Component Volume Pricing CSS - Volume pricing styles */
+/* Bulk pricing and quantity discount displays */
+
+.volume-pricing {
+  margin: 1.5rem 0;
+}
+
+.volume-pricing__title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+/* Volume Pricing Table */
+.volume-pricing__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.volume-pricing__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 0.5rem;
+  transition: var(--transition);
+}
+
+.volume-pricing__row:last-child {
+  margin-bottom: 0;
+}
+
+.volume-pricing__row.is-active {
+  border-color: var(--color-primary);
+  background: var(--color-background-alt);
+}
+
+.volume-pricing__row.is-empty {
+  opacity: 0.5;
+}
+
+.volume-pricing__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.volume-pricing__quantity-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--color-primary);
+}
+
+.volume-pricing__price {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.volume-pricing__current-price {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.volume-pricing__original-price {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+  text-decoration: line-through;
+}
+
+.volume-pricing__discount {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #22c55e;
+  padding: 0.2rem 0.6rem;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: var(--border-radius-sm);
+}
+
+/* Volume Pricing Card */
+.volume-pricing-card {
+  padding: 1.5rem;
+  background: var(--color-background-alt);
+  border-radius: var(--border-radius);
+  margin: 1.5rem 0;
+}
+
+.volume-pricing-card__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.volume-pricing-card__icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-primary);
+}
+
+.volume-pricing-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.volume-pricing-card__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.volume-pricing-card__item:last-child {
+  border-bottom: none;
+}
+
+.volume-pricing-card__quantity {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+}
+
+.volume-pricing-card__price-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.volume-pricing-card__price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.volume-pricing-card__discount {
+  font-size: 0.9rem;
+  color: #22c55e;
+  font-weight: 500;
+}
+
+/* Price Per Item Display */
+.price-per-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.price-per-item__label {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+}
+
+.price-per-item__price {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.price-per-item__compare {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  text-decoration: line-through;
+}
+
+.price-per-item__savings {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.price-per-item__badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: var(--color-background-alt);
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* Volume Pricing Progress Bar */
+.volume-pricing-progress {
+  margin-top: 1.5rem;
+}
+
+.volume-pricing-progress__title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 0.8rem;
+}
+
+.volume-pricing-progress__bar {
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.volume-pricing-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.volume-pricing-progress__info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+}
+
+.volume-pricing-progress__next-tier {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* Inline Volume Pricing */
+.volume-pricing--inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-background-alt);
+  border-radius: var(--border-radius-sm);
+  font-size: 1.1rem;
+}
+
+.volume-pricing--inline .volume-pricing__discount {
+  font-size: 0.9rem;
+  padding: 0.1rem 0.4rem;
+}
+
+/* Compact Volume Pricing */
+.volume-pricing--compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.volume-pricing--compact .volume-pricing__row {
+  flex: 1 1 calc(50% - 0.25rem);
+  min-width: 140px;
+  padding: 0.8rem 1rem;
+}
+
+@media screen and (min-width: 750px) {
+  .volume-pricing--compact .volume-pricing__row {
+    flex: 1 1 calc(33.333% - 0.33rem);
+  }
+}
+
+/* Horizontal Volume Pricing */
+.volume-pricing--horizontal {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.volume-pricing--horizontal .volume-pricing__row {
+  flex: 0 0 auto;
+  min-width: 120px;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.3rem;
+  padding: 1rem;
+}
+
+.volume-pricing--horizontal .volume-pricing__price {
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 749px) {
+  .volume-pricing__row {
+    padding: 0.8rem 1rem;
+  }
+
+  .volume-pricing__quantity {
+    font-size: 1.1rem;
+  }
+
+  .volume-pricing__current-price {
+    font-size: 1.2rem;
+  }
+
+  .volume-pricing-card {
+    padding: 1rem;
+  }
+
+  .volume-pricing-card__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+}
+
+/* Animation */
+@keyframes volumePricingPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 107, 157, 0);
+  }
+}
+
+.volume-pricing__row.is-active {
+  animation: volumePricingPulse 2s ease infinite;
+}
+
+/* Loading State */
+.volume-pricing--loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.volume-pricing--loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Tooltip */
+.volume-pricing__tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  background: var(--color-border);
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--color-text-light);
+  cursor: help;
+}
+
+.volume-pricing__tooltip-text {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  background: var(--color-text);
+  color: var(--color-background);
+  font-size: 1rem;
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 10;
+}
+
+.volume-pricing__tooltip:hover .volume-pricing__tooltip-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hidden State */
+.volume-pricing.hidden {
+  display: none;
+}

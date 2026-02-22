@@ -1,0 +1,106 @@
+{% comment %}
+  Pagination Snippet
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination' | t }}">
+    <ul class="pagination__list" role="list">
+      {%- if paginate.previous -%}
+        <li>
+          <a href="{{ paginate.previous.url }}" class="pagination__item pagination__item--prev" aria-label="{{ 'general.pagination.previous' | t }}">
+            <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 19" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+          <li>
+            <a href="{{ part.url }}" class="pagination__item" aria-label="{{ part.title }}">{{ part.title }}</a>
+          </li>
+        {%- else -%}
+          {%- if part.title == paginate.current_page -%}
+            <li>
+              <span class="pagination__item pagination__item--current" aria-current="page" aria-label="{{ part.title }}">{{ part.title }}</span>
+            </li>
+          {%- else -%}
+            <li>
+              <span class="pagination__item">{{ part.title }}</span>
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if paginate.next -%}
+        <li>
+          <a href="{{ paginate.next.url }}" class="pagination__item pagination__item--next" aria-label="{{ 'general.pagination.next' | t }}">
+            <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 19" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {%- endif -%}
+    </ul>
+  </nav>
+{%- endif -%}
+
+<style>
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .pagination__list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pagination__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .pagination__item:hover:not(.pagination__item--current) {
+    background: rgba(255, 107, 157, 0.1);
+    color: #e84a7f;
+  }
+
+  .pagination__item--current {
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .pagination__item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .pagination__item--prev svg,
+  .pagination__item--next svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pagination__item--prev:hover,
+  .pagination__item--next:hover {
+    color: #ff6b9d;
+  }
+</style>

@@ -4,28 +4,267 @@
 {{ 'component-cart-notification.css' | asset_url | stylesheet_tag }}
 
 <style>
+  :root {
+    --header-primary-color: {{ section.settings.primary_color }};
+    --header-accent-color: {{ section.settings.accent_color }};
+    --header-hover-color: {{ section.settings.hover_color }};
+  }
+
   header-drawer {
     justify-self: start;
     margin-left: -1.2rem;
   }
+
   .menu-drawer-container {
     display: flex;
   }
+
   .list-menu {
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
   .list-menu--inline {
     display: inline-flex;
     flex-wrap: wrap;
     gap: 3rem;
   }
+
   summary.list-menu__item {
     padding: 1.2rem 1.5rem;
     text-decoration: none;
     letter-spacing: 0.06rem;
     text-transform: uppercase;
+  }
+
+  /* Mega Menu Styles */
+  .mega-menu {
+    position: static;
+  }
+
+  .mega-menu__content {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 3rem;
+    z-index: 100;
+    border-top: 3px solid var(--header-primary-color);
+  }
+
+  .menu-item:hover .mega-menu__content,
+  .menu-item:focus-within .mega-menu__content {
+    display: block;
+  }
+
+  .mega-menu__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .mega-menu__category {
+    font-weight: 600;
+    color: var(--header-accent-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .mega-menu__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mega-menu__links li {
+    margin-bottom: 0.8rem;
+  }
+
+  .mega-menu__links a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .mega-menu__links a:hover {
+    color: var(--header-primary-color);
+  }
+
+  .mega-menu__image {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .mega-menu__image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .mega-menu__image:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Header Menu Styles */
+  .header__menu-item {
+    position: relative;
+    padding: 1rem 0;
+    font-weight: 500;
+  }
+
+  .header__menu-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--header-primary-color);
+    transition: width 0.3s ease;
+  }
+
+  .header__menu-item:hover::after {
+    width: 100%;
+  }
+
+  .header__submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 8px 8px;
+    padding: 1rem 0;
+    z-index: 50;
+  }
+
+  .menu-item:hover .header__submenu {
+    display: block;
+  }
+
+  .header__submenu a {
+    display: block;
+    padding: 0.6rem 1.5rem;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .header__submenu a:hover {
+    background: rgba(255, 107, 157, 0.1);
+    color: var(--header-primary-color);
+  }
+
+  /* Header Colors */
+  .header {
+    background: {{ section.settings.header_background }};
+  }
+
+  .header a {
+    color: {{ section.settings.text_color }};
+  }
+
+  .header__menu-item:hover {
+    color: var(--header-hover-color);
+  }
+
+  .header__active-menu-item {
+    color: var(--header-primary-color);
+  }
+
+  /* Cart Badge */
+  .cart-count-bubble {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: var(--header-primary-color);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile Styles */
+  @media screen and (max-width: 768px) {
+    .header__inline-menu {
+      display: none;
+    }
+
+    .mega-menu__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .mega-menu__image {
+      display: none;
+    }
+  }
+
+  /* Search Overlay */
+  .search-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-modal.active {
+    display: flex;
+  }
+
+  .search-modal__content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+  }
+
+  .search-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .search-modal input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 1.1rem;
+  }
+
+  .search-modal input:focus {
+    outline: none;
+    border-color: var(--header-primary-color);
   }
 </style>
 
@@ -90,29 +329,55 @@
         {{ settings.logo | image_url: width: settings.logo_width | image_tag: class: 'header__heading-logo motion-reduce', widths: '50, 100, 150, 200, 250, 300, 400, 500', height: logo_height, width: settings.logo_width, alt: logo_alt }}
       </div>
     {%- else -%}
-      <span class="h2">{{ shop.name }}</span>
+      <span class="h2" style="color: {{ section.settings.text_color }};">{{ shop.name }}</span>
     {%- endif -%}
   </a>
 
   <nav class="header__inline-menu">
     <ul class="list-menu list-menu--inline" role="list">
       {%- for link in section.settings.menu.links -%}
-        <li>
+        <li class="menu-item{% if link.links != blank %} mega-menu{% endif %}">
           {%- if link.links != blank -%}
             <details class="menu-item">
               <summary class="header__menu-item list-menu__item link link--text focus-inset">
                 <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                 {% render 'icon-caret' %}
               </summary>
-              <ul class="header__submenu list-menu" role="list" tabindex="-1">
-                {%- for childlink in link.links -%}
-                  <li>
-                    <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset"{% if childlink.current %} aria-current="page"{% endif %}>
-                      {{ childlink.title | escape }}
-                    </a>
-                  </li>
-                {%- endfor -%}
-              </ul>
+              {%- if link.levels == 2 -%}
+                <ul class="header__submenu list-menu" role="list" tabindex="-1">
+                  {%- for childlink in link.links -%}
+                    <li>
+                      <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset"{% if childlink.current %} aria-current="page"{% endif %}>
+                        {{ childlink.title | escape }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- else -%}
+                <div class="mega-menu__content">
+                  <div class="mega-menu__grid">
+                    {%- for childlink in link.links -%}
+                      <div class="mega-menu__column">
+                        <div class="mega-menu__category">{{ childlink.title | escape }}</div>
+                        {%- if childlink.links != blank -%}
+                          <ul class="mega-menu__links">
+                            {%- for sublink in childlink.links -%}
+                              <li><a href="{{ sublink.url }}">{{ sublink.title | escape }}</a></li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
+                      </div>
+                    {%- endfor -%}
+                    {%- if section.settings.mega_menu_image != blank -%}
+                      <div class="mega-menu__column">
+                        <a href="{{ section.settings.mega_menu_link }}" class="mega-menu__image">
+                          {{ section.settings.mega_menu_image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
             </details>
           {%- else -%}
             <a href="{{ link.url }}" class="header__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
@@ -126,12 +391,12 @@
 
   <div class="header__icons{% if section.settings.enable_customer_avatar %} header-account--logged-out{% endif %}">
     <div class="desktop-cart-wrapper">
-      <a href="{{ routes.search_url }}" class="header__icon header__icon--search link link--text focus-inset">
+      <button class="header__icon header__icon--search link link--text focus-inset" id="search-toggle">
         {% render 'icon-search' %}
         <span class="visually-hidden">
           {{ 'general.search.search' | t }}
         </span>
-      </a>
+      </button>
     </div>
 
     {%- if shop.customer_accounts_enabled -%}
@@ -161,10 +426,55 @@
   </div>
 </header>
 
+<div class="search-modal" id="search-modal">
+  <div class="search-modal__content">
+    <button class="search-modal__close" id="search-close">&times;</button>
+    <form action="{{ routes.search_url }}" method="get" role="search">
+      <input type="search" name="q" placeholder="Search for products..." autocomplete="off">
+      <button type="submit" class="button button--primary" style="margin-top: 1rem; width: 100%;">Search</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchToggle = document.getElementById('search-toggle');
+    const searchModal = document.getElementById('search-modal');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchToggle && searchModal) {
+      searchToggle.addEventListener('click', () => {
+        searchModal.classList.add('active');
+        searchModal.querySelector('input').focus();
+      });
+
+      searchClose?.addEventListener('click', () => {
+        searchModal.classList.remove('active');
+      });
+
+      searchModal.addEventListener('click', (e) => {
+        if (e.target === searchModal) {
+          searchModal.classList.remove('active');
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+          searchModal.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
+
 {% schema %}
 {
   "name": "Header",
   "settings": [
+    {
+      "type": "header",
+      "content": "Menu"
+    },
     {
       "type": "link_list",
       "id": "menu",
@@ -176,6 +486,54 @@
       "id": "enable_customer_avatar",
       "default": true,
       "label": "Show customer avatar"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "default": "#ff6b9d",
+      "label": "Primary Color (Pink)"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#e84a7f",
+      "label": "Accent Color (Deep Pink)"
+    },
+    {
+      "type": "color",
+      "id": "hover_color",
+      "default": "#ff8e53",
+      "label": "Hover Color (Coral)"
+    },
+    {
+      "type": "color",
+      "id": "header_background",
+      "default": "#ffffff",
+      "label": "Header Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#333333",
+      "label": "Text Color"
+    },
+    {
+      "type": "header",
+      "content": "Mega Menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "mega_menu_image",
+      "label": "Mega Menu Promo Image"
+    },
+    {
+      "type": "url",
+      "id": "mega_menu_link",
+      "label": "Mega Menu Link"
     }
   ]
 }

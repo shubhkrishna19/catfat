@@ -1,0 +1,86 @@
+{%- style -%}
+  /* CATFATINDIA Pink/Coral Theme Customizations for 404 Page */
+  .template-404 .title {
+    color: #e84a7f;
+  }
+
+  .template-404 .title + * {
+    margin-top: 1rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+  }
+
+  .template-404 p {
+    color: #666666;
+    font-size: 1.1rem;
+  }
+
+  .template-404 .button {
+    background-color: #ff6b9d;
+    border-color: #ff6b9d;
+    color: #ffffff;
+    margin-top: 2rem;
+  }
+
+  .template-404 .button:hover {
+    background-color: #e84a7f;
+    border-color: #e84a7f;
+  }
+
+  .template-404 .page-margin {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .template-404 .error-icon {
+    font-size: 8rem;
+    color: #ff6b9d;
+    margin-bottom: 1rem;
+  }
+
+  .template-404 .error-code {
+    font-size: 10rem;
+    font-weight: bold;
+    color: #ff8e53;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .template-404 .error-code {
+      font-size: 6rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="template-404 page-width page-margin center">
+  <div class="error-code">404</div>
+  <p>
+    {{ 'templates.404.subtext' | t }}
+  </p>
+  <h1 class="title">
+    {{ 'templates.404.title' | t }}
+  </h1>
+  <p>Sorry, the page you're looking for doesn't exist or has been moved.</p>
+  <a href="{{ routes.all_products_collection_url }}" class="button">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "404 page",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "404 page"
+    }
+  ]
+}
+{% endschema %}

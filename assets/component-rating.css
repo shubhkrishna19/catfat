@@ -1,0 +1,338 @@
+/* Component Rating CSS - Rating styles */
+/* Product rating and review display */
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.rating__stars {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.rating__star {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #fbbf24;
+}
+
+.rating__star--empty {
+  color: var(--color-border);
+}
+
+.rating__star--half {
+  position: relative;
+}
+
+.rating__star--half::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #fbbf24 50%, var(--color-border) 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rating__count {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+  margin-left: 0.5rem;
+}
+
+.rating__count-link {
+  color: var(--color-text-light);
+  transition: color 0.2s ease;
+}
+
+.rating__count-link:hover {
+  color: var(--color-primary);
+}
+
+/* Rating Badge */
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  background: var(--color-background-alt);
+  border-radius: var(--border-radius-sm);
+}
+
+.rating-badge__stars {
+  display: flex;
+  align-items: center;
+}
+
+.rating-badge__count {
+  font-size: 1rem;
+  color: var(--color-text-light);
+}
+
+/* Product Card Rating */
+.card__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.card__rating .rating__star {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.card__rating .rating__count {
+  font-size: 1rem;
+}
+
+/* Rating Summary */
+.rating-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rating-summary__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-summary__average {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.rating-summary__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.rating-summary__stars {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.rating-summary__count {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+}
+
+/* Rating Bars */
+.rating-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rating-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.rating-bar__label {
+  width: 4rem;
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+}
+
+.rating-bar__track {
+  flex: 1;
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rating-bar__fill {
+  height: 100%;
+  background: #fbbf24;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.rating-bar__count {
+  width: 3rem;
+  font-size: 1rem;
+  color: var(--color-text-light);
+  text-align: right;
+}
+
+/* Rating Input (for review forms) */
+.rating-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rating-input__label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.rating-input__stars {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.rating-input__star {
+  width: 2.4rem;
+  height: 2.4rem;
+  cursor: pointer;
+  color: var(--color-border);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.rating-input__star:hover,
+.rating-input__star.is-active {
+  color: #fbbf24;
+  transform: scale(1.1);
+}
+
+.rating-input__star.is-active {
+  color: #fbbf24;
+}
+
+/* Inline Rating */
+.rating--inline {
+  display: inline-flex;
+}
+
+.rating--inline .rating__count {
+  margin-left: 0.3rem;
+}
+
+/* Small Rating */
+.rating--small .rating__star {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.rating--small .rating__count {
+  font-size: 1rem;
+}
+
+/* Large Rating */
+.rating--large .rating__star {
+  width: 2rem;
+  height: 2rem;
+}
+
+.rating--large .rating__count {
+  font-size: 1.4rem;
+}
+
+/* Rating with Badge */
+.rating-with-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating-with-badge__badge {
+  padding: 0.2rem 0.6rem;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Rich Snippet */
+.rating-snippet {
+  display: none;
+}
+
+/* Rating Dialog/Modal */
+.rating-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.rating-dialog.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rating-dialog__content {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  max-width: 50rem;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.rating-dialog.is-open .rating-dialog__content {
+  transform: scale(1);
+}
+
+/* Mobile Rating */
+@media screen and (max-width: 749px) {
+  .rating-summary {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .rating-summary__average {
+    font-size: 2.4rem;
+  }
+
+  .rating-bars {
+    margin-top: 1rem;
+  }
+}
+
+/* Accessibility */
+.rating[aria-label] {
+  cursor: pointer;
+}
+
+.rating__star:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Animation */
+@keyframes ratingPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.rating__star:hover {
+  animation: ratingPulse 0.5s ease;
+}

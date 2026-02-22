@@ -1,0 +1,73 @@
+{% comment %}
+  Icon Checkmark Snippet
+  A checkmark icon for product features, sharing, clipboard actions, etc.
+  Uses the pink/coral color scheme styling
+{% endcomment %}
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size | default: 24 }}"
+  height="{{ size | default: 24 }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width | default: 2 }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-checkmark{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+  <polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+
+<style>
+  .icon-checkmark {
+    color: #e84a7f;
+    flex-shrink: 0;
+  }
+
+  .icon-checkmark--small {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-checkmark--medium {
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon-checkmark--large {
+    width: 32px;
+    height: 32px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Icon Checkmark",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Icon Checkmark Settings"
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24,
+      "label": "Icon size"
+    },
+    {
+      "type": "range",
+      "id": "stroke_width",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "label": "Stroke width"
+    }
+  ]
+}
+{% endschema %}

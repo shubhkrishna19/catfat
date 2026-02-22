@@ -1,0 +1,279 @@
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\cart-template.liquid           │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'products.product.quantity.label' does not have a matching entry in         │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  62  aria-label="{{ 'products.product.quantity.label' | t }}"                │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-article.liquid            │
+│                                                                              │
+│                                                                              │
+│  [warning]: VariableName                                                     │
+│  The variable 'anchorId' uses wrong naming format                            │
+│                                                                              │
+│  82  {%- assign anchorId = '#Comments-' | append: article.id -%}             │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-product.liquid            │
+│                                                                              │
+│                                                                              │
+│  [error]: LiquidHTMLSyntaxError                                              │
+│  Attempting to close HtmlElement 'section' before HtmlElement 'div' was      │
+│  closed                                                                      │
+│                                                                              │
+│  111    <div class="{{ product_grid_classes }}">                             │
+│  112      <div class="grid__item product__media-wrapper">                    │
+│  113        <div class="product__media-list">                                │
+│  114          {%- if                                                         │
+│  product.selected_or_first_available_variant.featured_media != null -%}      │
+│  115            <div class="product__media-item" data-media-id="{{           │
+│  product.selected_or_first_available_variant.featured_media.id }}">          │
+│  116              {{                                                         │
+│  product.selected_or_first_available_variant.featured_media | image_url:     │
+│  width: 1946 | image_tag: loading: 'lazy', sizes: '(min-width: 1200px)       │
+│  715px, (min-width: 990px) 55vw, 90vw', widths: '246, 493, 600, 713, 823,    │
+│  990, 1100, 1206, 1346, 1426, 1646, 1946' }}                                 │
+│  117            </div>                                                       │
+│  118          {%- endif -%}                                                  │
+│  119                                                                         │
+│  120          {%- for media in product.media -%}                             │
+│  121            {%- unless media.id ==                                       │
+│  product.selected_or_first_available_variant.featured_media.id -%}           │
+│  122              <div class="product__media-item" data-media-id="{{         │
+│  media.id }}">                                                               │
+│  123                {{ media | image_url: width: 1946 | image_tag: loading:  │
+│   'lazy', sizes: '(min-width: 1200px) 715px, (min-width: 990px) 55vw,        │
+│  90vw', widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426,       │
+│  1646, 1946' }}                                                              │
+│  124              </div>                                                     │
+│  125            {%- endunless -%}                                            │
+│  126          {%- endfor -%}                                                 │
+│  127        </div>                                                           │
+│  128      </div>                                                             │
+│  129                                                                         │
+│  130      <div class="product__info-wrapper grid__item">                     │
+│  131        <div class="product__info-container">                            │
+│  132          {%- assign product_form_id = 'product-form-' | append:         │
+│  section.id -%}                                                              │
+│  133                                                                         │
+│  134          <section class="page-width title-wrapper-with-link             │
+│  title-wrapper--self-padded-mobile title-wrapper--no-top-margin">            │
+│  135            <h1 class="product__title">{{ product.title | escape         │
+│  }}</h1>                                                                     │
+│  136            <div id="price-{{ section.id }}" role="status"               │
+│  aria-live="polite">                                                         │
+│  137              {%- render 'price', product: product, use_variant: true,   │
+│  show_badges: true, price_class: 'price--large' -%}                          │
+│  138            </div>                                                       │
+│  139          </section>                                                     │
+│  140                                                                         │
+│  141          <div {{ block.shopify_attributes }}>                           │
+│  142            {%- form 'product', product, id: product_form_id, class:     │
+│  'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}         │
+│  143              <input type="hidden" name="id" value="{{                   │
+│  product.selected_or_first_available_variant.id }}" disabled>                │
+│  144                                                                         │
+│  145              <div class="product-form__buttons">                        │
+│  146                <button                                                  │
+│  147                  type="submit"                                          │
+│  148                  name="add"                                             │
+│  149                  class="product-form__submit button button--full-width  │
+│   {% if block.settings.show_dynamic_checkout %}button--secondary{% else      │
+│  %}button--primary{% endif %}"                                               │
+│  150                {% if                                                    │
+│  product.selected_or_first_available_variant.available == false %}           │
+│  151                  disabled                                               │
+│  152                {% endif %}                                              │
+│  153                >                                                        │
+│  154                  <span>                                                 │
+│  155                    {%- if                                               │
+│  product.selected_or_first_available_variant.available -%}                   │
+│  156                      {{ 'products.product.add_to_cart' | t }}           │
+│  157                    {%- else -%}                                         │
+│  158                      {{ 'products.product.sold_out' | t }}              │
+│  159                    {%- endif -%}                                        │
+│  160                  </span>                                                │
+│  161                  <div class="loading-overlay__spinner">                 │
+│  162                    <svg aria-hidden="true" focusable="false"            │
+│  class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">     │
+│  163                      <circle class="path" fill="none" stroke-width="6"  │
+│   cx="33" cy="33" r="30"></circle>                                           │
+│  164                    </svg>                                               │
+│  165                  </div>                                                 │
+│  166                </button>                                                │
+│  167              </div>                                                     │
+│  168            {%- endform -%}                                              │
+│  169          </div>                                                         │
+│  170                                                                         │
+│  171          <div class="product__description rte" {{                       │
+│  block.shopify_attributes }}>                                                │
+│  172            {{ product.description }}                                    │
+│  173          </div>                                                         │
+│  174                                                                         │
+│  175        {%- render 'pickup-availability', product: product -%}           │
+│  176                                                                         │
+│  177        <div class="product__tax">                                       │
+│  178          {%- if shop.taxes_included -%}                                 │
+│  179            {{ 'products.product.taxes_included' | t }}                  │
+│  180          {%- else -%}                                                   │
+│  181            {{ 'products.product.taxes_excluded' | t }}                  │
+│  182          {%- endif -%}                                                  │
+│  183        </div>                                                           │
+│  184      </div>                                                             │
+│  185    </div>                                                               │
+│  186                                                                         │
+│  187    <product-modal id="ProductModal-{{ section.id }}"                    │
+│  class="product-media-modal media-modal">                                    │
+│  188      <div class="product-media-modal__dialog" role="dialog"             │
+│  aria-label="{{ 'products.modal.label' | t }}" aria-modal="true">            │
+│  189        <button id="ModalClose-{{ section.id }}" type="button"           │
+│  class="product-media-modal__toggle" aria-label="{{ 'accessibility.close' |  │
+│   t }}">                                                                     │
+│  190          {% render 'icon-close' %}                                      │
+│  191        </button>                                                        │
+│  192        <div class="product-media-modal__content" role="document"        │
+│  aria-label="{{ 'products.modal.label' | t }}" tabindex="0">                 │
+│  193          {%- for media in product.media -%}                             │
+│  194            {%- render 'media', media: media, loop:                      │
+│  section.settings.enable_video_looping, modal_id: 'ProductModal-' | append:  │
+│   section.id -%}                                                             │
+│  195          {%- endfor -%}                                                 │
+│  196        </div>                                                           │
+│  197      </div>                                                             │
+│  198    </product-modal>                                                     │
+│  199  </section>                                                             │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-search.liquid             │
+│                                                                              │
+│                                                                              │
+│  [error]: LiquidHTMLSyntaxError                                              │
+│  SyntaxError: expected ">" or "/>"                                           │
+│                                                                              │
+│  267  <aside aria-labelledby="verticalTitle" class="{{                       │
+│  facets_wrapper_classes }}" id="main-search-filters" data-id="{{ section.id  │
+│   }}">                                                                       │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\snippets\pagination.liquid              │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.pagination.previous' does not have a matching entry in             │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  10  <a href="{{ paginate.previous.url }}" class="pagination__item           │
+│  pagination__item--prev" aria-label="{{ 'general.pagination.previous' | t    │
+│  }}">                                                                        │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.pagination.next' does not have a matching entry in                 │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  38  <a href="{{ paginate.next.url }}" class="pagination__item               │
+│  pagination__item--next" aria-label="{{ 'general.pagination.next' | t }}">   │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.pagination' does not have a matching entry in                      │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  6  <nav class="pagination" role="navigation" aria-label="{{                 │
+│  'general.pagination' | t }}">                                               │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\snippets\pickup-availability.liquid     │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-unavailable.liquid' does not exist                           │
+│                                                                              │
+│  7  {% render 'icon-unavailable' %}                                          │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-checkmark.liquid' does not exist                             │
+│                                                                              │
+│  19  {% render 'icon-checkmark' %}                                           │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\snippets\share-button.liquid            │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingTemplate                                                    │
+│  'snippets/icon-clipboard.liquid' does not exist                             │
+│                                                                              │
+│  33  {% render 'icon-clipboard' %}                                           │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.share' does not have a matching entry in                           │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  12  {{ 'general.share' | t }}                                               │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.share' does not have a matching entry in                           │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  20  {{ 'general.share' | t }}                                               │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.share.share_url' does not have a matching entry in                 │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  28  placeholder="{{ 'general.share.share_url' | t }}"                       │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.share.share_url' does not have a matching entry in                 │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  30  <label class="field__label" for="url">{{ 'general.share.share_url' | t  │
+│   }}</label>                                                                 │
+│                                                                              │
+│                                                                              │
+│  [error]: TranslationKeyExists                                               │
+│  'general.share.copy_to_clipboard' does not have a matching entry in         │
+│  'locales/en.default.json'                                                   │
+│                                                                              │
+│  34  {{ 'general.share.copy_to_clipboard' | t }}                             │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  Theme Check Summary.                                                        │
+│                                                                              │
+│  69 files inspected with 15 total offenses found across 7 files.             │
+│  14 errors.                                                                  │
+│  1 warnings.                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

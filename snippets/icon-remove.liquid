@@ -1,0 +1,127 @@
+{% comment %}
+  Icon Remove Snippet
+  A close/remove icon for closing modals, removing items, etc.
+  Uses the pink/coral color scheme styling
+{% endcomment %}
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size | default: 24 }}"
+  height="{{ size | default: 24 }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width | default: 2 }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-remove{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+  <line x1="18" y1="6" x2="6" y2="18"></line>
+  <line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+<style>
+  .icon-remove {
+    color: #e84a7f;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .icon-remove:hover {
+    color: #ff4757;
+    transform: rotate(90deg);
+  }
+
+  .icon-remove--small {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-remove--medium {
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon-remove--large {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon-remove--circle {
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(255, 107, 157, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .icon-remove--circle:hover {
+    background: rgba(255, 71, 87, 0.15);
+    transform: rotate(90deg);
+  }
+
+  .icon-remove--button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .icon-remove--button:hover {
+    background: #fff0f3;
+    border-color: #e84a7f;
+    box-shadow: 0 4px 12px rgba(232, 74, 127, 0.2);
+  }
+
+  .icon-remove--button:hover .icon-remove {
+    color: #e84a7f;
+  }
+
+  .icon-remove--rounded {
+    padding: 8px;
+    border-radius: 8px;
+    background: #f5f5f5;
+    transition: all 0.2s ease;
+  }
+
+  .icon-remove--rounded:hover {
+    background: #ffe0e6;
+    transform: scale(1.05);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Icon Remove",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Icon Remove Settings"
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24,
+      "label": "Icon size"
+    },
+    {
+      "type": "range",
+      "id": "stroke_width",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "label": "Stroke width"
+    }
+  ]
+}
+{% endschema %}

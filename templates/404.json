@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "404",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/404-image.png",
+        "text": "Page not found",
+        "text_2": "The page you're looking for doesn't exist or has been moved.",
+        "button_label": "Go back home",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": ["main"]
+}

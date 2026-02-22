@@ -1,0 +1,175 @@
+{% comment %}
+  Badge Snippet
+  Displays sale/sold out/new product badges
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+
+{%- assign product = product -%}
+
+{%- assign show_badge = true -%}
+{%- assign badge_content = '' -%}
+{%- assign badge_type = '' -%}
+
+{%- if product.available == false -%}
+  {%- assign badge_content = 'products.product.sold_out' | t -%}
+  {%- assign badge_type = 'sold-out' -%}
+{%- elsif product.compare_at_price > product.price -%}
+  {%- assign badge_content = 'products.product.on_sale' | t -%}
+  {%- assign badge_type = 'sale' -%}
+  {%- assign discount_percentage = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+{%- elsif product.tags contains 'new' or product.tags contains 'New Arrival' -%}
+  {%- assign badge_content = 'products.product.new' | t -%}
+  {%- assign badge_type = 'new' -%}
+{%- else -%}
+  {%- assign show_badge = false -%}
+{%- endif -%}
+
+{%- if show_badge -%}
+  <div class="badge badge--{{ badge_type }}">
+    {%- if badge_type == 'sale' -%}
+      <span class="badge__content">
+        {%- if discount_percentage > 0 -%}
+          -{{ discount_percentage }}%
+        {%- else -%}
+          {{ badge_content }}
+        {%- endif -%}
+      </span>
+    {%- else -%}
+      <span class="badge__content">{{ badge_content }}</span>
+    {%- endif -%}
+    {%- if badge_type == 'sale' -%}
+      <span class="badge__text">{{ badge_content }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+<style>
+  .badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .badge__content {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 4px;
+    line-height: 1.2;
+  }
+
+  .badge__text {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 12px;
+  }
+
+  /* Sale Badge */
+  .badge--sale .badge__content {
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(232, 74, 127, 0.4);
+    animation: pulse-sale 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-sale {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+  }
+
+  /* Sold Out Badge */
+  .badge--sold-out .badge__content {
+    background: #333;
+    color: #fff;
+  }
+
+  /* New Badge */
+  .badge--new .badge__content {
+    background: linear-gradient(135deg, #ff8e53 0%, #ff6b9d 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 142, 83, 0.4);
+  }
+
+  /* Hot Badge */
+  .badge--hot .badge__content {
+    background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+  }
+
+  /* Best Seller Badge */
+  .badge--bestseller .badge__content {
+    background: linear-gradient(135deg, #ffd32a 0%, #f9ca24 100%);
+    color: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(255, 211, 42, 0.4);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Badge",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badge",
+      "default": true,
+      "label": "Show sale badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sold_out_badge",
+      "default": true,
+      "label": "Show sold out badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_new_badge",
+      "default": true,
+      "label": "Show new badge"
+    },
+    {
+      "type": "select",
+      "id": "badge_position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "top-left",
+      "label": "Badge position"
+    }
+  ]
+}
+{% endschema %}

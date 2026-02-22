@@ -1,0 +1,247 @@
+{% comment %}
+  Variant Picker Snippet
+  Allows selection of product variants (size, color, etc.)
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+
+{%- assign product = product -%}
+{%- assign product_form_id = product_form_id | default: 'product-form-' | append: section.id -%}
+
+{%- unless product.has_only_default_variant -%}
+  <variant-picker
+    class="variant-picker"
+    data-url="{{ product.url }}"
+    data-update-url="true"
+    data-section-id="{{ section.id }}"
+  >
+    {%- for option in product.options_with_values -%}
+      <fieldset class="variant-picker__option" name="Option{{ option.position }}">
+        <legend class="variant-picker__label">
+          <span class="variant-picker__label-text">
+            {{ option.name }}:
+            <span class="variant-picker__label-value">{{ option.selected_value }}</span>
+          </span>
+        </legend>
+
+        {%- if option.name == 'Color' or option.name == 'Colour' -%}
+          <div class="variant-picker__swatches variant-picker__swatches--color">
+            {%- for value in option.values -%}
+              <label class="variant-picker__swatch variant-picker__swatch--color {% if option.selected_value == value %}variant-picker__swatch--active{% endif %}">
+                <input
+                  type="radio"
+                  name="Option{{ option.position }}"
+                  value="{{ value | escape }}"
+                  {% if option.selected_value == value %}checked{% endif %}
+                >
+                <span
+                  class="variant-picker__swatch-color"
+                  style="background-color: {{ value | downcase }}"
+                ></span>
+                <span class="variant-picker__swatch-tooltip">{{ value }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div class="variant-picker__options">
+            {%- for value in option.values -%}
+              <label class="variant-picker__option-item {% if option.selected_value == value %}variant-picker__option-item--active{% endif %}">
+                <input
+                  type="radio"
+                  name="Option{{ option.position }}"
+                  value="{{ value | escape }}"
+                  {% if option.selected_value == value %}checked{% endif %}
+                >
+                <span class="variant-picker__option-label">{{ value }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </fieldset>
+    {%- endfor -%}
+
+    <script type="application/json" class="variant-picker__json">
+      {{ product.variants | json }}
+    </script>
+  </variant-picker>
+{%- endunless -%}
+
+<style>
+  .variant-picker {
+    margin: 24px 0;
+  }
+
+  .variant-picker__option {
+    margin: 0 0 20px;
+    padding: 0;
+    border: none;
+  }
+
+  .variant-picker__option:last-child {
+    margin-bottom: 0;
+  }
+
+  .variant-picker__label {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .variant-picker__label-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .variant-picker__label-value {
+    color: #e84a7f;
+    font-weight: 400;
+  }
+
+  /* Swatch Styles */
+  .variant-picker__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .variant-picker__swatch--color {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .variant-picker__swatch--color input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .variant-picker__swatch--color {
+    position: relative;
+  }
+
+  .variant-picker__swatch-color {
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .variant-picker__swatch--color:hover .variant-picker__swatch-color {
+    border-color: #ff6b9d;
+    transform: scale(1.1);
+  }
+
+  .variant-picker__swatch--active .variant-picker__swatch-color {
+    border-color: #e84a7f;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #e84a7f;
+  }
+
+  .variant-picker__swatch-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: #1a1a1a;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+
+  .variant-picker__swatch-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a1a1a;
+  }
+
+  .variant-picker__swatch:hover .variant-picker__swatch-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Button Options Style */
+  .variant-picker__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .variant-picker__option-item {
+    position: relative;
+  }
+
+  .variant-picker__option-item input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .variant-picker__option-label {
+    display: block;
+    padding: 10px 20px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .variant-picker__option-item:hover .variant-picker__option-label {
+    border-color: #ff6b9d;
+    color: #e84a7f;
+  }
+
+  .variant-picker__option-item--active .variant-picker__option-label {
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+  }
+
+  .variant-picker__option-item input:disabled + .variant-picker__option-label {
+    opacity: 0.5;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Variant Picker",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Variant Picker Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatches",
+      "default": true,
+      "label": "Show color swatches as circles"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_popups",
+      "default": true,
+      "label": "Enable size guide popups"
+    }
+  ]
+}
+{% endschema %}

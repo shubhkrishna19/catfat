@@ -1,0 +1,190 @@
+{% comment %}
+  Pickup Availability Snippet
+  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+{% endcomment %}
+{%- unless product.available -%}
+  <pickup-availability-preview class="pickup-availability-preview">
+    {% render 'icon-unavailable' %}
+    <div class="pickup-availability-info">
+      <p class="caption-large">{{ 'products.product.pickup.pickup_unavailable' | t }}</p>
+      <button class="pickup-availability-button link link--text" aria-expanded="false" aria-details="pickup-availability-drawer">
+        {{ 'products.product.pickup.check_other_stores' | t }}
+      </button>
+    </div>
+  </pickup-availability-preview>
+{%- else -%}
+  {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities | where: 'available', true -%}
+  {%- if pick_up_availabilities.size > 0 -%}
+    <pickup-availability-preview class="pickup-availability-preview">
+      {% render 'icon-checkmark' %}
+      <div class="pickup-availability-info">
+        <p class="caption-large">
+          {%- if pick_up_availabilities.size == 1 -%}
+            {{ 'products.product.pickup.pickup_available_at_html' | t: location_name: pick_up_availabilities.first.location.name }}
+          {%- else -%}
+            {{ 'products.product.pickup.pickup_available_at_html' | t: location_name: pick_up_availabilities.first.location.name }}
+          {%- endif -%}
+        </p>
+        <button class="pickup-availability-button link link--text" aria-expanded="false" aria-details="pickup-availability-drawer">
+          {%- if pick_up_availabilities.size == 1 -%}
+            {{ 'products.product.pickup.check_other_stores' | t }}
+          {%- else -%}
+            {{ 'products.product.pickup.find_other_stores' | t }}
+          {%- endif -%}
+        </button>
+      </div>
+    </pickup-availability-preview>
+  {%- endif -%}
+{%- endunless -%}
+
+<style>
+  .pickup-availability-preview {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255, 107, 157, 0.08);
+    border: 1px solid rgba(255, 107, 157, 0.2);
+  }
+
+  .pickup-availability-preview svg {
+    width: 20px;
+    height: 20px;
+    color: #e84a7f;
+    flex-shrink: 0;
+  }
+
+  .pickup-availability-info {
+    flex: 1;
+  }
+
+  .pickup-availability-info .caption-large {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin: 0 0 6px 0;
+  }
+
+  .pickup-availability-button {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e84a7f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .pickup-availability-button:hover {
+    color: #ff6b9d;
+  }
+
+  pickup-availability-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  pickup-availability-drawer.open {
+    transform: translateX(0);
+  }
+
+  .pickup-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    color: #fff;
+  }
+
+  .pickup-drawer__title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .pickup-drawer__close {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+  }
+
+  .pickup-drawer__close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .pickup-drawer__content {
+    padding: 20px;
+  }
+
+  .pickup-availability-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pickup-availability-list__item {
+    padding: 16px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .pickup-availability-list__item:hover {
+    border-color: #ff6b9d;
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
+  }
+
+  .pickup-availability-list__location-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 4px 0;
+  }
+
+  .pickup-availability-list__location-distance {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+  }
+
+  .pickup-availability-list__status {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .pickup-availability-list__status--available {
+    color: #e84a7f;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .pickup-availability-list__status--unavailable {
+    color: #999;
+    font-size: 14px;
+  }
+
+  .pickup-availability-list__pickup-time {
+    font-size: 13px;
+    color: #666;
+  }
+</style>

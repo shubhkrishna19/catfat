@@ -1,0 +1,36 @@
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Users\shubh\Downloads\CatfatIndia\sections\main-search.liquid             │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'paginate' used.                                             │
+│                                                                              │
+│  29  {%- render 'facets', results: search, enable_filtering:                 │
+│  section.settings.enable_filtering, enable_sorting:                          │
+│  section.settings.enable_sorting, filter_type:                               │
+│  section.settings.filter_type, paginate: paginate -%}                        │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'paginate' used.                                             │
+│                                                                              │
+│  67  {%- render 'pagination', paginate: paginate -%}                         │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'paginate' used.                                             │
+│                                                                              │
+│  66  {%- if paginate.pages > 1 -%}                                           │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  Theme Check Summary.                                                        │
+│                                                                              │
+│  72 files inspected with 3 total offenses found across 1 files.              │
+│  3 warnings.                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
