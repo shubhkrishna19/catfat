@@ -1,4 +1,98 @@
-<div class="multicolumn section">
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .multicolumn {
+    padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 0;
+    background: {{ section.settings.background_color }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .multicolumn {
+      padding: {{ section.settings.padding_top }}px 0;
+    }
+  }
+
+  .multicolumn .title {
+    text-align: {{ section.settings.heading_alignment }};
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 3rem;
+  }
+
+  .multicolumn .title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, {{ section.settings.primary_color }}, {{ section.settings.accent_color }});
+    margin: 1rem auto 0;
+  }
+
+  .multicolumn--left .title::after {
+    margin-left: 0;
+  }
+
+  .multicolumn--right .title::after {
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  .grid--1-col-desktop .grid__item { width: 100%; }
+  .grid--2-col-desktop .grid__item { width: 50%; }
+  .grid--3-col-desktop .grid__item { width: 33.333%; }
+  .grid--4-col-desktop .grid__item { width: 25%; }
+
+  .multicolumn__item {
+    text-align: {{ section.settings.text_alignment }};
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .multicolumn__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+  }
+
+  .multicolumn__title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: {{ section.settings.accent_color }};
+    margin: 0 0 0.5rem;
+  }
+
+  .multicolumn__text {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .multicolumn__text p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .multicolumn .title {
+      font-size: 1.8rem;
+    }
+
+    .grid--2-col-desktop,
+    .grid--3-col-desktop,
+    .grid--4-col-desktop {
+      grid-template-columns: 1fr;
+    }
+
+    .multicolumn__item {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<div class="multicolumn section multicolumn--{{ section.settings.heading_alignment }}">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
       <h2 class="title">{{ section.settings.title }}</h2>
@@ -30,8 +124,13 @@
   "class": "section",
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "text",
       "id": "title",
+      "default": "Why Choose Us",
       "label": "Heading"
     },
     {
@@ -42,6 +141,74 @@
       "step": 1,
       "default": 4,
       "label": "Number of columns on desktop"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "default": "center",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "default": "center",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#e84a7f",
+      "label": "Heading color"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#f9f9f9",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "default": "#ff6b9d",
+      "label": "Primary color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#e84a7f",
+      "label": "Accent color"
     },
     {
       "type": "header",
@@ -106,6 +273,19 @@
       "id": "column_4_text",
       "default": "<p>Quick Response</p>",
       "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 60,
+      "label": "Padding top"
     }
   ],
   "presets": [

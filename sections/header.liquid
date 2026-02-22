@@ -10,6 +10,90 @@
     --header-hover-color: {{ section.settings.hover_color }};
   }
 
+  /* Bigger Header Styles */
+  .header {
+    padding: 2.5rem 0;
+    background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  }
+
+  .header a,
+  .header__menu-item,
+  .header__icon {
+    color: #fff !important;
+  }
+
+  .header__heading-link {
+    padding: 0.5rem 0;
+  }
+
+  .header__heading-logo-wrapper {
+    max-width: {{ section.settings.logo_width | times: 2 }}px;
+  }
+
+  .header__heading-logo {
+    height: auto;
+    max-height: none;
+  }
+
+  .header__heading {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header__heading .h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff !important;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .header__tagline {
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.3rem;
+  }
+
+  .header__inline-menu {
+    padding: 0 2rem;
+  }
+
+  .header__menu-item {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1.2rem 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+  }
+
+  .header__icons {
+    gap: 2rem;
+  }
+
+  .header__icon {
+    padding: 0.8rem;
+  }
+
+  .header__icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .header__heading .h2 {
+      font-size: 3.5rem;
+    }
+
+    .header__inline-menu {
+      padding: 0 3rem;
+    }
+  }
+
   header-drawer {
     justify-self: start;
     margin-left: -1.2rem;
@@ -28,7 +112,7 @@
   .list-menu--inline {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   summary.list-menu__item {
@@ -170,6 +254,28 @@
   /* Header Colors */
   .header {
     background: {{ section.settings.header_background }};
+    padding: 1.5rem 0;
+  }
+
+  .header.header--big {
+    padding: 2.5rem 0;
+  }
+
+  .header.header--big .header__heading-logo-wrapper img {
+    max-height: 80px;
+  }
+
+  .header.header--big .header__heading-link .h2 {
+    font-size: 2.8rem;
+  }
+
+  .header.header--big .header__menu-item {
+    font-size: 1.2rem;
+    padding: 1.2rem 0;
+  }
+
+  .header.header--big .header__icon--summary {
+    padding: 1rem;
   }
 
   .header a {
@@ -268,7 +374,7 @@
   }
 </style>
 
-<header class="header header--top-center page-width{% if section.settings.menu != blank %} header--has-menu{% endif %}">
+<header class="header header--top-center page-width{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if section.settings.header_size == 'big' %} header--big{% endif %}">
   {%- if section.settings.menu != blank -%}
     <header-drawer class="header__icon--menu">
       <details class="menu-drawer-container">
@@ -329,7 +435,10 @@
         {{ settings.logo | image_url: width: settings.logo_width | image_tag: class: 'header__heading-logo motion-reduce', widths: '50, 100, 150, 200, 250, 300, 400, 500', height: logo_height, width: settings.logo_width, alt: logo_alt }}
       </div>
     {%- else -%}
-      <span class="h2" style="color: {{ section.settings.text_color }};">{{ shop.name }}</span>
+      <div class="header__heading">
+        <span class="h2">{{ shop.name }}</span>
+        <p class="header__tagline">Premium Lunch Boxes & Bottles</p>
+      </div>
     {%- endif -%}
   </a>
 

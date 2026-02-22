@@ -10,13 +10,13 @@
   .slideshow {
     position: relative;
     overflow: hidden;
-    height: {{ section.settings.slide_height }};
-    min-height: 400px;
+    height: 70vh;
+    min-height: 500px;
   }
 
   @media screen and (min-width: 750px) {
     .slideshow {
-      min-height: {{ section.settings.min_height }}px;
+      min-height: 600px;
     }
   }
 
@@ -82,29 +82,33 @@
   }
 
   .slideshow__subheading {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.4rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 1rem;
-    color: var(--slideshow-primary-color);
+    letter-spacing: 0.3em;
+    margin-bottom: 1.5rem;
+    color: #ff8e53;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    display: inline-block;
   }
 
   .slideshow__heading {
-    font-size: clamp(2rem, 5vw, {{ section.settings.heading_size }}px);
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
     margin-bottom: 1.5rem;
-    color: {{ section.settings.heading_color }};
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
   .slideshow__text {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     line-height: 1.6;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     opacity: 0.95;
-    color: {{ section.settings.text_color }};
+    color: rgba(255, 255, 255, 0.95);
   }
 
   .slideshow__text p {
@@ -114,34 +118,38 @@
   /* Buttons */
   .slideshow__button {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    background: linear-gradient(135deg, var(--slideshow-primary-color), var(--slideshow-accent-color));
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, #ff6b9d, #e84a7f);
     color: #fff;
     text-decoration: none;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+    box-shadow: 0 6px 25px rgba(255, 107, 157, 0.5);
   }
 
   .slideshow__button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(255, 107, 157, 0.6);
     color: #fff;
+    background: linear-gradient(135deg, #e84a7f, #ff6b9d);
   }
 
   .slideshow__button--secondary {
     background: transparent;
-    border: 2px solid {{ section.settings.text_color }};
+    border: 3px solid #fff;
     box-shadow: none;
+    margin-left: 1rem;
   }
 
   .slideshow__button--secondary:hover {
-    background: {{ section.settings.text_color }};
-    color: {{ section.settings.overlay_color }};
+    background: #fff;
+    color: #e84a7f;
   }
 
   /* Controls */
@@ -284,6 +292,7 @@
 </style>
 
 <div class="slideshow section" id="Slideshow-{{ section.id }}">
+  {%- if section.blocks.size > 0 -%}
   <div class="slideshow__slider" data-slider>
     {%- for block in section.blocks -%}
       <div class="slideshow__slide{% if forloop.first %} active{% endif %}" data-slide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
@@ -296,7 +305,7 @@
             {{ block.settings.mobile_image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '100vw', class: 'slideshow__image mobile-only' }}
           </div>
         {%- else -%}
-          <div class="slideshow__media" style="background: linear-gradient(135deg, {{ section.settings.primary_color }}, {{ section.settings.accent_color }});"></div>
+          <div class="slideshow__media" style="background: linear-gradient(135deg, #ff6b9d, #e84a7f);"></div>
         {%- endif -%}
 
         <div class="slideshow__content-wrapper">
@@ -344,6 +353,23 @@
     </button>
 
     <div class="slideshow__progress" id="slideshow-progress"></div>
+  {%- endif -%}
+  {%- else -%}
+  <div class="slideshow__slider" data-slider>
+    <div class="slideshow__slide active">
+      <div class="slideshow__media" style="background: linear-gradient(135deg, #ff6b9d, #e84a7f);"></div>
+      <div class="slideshow__content-wrapper">
+        <div class="slideshow__content">
+          <p class="slideshow__subheading">Welcome to</p>
+          <h2 class="slideshow__heading">CatFat India</h2>
+          <div class="slideshow__text">
+            <p>Premium lunch boxes and bottles for kids & adults</p>
+          </div>
+          <a href="{{ routes.all_products_collection_url }}" class="slideshow__button">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
   {%- endif -%}
 </div>
 

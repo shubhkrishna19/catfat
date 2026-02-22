@@ -47,7 +47,13 @@
     "sections": {
       "header": {
         "type": "header",
-        "settings": {}
+        "settings": {
+          "primary_color": "#ff6b9d",
+          "accent_color": "#e84a7f",
+          "hover_color": "#ff8e53",
+          "header_background": "#ffffff",
+          "text_color": "#333333"
+        }
       },
       "footer": {
         "type": "footer",
@@ -65,8 +71,29 @@
               "heading": "CatFat India",
               "subtext": "<p>Premium lunch boxes and bottles for kids & adults.</p>"
             }
+          },
+          {
+            "type": "newsletter",
+            "settings": {
+              "newsletter_heading": "Subscribe to our emails",
+              "newsletter_text": "Be the first to know about new collections and exclusive offers."
+            }
+          },
+          {
+            "type": "social",
+            "settings": {
+              "heading": "Follow Us"
+            }
           }
-        ]
+        ],
+        "settings": {
+          "primary_color": "#ff6b9d",
+          "accent_color": "#e84a7f",
+          "hover_color": "#ff8e53",
+          "background_color": "#1a1a2e",
+          "text_color": "#ffffff",
+          "columns_desktop": 4
+        }
       }
     }
   },

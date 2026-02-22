@@ -1,14 +1,104 @@
-<div class="rich-text section">
+<style>
+  .rich-text {
+    padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .rich-text {
+      padding: {{ section.settings.padding_top }}px 0;
+    }
+  }
+
+  .rich-text__heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 1rem;
+    line-height: 1.2;
+  }
+
+  .rich-text__text {
+    font-size: 1.1rem;
+    color: {{ section.settings.text_color }};
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .rich-text__text p {
+    margin: 0;
+  }
+
+  .rich-text .button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, {{ section.settings.primary_color }}, {{ section.settings.accent_color }});
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .rich-text .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+  }
+
+  .rich-text__blocks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rich-text--center .rich-text__blocks {
+    align-items: center;
+  }
+
+  .rich-text--left .rich-text__blocks {
+    align-items: flex-start;
+  }
+
+  .rich-text--right .rich-text__blocks {
+    align-items: flex-end;
+  }
+
+  @media screen and (max-width: 749px) {
+    .rich-text__heading {
+      font-size: 1.8rem;
+    }
+
+    .rich-text__text {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<div class="rich-text section rich-text--{{ section.settings.text_alignment }}">
   <div class="page-width">
     <div class="rich-text__blocks">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rich-text__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="rich-text__text rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'heading' -%}
-            <h2 class="rich-text__heading">{{ block.settings.heading }}</h2>
+            <h2 class="rich-text__heading" {{ block.shopify_attributes }}>{{ block.settings.heading }}</h2>
           {%- when 'text' -%}
-            <div class="rich-text__text rte">{{ block.settings.text }}</div>
+            <div class="rich-text__text rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
           {%- when 'button' -%}
-            <a href="{{ block.settings.button_link }}" class="button button--primary">{{ block.settings.button_label }}</a>
+            <a href="{{ block.settings.button_link }}" class="button" {{ block.shopify_attributes }}>{{ block.settings.button_label }}</a>
         {%- endcase -%}
       {%- endfor -%}
     </div>
@@ -20,6 +110,93 @@
   "name": "Rich text",
   "tag": "section",
   "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "default": "center",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#e84a7f",
+      "label": "Heading color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#666666",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "default": "#ff6b9d",
+      "label": "Primary color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#e84a7f",
+      "label": "Accent color"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "label": "Padding top"
+    }
+  ],
   "blocks": [
     {
       "type": "heading",

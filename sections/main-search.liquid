@@ -11,6 +11,7 @@
   }
 {%- endstyle -%}
 
+{%- paginate search.results by 24 -%}
 <div class="search-page page-width section-{{ section.id }}-padding">
   {%- if search.performed -%}
     {%- if search.results_count == 0 -%}
@@ -46,7 +47,7 @@
         {%- for item in search.results -%}
           {%- case item.object_type -%}
             {%- when 'product' -%}
-              {%- render 'card-product', product: item, show_secondary_image: section.settings.show_secondary_image -%}
+              {%- render 'card-product', card_product: item, show_secondary_image: section.settings.show_secondary_image -%}
             {%- when 'article' -%}
               {%- render 'article-card', article: item, show_image: section.settings.show_image, show_date: section.settings.article_show_date -%}
             {%- when 'page' -%}
@@ -68,6 +69,7 @@
     {%- endif -%}
   </div>
 </div>
+{%- endpaginate -%}
 
 {% schema %}
 {

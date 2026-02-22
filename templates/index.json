@@ -1,11 +1,5 @@
 {
   "sections": {
-    "announcement": {
-      "type": "announcement-bar",
-      "settings": {
-        "text": "🎉 India's Biggest Lunch Sale - UPTO 80% OFF | Free Shipping Above ₹499 | COD Available"
-      }
-    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
@@ -16,7 +10,9 @@
             "subheading": "UPTO 80% OFF",
             "text": "Premium Lunch Boxes & Bottles at Best Prices",
             "button_label": "Shop Now",
-            "button_link": "shopify://collections/all"
+            "button_link": "shopify://collections/all",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff"
           }
         },
         "slide-2": {
@@ -26,7 +22,9 @@
             "subheading": "Fresh Collection",
             "text": "Explore Our Latest Lunch Boxes & Bottles",
             "button_label": "View All",
-            "button_link": "shopify://collections/new-arrivals"
+            "button_link": "shopify://collections/new-arrivals",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff"
           }
         },
         "slide-3": {
@@ -36,13 +34,19 @@
             "subheading": "Insulated & Microwave Safe",
             "text": "Best Lunch Boxes for Kids & Adults",
             "button_label": "Shop Now",
-            "button_link": "shopify://collections/lunch-box"
+            "button_link": "shopify://collections/lunch-box",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff"
           }
         }
       },
       "settings": {
         "auto_rotate": true,
-        "change_slides_speed": 5
+        "change_slides_speed": 5,
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 50
       }
     },
     "featured_collection": {
@@ -69,7 +73,6 @@
     }
   },
   "order": [
-    "announcement",
     "slideshow",
     "featured_collection",
     "richtext",
