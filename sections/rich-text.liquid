@@ -2,6 +2,7 @@
   .rich-text {
     padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 0;
     text-align: {{ section.settings.text_alignment }};
+    background: #f9f9f9;
   }
 
   @media screen and (min-width: 750px) {
@@ -11,17 +12,39 @@
   }
 
   .rich-text__heading {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: {{ section.settings.heading_color }};
-    margin: 0 0 1rem;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #e84a7f;
+    margin: 0 0 1.5rem;
     line-height: 1.2;
+    position: relative;
+  }
+
+  .rich-text__heading::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b9d, #e84a7f);
+    margin: 1rem auto 0;
+    border-radius: 2px;
+  }
+
+  .rich-text--left .rich-text__heading::after,
+  .rich-text--right .rich-text__heading::after {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .rich-text--right .rich-text__heading::after {
+    margin-left: auto;
+    margin-right: 0;
   }
 
   .rich-text__text {
-    font-size: 1.1rem;
-    color: {{ section.settings.text_color }};
-    line-height: 1.6;
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.8;
     max-width: 700px;
     margin: 0 auto;
   }
@@ -33,18 +56,22 @@
   .rich-text .button {
     display: inline-block;
     margin-top: 2rem;
-    padding: 1rem 2.5rem;
-    background: linear-gradient(135deg, {{ section.settings.primary_color }}, {{ section.settings.accent_color }});
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, #ff6b9d, #e84a7f);
     color: #fff;
     text-decoration: none;
-    border-radius: 30px;
-    font-weight: 600;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
   }
 
   .rich-text .button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
   }
 
   .rich-text__blocks {
@@ -67,11 +94,16 @@
 
   @media screen and (max-width: 749px) {
     .rich-text__heading {
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
 
     .rich-text__text {
       font-size: 1rem;
+    }
+
+    .rich-text .button {
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
     }
   }
 </style>

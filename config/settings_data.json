@@ -51,8 +51,9 @@
           "primary_color": "#ff6b9d",
           "accent_color": "#e84a7f",
           "hover_color": "#ff8e53",
-          "header_background": "#ffffff",
-          "text_color": "#333333"
+          "header_background": "#ff6b9d",
+          "text_color": "#ffffff",
+          "menu": "main-menu"
         }
       },
       "footer": {

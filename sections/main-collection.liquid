@@ -21,21 +21,35 @@
       <div class="grid grid--2-col-tablet-down grid--4-col-desktop">
         {%- for product in collection.products -%}
           <div class="grid-item">
-            <a href="{{ product.url }}" class="product-card">
-              <div class="product-card-media">
-                {%- if product.featured_media -%}
-                  {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
-              </div>
-              <div class="product-card-info">
-                <h3 class="product-card-title">{{ product.title }}</h3>
-                <div class="product-card-price">
-                  {%- render 'price', product: product -%}
+            <div class="product-card">
+              <a href="{{ product.url }}" class="product-card-link">
+                <div class="product-card-media">
+                  {%- if product.featured_media -%}
+                    {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
                 </div>
+                <div class="product-card-info">
+                  <h3 class="product-card-title">{{ product.title }}</h3>
+                  <div class="product-card-price">
+                    {%- render 'price', product: product -%}
+                  </div>
+                </div>
+              </a>
+              <div class="product-card-actions">
+                {%- form 'product', product -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="btn-add-to-cart">
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      Add to Cart
+                    {%- else -%}
+                      Sold Out
+                    {%- endif -%}
+                  </button>
+                {%- endform -%}
               </div>
-            </a>
+            </div>
           </div>
         {%- endfor -%}
       </div>
@@ -165,5 +179,46 @@
   padding: 60px 20px;
   font-size: 1.6rem;
   color: #666;
+}
+
+/* Product Card with Add to Cart */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card-link {
+  flex: 1;
+  text-decoration: none;
+  display: block;
+}
+
+.product-card-actions {
+  padding: 0 15px 15px;
+}
+
+.btn-add-to-cart {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-add-to-cart:hover {
+  background: linear-gradient(135deg, #e84a7f, #ff6b9d);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.btn-add-to-cart:disabled {
+  background: #999;
+  cursor: not-allowed;
 }
 {% endstylesheet %}

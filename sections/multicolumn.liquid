@@ -3,7 +3,7 @@
 <style>
   .multicolumn {
     padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 0;
-    background: {{ section.settings.background_color }};
+    background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
   }
 
   @media screen and (min-width: 750px) {
@@ -14,19 +14,20 @@
 
   .multicolumn .title {
     text-align: {{ section.settings.heading_alignment }};
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: {{ section.settings.heading_color }};
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #e84a7f;
     margin: 0 0 3rem;
   }
 
   .multicolumn .title::after {
     content: '';
     display: block;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, {{ section.settings.primary_color }}, {{ section.settings.accent_color }});
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b9d, #e84a7f);
     margin: 1rem auto 0;
+    border-radius: 2px;
   }
 
   .multicolumn--left .title::after {
@@ -45,30 +46,66 @@
 
   .multicolumn__item {
     text-align: {{ section.settings.text_alignment }};
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
     height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .multicolumn__item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b9d, #e84a7f);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
   }
 
   .multicolumn__item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 107, 157, 0.2);
+  }
+
+  .multicolumn__item:hover::before {
+    transform: scaleX(1);
+  }
+
+  .multicolumn__icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+  }
+
+  .multicolumn__icon svg {
+    width: 32px;
+    height: 32px;
+    color: #fff;
   }
 
   .multicolumn__title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: {{ section.settings.accent_color }};
-    margin: 0 0 0.5rem;
+    color: #333;
+    margin: 0 0 0.8rem;
   }
 
   .multicolumn__text {
     font-size: 1rem;
     color: #666;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   .multicolumn__text p {
@@ -77,7 +114,7 @@
 
   @media screen and (max-width: 749px) {
     .multicolumn .title {
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
 
     .grid--2-col-desktop,
@@ -87,7 +124,7 @@
     }
 
     .multicolumn__item {
-      padding: 1.5rem;
+      padding: 2rem 1.5rem;
     }
   }
 </style>
@@ -104,6 +141,18 @@
         {%- assign text_key = 'column_' | append: column_index | append: '_text' -%}
         <li class="grid__item">
           <div class="multicolumn__item">
+            <div class="multicolumn__icon">
+              {%- case column_index -%}
+                {%- when 1 -%}
+                  {% render 'icon-truck' %}
+                {%- when 2 -%}
+                  {% render 'icon-credit-card' %}
+                {%- when 3 -%}
+                  {% render 'icon-checkmark' %}
+                {%- when 4 -%}
+                  {% render 'icon-chat' %}
+              {%- endcase -%}
+            </div>
             {%- if section.settings[title_key] != blank -%}
               <h3 class="multicolumn__title">{{ section.settings[title_key] }}</h3>
             {%- endif -%}
