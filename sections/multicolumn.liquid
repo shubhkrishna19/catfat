@@ -1,0 +1,117 @@
+<div class="multicolumn section">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    <ul class="grid grid--{{ section.settings.columns_desktop }}-col-desktop" role="list">
+      {%- for i in (1..section.settings.columns_desktop) -%}
+        {%- assign column_index = forloop.index -%}
+        {%- assign title_key = 'column_' | append: column_index | append: '_title' -%}
+        {%- assign text_key = 'column_' | append: column_index | append: '_text' -%}
+        <li class="grid__item">
+          <div class="multicolumn__item">
+            {%- if section.settings[title_key] != blank -%}
+              <h3 class="multicolumn__title">{{ section.settings[title_key] }}</h3>
+            {%- endif -%}
+            {%- if section.settings[text_key] != blank -%}
+              <div class="multicolumn__text">{{ section.settings[text_key] }}</div>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Multicolumn",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "header",
+      "content": "Column 1"
+    },
+    {
+      "type": "text",
+      "id": "column_1_title",
+      "default": "Free Shipping",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "column_1_text",
+      "default": "<p>Above ₹499</p>",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Column 2"
+    },
+    {
+      "type": "text",
+      "id": "column_2_title",
+      "default": "COD Available",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "column_2_text",
+      "default": "<p>Across India</p>",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Column 3"
+    },
+    {
+      "type": "text",
+      "id": "column_3_title",
+      "default": "Quality Products",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "column_3_text",
+      "default": "<p>100% Original</p>",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Column 4"
+    },
+    {
+      "type": "text",
+      "id": "column_4_title",
+      "default": "WhatsApp Support",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "column_4_text",
+      "default": "<p>Quick Response</p>",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multicolumn"
+    }
+  ]
+}
+{% endschema %}

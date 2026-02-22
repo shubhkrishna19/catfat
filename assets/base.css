@@ -1,0 +1,450 @@
+/* ===================================
+   CATFATINDIA - Kid-Friendly Theme
+   Modern, Colorful, Beautiful
+   =================================== */
+
+/* --- CSS Variables --- */
+:root {
+  --color-primary: #ff6b9d;
+  --color-primary-dark: #e84a7f;
+  --color-secondary: #ff8e53;
+  --color-accent: #ffd93d;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --color-background: #ffffff;
+  --color-background-alt: #fff5f8;
+  --color-border: #f0f0f0;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --border-radius: 16px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 24px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 32px rgba(255, 107, 157, 0.2);
+  --transition: all 0.3s ease;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Layout --- */
+.page-width {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Buttons --- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 2.8rem;
+  border-radius: var(--border-radius-lg);
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.5);
+  color: white;
+}
+
+/* --- Cards --- */
+.card-wrapper {
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 2px solid var(--color-border);
+  height: 100%;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.card__media {
+  position: relative;
+  overflow: hidden;
+}
+
+.card__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: var(--transition);
+}
+
+.card-wrapper:hover .card__media img {
+  transform: scale(1.05);
+}
+
+.card__content {
+  padding: 1.6rem;
+}
+
+.card__title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+/* --- Price --- */
+.price {
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--color-primary-dark);
+}
+
+.price--sale {
+  color: var(--color-primary);
+}
+
+.price__regular {
+  color: var(--color-text-light);
+  text-decoration: line-through;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+/* --- Badges --- */
+.badge {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge--sale {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+}
+
+.badge--sold-out {
+  background: #666;
+  color: white;
+}
+
+/* --- Quick Add --- */
+.quick-add__submit {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border-radius: 20px;
+  padding: 1.2rem 2rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* --- Header --- */
+.header {
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f8 100%);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header a,
+.header .menu__item {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.header a:hover {
+  color: var(--color-primary);
+}
+
+/* --- Announcement Bar --- */
+.announcement-bar {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* --- Footer --- */
+.footer {
+  background: linear-gradient(180deg, #2d2d2d 0%, #1a1a2e 100%);
+  color: white;
+  padding: 60px 20px 30px;
+}
+
+.footer-block__heading {
+  color: var(--color-primary);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.footer a {
+  color: #cccccc;
+  display: block;
+  padding: 8px 0;
+  transition: var(--transition);
+}
+
+.footer a:hover {
+  color: var(--color-primary);
+  padding-left: 8px;
+}
+
+/* --- Newsletter --- */
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.newsletter-form .field__input {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 25px;
+  border: 2px solid #444;
+  background: #2a2a2a;
+  color: white;
+  font-size: 14px;
+}
+
+.newsletter-form__button {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  border-radius: 25px;
+  padding: 14px 24px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.newsletter-form__button:hover {
+  transform: scale(1.05);
+}
+
+/* --- Social Icons --- */
+.footer__list-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.footer__list-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #333;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.footer__list-social a:hover {
+  background: var(--color-primary);
+  transform: translateY(-4px);
+}
+
+/* --- Cart --- */
+.cart-count-bubble {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* --- Icons --- */
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* --- WhatsApp Button --- */
+.custom_bottom_whatsapp_btn {
+  position: fixed;
+  z-index: 999999;
+  bottom: 20px;
+  right: 20px;
+}
+
+.custom_bottom_whatsapp_btn .whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(90deg, #25D366 0%, #128C7E 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: var(--transition);
+}
+
+.custom_bottom_whatsapp_btn .whatsapp-btn:hover {
+  transform: scale(1.1);
+}
+
+.custom_bottom_whatsapp_btn .whatsapp-btn svg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .custom_bottom_whatsapp_btn {
+    bottom: 80px;
+  }
+  .custom_bottom_whatsapp_btn .whatsapp-btn {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+/* --- Utility Classes --- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.text-center { text-align: center; }
+
+/* --- Grid --- */
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.grid--4-col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--3-col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--2-col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 990px) {
+  .grid--4-col,
+  .grid--3-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid--4-col,
+  .grid--3-col,
+  .grid--2-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Sections --- */
+.section {
+  padding: 60px 0;
+}
+
+/* --- Animations --- */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.bounce {
+  animation: bounce 2s ease infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+/* --- Responsive --- */
+@media (max-width: 990px) {
+  .page-width {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-width {
+    padding: 0 1rem;
+  }
+}

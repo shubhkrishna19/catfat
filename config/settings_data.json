@@ -1,0 +1,63 @@
+{
+  "current": {
+    "logo_width": 140,
+    "colors_text": {
+      "red": 51,
+      "green": 51,
+      "blue": 51
+    },
+    "colors_background_1": {
+      "red": 255,
+      "green": 255,
+      "blue": 255
+    },
+    "colors_background_2": {
+      "red": 243,
+      "green": 243,
+      "blue": 243
+    },
+    "colors_solid_button_labels": {
+      "red": 255,
+      "green": 255,
+      "blue": 255
+    },
+    "colors_outline_button_labels": {
+      "red": 51,
+      "green": 51,
+      "blue": 51
+    },
+    "colors_accent_1": {
+      "red": 255,
+      "green": 107,
+      "blue": 157
+    },
+    "colors_accent_2": {
+      "red": 255,
+      "green": 142,
+      "blue": 83
+    },
+    "type_header_font": "assistant_n4",
+    "type_body_font": "assistant_n4",
+    "page_width": 1400,
+    "spacing_sections": 0,
+    "spacing_grid_horizontal": 8,
+    "spacing_grid_vertical": 8,
+    "header__icon_color": "#333333",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      }
+    }
+  },
+  "presets": {
+    "Default": {
+      "colors": {
+        "background-1": "#FFFFFF",
+        "background-2": "#F3F3F3",
+        "accent-1": "#ff6b9d",
+        "accent-2": "#ff8e53"
+      }
+    }
+  }
+}

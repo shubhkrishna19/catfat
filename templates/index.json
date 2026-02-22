@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "🎉 India's Biggest Lunch Sale - UPTO 80% OFF | Free Shipping Above ₹499 | COD Available"
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "heading": "India's Biggest Lunch Sale",
+            "subheading": "UPTO 80% OFF",
+            "text": "Premium Lunch Boxes & Bottles at Best Prices",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/all"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "heading": "New Arrivals",
+            "subheading": "Fresh Collection",
+            "text": "Explore Our Latest Lunch Boxes & Bottles",
+            "button_label": "View All",
+            "button_link": "shopify://collections/new-arrivals"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "heading": "Premium Quality",
+            "subheading": "Insulated & Microwave Safe",
+            "text": "Best Lunch Boxes for Kids & Adults",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/lunch-box"
+          }
+        }
+      },
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Products",
+        "collection": "frontpage",
+        "products_to_show": 8,
+        "columns_desktop": 4
+      }
+    },
+    "richtext": {
+      "type": "rich-text",
+      "settings": {
+        "text": "<p>Premium quality lunch boxes and bottles for kids & adults. Free shipping above ₹499, COD available across India.</p>"
+      }
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "settings": {
+        "title": "Why Choose Us",
+        "columns_desktop": 4
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "slideshow",
+    "featured_collection",
+    "richtext",
+    " multicolumn"
+  ]
+}

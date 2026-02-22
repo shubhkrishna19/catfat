@@ -1,0 +1,22 @@
+{% comment %}
+  Renders placeholder SVG
+
+  Usage:
+  {% render 'placeholder-svg', type: 'product' %}
+{% endcomment %}
+
+{%- case type -%}
+  {%- when 'product' -%}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5">
+      <path d="M394.8 352c-2.8 0-5 2.2-5 5v117.2c0 2.8 2.2 5 5 5h-263c-2.8 0-5-2.2-5-5v-117.2c0-2.8 2.2-5 5-5h263m0-10h-263c-8.3 0-15 6.7-15 15v117.2c0 8.3 6.7 15 15 15h263c8.3 0 15-6.7 15-15v-117.2c0-8.3-6.7-15-15-15z" fill="#f3f3f3"/>
+    </svg>
+  {%- when 'image' -%}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5">
+      <rect width="525.5" height="525.5" fill="#f3f3f3"/>
+      <path d="M200 200h125.5v125.5h-125.5z" fill="#e0e0e0"/>
+    </svg>
+  {%- else -%}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5">
+      <rect width="525.5" height="525.5" fill="#f3f3f3"/>
+    </svg>
+{%- endcase -%}

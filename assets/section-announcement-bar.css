@@ -1,0 +1,13 @@
+/* Announcement Bar */
+.announcement-bar {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.announcement-bar a {
+  color: white;
+  text-decoration: none;
+}

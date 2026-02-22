@@ -1,0 +1,103 @@
+{{ 'section-featured-collection.css' | asset_url | stylesheet_tag }}
+
+<div class="featured-collection section">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <div class="title-wrapper">
+        <h2 class="title">{{ section.settings.title }}</h2>
+      </div>
+    {%- endif -%}
+
+    <ul class="grid grid--{{ section.settings.columns_desktop }}-col-desktop" role="list">
+      {%- if section.settings.collection == blank -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          <li class="grid__item">
+            <div class="card-wrapper">
+              <div class="card">
+                <div class="card__media">
+                  {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+                <div class="card__content">
+                  <h3 class="card__title">Product {{ forloop.index }}</h3>
+                  <div class="price">₹999</div>
+                </div>
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          <li class="grid__item">
+            <div class="card-wrapper">
+              <div class="card">
+                <a href="{{ product.url }}" class="card__media">
+                  {%- if product.featured_media != blank -%}
+                    <img srcset="{{ product.featured_media | image_url: width: 533 }} 533w" sizes="(min-width: 1200px) 267px, (min-width: 750px) 267px, 100vw" src="{{ product.featured_media | image_url: width: 533 }}" alt="{{ product.featured_media.alt | escape }}" loading="lazy" width="533" height="533">
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </a>
+                <div class="card__content">
+                  <h3 class="card__title">
+                    <a href="{{ product.url }}">{{ product.title | escape }}</a>
+                  </h3>
+                  <div class="price">
+                    {%- if product.price != blank -%}
+                      {{ product.price | money }}
+                    {%- else -%}
+                      ₹999
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Featured collection",
+      "label": "Heading"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Maximum products to show"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection"
+    }
+  ]
+}
+{% endschema %}

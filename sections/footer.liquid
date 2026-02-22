@@ -1,0 +1,182 @@
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="footer">
+  <div class="page-width">
+    <div class="footer__content-top">
+      {%- if section.blocks.size > 0 -%}
+        <div class="footer__blocks-wrapper grid grid--1-col grid--2-col-tab-down grid--{{ section.blocks.size }}-col-desktop">
+          {%- for block in section.blocks -%}
+            <div class="footer-block grid__item" {{ block.shopify_attributes }}>
+              {%- case block.type -%}
+                {%- when 'link_list' -%}
+                  {%- if block.settings.menu != blank -%}
+                    <h2 class="footer-block__heading">{{ block.settings.heading }}</h2>
+                    <ul class="footer-block__details-content list-unstyled">
+                      {%- for link in block.settings.menu.links -%}
+                        <li>
+                          <a href="{{ link.url }}" class="link link--text">
+                            {{ link.title | escape }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+
+                {%- when 'text' -%}
+                  <div class="footer-block__details-content rte">
+                    <h2 class="footer-block__heading">{{ block.settings.heading }}</h2>
+                    {{ block.settings.subtext }}
+                  </div>
+
+                {%- when 'newsletter' -%}
+                  <div class="footer-block__newsletter">
+                    <h2 class="footer-block__heading">{{ 'newsletter.label' | t }}</h2>
+                    {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
+                      <input type="hidden" name="contact[tags]" value="newsletter">
+                      <div class="newsletter-form__field-wrapper">
+                        <div class="field">
+                          <input
+                            id="NewsletterForm--{{ section.id }}"
+                            type="email"
+                            name="contact[email]"
+                            class="field__input"
+                            value="{{ form.email }}"
+                            aria-required="true"
+                            autocorrect="off"
+                            autocapitalize="off"
+                            autocomplete="email"
+                            placeholder="Enter your email"
+                            required
+                          >
+                          <label class="field__label" for="NewsletterForm--{{ section.id }}">
+                            {{ 'newsletter.label' | t }}
+                          </label>
+                        </div>
+                        <button type="submit" class="newsletter-form__button field__button" name="commit">
+                          Subscribe
+                        </button>
+                      </div>
+                      {%- if form.errors -%}
+                        <small class="footer__message form__message">
+                          {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
+                        </small>
+                      {%- endif -%}
+                    {%- endform -%}
+                  </div>
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="footer__content-bottom">
+        <div class="footer__content-bottom-wrapper page-width">
+          <div class="footer__column footer__column--newsletter">
+            <div class="footer__copyright caption">
+              <small class="copyright__content">&copy; {{ 'now' | date: "%Y" }}, <a href="{{ routes.root_url }}">{{ shop.name | escape }}</a></small>
+            </div>
+          </div>
+          <div class="footer__column footer__column--lang">
+            {%- if section.settings.show_language_selector and localization.available_languages.size > 1 -%}
+              <div class="localization-form">
+                <div class="no-js-hidden">
+                  {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="footer__column footer__column--social">
+            <div class="footer__social-icons">
+              {%- if settings.social_facebook_link != blank -%}
+                <a href="{{ settings.social_facebook_link }}" class="link link--text" aria-label="Facebook">
+                  {% render 'icon-facebook' %}
+                </a>
+              {%- endif -%}
+              {%- if settings.social_instagram_link != blank -%}
+                <a href="{{ settings.social_instagram_link }}" class="link link--text" aria-label="Instagram">
+                  {% render 'icon-instagram' %}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Link list",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Quick links",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu",
+          "info": "Select menu to display"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "subtext",
+          "default": "<p>Share store details, promotions, or brand content with your customers.</p>",
+          "label": "Subtext"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Email signup",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Language"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_selector",
+      "default": true,
+      "label": "Show language selector"
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "text"
+      },
+      {
+        "type": "newsletter"
+      }
+    ]
+  }
+}
+{% endschema %}

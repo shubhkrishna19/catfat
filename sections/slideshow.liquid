@@ -1,0 +1,165 @@
+{{ 'section-slideshow.css' | asset_url | stylesheet_tag }}
+
+<div class="slideshow section" id="Slideshow-{{ section.id }}">
+  <div class="slideshow__slider" data-slider>
+    {%- for block in section.blocks -%}
+      <div class="slideshow__slide" data-slide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <div class="slideshow__media">
+            <img srcset="{{ block.settings.image | image_url: width: 1920 }} 1920w" sizes="100vw" src="{{ block.settings.image | image_url: width: 1920 }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy" width="1920" height="600">
+          </div>
+        {%- endif -%}
+        <div class="slideshow__content-wrapper">
+          <div class="slideshow__content">
+            {%- if block.settings.subheading != blank -%}
+              <p class="slideshow__subheading">{{ block.settings.subheading }}</p>
+            {%- endif -%}
+            {%- if block.settings.heading != blank -%}
+              <h2 class="slideshow__heading">{{ block.settings.heading }}</h2>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="slideshow__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <a href="{{ block.settings.button_link }}" class="button button--primary slideshow__button">
+                {{ block.settings.button_label }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  <div class="slideshow__controls">
+    <button class="slideshow__button-prev" aria-label="Previous">{% render 'icon-arrow', direction: 'left' %}</button>
+    <div class="slideshow__dots" data-dots></div>
+    <button class="slideshow__button-next" aria-label="Next">{% render 'icon-arrow', direction: 'right' %}</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const slider = document.querySelector('.slideshow__slider');
+  if (!slider) return;
+
+  const slides = slider.querySelectorAll('.slideshow__slide');
+  const dots = slider.parentElement.querySelector('.slideshow__dots');
+  const prevBtn = slider.parentElement.querySelector('.slideshow__button-prev');
+  const nextBtn = slider.parentElement.querySelector('.slideshow__button-next');
+
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    if (dots) {
+      const dotBtns = dots.querySelectorAll('.slideshow__dot');
+      dotBtns.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    showSlide((currentSlide + 1) % slides.length);
+  }
+
+  function prevSlide() {
+    showSlide((currentSlide - 1 + slides.length) % slides.length);
+  }
+
+  // Create dots
+  if (dots) {
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.classList.add('slideshow__dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => showSlide(i));
+      dots.appendChild(dot);
+    });
+  }
+
+  // Event listeners
+  prevBtn?.addEventListener('click', prevSlide);
+  nextBtn?.addEventListener('next', nextSlide);
+
+  // Auto rotate
+  {%- if section.settings.auto_rotate -%}
+    setInterval(nextSlide, {{ section.settings.change_slides_speed | times: 1000 }});
+  {%- endif -%}
+
+  // Show first slide
+  showSlide(0);
+});
+</script>
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 9,
+      "step": 1,
+      "unit": "s",
+      "default": 5,
+      "label": "Change slides every"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow"
+    }
+  ]
+}
+{% endschema %}

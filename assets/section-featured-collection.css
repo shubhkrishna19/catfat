@@ -1,0 +1,14 @@
+/* Featured Collection */
+.featured-collection {
+  padding: 60px 0;
+}
+
+.featured-collection .title-wrapper {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.featured-collection .title {
+  font-size: 36px;
+  font-weight: 800;
+}
