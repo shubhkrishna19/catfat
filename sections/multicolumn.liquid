@@ -1,168 +1,97 @@
-{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
-
 <style>
-  .multicolumn {
-    padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 0;
-    background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
-  }
+.multicolumn {
+  padding: 60px 0;
+  background: #fff;
+}
 
-  @media screen and (min-width: 750px) {
-    .multicolumn {
-      padding: {{ section.settings.padding_top }}px 0;
-    }
+.multicolumn .title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e84a7f;
+  margin: 0 0 40px;
+}
+
+.multicolumn .title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b9d, #e84a7f);
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+.multicolumn .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+@media (max-width: 1024px) {
+  .multicolumn .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .multicolumn .grid {
+    grid-template-columns: 1fr;
   }
 
   .multicolumn .title {
-    text-align: {{ section.settings.heading_alignment }};
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: #e84a7f;
-    margin: 0 0 3rem;
+    font-size: 1.8rem;
   }
+}
 
-  .multicolumn .title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #ff6b9d, #e84a7f);
-    margin: 1rem auto 0;
-    border-radius: 2px;
-  }
+.multicolumn__item {
+  text-align: center;
+  padding: 30px 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
 
-  .multicolumn--left .title::after {
-    margin-left: 0;
-  }
+.multicolumn__item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+}
 
-  .multicolumn--right .title::after {
-    margin-right: 0;
-    margin-left: auto;
-  }
+.multicolumn__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 10px;
+}
 
-  .grid--1-col-desktop .grid__item { width: 100%; }
-  .grid--2-col-desktop .grid__item { width: 50%; }
-  .grid--3-col-desktop .grid__item { width: 33.333%; }
-  .grid--4-col-desktop .grid__item { width: 25%; }
-
-  .multicolumn__item {
-    text-align: {{ section.settings.text_alignment }};
-    padding: 2.5rem 2rem;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.4s ease;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .multicolumn__item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #ff6b9d, #e84a7f);
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-  }
-
-  .multicolumn__item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(255, 107, 157, 0.2);
-  }
-
-  .multicolumn__item:hover::before {
-    transform: scaleX(1);
-  }
-
-  .multicolumn__icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
-  }
-
-  .multicolumn__icon svg {
-    width: 32px;
-    height: 32px;
-    color: #fff;
-  }
-
-  .multicolumn__title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #333;
-    margin: 0 0 0.8rem;
-  }
-
-  .multicolumn__text {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.6;
-  }
-
-  .multicolumn__text p {
-    margin: 0;
-  }
-
-  @media screen and (max-width: 749px) {
-    .multicolumn .title {
-      font-size: 2rem;
-    }
-
-    .grid--2-col-desktop,
-    .grid--3-col-desktop,
-    .grid--4-col-desktop {
-      grid-template-columns: 1fr;
-    }
-
-    .multicolumn__item {
-      padding: 2rem 1.5rem;
-    }
-  }
+.multicolumn__text {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+}
 </style>
 
-<div class="multicolumn section multicolumn--{{ section.settings.heading_alignment }}">
+<div class="multicolumn section">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
       <h2 class="title">{{ section.settings.title }}</h2>
     {%- endif -%}
-    <ul class="grid grid--{{ section.settings.columns_desktop }}-col-desktop" role="list">
+
+    <div class="grid">
       {%- for i in (1..section.settings.columns_desktop) -%}
-        {%- assign column_index = forloop.index -%}
-        {%- assign title_key = 'column_' | append: column_index | append: '_title' -%}
-        {%- assign text_key = 'column_' | append: column_index | append: '_text' -%}
-        <li class="grid__item">
-          <div class="multicolumn__item">
-            <div class="multicolumn__icon">
-              {%- case column_index -%}
-                {%- when 1 -%}
-                  {% render 'icon-truck' %}
-                {%- when 2 -%}
-                  {% render 'icon-credit-card' %}
-                {%- when 3 -%}
-                  {% render 'icon-checkmark' %}
-                {%- when 4 -%}
-                  {% render 'icon-chat' %}
-              {%- endcase -%}
-            </div>
-            {%- if section.settings[title_key] != blank -%}
-              <h3 class="multicolumn__title">{{ section.settings[title_key] }}</h3>
-            {%- endif -%}
-            {%- if section.settings[text_key] != blank -%}
-              <div class="multicolumn__text">{{ section.settings[text_key] }}</div>
-            {%- endif -%}
-          </div>
-        </li>
+        {%- assign title_key = 'column_' | append: i | append: '_title' -%}
+        {%- assign text_key = 'column_' | append: i | append: '_text' -%}
+        <div class="multicolumn__item">
+          {%- if section.settings[title_key] != blank -%}
+            <h3 class="multicolumn__title">{{ section.settings[title_key] }}</h3>
+          {%- endif -%}
+          {%- if section.settings[text_key] != blank -%}
+            <div class="multicolumn__text">{{ section.settings[text_key] }}</div>
+          {%- endif -%}
+        </div>
       {%- endfor -%}
-    </ul>
+    </div>
   </div>
 </div>
 
@@ -172,10 +101,6 @@
   "tag": "section",
   "class": "section",
   "settings": [
-    {
-      "type": "header",
-      "content": "Content"
-    },
     {
       "type": "text",
       "id": "title",
@@ -189,75 +114,7 @@
       "max": 4,
       "step": 1,
       "default": 4,
-      "label": "Number of columns on desktop"
-    },
-    {
-      "type": "header",
-      "content": "Style"
-    },
-    {
-      "type": "select",
-      "id": "heading_alignment",
-      "default": "center",
-      "label": "Heading alignment",
-      "options": [
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ]
-    },
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "default": "center",
-      "label": "Text alignment",
-      "options": [
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ]
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "default": "#e84a7f",
-      "label": "Heading color"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "default": "#f9f9f9",
-      "label": "Background color"
-    },
-    {
-      "type": "color",
-      "id": "primary_color",
-      "default": "#ff6b9d",
-      "label": "Primary color"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "default": "#e84a7f",
-      "label": "Accent color"
+      "label": "Number of columns"
     },
     {
       "type": "header",
@@ -322,19 +179,6 @@
       "id": "column_4_text",
       "default": "<p>Quick Response</p>",
       "label": "Text"
-    },
-    {
-      "type": "header",
-      "content": "Spacing"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 60,
-      "label": "Padding top"
     }
   ],
   "presets": [
