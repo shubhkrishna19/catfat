@@ -1,24 +1,61 @@
 {% comment %}
   Card Product Snippet
   Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+
+  Parameters:
+  - card_product: The product object (or blank for placeholder)
+  - placeholder: Boolean to force placeholder rendering
+  - index: Number for placeholder variation
 {% endcomment %}
+
+{%- if card_product == blank or placeholder == true -%}
 <div class="card-product">
   <div class="card-product__media">
-    {%- if card_product.featured_media -%}
-      <img srcset="{{ card_product.featured_media | image_url: width: 533 }} 533w,
-                    {{ card_product.featured_media | image_url: width: 1066 }} 1066w"
-            sizes="(min-width: 1200px) 267px, (min-width: 750px) 267px, calc(100vw - 3rem)"
-            src="{{ card_product.featured_media | image_url: width: 533 }}"
-            alt="{{ card_product.featured_media.alt | escape }}"
-            loading="lazy"
-            width="{{ card_product.featured_media.width }}"
-            height="{{ card_product.featured_media.height }}"
-            class="card-product__image">
-    {%- else -%}
-      <div class="card-product__image--placeholder">
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-      </div>
-    {%- endif -%}
+    <div class="card-product__image--placeholder">
+      {{ 'product-' | append: index | default: '1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  </div>
+  <div class="card-product__info">
+    <h3 class="card-product__title">
+      <span class="full-unstyled-link">Product {{ index | default: '1' }}</span>
+    </h3>
+    <div class="card-product__price">
+      <span class="price">₹999</span>
+    </div>
+  </div>
+  <div class="card-product__actions">
+    <button type="button" class="quick-add-btn__button" disabled>
+      {{ 'products.product.add_to_cart' | t }}
+    </button>
+  </div>
+</div>
+{%- else -%}
+
+<div class="card-product">
+  <div class="card-product__media">
+    <a href="{{ card_product.url }}" class="card-product__media-link">
+      {%- if card_product.featured_media -%}
+        <img
+          src="{{ card_product.featured_media | image_url: width: 533 }}"
+          srcset="{{ card_product.featured_media | image_url: width: 533 }} 533w,
+                  {{ card_product.featured_media | image_url: width: 1066 }} 1066w"
+          sizes="(min-width: 1200px) 267px, (min-width: 750px) 267px, calc(100vw - 3rem)"
+          alt="{{ card_product.featured_media.alt | escape | default: card_product.title | escape }}"
+          loading="lazy"
+          width="{{ card_product.featured_media.width }}"
+          height="{{ card_product.featured_media.height }}"
+          class="card-product__image"
+          onerror="this.style.display='none'; this.parentElement.querySelector('.card-product__image--placeholder').style.display='flex';"
+        >
+        <div class="card-product__image--placeholder" style="display: none;">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- else -%}
+        <div class="card-product__image--placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </a>
 
     <div class="card-product__badges">
       {%- if card_product.available == false -%}
@@ -55,6 +92,8 @@
     </quick-add-btn>
   </div>
 </div>
+
+{%- endif -%}
 
 <style>
   .card-product {
