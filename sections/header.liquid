@@ -89,11 +89,19 @@
     display: none;
   }
 
-  /* Bigger Header Styles */
+  /* Main Header Styles */
   .header {
-    padding: 2rem 0;
+    padding: 0.8rem 0;
     background: linear-gradient(135deg, #ff6b9d, #e84a7f);
     box-shadow: 0 4px 20px rgba(255, 107, 157, 0.3);
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .header > * {
+    flex-shrink: 0;
   }
 
   .header a,
@@ -118,45 +126,52 @@
   .header__heading {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
   }
 
   .header__heading .h2 {
-    font-size: 2.5rem;
+    font-size: 1.3rem;
     font-weight: 900;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
     color: #fff !important;
     margin: 0;
-    line-height: 1;
+    line-height: 1.1;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .header__tagline {
-    font-size: 0.85rem;
+    font-size: 0.55rem;
     font-weight: 500;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.9);
-    margin-top: 0.3rem;
+    margin-top: 0.15rem;
+    white-space: nowrap;
   }
 
   .header__inline-menu {
-    padding: 0 2rem;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
   }
 
   .header__menu-item {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    padding: 1rem 1.2rem;
+    padding: 0.6rem 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     color: #fff;
     position: relative;
+    white-space: nowrap;
   }
 
   .header__menu-item::after {
     content: '';
     position: absolute;
-    bottom: 8px;
+    bottom: 4px;
     left: 50%;
     width: 0;
     height: 2px;
@@ -170,21 +185,24 @@
   }
 
   .header__icons {
-    gap: 1.5rem;
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
   }
 
   /* Inline Search Bar */
   .header-search-form {
     display: none;
-    flex: 1;
-    max-width: 350px;
-    margin: 0 1.5rem;
+    flex: 0 1 180px;
+    margin: 0 0.5rem;
   }
 
   .header-search-form form {
     display: flex;
     background: rgba(255, 255, 255, 0.25);
-    border-radius: 25px;
+    border-radius: 18px;
     overflow: hidden;
     border: 2px solid transparent;
     transition: all 0.3s ease;
@@ -199,9 +217,10 @@
     flex: 1;
     background: transparent;
     border: none;
-    padding: 10px 15px;
+    padding: 6px 10px;
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
+    min-width: 0;
   }
 
   .header-search-form input::placeholder {
@@ -216,7 +235,7 @@
     background: transparent;
     border: none;
     color: #fff;
-    padding: 10px 15px;
+    padding: 6px 10px;
     cursor: pointer;
     transition: background 0.2s ease;
   }
@@ -228,13 +247,17 @@
   @media (min-width: 1024px) {
     .header-search-form {
       display: block;
+      flex: 0 1 220px;
     }
   }
 
   .header__icon {
-    padding: 0.6rem;
-    border-radius: 8px;
+    padding: 0.35rem;
+    border-radius: 6px;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .header__icon:hover {
@@ -242,17 +265,17 @@
   }
 
   .header__icon svg {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
   }
 
   @media screen and (min-width: 990px) {
     .header__heading .h2 {
-      font-size: 3.5rem;
+      font-size: 1.8rem;
     }
 
     .header__inline-menu {
-      padding: 0 3rem;
+      padding: 0 2rem;
     }
   }
 
@@ -434,8 +457,11 @@
   /* Header Colors - Using gradient background */
   .header {
     background: linear-gradient(135deg, #ff6b9d, #e84a7f) !important;
-    padding: 2.5rem 0;
+    padding: 1rem 0;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .header a,
@@ -480,21 +506,28 @@
 
   /* Header Contact Info */
   .header__contact {
-    display: flex;
+    display: none;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     margin-right: auto;
-    padding-left: 2rem;
+    padding-left: 1rem;
+  }
+
+  @media (min-width: 1200px) {
+    .header__contact {
+      display: flex;
+    }
   }
 
   .header__contact-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     color: #fff;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     font-weight: 500;
+    white-space: nowrap;
   }
 
   .header__contact-item:hover {
@@ -502,15 +535,16 @@
   }
 
   .header__contact-item svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
   }
 
   .header__whatsapp {
     background: #25D366;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 4px 10px;
+    border-radius: 12px;
     font-weight: 600;
+    font-size: 0.7rem;
   }
 
   @media screen and (max-width: 990px) {
@@ -585,17 +619,6 @@
     border-color: var(--header-primary-color);
   }
 </style>
-
-{%- if section.settings.announcement_text != blank -%}
-  <div class="announcement-bar">
-    <div class="announcement-bar__content page-width">
-      <p class="announcement-bar__text">{{ section.settings.announcement_text }}</p>
-      {%- if section.settings.announcement_link != blank -%}
-        <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">{{ section.settings.announcement_link_text | default: 'Shop Now' }}</a>
-      {%- endif -%}
-    </div>
-  </div>
-{%- endif -%}
 
 <div class="header-wrapper{% if section.settings.sticky_header %} header-wrapper--sticky{% endif %}">
 <header class="header header--top-center page-width{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if section.settings.header_size == 'big' %} header--big{% endif %}">
