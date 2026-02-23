@@ -10,6 +10,71 @@
     --header-hover-color: {{ section.settings.hover_color }};
   }
 
+  /* Announcement Bar */
+  .announcement-bar {
+    background: linear-gradient(135deg, #ff8e53, #ff6b9d);
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .announcement-bar__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .announcement-bar__text {
+    margin: 0;
+  }
+
+  .announcement-bar__links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .announcement-bar__link {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .announcement-bar__link:hover {
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  /* Sticky Header */
+  .header-wrapper--sticky .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    animation: slideDown 0.3s ease;
+  }
+
+  .header-wrapper--sticky {
+    padding-top: 0;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .header-wrapper--sticky + .announcement-bar {
+    display: none;
+  }
+
   /* Bigger Header Styles */
   .header {
     padding: 2.5rem 0;
@@ -72,7 +137,65 @@
   }
 
   .header__icons {
-    gap: 2rem;
+    gap: 1.5rem;
+  }
+
+  /* Inline Search Bar */
+  .header-search-form {
+    display: none;
+    flex: 1;
+    max-width: 350px;
+    margin: 0 1.5rem;
+  }
+
+  .header-search-form form {
+    display: flex;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 25px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .header-search-form form:focus-within {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .header-search-form input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+
+  .header-search-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .header-search-form input:focus {
+    outline: none;
+  }
+
+  .header-search-form button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .header-search-form button:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  @media (min-width: 1024px) {
+    .header-search-form {
+      display: block;
+    }
   }
 
   .header__icon {
@@ -296,6 +419,47 @@
     justify-content: center;
   }
 
+  /* Header Contact Info */
+  .header__contact {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: auto;
+    padding-left: 2rem;
+  }
+
+  .header__contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .header__contact-item:hover {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .header__contact-item svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .header__whatsapp {
+    background: #25D366;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  @media screen and (max-width: 990px) {
+    .header__contact {
+      display: none;
+    }
+  }
+
   /* Mobile Styles */
   @media screen and (max-width: 768px) {
     .header__inline-menu {
@@ -363,6 +527,18 @@
   }
 </style>
 
+{%- if section.settings.announcement_text != blank -%}
+  <div class="announcement-bar">
+    <div class="announcement-bar__content page-width">
+      <p class="announcement-bar__text">{{ section.settings.announcement_text }}</p>
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">{{ section.settings.announcement_link_text | default: 'Shop Now' }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+<div class="header-wrapper{% if section.settings.sticky_header %} header-wrapper--sticky{% endif %}">
 <header class="header header--top-center page-width{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if section.settings.header_size == 'big' %} header--big{% endif %}">
   {%- if section.settings.menu != blank -%}
     <header-drawer class="header__icon--menu">
@@ -430,6 +606,23 @@
       </div>
     {%- endif -%}
   </a>
+
+  {%- if section.settings.show_contact -%}
+    <div class="header__contact">
+      {%- if section.settings.phone_number != blank -%}
+        <a href="tel:{{ section.settings.phone_number }}" class="header__contact-item">
+          {% render 'icon-phone' %}
+          <span>{{ section.settings.phone_number }}</span>
+        </a>
+      {%- endif -%}
+      {%- if section.settings.enable_whatsapp -%}
+        <a href="https://wa.me/{{ section.settings.whatsapp_number }}" class="header__contact-item header__whatsapp" target="_blank">
+          {% render 'icon-chat' %}
+          <span>WhatsApp</span>
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 
   <nav class="header__inline-menu">
     <ul class="list-menu list-menu--inline" role="list">
@@ -594,6 +787,7 @@
     </a>
   </div>
 </header>
+</div>
 
 <div class="search-modal" id="search-modal">
   <div class="search-modal__content">
@@ -640,6 +834,65 @@
 {
   "name": "Header",
   "settings": [
+    {
+      "type": "header",
+      "content": "Announcement Bar"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "default": "Free Shipping on Orders Above ₹499 | COD Available",
+      "label": "Announcement Text"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement Link"
+    },
+    {
+      "type": "text",
+      "id": "announcement_link_text",
+      "default": "Shop Now",
+      "label": "Announcement Link Text"
+    },
+    {
+      "type": "header",
+      "content": "Sticky Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "default": false,
+      "label": "Enable sticky header"
+    },
+    {
+      "type": "header",
+      "content": "Contact Info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact",
+      "default": true,
+      "label": "Show contact info"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "default": "+91 98765 43210",
+      "label": "Phone Number"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_whatsapp",
+      "default": true,
+      "label": "Show WhatsApp button"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "default": "919876543210",
+      "label": "WhatsApp Number (with country code)"
+    },
     {
       "type": "header",
       "content": "Menu"
