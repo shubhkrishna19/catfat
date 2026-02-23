@@ -433,7 +433,8 @@
 
   <nav class="header__inline-menu">
     <ul class="list-menu list-menu--inline" role="list">
-      {%- for link in section.settings.menu.links -%}
+      {%- if section.settings.menu != blank -%}
+        {%- for link in section.settings.menu.links -%}
         <li class="menu-item{% if link.links != blank %} mega-menu{% endif %}">
           {%- if link.links != blank -%}
             <details class="menu-item">
@@ -483,7 +484,77 @@
             </a>
           {%- endif -%}
         </li>
-      {%- endfor -%}
+        {%- endfor -%}
+      {%- else -%}
+        <li class="menu-item">
+          <a href="{{ routes.root_url }}" class="header__menu-item">
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{{ routes.all_products_collection_url }}" class="header__menu-item">
+            <span>Shop All</span>
+          </a>
+        </li>
+        <li class="menu-item mega-menu">
+          <details class="menu-item">
+            <summary class="header__menu-item">
+              <span>Categories</span>
+              {% render 'icon-caret' %}
+            </summary>
+            <div class="mega-menu__content">
+              <div class="mega-menu__grid">
+                <div class="mega-menu__column">
+                  <div class="mega-menu__category">Lunch Boxes</div>
+                  <ul class="mega-menu__links">
+                    <li><a href="{{ routes.collections_url }}/lunch-box">All Lunch Boxes</a></li>
+                    <li><a href="{{ routes.collections_url }}/steel-lunch-box">Steel Lunch Boxes</a></li>
+                    <li><a href="{{ routes.collections_url }}/plastic-lunch-box">Plastic Lunch Boxes</a></li>
+                    <li><a href="{{ routes.collections_url }}/insulated-lunch-box">Insulated</a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu__column">
+                  <div class="mega-menu__category">Bottles</div>
+                  <ul class="mega-menu__links">
+                    <li><a href="{{ routes.collections_url }}/bottles">All Bottles</a></li>
+                    <li><a href="{{ routes.collections_url }}/steel-bottle">Steel Bottles</a></li>
+                    <li><a href="{{ routes.collections_url }}/plastic-bottle">Plastic Bottles</a></li>
+                    <li><a href="{{ routes.collections_url }}/thermos">Thermos</a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu__column">
+                  <div class="mega-menu__category">By Age</div>
+                  <ul class="mega-menu__links">
+                    <li><a href="{{ routes.collections_url }}/kids">Kids</a></li>
+                    <li><a href="{{ routes.collections_url }}/adults">Adults</a></li>
+                    <li><a href="{{ routes.collections_url }}/office">Office Use</a></li>
+                    <li><a href="{{ routes.collections_url }}/school">School</a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu__column">
+                  <div class="mega-menu__category">Shop</div>
+                  <ul class="mega-menu__links">
+                    <li><a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a></li>
+                    <li><a href="{{ routes.collections_url }}/best-sellers">Best Sellers</a></li>
+                    <li><a href="{{ routes.collections_url }}/sale">Sale</a></li>
+                    <li><a href="{{ routes.collections_url }}/combo-sets">Combo Sets</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </details>
+        </li>
+        <li class="menu-item">
+          <a href="{{ routes.blogs_url }}" class="header__menu-item">
+            <span>Blog</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{{ routes.pages_url }}/contact" class="header__menu-item">
+            <span>Contact</span>
+          </a>
+        </li>
+      {%- endif -%}
     </ul>
   </nav>
 
