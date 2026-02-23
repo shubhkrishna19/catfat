@@ -2,12 +2,7 @@
   "sections": {
     "main": {
       "type": "cart-template",
-      "settings": {
-        "show_cart_note": true,
-        "cart_drawer": "front-end",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
+      "settings": {}
     }
   },
   "order": ["main"]
