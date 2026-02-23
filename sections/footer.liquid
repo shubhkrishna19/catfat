@@ -93,10 +93,10 @@
         <div class="footer-block">
           <h4 class="footer-block__heading">Shop</h4>
           <div class="footer-block__details-content">
-            <a href="/collections/all">All Products</a>
-            <a href="/collections/lunch-box">Lunch Boxes</a>
-            <a href="/collections/bottles">Bottles</a>
-            <a href="/collections/new-arrivals">New Arrivals</a>
+            <a href="{{ routes.all_products_collection_url }}">All Products</a>
+            <a href="{{ routes.collections_url }}/lunch-box">Lunch Boxes</a>
+            <a href="{{ routes.collections_url }}/bottles">Bottles</a>
+            <a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a>
           </div>
         </div>
 
@@ -145,7 +145,8 @@
         {
           "type": "text",
           "id": "heading",
-          "default": "Quick links"
+          "default": "Quick links",
+          "label": "Heading"
         },
         {
           "type": "link_list",
@@ -162,12 +163,14 @@
         {
           "type": "text",
           "id": "heading",
-          "default": "Heading"
+          "default": "Heading",
+          "label": "Heading"
         },
         {
           "type": "richtext",
           "id": "subtext",
-          "default": "<p>Description of your brand</p>"
+          "default": "<p>Description of your brand</p>",
+          "label": "Subtext"
         }
       ]
     }
