@@ -5,7 +5,21 @@
   padding: 12px 20px;
   text-align: center;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.announcement-bar--gradient {
+  background: linear-gradient(90deg, #ff6b9d 0%, #e84a7f 50%, #ff8e53 100%);
+  background-size: 200% 100%;
+  animation: announcementGradient 3s ease infinite;
+}
+
+@keyframes announcementGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .announcement-bar a {
@@ -15,35 +29,93 @@
 
 .announcement-bar a:hover {
   color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
+
+.announcement-bar__link {
+  display: inline-block;
+}
+
+.announcement-bar__close {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.announcement-bar__close:hover {
+  opacity: 1;
 }
 </style>
 
 {%- if section.settings.text != blank -%}
-  {%- if section.settings.link != blank -%}
-    <a href="{{ section.settings.link }}" class="announcement-bar">
+  <div class="announcement-bar announcement-bar--gradient" id="announcement-bar">
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}" class="announcement-bar__link">
+        {{ section.settings.text }}
+      </a>
+    {%- else -%}
       {{ section.settings.text }}
-    </a>
-  {%- else -%}
-    <div class="announcement-bar">
-      {{ section.settings.text }}
-    </div>
-  {%- endif -%}
+    {%- endif -%}
+    {%- if section.settings.enable_close -%}
+      <button class="announcement-bar__close" onclick="document.getElementById('announcement-bar').style.display='none'; localStorage.setItem('announcement-closed', 'true');" aria-label="Close">
+        &times;
+      </button>
+    {%- endif -%}
+  </div>
+  <script>
+    if (localStorage.getItem('announcement-closed') === 'true') {
+      document.getElementById('announcement-bar').style.display = 'none';
+    }
+  </script>
 {%- endif -%}
 
 {% schema %}
 {
   "name": "Announcement bar",
+  "max_blocks": 12,
   "settings": [
     {
       "type": "text",
       "id": "text",
-      "default": "Welcome to our store",
+      "default": "🎉 Free Shipping on Orders Above ₹499 | COD Available | Best Quality Products",
       "label": "Text"
     },
     {
       "type": "url",
       "id": "link",
       "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_close",
+      "default": true,
+      "label": "Enable close button"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ff6b9d",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#ffffff",
+      "label": "Text color"
     }
   ],
   "presets": [

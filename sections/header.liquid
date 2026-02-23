@@ -12,12 +12,21 @@
 
   /* Announcement Bar */
   .announcement-bar {
-    background: linear-gradient(135deg, #ff8e53, #ff6b9d);
+    background: linear-gradient(90deg, #ff8e53, #ff6b9d, #e84a7f);
+    background-size: 200% 100%;
+    animation: announcementGradient 4s ease infinite;
     color: #fff;
     padding: 10px 0;
     text-align: center;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  @keyframes announcementGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
   .announcement-bar__content {
@@ -39,13 +48,18 @@
 
   .announcement-bar__link {
     color: #fff;
-    text-decoration: underline;
-    font-weight: 600;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    transition: all 0.3s ease;
   }
 
   .announcement-bar__link:hover {
     color: #fff;
-    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.05);
   }
 
   /* Sticky Header */
@@ -77,8 +91,9 @@
 
   /* Bigger Header Styles */
   .header {
-    padding: 2.5rem 0;
+    padding: 2rem 0;
     background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+    box-shadow: 0 4px 20px rgba(255, 107, 157, 0.3);
   }
 
   .header a,
@@ -106,18 +121,19 @@
   }
 
   .header__heading .h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
     color: #fff !important;
     margin: 0;
     line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .header__tagline {
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.9);
     margin-top: 0.3rem;
@@ -128,12 +144,29 @@
   }
 
   .header__menu-item {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
-    padding: 1.2rem 1.5rem;
+    padding: 1rem 1.2rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: #fff;
+    position: relative;
+  }
+
+  .header__menu-item::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .header__menu-item:hover::after {
+    width: 60%;
   }
 
   .header__icons {
@@ -199,12 +232,18 @@
   }
 
   .header__icon {
-    padding: 0.8rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .header__icon:hover {
+    background: rgba(255, 255, 255, 0.2);
   }
 
   .header__icon svg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 
   @media screen and (min-width: 990px) {
@@ -256,10 +295,22 @@
     left: 0;
     right: 0;
     background: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 3rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    padding: 2.5rem;
     z-index: 100;
-    border-top: 3px solid var(--header-primary-color);
+    border-top: 4px solid #ff6b9d;
+    animation: megaMenuFadeIn 0.3s ease;
+  }
+
+  @keyframes megaMenuFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .menu-item:hover .mega-menu__content,
@@ -270,18 +321,21 @@
   .mega-menu__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3rem;
+    gap: 2.5rem;
     max-width: 1400px;
     margin: 0 auto;
   }
 
   .mega-menu__category {
-    font-weight: 600;
-    color: var(--header-accent-color);
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e84a7f;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ff6b9d;
+    display: inline-block;
   }
 
   .mega-menu__links {
@@ -291,18 +345,21 @@
   }
 
   .mega-menu__links li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
   }
 
   .mega-menu__links a {
-    color: #333;
+    color: #444;
     text-decoration: none;
-    font-size: 0.95rem;
-    transition: color 0.2s ease;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: inline-block;
+    padding: 3px 0;
   }
 
   .mega-menu__links a:hover {
-    color: var(--header-primary-color);
+    color: #ff6b9d;
+    transform: translateX(5px);
   }
 
   .mega-menu__image {
@@ -405,18 +462,20 @@
   /* Cart Badge */
   .cart-count-bubble {
     position: absolute;
-    top: -5px;
-    right: -8px;
-    background: var(--header-primary-color);
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 600;
-    width: 18px;
+    top: -2px;
+    right: -6px;
+    background: #fff;
+    color: #e84a7f;
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 18px;
     height: 18px;
-    border-radius: 50%;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   /* Header Contact Info */
@@ -752,6 +811,17 @@
   </nav>
 
   <div class="header__icons{% if section.settings.enable_customer_avatar %} header-account--logged-out{% endif %}">
+    <!-- Inline Search Form (Desktop) -->
+    <div class="header-search-form">
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <input type="search" name="q" placeholder="Search products..." autocomplete="off">
+        <button type="submit" aria-label="Search">
+          {% render 'icon-search' %}
+        </button>
+      </form>
+    </div>
+
+    <!-- Search Toggle (Mobile) -->
     <div class="desktop-cart-wrapper">
       <button class="header__icon header__icon--search link link--text focus-inset" id="search-toggle">
         {% render 'icon-search' %}
