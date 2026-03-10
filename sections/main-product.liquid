@@ -238,6 +238,481 @@
     font-size: 1.4rem;
   }
 }
+
+/* ========== T-P001: Sticky Add to Cart Bar ========== */
+.sticky-add-to-cart {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.sticky-add-to-cart.visible {
+  transform: translateY(0);
+}
+
+.sticky-add-to-cart__product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sticky-add-to-cart__image {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #f5f5f5;
+}
+
+.sticky-add-to-cart__info h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.sticky-add-to-cart__price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e84a7f;
+}
+
+.sticky-add-to-cart__actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sticky-add-to-cart__qty {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sticky-add-to-cart__qty button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.sticky-add-to-cart__qty span {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.sticky-add-to-cart__btn {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sticky-add-to-cart__btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+@media (max-width: 768px) {
+  .sticky-add-to-cart {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 15px;
+  }
+  .sticky-add-to-cart__product {
+    width: 100%;
+  }
+  .sticky-add-to-cart__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* ========== T-P002: Size Guide Modal ========== */
+.size-guide-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #666;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-bottom: 15px;
+  background: none;
+  border: none;
+}
+
+.size-guide-trigger:hover {
+  color: #e84a7f;
+}
+
+.size-guide-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+.size-guide-modal.active {
+  display: flex;
+}
+
+.size-guide-modal__content {
+  background: white;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 30px;
+  position: relative;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.size-guide-modal__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.size-guide-modal h2 {
+  margin: 0 0 20px;
+  color: #333;
+}
+
+.size-guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+.size-guide-table th,
+.size-guide-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+.size-guide-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.size-guide-table td {
+  color: #666;
+}
+
+.size-guide-note {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 15px;
+}
+
+/* ========== T-P003: Real-time Inventory Counter ========== */
+.inventory-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+  padding: 12px 15px;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+
+.inventory-counter__label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.inventory-counter__stock {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.inventory-counter__stock.low-stock {
+  color: #e84a7f;
+}
+
+.inventory-counter__stock.in-stock {
+  color: #4CAF50;
+}
+
+.inventory-counter__bar {
+  flex: 1;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.inventory-counter__bar-fill {
+  height: 100%;
+  background: #4CAF50;
+  transition: width 0.3s ease;
+}
+
+.inventory-counter__bar-fill.low {
+  background: #e84a7f;
+}
+
+/* ========== T-P004: Bundle Savings Calculator ========== */
+.bundle-savings {
+  background: linear-gradient(135deg, #fff5f8, #fff0f5);
+  border: 2px dashed #ff6b9d;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.bundle-savings__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bundle-savings__items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bundle-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bundle-item:hover {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.bundle-item input {
+  width: 18px;
+  height: 18px;
+  accent-color: #e84a7f;
+}
+
+.bundle-item__image {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #f5f5f5;
+}
+
+.bundle-item__info {
+  flex: 1;
+}
+
+.bundle-item__name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+.bundle-item__price {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.bundle-savings__total {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.bundle-savings__subtotal,
+.bundle-savings__discount,
+.bundle-savings__final {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.bundle-savings__subtotal {
+  color: #666;
+}
+
+.bundle-savings__discount {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+.bundle-savings__final {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.bundle-savings__btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bundle-savings__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+/* ========== T-P005: Frequently Bought Together ========== */
+.frequently-bought {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+}
+
+.frequently-bought__title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.frequently-bought__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.fbt-product {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fbt-product:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+
+.fbt-product input {
+  margin-bottom: 10px;
+}
+
+.fbt-product__image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #f5f5f5;
+}
+
+.fbt-product__name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fbt-product__price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e84a7f;
+}
+
+.fbt-total {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 10px;
+}
+
+.fbt-total__price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fbt-total__label {
+  font-size: 1rem;
+  color: #666;
+}
+
+.fbt-total__amount {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.fbt-add-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fbt-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
 </style>
 
 <div class="product product--large product--{{ section.settings.media_position }} page-width">
@@ -279,6 +754,14 @@
       {%- endif -%}
     </div>
 
+    <!-- T-P002: Size Guide Trigger -->
+    <button class="size-guide-trigger" onclick="openSizeGuide()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
+      </svg>
+      Size Guide
+    </button>
+
     {%- form 'product', product, id: 'product-form', class: 'product-form' -%}
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
@@ -301,6 +784,24 @@
           </div>
         {%- endfor -%}
       {%- endif -%}
+
+      <!-- T-P003: Real-time Inventory Counter -->
+      {%- assign inventory_qty = product.selected_or_first_available_variant.inventory_quantity | default: 10 -%}
+      <div class="inventory-counter" data-inventory="{{ inventory_qty }}">
+        <span class="inventory-counter__label">Availability:</span>
+        <span class="inventory-counter__stock{% if inventory_qty <= 5 %} low-stock{% else %} in-stock{% endif %}">
+          {%- if inventory_qty > 10 -%}
+            In Stock
+          {%- elsif inventory_qty > 0 -%}
+            Only {{ inventory_qty }} left!
+          {%- else -%}
+            Out of Stock
+          {%- endif -%}
+        </span>
+        <div class="inventory-counter__bar">
+          <div class="inventory-counter__bar-fill{% if inventory_qty <= 5 %} low{% endif %}" style="width: {{ inventory_qty | times: 10 | at_most: 100 }}%"></div>
+        </div>
+      </div>
 
       <!-- Quantity Selector -->
       <div class="product__quantity">
@@ -377,6 +878,207 @@
         <div class="rte">{{ product.description }}</div>
       </div>
     {%- endif -%}
+
+    <!-- T-P004: Bundle Savings Calculator -->
+    {%- assign related_products = collections['all'].products | slice: 0, 3 -%}
+    {%- if related_products.size > 0 -%}
+    <div class="bundle-savings">
+      <div class="bundle-savings__title">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        Complete the Look - Save 10%!
+      </div>
+      <div class="bundle-savings__items">
+        <!-- Current Product -->
+        <label class="bundle-item">
+          <input type="checkbox" checked data-price="{{ product.price | money_without_currency }}" data-id="{{ product.selected_or_first_available_variant.id }}" onchange="updateBundlePrice()">
+          {%- if product.featured_media != blank -%}
+            <img src="{{ product.featured_media | image_url: width: 100 }}" alt="{{ product.title }}" class="bundle-item__image">
+          {%- else -%}
+            <div class="bundle-item__image"></div>
+          {%- endif -%}
+          <div class="bundle-item__info">
+            <div class="bundle-item__name">{{ product.title }}</div>
+            <div class="bundle-item__price">{{ product.price | money }}</div>
+          </div>
+        </label>
+        
+        <!-- Sample Related Products (would come from metafields or collections in production) -->
+        <label class="bundle-item">
+          <input type="checkbox" data-price="299" data-id="0" onchange="updateBundlePrice()">
+          <div class="bundle-item__image" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #999;">Add-on</div>
+          <div class="bundle-item__info">
+            <div class="bundle-item__name">Kids Socks Set</div>
+            <div class="bundle-item__price">₹299</div>
+          </div>
+        </label>
+        
+        <label class="bundle-item">
+          <input type="checkbox" data-price="199" data-id="0" onchange="updateBundlePrice()">
+          <div class="bundle-item__image" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #999;">Add-on</div>
+          <div class="bundle-item__info">
+            <div class="bundle-item__name">Gift Wrap</div>
+            <div class="bundle-item__price">₹199</div>
+          </div>
+        </label>
+      </div>
+      <div class="bundle-savings__total">
+        <div class="bundle-savings__subtotal">
+          <span>Subtotal:</span>
+          <span id="bundle-subtotal">{{ product.price | money }}</span>
+        </div>
+        <div class="bundle-savings__discount">
+          <span>Bundle Discount (10%):</span>
+          <span id="bundle-discount">-₹0</span>
+        </div>
+        <div class="bundle-savings__final">
+          <span>Bundle Total:</span>
+          <span id="bundle-total">{{ product.price | money }}</span>
+        </div>
+        <button type="button" class="bundle-savings__btn" onclick="addBundleToCart()">Add Bundle to Cart</button>
+      </div>
+    </div>
+    {%- endif -%}
+
+    <!-- T-P005: Frequently Bought Together -->
+    <div class="frequently-bought">
+      <h3 class="frequently-bought__title">Frequently Bought Together</h3>
+      <div class="frequently-bought__items">
+        <!-- Sample FBT products -->
+        <label class="fbt-product">
+          <input type="checkbox" checked data-price="199">
+          <img src="https://placehold.co/150x150/f5f5f5/999?text=Item" alt="Accessory" class="fbt-product__image">
+          <div class="fbt-product__name">Matching Hair Accessory</div>
+          <div class="fbt-product__price">₹199</div>
+        </label>
+        
+        <label class="fbt-product">
+          <input type="checkbox" data-price="149">
+          <img src="https://placehold.co/150x150/f5f5f5/999?text=Item" alt="Care Kit" class="fbt-product__image">
+          <div class="fbt-product__name">Premium Care Kit</div>
+          <div class="fbt-product__price">₹149</div>
+        </label>
+        
+        <label class="fbt-product">
+          <input type="checkbox" data-price="99">
+          <img src="https://placehold.co/150x150/f5f5f5/999?text=Item" alt="Sticker Set" class="fbt-product__image">
+          <div class="fbt-product__name">Fun Sticker Set</div>
+          <div class="fbt-product__price">₹99</div>
+        </label>
+      </div>
+      <div class="fbt-total">
+        <div class="fbt-total__price">
+          <span class="fbt-total__label">Total (with selected):</span>
+          <span class="fbt-total__amount" id="fbt-total">{{ product.price | plus: 199 | money }}</span>
+        </div>
+        <button type="button" class="fbt-add-btn" onclick="addFBTToCart()">Add Selected to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- T-P002: Size Guide Modal -->
+<div class="size-guide-modal" id="sizeGuideModal">
+  <div class="size-guide-modal__content">
+    <button class="size-guide-modal__close" onclick="closeSizeGuide()">&times;</button>
+    <h2>Size Guide</h2>
+    <p>Measure your child to find the perfect fit. Sizes are in inches.</p>
+    
+    <table class="size-guide-table">
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th>Age</th>
+          <th>Chest</th>
+          <th>Length</th>
+          <th>Waist</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2-3Y</td>
+          <td>2-3 years</td>
+          <td>21"</td>
+          <td>14"</td>
+          <td>18"</td>
+        </tr>
+        <tr>
+          <td>3-4Y</td>
+          <td>3-4 years</td>
+          <td>22"</td>
+          <td>15"</td>
+          <td>19"</td>
+        </tr>
+        <tr>
+          <td>4-5Y</td>
+          <td>4-5 years</td>
+          <td>23"</td>
+          <td>16"</td>
+          <td>20"</td>
+        </tr>
+        <tr>
+          <td>5-6Y</td>
+          <td>5-6 years</td>
+          <td>24"</td>
+          <td>17"</td>
+          <td>21"</td>
+        </tr>
+        <tr>
+          <td>6-7Y</td>
+          <td>6-7 years</td>
+          <td>25"</td>
+          <td>18"</td>
+          <td>22"</td>
+        </tr>
+        <tr>
+          <td>7-8Y</td>
+          <td>7-8 years</td>
+          <td>26"</td>
+          <td>19"</td>
+          <td>23"</td>
+        </tr>
+        <tr>
+          <td>8-9Y</td>
+          <td>8-9 years</td>
+          <td>27"</td>
+          <td>20"</td>
+          <td>24"</td>
+        </tr>
+        <tr>
+          <td>9-10Y</td>
+          <td>9-10 years</td>
+          <td>28"</td>
+          <td>21"</td>
+          <td>25"</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p class="size-guide-note">Note: Measurements may vary by ±0.5 inches. For between sizes, we recommend sizing up for comfort.</p>
+  </div>
+</div>
+
+<!-- T-P001: Sticky Add to Cart Bar -->
+<div class="sticky-add-to-cart" id="stickyAddToCart">
+  <div class="sticky-add-to-cart__product">
+    {%- if product.featured_media != blank -%}
+      <img src="{{ product.featured_media | image_url: width: 100 }}" alt="{{ product.title }}" class="sticky-add-to-cart__image">
+    {%- else -%}
+      <div class="sticky-add-to-cart__image"></div>
+    {%- endif -%}
+    <div class="sticky-add-to-cart__info">
+      <h4>{{ product.title }}</h4>
+      <span class="sticky-add-to-cart__price">{{ product.price | money }}</span>
+    </div>
+  </div>
+  <div class="sticky-add-to-cart__actions">
+    <div class="sticky-add-to-cart__qty">
+      <button type="button" onclick="updateStickyQuantity(-1)">-</button>
+      <span id="sticky-qty">1</span>
+      <button type="button" onclick="updateStickyQuantity(1)">+</button>
+    </div>
+    <button type="button" class="sticky-add-to-cart__btn" onclick="stickyAddToCart()">Add to Cart</button>
   </div>
 </div>
 
@@ -417,6 +1119,161 @@ function updateQuantity(change) {
   let value = parseInt(input.value) + change;
   if (value < 1) value = 1;
   input.value = value;
+  
+  // Sync with sticky bar
+  document.getElementById('sticky-qty').textContent = value;
+}
+
+// ========== T-P001: Sticky Add to Cart Bar Functions ==========
+let stickyQty = 1;
+
+function updateStickyQuantity(change) {
+  stickyQty += change;
+  if (stickyQty < 1) stickyQty = 1;
+  document.getElementById('sticky-qty').textContent = stickyQty;
+}
+
+function stickyAddToCart() {
+  const form = document.getElementById('product-form');
+  const qtyInput = form.querySelector('input[name="quantity"]');
+  qtyInput.value = stickyQty;
+  
+  // Submit the form
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      items: [{ id: form.querySelector('input[name="id"]').value, quantity: stickyQty }]
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Added to cart!');
+    // Optionally update cart count
+    if (typeof updateCartCount === 'function') updateCartCount();
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+// Show/hide sticky bar on scroll
+let lastScroll = 0;
+window.addEventListener('scroll', function() {
+  const stickyBar = document.getElementById('stickyAddToCart');
+  const currentScroll = window.pageYOffset;
+  
+  if (currentScroll > 500) {
+    stickyBar.classList.add('visible');
+  } else {
+    stickyBar.classList.remove('visible');
+  }
+  
+  lastScroll = currentScroll;
+});
+
+// ========== T-P002: Size Guide Modal Functions ==========
+function openSizeGuide() {
+  document.getElementById('sizeGuideModal').classList.add('active');
+}
+
+function closeSizeGuide() {
+  document.getElementById('sizeGuideModal').classList.remove('active');
+}
+
+// Close modal on outside click
+document.getElementById('sizeGuideModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeSizeGuide();
+  }
+});
+
+// ========== T-P003: Real-time Inventory Counter ==========
+// Inventory updates would come from Shopify's inventory API
+// This is a client-side simulation
+
+// ========== T-P004: Bundle Savings Calculator Functions ==========
+function updateBundlePrice() {
+  let total = 0;
+  const checkboxes = document.querySelectorAll('.bundle-savings__items input[type="checkbox"]');
+  
+  checkboxes.forEach(cb => {
+    if (cb.checked) {
+      total += parseFloat(cb.dataset.price) || 0;
+    }
+  });
+  
+  const discount = total * 0.10;
+  const final = total - discount;
+  
+  document.getElementById('bundle-subtotal').textContent = '₹' + total.toFixed(0);
+  document.getElementById('bundle-discount').textContent = '-₹' + discount.toFixed(0);
+  document.getElementById('bundle-total').textContent = '₹' + final.toFixed(0);
+}
+
+function addBundleToCart() {
+  const checkboxes = document.querySelectorAll('.bundle-savings__items input[type="checkbox"]:checked');
+  const items = [];
+  
+  checkboxes.forEach(cb => {
+    if (cb.dataset.id && cb.dataset.id !== '0') {
+      items.push({ id: parseInt(cb.dataset.id), quantity: 1 });
+    }
+  });
+  
+  if (items.length === 0) {
+    alert('Please select at least the main product');
+    return;
+  }
+  
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: items })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Bundle added to cart!');
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+// ========== T-P005: Frequently Bought Together Functions ==========
+document.querySelectorAll('.fbt-product input').forEach(cb => {
+  cb.addEventListener('change', updateFBTPrice);
+});
+
+function updateFBTPrice() {
+  let total = {{ product.price | money_without_currency | default: 0 }};
+  
+  document.querySelectorAll('.fbt-product input:checked').forEach(cb => {
+    total += parseFloat(cb.dataset.price) || 0;
+  });
+  
+  document.getElementById('fbt-total').textContent = '₹' + total.toFixed(0);
+}
+
+function addFBTToCart() {
+  const items = [];
+  
+  // Add main product
+  const form = document.getElementById('product-form');
+  items.push({ id: parseInt(form.querySelector('input[name="id"]').value), quantity: 1 });
+  
+  // Add selected FBT products (in production, these would have variant IDs)
+  document.querySelectorAll('.fbt-product input:checked').forEach(cb => {
+    // In production, you'd have actual variant IDs from metafields
+    // For demo, we'll just alert the user
+  });
+  
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: items })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Added to cart!');
+  })
+  .catch(error => console.error('Error:', error));
 }
 </script>
 
