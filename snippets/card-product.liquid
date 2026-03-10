@@ -74,11 +74,26 @@
   </div>
 
   <div class="card-product__info">
+    <!-- Vendor -->
+    {%- if card_product.vendor != blank -%}
+      <div class="card-product__vendor">{{ card_product.vendor }}</div>
+    {%- endif -%}
+
     <h3 class="card-product__title">
       <a href="{{ card_product.url }}" class="full-unstyled-link">
         {{ card_product.title | escape }}
       </a>
     </h3>
+
+    <!-- Rating Stars (mock - can integrate with Judge.me or Yotpo) -->
+    <div class="card-product__rating">
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <span>(42)</span>
+    </div>
 
     <div class="card-product__price">
       {%- render 'price', product: card_product, use_variant: true -%}
@@ -246,6 +261,36 @@
     display: flex;
     flex-direction: column;
     position: relative;
+  }
+
+  /* Product Rating Stars */
+  .card-product__rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .card-product__rating svg {
+    width: 14px;
+    height: 14px;
+    fill: #ffc107;
+    stroke: #ffc107;
+  }
+
+  .card-product__rating span {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  /* Product Vendor */
+  .card-product__vendor {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
   }
 
   .card-product__title {
