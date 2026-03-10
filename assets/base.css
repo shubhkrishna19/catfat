@@ -676,3 +676,25 @@ img {
   height: 20px;
   width: 40%;
 }
+
+/* Skeleton Card */
+.skeleton-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 15px;
+}
+
+.skeleton-card__content {
+  padding: 15px 0;
+}
+
+/* Loading State */
+.loading .skeleton-card {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}

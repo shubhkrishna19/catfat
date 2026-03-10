@@ -153,23 +153,49 @@
     <div class="collection-filters">
       <div class="filter-heading">Filter by Category:</div>
       <div class="filter-options">
-        <a href="{{ collection.url }}" class="filter-btn{% unless request.path == collection.url and request.query_string == "" %} active{% endunless %}">All</a>
+        <button class="filter-btn active" data-filter="all">All</button>
         {% for cat in unique_categories %}
-          <a href="{{ collection.url }}?filter.p.m.custom.category={{ cat | url_encode }}" class="filter-btn">{{ cat }}</a>
+          <button class="filter-btn" data-filter="{{ cat | handle }}">{{ cat }}</button>
         {% endfor %}
       </div>
     </div>
     {% endif %}
 
     <div class="collection-grid">
-      <ul class="collection__grid" role="list">
+      <ul class="collection__grid" role="list" id="product-grid">
         {%- for product in collection.products -%}
-          <li class="grid__item">
+          <li class="grid__item" data-category="{{ product.type | handle }}">
             {% render 'card-product', card_product: product %}
           </li>
         {%- endfor -%}
       </ul>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const products = document.querySelectorAll('#product-grid .grid__item');
+        
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const filter = this.dataset.filter;
+            
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter products
+            products.forEach(product => {
+              if (filter === 'all' || product.dataset.category === filter) {
+                product.style.display = '';
+              } else {
+                product.style.display = 'none';
+              }
+            });
+          });
+        });
+      });
+    </script>
 
   {%- else -%}
     <div class="collection-empty">
