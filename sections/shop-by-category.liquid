@@ -1,0 +1,540 @@
+<style>
+.shop-by-category {
+  padding: 60px 0;
+  background: #fff9fb;
+}
+
+.shop-by-category .section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.shop-by-category .section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e84a7f;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.shop-by-category .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b9d, #e84a7f);
+  border-radius: 2px;
+}
+
+.shop-by-category .category-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .shop-by-category .category-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-by-category .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  .shop-by-category .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-by-category .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.shop-by-category .category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 15px;
+  background: #fff;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.shop-by-category .category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(232, 74, 127, 0.15);
+}
+
+.shop-by-category .category-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b9d20, #e84a7f20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  transition: transform 0.3s;
+}
+
+.shop-by-category .category-card:hover .category-icon {
+  transform: scale(1.1);
+}
+
+.shop-by-category .category-icon svg,
+.shop-by-category .category-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.shop-by-category .category-icon svg {
+  color: #e84a7f;
+}
+
+.shop-by-category .category-name {
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.shop-by-category .category-count {
+  color: #888;
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
+
+.shop-by-category .category-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+</style>
+
+<div class="shop-by-category section">
+  <div class="page-width">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="category-grid">
+      {%- for i in (1..12) -%}
+        {%- assign cat_image = 'cat_image_' | append: i -%}
+        {%- assign cat_icon = 'cat_icon_' | append: i -%}
+        {%- assign cat_name = 'cat_name_' | append: i -%}
+        {%- assign cat_link = 'cat_link_' | append: i -%}
+        
+        <a href="{{ section.settings[cat_link] }}" class="category-card">
+          {%- if section.settings[cat_image] != blank -%}
+            <img src="{{ section.settings[cat_image] | img_url: '80x80' }}" 
+                 alt="{{ section.settings[cat_name] }}"
+                 class="category-image"
+                 loading="lazy">
+          {%- else -%}
+            <div class="category-icon">
+              {%- case section.settings[cat_icon] -%}
+                {%- when 'lunch-box' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                {%- when 'bottle' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                {%- when 'bag' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                  </svg>
+                {%- when 'snack' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                {%- else -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+              {%- endcase -%}
+            </div>
+          {%- endif -%}
+          
+          <h3 class="category-name">{{ section.settings[cat_name] }}</h3>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Category",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Shop by Category",
+      "label": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Categories"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_1",
+      "label": "Category 1 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_1",
+      "label": "Category 1 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_1",
+      "default": "Lunch Boxes",
+      "label": "Category 1 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_1",
+      "label": "Category 1 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_2",
+      "label": "Category 2 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_2",
+      "label": "Category 2 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_2",
+      "default": "Water Bottles",
+      "label": "Category 2 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_2",
+      "label": "Category 2 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_3",
+      "label": "Category 3 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_3",
+      "label": "Category 3 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_3",
+      "default": "School Bags",
+      "label": "Category 3 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_3",
+      "label": "Category 3 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_4",
+      "label": "Category 4 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_4",
+      "label": "Category 4 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "snack", "label": "Snack"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_4",
+      "default": "Snack Boxes",
+      "label": "Category 4 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_4",
+      "label": "Category 4 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_5",
+      "label": "Category 5 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_5",
+      "label": "Category 5 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_5",
+      "default": "Thermos",
+      "label": "Category 5 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_5",
+      "label": "Category 5 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_6",
+      "label": "Category 6 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_6",
+      "label": "Category 6 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_6",
+      "default": "Accessories",
+      "label": "Category 6 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_6",
+      "label": "Category 6 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_7",
+      "label": "Category 7 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_7",
+      "label": "Category 7 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_7",
+      "default": "Set Combo",
+      "label": "Category 7 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_7",
+      "label": "Category 7 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_8",
+      "label": "Category 8 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_8",
+      "label": "Category 8 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_8",
+      "default": "Boys",
+      "label": "Category 8 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_8",
+      "label": "Category 8 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_9",
+      "label": "Category 9 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_9",
+      "label": "Category 9 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_9",
+      "default": "Girls",
+      "label": "Category 9 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_9",
+      "label": "Category 9 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_10",
+      "label": "Category 10 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_10",
+      "label": "Category 10 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_10",
+      "default": "Insulated",
+      "label": "Category 10 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_10",
+      "label": "Category 10 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_11",
+      "label": "Category 11 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_11",
+      "label": "Category 11 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_11",
+      "default": "Microwave Safe",
+      "label": "Category 11 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_11",
+      "label": "Category 11 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_12",
+      "label": "Category 12 Image"
+    },
+    {
+      "type": "select",
+      "id": "cat_icon_12",
+      "label": "Category 12 Icon",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "lunch-box", "label": "Lunch Box"},
+        {"value": "bottle", "label": "Bottle"},
+        {"value": "bag", "label": "Bag"},
+        {"value": "snack", "label": "Snack"}
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cat_name_12",
+      "default": "View All",
+      "label": "Category 12 Name"
+    },
+    {
+      "type": "url",
+      "id": "cat_link_12",
+      "label": "Category 12 Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Category"
+    }
+  ]
+}
+{% endschema %}

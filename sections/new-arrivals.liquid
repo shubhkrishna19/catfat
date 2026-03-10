@@ -1,0 +1,231 @@
+<style>
+.new-arrivals {
+  padding: 60px 0;
+  background: #fff;
+}
+
+.new-arrivals .section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.new-arrivals .section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e84a7f;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.new-arrivals .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b9d, #e84a7f);
+  border-radius: 2px;
+}
+
+.new-arrivals .carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 0 50px;
+}
+
+.new-arrivals .carousel-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 10px 0;
+}
+
+.new-arrivals .carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.new-arrivals .carousel-card {
+  flex: 0 0 calc(25% - 15px);
+  min-width: 250px;
+}
+
+@media (max-width: 1024px) {
+  .new-arrivals .carousel-card {
+    flex: 0 0 calc(33.333% - 14px);
+  }
+}
+
+@media (max-width: 768px) {
+  .new-arrivals .carousel-card {
+    flex: 0 0 calc(50% - 10px);
+    min-width: 180px;
+  }
+  .new-arrivals .carousel-wrapper {
+    padding: 0 40px;
+  }
+  .new-arrivals .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+.new-arrivals .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #e84a7f;
+  color: #e84a7f;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-arrivals .carousel-btn:hover {
+  background: #e84a7f;
+  color: #fff;
+}
+
+.new-arrivals .carousel-btn.prev {
+  left: 5px;
+}
+
+.new-arrivals .carousel-btn.next {
+  right: 5px;
+}
+
+.new-arrivals .view-all-link {
+  text-align: center;
+  margin-top: 35px;
+}
+
+.new-arrivals .view-all-link a {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.new-arrivals .view-all-link a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(232, 74, 127, 0.3);
+}
+</style>
+
+<div class="new-arrivals section">
+  <div class="page-width">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+      <div class="carousel-track" id="new-arrivals-track">
+        {%- assign collection = collections[section.settings.collection] -%}
+        {%- if collection == blank or collection.products == nil or collection.products.size == 0 -%}
+          {%- for i in (1..8) -%}
+            <div class="carousel-card">
+              {% render 'card-product', placeholder: true, index: forloop.index %}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for product in collection.products limit: section.settings.products_to_show -%}
+            <div class="carousel-card">
+              {% render 'card-product', card_product: product %}
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+    </div>
+
+    {%- if section.settings.show_view_all and collection != blank -%}
+      <div class="view-all-link">
+        <a href="{{ collection.url }}">{{ section.settings.view_all_text }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+(function() {
+  const wrapper = document.querySelector('.new-arrivals .carousel-wrapper');
+  if (!wrapper) return;
+  
+  const track = wrapper.querySelector('.carousel-track');
+  const prevBtn = wrapper.querySelector('.carousel-btn.prev');
+  const nextBtn = wrapper.querySelector('.carousel-btn.next');
+  const scrollAmount = 300;
+  
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "New Arrivals Carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "New Arrivals",
+      "label": "Heading"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show View All button"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "View All New Arrivals",
+      "label": "View All Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Arrivals Carousel"
+    }
+  ]
+}
+{% endschema %}

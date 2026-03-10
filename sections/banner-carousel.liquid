@@ -1,0 +1,551 @@
+<style>
+.banner-carousel {
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.banner-carousel .slides-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.banner-carousel .slide {
+  min-width: 100%;
+  position: relative;
+}
+
+.banner-carousel .slide-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.banner-carousel .slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.banner-carousel .slide-content {
+  text-align: center;
+  color: #fff;
+  max-width: 700px;
+  padding: 20px;
+}
+
+.banner-carousel .slide-subheading {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  opacity: 0.95;
+}
+
+.banner-carousel .slide-heading {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 15px;
+  line-height: 1.2;
+}
+
+.banner-carousel .slide-text {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  opacity: 0.95;
+}
+
+.banner-carousel .slide-cta {
+  display: inline-block;
+  padding: 14px 40px;
+  background: #fff;
+  color: #333;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.banner-carousel .slide-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.banner-carousel .slide-cta.primary {
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: #fff;
+}
+
+.banner-carousel .nav-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.banner-carousel .nav-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.banner-carousel .nav-dot.active {
+  background: #fff;
+  transform: scale(1.2);
+}
+
+.banner-carousel .nav-arrows {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.banner-carousel .nav-arrow {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: all 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.banner-carousel .nav-arrow:hover {
+  background: #fff;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .banner-carousel .slide-image {
+    height: 350px;
+  }
+  
+  .banner-carousel .slide-heading {
+    font-size: 2rem;
+  }
+  
+  .banner-carousel .slide-text {
+    font-size: 1rem;
+  }
+  
+  .banner-carousel .nav-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+</style>
+
+<div class="banner-carousel" data-autoplay="{{ section.settings.auto_rotate }}" data-speed="{{ section.settings.change_slides_speed | times: 1000 }}">
+  <div class="slides-wrapper" id="banner-carousel-track">
+    {%- for i in (1..5) -%}
+      {%- assign slide_image = 'slide_image_' | append: i -%}
+      {%- assign slide_subheading = 'slide_subheading_' | append: i -%}
+      {%- assign slide_heading = 'slide_heading_' | append: i -%}
+      {%- assign slide_text = 'slide_text_' | append: i -%}
+      {%- assign slide_cta_label = 'slide_cta_label_' | append: i -%}
+      {%- assign slide_cta_link = 'slide_cta_link_' | append: i -%}
+      {%- assign slide_cta_style = 'slide_cta_style_' | append: i -%}
+      
+      {%- if section.settings[slide_image] != blank or section.settings[slide_heading] != blank -%}
+        <div class="slide">
+          {%- if section.settings[slide_image] != blank -%}
+            <img src="{{ section.settings[slide_image] | img_url: '1600x600' }}" 
+                 alt="{{ section.settings[slide_heading] }}"
+                 class="slide-image"
+                 loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+          {%- else -%}
+            <div class="slide-image" style="background: linear-gradient(135deg, #ff6b9d, #e84a7f);"></div>
+          {%- endif -%}
+          
+          <div class="slide-overlay">
+            <div class="slide-content">
+              {%- if section.settings[slide_subheading] != blank -%}
+                <p class="slide-subheading">{{ section.settings[slide_subheading] }}</p>
+              {%- endif -%}
+              
+              {%- if section.settings[slide_heading] != blank -%}
+                <h2 class="slide-heading">{{ section.settings[slide_heading] }}</h2>
+              {%- endif -%}
+              
+              {%- if section.settings[slide_text] != blank -%}
+                <p class="slide-text">{{ section.settings[slide_text] }}</p>
+              {%- endif -%}
+              
+              {%- if section.settings[slide_cta_link] != blank and section.settings[slide_cta_label] != blank -%}
+                <a href="{{ section.settings[slide_cta_link] }}" 
+                   class="slide-cta {% if section.settings[slide_cta_style] == 'primary' %}primary{% endif %}">
+                  {{ section.settings[slide_cta_label] }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  
+  {%- if section.settings.show_navigation -%}
+  <div class="nav-dots" id="banner-carousel-dots"></div>
+  
+  <div class="nav-arrows">
+    <button class="nav-arrow prev" aria-label="Previous slide">&#8249;</button>
+    <button class="nav-arrow next" aria-label="Next slide">&#8250;</button>
+  </div>
+  {%- endif -%}
+</div>
+
+<script>
+(function() {
+  const carousel = document.querySelector('.banner-carousel');
+  if (!carousel) return;
+  
+  const track = carousel.querySelector('.slides-wrapper');
+  const slides = carousel.querySelectorAll('.slide');
+  const dotsContainer = carousel.querySelector('.nav-dots');
+  const prevBtn = carousel.querySelector('.nav-arrow.prev');
+  const nextBtn = carousel.querySelector('.nav-arrow.next');
+  const autoplay = carousel.dataset.autoplay === 'true';
+  const speed = parseInt(carousel.dataset.speed) || 5000;
+  
+  let currentSlide = 0;
+  let autoplayInterval;
+  
+  // Create dots
+  slides.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (index === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+    dot.addEventListener('click', () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+  
+  const dots = carousel.querySelectorAll('.nav-dot');
+  
+  function goToSlide(index) {
+    currentSlide = index;
+    if (currentSlide >= slides.length) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = slides.length - 1;
+    
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentSlide);
+    });
+  }
+  
+  function nextSlide() {
+    goToSlide(currentSlide + 1);
+  }
+  
+  function prevSlide() {
+    goToSlide(currentSlide - 1);
+  }
+  
+  prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetAutoplay();
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetAutoplay();
+  });
+  
+  function startAutoplay() {
+    if (autoplay) {
+      autoplayInterval = setInterval(nextSlide, speed);
+    }
+  }
+  
+  function resetAutoplay() {
+    if (autoplay) {
+      clearInterval(autoplayInterval);
+      startAutoplay();
+    }
+  }
+  
+  startAutoplay();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Banner Carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "default": true,
+      "label": "Auto rotate"
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "label": "Rotation speed (seconds)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "default": true,
+      "label": "Show navigation"
+    },
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_subheading_1",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "slide_heading_1",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "slide_text_1",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "slide_cta_label_1",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "slide_cta_link_1",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "slide_cta_style_1",
+      "label": "Button Style",
+      "options": [
+        {"value": "primary", "label": "Primary"},
+        {"value": "secondary", "label": "Secondary"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_subheading_2",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "slide_heading_2",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "slide_text_2",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "slide_cta_label_2",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "slide_cta_link_2",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "slide_cta_style_2",
+      "label": "Button Style",
+      "options": [
+        {"value": "primary", "label": "Primary"},
+        {"value": "secondary", "label": "Secondary"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Slide 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_subheading_3",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "slide_heading_3",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "slide_text_3",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "slide_cta_label_3",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "slide_cta_link_3",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "slide_cta_style_3",
+      "label": "Button Style",
+      "options": [
+        {"value": "primary", "label": "Primary"},
+        {"value": "secondary", "label": "Secondary"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Slide 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_4",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_subheading_4",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "slide_heading_4",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "slide_text_4",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "slide_cta_label_4",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "slide_cta_link_4",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "slide_cta_style_4",
+      "label": "Button Style",
+      "options": [
+        {"value": "primary", "label": "Primary"},
+        {"value": "secondary", "label": "Secondary"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Slide 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_5",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_subheading_5",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "slide_heading_5",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "slide_text_5",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "slide_cta_label_5",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "slide_cta_link_5",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "slide_cta_style_5",
+      "label": "Button Style",
+      "options": [
+        {"value": "primary", "label": "Primary"},
+        {"value": "secondary", "label": "Secondary"}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Carousel"
+    }
+  ]
+}
+{% endschema %}

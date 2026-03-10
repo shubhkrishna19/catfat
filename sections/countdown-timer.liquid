@@ -1,0 +1,195 @@
+<style>
+.countdown-timer {
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  padding: 40px 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.countdown-timer .sale-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.countdown-timer .sale-subheading {
+  font-size: 1rem;
+  opacity: 0.95;
+  margin-bottom: 25px;
+}
+
+.countdown-timer .timer-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.countdown-timer .timer-block {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 15px 20px;
+  min-width: 80px;
+}
+
+.countdown-timer .timer-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.countdown-timer .timer-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  margin-top: 5px;
+}
+
+.countdown-timer .cta-button {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 40px;
+  background: #fff;
+  color: #e84a7f;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.countdown-timer .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .countdown-timer .timer-block {
+    min-width: 65px;
+    padding: 12px 15px;
+  }
+  .countdown-timer .timer-number {
+    font-size: 1.8rem;
+  }
+}
+</style>
+
+{%- assign end_date = section.settings.end_date -%}
+{%- assign end_time = end_date | date: "%Y-%m-%d %H:%M:%S" -%}
+
+<div class="countdown-timer" data-end-time="{{ end_time }}">
+  {%- if section.settings.heading != blank -%}
+    <div class="sale-heading">{{ section.settings.heading }}</div>
+  {%- endif -%}
+  {%- if section.settings.subheading != blank -%}
+    <div class="sale-subheading">{{ section.settings.subheading }}</div>
+  {%- endif -%}
+
+  <div class="timer-wrapper">
+    <div class="timer-block">
+      <div class="timer-number" id="days">00</div>
+      <div class="timer-label">Days</div>
+    </div>
+    <div class="timer-block">
+      <div class="timer-number" id="hours">00</div>
+      <div class="timer-label">Hours</div>
+    </div>
+    <div class="timer-block">
+      <div class="timer-number" id="minutes">00</div>
+      <div class="timer-label">Minutes</div>
+    </div>
+    <div class="timer-block">
+      <div class="timer-number" id="seconds">00</div>
+      <div class="timer-label">Seconds</div>
+    </div>
+  </div>
+
+  {%- if section.settings.cta_link != blank -%}
+    <a href="{{ section.settings.cta_link }}" class="cta-button">{{ section.settings.cta_label }}</a>
+  {%- endif -%}
+</div>
+
+<script>
+(function() {
+  const timerEl = document.querySelector('.countdown-timer');
+  if (!timerEl) return;
+  
+  const endTime = new Date(timerEl.dataset.endTime).getTime();
+  
+  function updateTimer() {
+    const now = new Date().getTime();
+    const distance = endTime - now;
+    
+    if (distance < 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+  
+  updateTimer();
+  setInterval(updateTimer, 1000);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Countdown Timer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Flash Sale Ends In",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "default": "Grab the best deals before they're gone!",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "default": "2026-12-31 23:59:59",
+      "label": "End Date (YYYY-MM-DD HH:MM:SS)"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "default": "Shop Now",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Timer"
+    }
+  ]
+}
+{% endschema %}

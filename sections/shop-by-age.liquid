@@ -1,0 +1,369 @@
+<style>
+.shop-by-age {
+  padding: 60px 0;
+  background: #fff;
+}
+
+.shop-by-age .section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.shop-by-age .section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e84a7f;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.shop-by-age .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b9d, #e84a7f);
+  border-radius: 2px;
+}
+
+.shop-by-age .age-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+@media (max-width: 1024px) {
+  .shop-by-age .age-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-by-age .age-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .shop-by-age .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+.shop-by-age .age-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: #f5f5f5;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.shop-by-age .age-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.shop-by-age .age-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.shop-by-age .age-card:hover img {
+  transform: scale(1.1);
+}
+
+.shop-by-age .age-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  text-align: center;
+}
+
+.shop-by-age .age-card-title {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.shop-by-age .age-card-range {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.shop-by-age .age-card a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.shop-by-age .age-card-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: linear-gradient(135deg, #ff6b9d20, #e84a7f20);
+}
+
+.shop-by-age .age-card-placeholder svg {
+  width: 60px;
+  height: 60px;
+  color: #e84a7f;
+  opacity: 0.5;
+}
+
+.shop-by-age .age-card-placeholder span {
+  margin-top: 10px;
+  color: #e84a7f;
+  font-weight: 600;
+}
+</style>
+
+<div class="shop-by-age section">
+  <div class="page-width">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="age-grid">
+      {%- for i in (1..8) -%}
+        {%- assign age_image = 'age_image_' | append: i -%}
+        {%- assign age_title = 'age_title_' | append: i -%}
+        {%- assign age_range = 'age_range_' | append: i -%}
+        {%- assign age_link = 'age_link_' | append: i -%}
+        
+        <div class="age-card">
+          {%- if section.settings[age_image] != blank -%}
+            <img src="{{ section.settings[age_image] | img_url: '400x400' }}" 
+                 alt="{{ section.settings[age_title] }}"
+                 loading="lazy">
+          {%- else -%}
+            <div class="age-card-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              <span>{{ section.settings[age_title] }}</span>
+            </div>
+          {%- endif -%}
+          
+          <div class="age-card-overlay">
+            <h3 class="age-card-title">{{ section.settings[age_title] }}</h3>
+            <p class="age-card-range">{{ section.settings[age_range] }}</p>
+          </div>
+          
+          {%- if section.settings[age_link] != blank -%}
+            <a href="{{ section.settings[age_link] }}" aria-label="{{ section.settings[age_title] }}"></a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Age",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Shop by Age",
+      "label": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Age Categories"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_1",
+      "label": "Age 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_1",
+      "default": "0-12 Months",
+      "label": "Age 1 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_1",
+      "label": "Age 1 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_1",
+      "label": "Age 1 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_2",
+      "label": "Age 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_2",
+      "default": "1-3 Years",
+      "label": "Age 2 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_2",
+      "label": "Age 2 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_2",
+      "label": "Age 2 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_3",
+      "label": "Age 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_3",
+      "default": "3-5 Years",
+      "label": "Age 3 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_3",
+      "label": "Age 3 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_3",
+      "label": "Age 3 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_4",
+      "label": "Age 4 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_4",
+      "default": "5-8 Years",
+      "label": "Age 4 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_4",
+      "label": "Age 4 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_4",
+      "label": "Age 4 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_5",
+      "label": "Age 5 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_5",
+      "default": "8-12 Years",
+      "label": "Age 5 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_5",
+      "label": "Age 5 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_5",
+      "label": "Age 5 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_6",
+      "label": "Age 6 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_6",
+      "default": "Teens",
+      "label": "Age 6 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_6",
+      "label": "Age 6 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_6",
+      "label": "Age 6 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_7",
+      "label": "Age 7 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_7",
+      "default": "Adults",
+      "label": "Age 7 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_7",
+      "label": "Age 7 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_7",
+      "label": "Age 7 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "age_image_8",
+      "label": "Age 8 Image"
+    },
+    {
+      "type": "text",
+      "id": "age_title_8",
+      "default": "All Ages",
+      "label": "Age 8 Title"
+    },
+    {
+      "type": "text",
+      "id": "age_range_8",
+      "label": "Age 8 Range"
+    },
+    {
+      "type": "url",
+      "id": "age_link_8",
+      "label": "Age 8 Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Age"
+    }
+  ]
+}
+{% endschema %}
