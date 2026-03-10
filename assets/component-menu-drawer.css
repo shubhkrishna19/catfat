@@ -1,1 +1,172 @@
 /* Component Menu Drawer CSS */
+
+/* Menu Drawer Container */
+.menu-drawer-container {
+  display: flex;
+  z-index: 5;
+}
+
+/* Menu Drawer */
+.menu-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(var(--color-base-background-1));
+  visibility: hidden;
+  width: 100%;
+  z-index: 3;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease, visibility 0.3s;
+}
+
+.menu-drawer.motion-reduce {
+  transition: none;
+}
+
+/* Menu Drawer Open State */
+.menu-drawer[open] {
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Inner Container */
+.menu-drawer__inner-container {
+  position: relative;
+  display: flex;
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* Navigation Container */
+.menu-drawer__navigation-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-content: space-between;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* Navigation */
+.menu-drawer__navigation {
+  padding: 2.5rem 0;
+}
+
+/* Menu List */
+.menu-drawer__menu {
+  padding: 0 3rem;
+  list-style: none;
+  margin: 0;
+}
+
+.menu-drawer__menu li {
+  margin-bottom: 0.5rem;
+}
+
+/* Menu Items */
+.menu-drawer__menu-item {
+  padding: 1.1rem 0;
+  font-size: 1.3rem;
+  text-decoration: none;
+  display: block;
+  color: rgb(var(--color-base-text));
+  font-weight: 500;
+}
+
+.menu-drawer__menu-item:hover,
+.menu-drawer__menu-item--active {
+  color: #ff6b9d;
+}
+
+/* Submenu */
+.menu-drawer__submenu {
+  padding: 0 3rem;
+}
+
+.menu-drawer__inner-submenu {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Header for Submenu */
+.menu-drawer__middle-menu {
+  padding: 2.5rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Utility Links */
+.menu-drawer__utility-links {
+  padding: 2rem 3rem;
+  background-color: rgba(var(--color-base-background-2), 0.8);
+}
+
+/* Icon */
+.menu-drawer__icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.menu-drawer__icon.icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Close Button */
+.menu-drawer__close-button {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: rgb(var(--color-base-text));
+}
+
+.menu-drawer__close-button:hover {
+  color: #ff6b9d;
+}
+
+/* Focus Styles */
+.menu-drawer:focus {
+  outline: none;
+}
+
+/* Backdrop */
+.menu-drawer-container .backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.menu-drawer-container[open] .backdrop {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Summary styles for details */
+summary.menu-drawer__menu-item {
+  cursor: pointer;
+  list-style: none;
+}
+
+summary.menu-drawer__menu-item::-webkit-details-marker {
+  display: none;
+}
+
+/* Summary chevron */
+summary.menu-drawer__menu-item .icon-caret {
+  transition: transform 0.3s ease;
+}
+
+details[open] summary.menu-drawer__menu-item .icon-caret {
+  transform: rotate(180deg);
+}

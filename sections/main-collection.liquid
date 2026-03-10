@@ -36,6 +36,50 @@
   line-height: 1.6;
 }
 
+/* Collection Filters */
+.collection-filters {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+}
+
+.filter-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: #333;
+}
+
+.filter-btn:hover {
+  border-color: #ff6b9d;
+  color: #ff6b9d;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  border-color: #ff6b9d;
+  color: white;
+}
+
 .collection-grid {
   margin-top: 20px;
 }
@@ -60,6 +104,10 @@
 
   .collection-title {
     font-size: 1.8rem;
+  }
+  
+  .filter-options {
+    justify-content: center;
   }
 }
 
@@ -91,6 +139,28 @@
   </div>
 
   {%- if collection.products.size > 0 -%}
+    <!-- Category Filter -->
+    {% assign all_products = collection.products %}
+    {% assign categories = "" %}
+    {% for product in all_products %}
+      {% if product.type != blank and product.type != "" %}
+        {% assign categories = categories | append: product.type | append: "," %}
+      {% endif %}
+    {% endfor %}
+    {% assign unique_categories = categories | split: "," | compact | uniq %}
+    
+    {% if unique_categories.size > 0 %}
+    <div class="collection-filters">
+      <div class="filter-heading">Filter by Category:</div>
+      <div class="filter-options">
+        <a href="{{ collection.url }}" class="filter-btn{% unless request.path == collection.url and request.query_string == "" %} active{% endunless %}">All</a>
+        {% for cat in unique_categories %}
+          <a href="{{ collection.url }}?filter.p.m.custom.category={{ cat | url_encode }}" class="filter-btn">{{ cat }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
     <div class="collection-grid">
       <ul class="collection__grid" role="list">
         {%- for product in collection.products -%}

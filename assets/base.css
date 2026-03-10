@@ -636,3 +636,43 @@ img {
   font-weight: 800;
   margin: 0;
 }
+
+/* --- Skeleton Loading --- */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+  height: 16px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.skeleton-text-sm { width: 60%; }
+.skeleton-text-md { width: 80%; }
+.skeleton-text-lg { width: 100%; }
+
+.skeleton-image {
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.skeleton-button {
+  height: 44px;
+  width: 100%;
+  border-radius: 25px;
+}
+
+.skeleton-price {
+  height: 20px;
+  width: 40%;
+}

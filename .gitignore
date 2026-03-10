@@ -1,0 +1,25 @@
+# Shopify CLI
+.shopify/
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.suo
+
+# Review screenshots and stray images at root
+review*.png
+seeethis.png
+
+# Theme check output
+theme_check*.txt
+*.log
+
+# Credentials (if any ever added)
+.env
+.env.*
+!.env.example
