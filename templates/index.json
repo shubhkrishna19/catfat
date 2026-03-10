@@ -7,18 +7,44 @@
         "change_slides_speed": 5
       }
     },
-    "featured_collection": {
+    "lunch_boxes": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured Products",
-        "collection": "frontpage",
-        "products_to_show": 4,
-        "columns_desktop": 4
+        "title": "Lunch Boxes",
+        "collection": "lunch-boxes",
+        "products_to_show": 8
+      }
+    },
+    "bottles": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Water Bottles",
+        "collection": "bottles",
+        "products_to_show": 8
+      }
+    },
+    "best_sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Sellers",
+        "collection": "best-sellers",
+        "products_to_show": 8
+      }
+    },
+    "new_arrivals": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New Arrivals",
+        "collection": "new-arrivals",
+        "products_to_show": 8
       }
     }
   },
   "order": [
     "slideshow",
-    "featured_collection"
+    "lunch_boxes",
+    "bottles",
+    "best_sellers",
+    "new_arrivals"
   ]
 }

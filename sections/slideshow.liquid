@@ -149,7 +149,7 @@
       <span class="slideshow__subtitle">New Collection</span>
       <h2 class="slideshow__title">Premium Lunch Boxes</h2>
       <p class="slideshow__text">Safe, stylish & perfect for your kids</p>
-      <a href="{{ routes.collections_url }}" class="slideshow__btn">Shop Now</a>
+      <a href="{{ routes.collections_url }}/lunch-boxes" class="slideshow__btn">Shop Now</a>
     </div>
   </div>
   
@@ -164,10 +164,10 @@
   
   <div class="slideshow__slide">
     <div class="slideshow__content">
-      <span class="slideshow__subtitle">Best Quality</span>
-      <h2 class="slideshow__title">BPA Free & Safe</h2>
-      <p class="slideshow__text">Certified food-grade products</p>
-      <a href="{{ routes.pages_url }}/about" class="slideshow__btn">Learn More</a>
+      <span class="slideshow__subtitle">Water Bottles</span>
+      <h2 class="slideshow__title">Stay Hydrated</h2>
+      <p class="slideshow__text">Insulated bottles for school & office</p>
+      <a href="{{ routes.collections_url }}/bottles" class="slideshow__btn">Shop Bottles</a>
     </div>
   </div>
   
@@ -217,13 +217,16 @@ function goToSlide(index) {
 let slideInterval = setInterval(() => changeSlide(1), 5000);
 
 // Pause on hover
-document.querySelector('.slideshow').addEventListener('mouseenter', () => {
-  clearInterval(slideInterval);
-});
-
-document.querySelector('.slideshow').addEventListener('mouseleave', () => {
-  slideInterval = setInterval(() => changeSlide(1), 5000);
-});
+const slideshowEl = document.querySelector('.slideshow');
+if (slideshowEl) {
+  slideshowEl.addEventListener('mouseenter', () => {
+    clearInterval(slideInterval);
+  });
+  
+  slideshowEl.addEventListener('mouseleave', () => {
+    slideInterval = setInterval(() => changeSlide(1), 5000);
+  });
+}
 </script>
 
 {% schema %}

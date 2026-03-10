@@ -1,143 +1,69 @@
-<style>
-.product-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-}
-
-.product-card__image {
-  position: relative;
-  aspect-ratio: 1;
-  background: #f5f5f5;
-  overflow: hidden;
-}
-
-.product-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.product-card:hover .product-card__image img {
-  transform: scale(1.05);
-}
-
-.product-card__badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #ff6b9d;
-  color: #fff;
-  padding: 5px 12px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  border-radius: 20px;
-}
-
-.product-card__content {
-  padding: 15px;
-}
-
-.product-card__title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-  text-decoration: none;
-  display: block;
-}
-
-.product-card__title:hover {
-  color: #ff6b9d;
-}
-
-.product-card__price {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.product-card__price-current {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #ff6b9d;
-}
-
-.product-card__price-compare {
-  font-size: 0.85rem;
-  color: #999;
-  text-decoration: line-through;
-}
-
-.product-card__btn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 10px;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.product-card__btn:hover {
-  transform: scale(1.02);
-  box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
-}
-</style>
+{% comment %} Product Card Snippet - Used by collections and featured sections {% endcomment %}
 
 <div class="product-card">
   <a href="{{ product.url }}" class="product-card__image">
-    {% if product.featured_image %}
-      <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy">
-    {% else %}
-      <img src="https://placehold.co/400x400/ff6b9d/ffffff?text=Product" alt="{{ product.title | escape }}">
-    {% endif %}
+    {%- if product.featured_image != blank -%}
+      <img src="{{ product.featured_image | image_url: width: 400, height: 400, crop: 'center' }}" 
+           alt="{{ product.title | escape }}"
+           loading="lazy">
+    {%- else -%}
+      <img src="https://placehold.co/400x400/ff6b9d/ffffff?text={{ product.title | url_encode }}" 
+           alt="{{ product.title | escape }}">
+    {%- endif -%}
     
-    {% if product.tags contains 'new' %}
+    {%- if product.tags contains 'new' or product.created_at > 'now' | date_modify: '-7 days' -%}
       <span class="product-card__badge">New</span>
-    {% elsif product.tags contains 'sale' %}
+    {%- elsif product.compare_at_price > product.price -%}
       <span class="product-card__badge" style="background: #e84a7f;">Sale</span>
-    {% endif %}
+    {%- endif -%}
+    
+    <div class="product-card__quick-view">
+      <button class="quick-view-btn" onclick="event.preventDefault(); window.location.href='{{ product.url }}'">Quick View</button>
+    </div>
   </a>
   
   <div class="product-card__content">
+    {%- if product.vendor != blank -%}
+      <div class="product-card__vendor">{{ product.vendor }}</div>
+    {%- endif -%}
+    
     <a href="{{ product.url }}" class="product-card__title">{{ product.title }}</a>
     
     <div class="product-card__price">
-      <span class="product-card__price-current">{{ product.price | money }}</span>
-      {% if product.compare_at_price > product.price %}
+      <span class="product-card__price-current">
+        {%- if product.price_varies -%}
+          From {{ product.price_min | money }}
+        {%- else -%}
+          {{ product.price | money }}
+        {%- endif -%}
+      </span>
+      {%- if product.compare_at_price > product.price -%}
         <span class="product-card__price-compare">{{ product.compare_at_price | money }}</span>
-      {% endif %}
+      {%- endif -%}
     </div>
     
-    <button class="product-card__btn" onclick="addToCart({{ product.id }})">Add to Cart</button>
+    <button class="product-card__btn" onclick="addToCart({{ product.selected_or_first_available_variant.id }})">
+      Add to Cart
+    </button>
   </div>
 </div>
 
 <script>
-function addToCart(productId) {
+function addToCart(variantId) {
   fetch('/cart/add.js', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ items: [{ id: productId, quantity: 1 }] })
+    body: JSON.stringify({ 
+      items: [{ id: variantId, quantity: 1 }]
+    })
   })
-  .then(res => res.json())
+  .then(response => response.json())
   .then(data => {
-    alert('Added to cart!');
     window.location.href = '/cart';
   })
-  .catch(err => console.error(err));
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Failed to add to cart. Please try again.');
+  });
 }
 </script>
