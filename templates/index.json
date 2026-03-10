@@ -1,182 +1,10 @@
 {
   "sections": {
-    "countdown_timer": {
-      "type": "countdown-timer",
-      "settings": {
-        "heading": "Flash Sale Ends In",
-        "subheading": "Grab the best deals before they're gone!",
-        "end_date": "2026-04-01 23:59:59",
-        "cta_label": "Shop Now",
-        "cta_link": "shopify://collections/sale"
-      }
-    },
     "slideshow": {
       "type": "slideshow",
-      "blocks": {
-        "slide-1": {
-          "type": "slide",
-          "settings": {
-            "subheading": "UPTO 80% OFF",
-            "heading": "India's Biggest Lunch Sale",
-            "text": "<p>Premium Lunch Boxes & Bottles at Best Prices</p>",
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/all",
-            "button_style": "primary"
-          }
-        },
-        "slide-2": {
-          "type": "slide",
-          "settings": {
-            "subheading": "NEW ARRIVALS",
-            "heading": "Fresh Collection 2024",
-            "text": "<p>Explore Our Latest Lunch Boxes & Bottles</p>",
-            "button_label": "View All",
-            "button_link": "shopify://collections/new-arrivals",
-            "button_style": "primary"
-          }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "subheading": "PREMIUM QUALITY",
-            "heading": "Insulated & Microwave Safe",
-            "text": "<p>Best Lunch Boxes for Kids & Adults</p>",
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/lunch-box",
-            "button_style": "primary"
-          }
-        }
-      },
       "settings": {
         "auto_rotate": true,
-        "change_slides_speed": 5,
-        "primary_color": "#ff6b9d",
-        "accent_color": "#e84a7f",
-        "heading_color": "#ffffff",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 60
-      }
-    },
-    "customer_photos_gallery": {
-      "type": "customer-photos-gallery",
-      "settings": {
-        "title": "Happy Customers",
-        "subtitle": "See what our customers are loving",
-        "cta_text": "Share Your Photo",
-        "cta_link": "shopify://pages/contact"
-      }
-    },
-    "new_arrivals": {
-      "type": "new-arrivals",
-      "settings": {
-        "title": "New Arrivals",
-        "collection": "new-arrivals",
-        "products_to_show": 8,
-        "show_view_all": true,
-        "view_all_text": "View All New Arrivals"
-      }
-    },
-    "shop_by_age": {
-      "type": "shop-by-age",
-      "settings": {
-        "title": "Shop by Age",
-        "age_title_1": "0-12 Months",
-        "age_range_1": "For babies",
-        "age_link_1": "shopify://collections/0-12-months",
-        "age_title_2": "1-3 Years",
-        "age_range_2": "Toddlers",
-        "age_link_2": "shopify://collections/1-3-years",
-        "age_title_3": "3-5 Years",
-        "age_range_3": "Preschool",
-        "age_link_3": "shopify://collections/3-5-years",
-        "age_title_4": "5-8 Years",
-        "age_range_4": "Early School",
-        "age_link_4": "shopify://collections/5-8-years",
-        "age_title_5": "8-12 Years",
-        "age_range_5": "School Goers",
-        "age_link_5": "shopify://collections/8-12-years",
-        "age_title_6": "Teens",
-        "age_range_6": "12+ Years",
-        "age_link_6": "shopify://collections/teens",
-        "age_title_7": "Adults",
-        "age_range_7": "Office & Home",
-        "age_link_7": "shopify://collections/adults",
-        "age_title_8": "All Ages",
-        "age_range_8": "Family Pack",
-        "age_link_8": "shopify://collections/all"
-      }
-    },
-    "best_sellers": {
-      "type": "best-sellers",
-      "settings": {
-        "title": "Best Sellers",
-        "collection": "best-sellers",
-        "products_to_show": 8,
-        "show_view_all": true,
-        "view_all_text": "View All Best Sellers"
-      }
-    },
-    "banner_carousel": {
-      "type": "banner-carousel",
-      "settings": {
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "show_navigation": true,
-        "slide_subheading_1": "FREE SHIPPING",
-        "slide_heading_1": "On Orders Above ₹499",
-        "slide_text_1": "Flat 50% Off on First Order",
-        "slide_cta_label_1": "Shop Now",
-        "slide_cta_link_1": "shopify://collections/all",
-        "slide_cta_style_1": "primary",
-        "slide_subheading_2": "NEW LAUNCH",
-        "slide_heading_2": "Premium Steel Bottles",
-        "slide_text_2": "Insulated & Durable",
-        "slide_cta_label_2": "Explore",
-        "slide_cta_link_2": "shopify://collections/bottles",
-        "slide_cta_style_2": "primary"
-      }
-    },
-    "shop_by_category": {
-      "type": "shop-by-category",
-      "settings": {
-        "title": "Shop by Category",
-        "cat_name_1": "Lunch Boxes",
-        "cat_icon_1": "lunch-box",
-        "cat_link_1": "shopify://collections/lunch-boxes",
-        "cat_name_2": "Water Bottles",
-        "cat_icon_2": "bottle",
-        "cat_link_2": "shopify://collections/bottles",
-        "cat_name_3": "School Bags",
-        "cat_icon_3": "bag",
-        "cat_link_3": "shopify://collections/bags",
-        "cat_name_4": "Snack Boxes",
-        "cat_icon_4": "snack",
-        "cat_link_4": "shopify://collections/snack-boxes",
-        "cat_name_5": "Thermos",
-        "cat_icon_5": "lunch-box",
-        "cat_link_5": "shopify://collections/thermos",
-        "cat_name_6": "Accessories",
-        "cat_icon_6": "none",
-        "cat_link_6": "shopify://collections/accessories",
-        "cat_name_7": "Set Combo",
-        "cat_icon_7": "none",
-        "cat_link_7": "shopify://collections/combos",
-        "cat_name_8": "Boys",
-        "cat_icon_8": "none",
-        "cat_link_8": "shopify://collections/boys",
-        "cat_name_9": "Girls",
-        "cat_icon_9": "none",
-        "cat_link_9": "shopify://collections/girls",
-        "cat_name_10": "Insulated",
-        "cat_icon_10": "none",
-        "cat_link_10": "shopify://collections/insulated",
-        "cat_name_11": "Microwave Safe",
-        "cat_icon_11": "none",
-        "cat_link_11": "shopify://collections/microwave-safe",
-        "cat_name_12": "View All",
-        "cat_icon_12": "none",
-        "cat_link_12": "shopify://collections/all"
+        "change_slides_speed": 5
       }
     },
     "featured_collection": {
@@ -184,41 +12,13 @@
       "settings": {
         "title": "Featured Products",
         "collection": "frontpage",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "show_view_all": true
-      }
-    },
-    "richtext": {
-      "type": "rich-text",
-      "settings": {
-        "heading": "Welcome to CatFat India",
-        "text": "<p>Premium quality lunch boxes and bottles for kids & adults. Free shipping above ₹499, COD available across India.</p>",
-        "button_label": "Shop All Products",
-        "button_link": "shopify://collections/all",
-        "text_alignment": "center"
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
-      "settings": {
-        "title": "Why Choose Us",
-        "columns_desktop": 4,
-        "heading_alignment": "center"
+        "products_to_show": 4,
+        "columns_desktop": 4
       }
     }
   },
   "order": [
-    "countdown_timer",
     "slideshow",
-    "customer_photos_gallery",
-    "new_arrivals",
-    "shop_by_age",
-    "best_sellers",
-    "banner_carousel",
-    "shop_by_category",
-    "featured_collection",
-    "richtext",
-    "multicolumn"
+    "featured_collection"
   ]
 }

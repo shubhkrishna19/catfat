@@ -1,112 +1,78 @@
-{{ 'section-featured-collection.css' | asset_url | stylesheet_tag }}
-
 <style>
 .featured-collection {
-  padding: 60px 0;
-  background: #fff;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.featured-collection .title-wrapper {
+.featured-collection__header {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.featured-collection .title {
-  font-size: 2.5rem;
+.featured-collection__title {
+  font-size: 2rem;
   font-weight: 800;
-  color: #e84a7f;
-  margin: 0;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.featured-collection .title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #ff6b9d, #e84a7f);
-  margin: 15px auto 0;
-  border-radius: 2px;
-}
-
-.featured-collection .grid {
+.featured-collection__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
 }
 
 @media (max-width: 1024px) {
-  .featured-collection .grid {
+  .featured-collection__grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .featured-collection .grid {
+  .featured-collection__grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
+}
 
-  .featured-collection .title {
-    font-size: 1.8rem;
+@media (max-width: 480px) {
+  .featured-collection__grid {
+    grid-template-columns: 1fr;
   }
-}
-
-.featured-collection__view-all {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.featured-collection__view-all .button {
-  display: inline-block;
-  padding: 12px 30px;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: 600;
 }
 </style>
 
-<div class="featured-collection section">
-  <div class="page-width">
-    {%- if section.settings.title != blank -%}
-      <div class="title-wrapper">
-        <h2 class="title">{{ section.settings.title }}</h2>
-      </div>
-    {%- endif -%}
-
-    <ul class="grid" role="list">
-      {%- assign collection_handle = section.settings.collection -%}
-      {%- assign collection = collections[collection_handle] -%}
-
-      {%- if collection == blank or collection.products == nil or collection.products.size == 0 -%}
-        {%- for i in (1..section.settings.products_to_show) -%}
-          <li class="grid__item">
-            {% render 'card-product', placeholder: true, index: forloop.index %}
-          </li>
-        {%- endfor -%}
-      {%- else -%}
-        {%- for product in collection.products limit: section.settings.products_to_show -%}
-          <li class="grid__item">
-            {% render 'card-product', card_product: product %}
-          </li>
-        {%- endfor -%}
-      {%- endif -%}
-    </ul>
-
-    {%- if section.settings.show_view_all and collection != blank -%}
-      <div class="featured-collection__view-all">
-        <a href="{{ collection.url }}" class="button">View All Products</a>
-      </div>
-    {%- endif -%}
+<div class="featured-collection">
+  <div class="featured-collection__header">
+    <h2 class="featured-collection__title">{{ section.settings.title | default: 'Featured Products' }}</h2>
+  </div>
+  
+  <div class="featured-collection__grid">
+    {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
+      {% render 'card-product', product: product %}
+    {% else %}
+      {% for i in (1..4) %}
+        <div class="product-card">
+          <div class="product-card__image">
+            <img src="https://placehold.co/400x400/ff6b9d/ffffff?text=Product+{{ i }}" alt="Product {{ i }}">
+          </div>
+          <div class="product-card__content">
+            <a href="#" class="product-card__title">Sample Product {{ i }}</a>
+            <div class="product-card__price">
+              <span class="product-card__price-current">₹499</span>
+            </div>
+            <button class="product-card__btn">Add to Cart</button>
+          </div>
+        </div>
+      {% endfor %}
+    {% endfor %}
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Featured collection",
-  "tag": "section",
-  "class": "section",
+  "name": "Featured Collection",
   "settings": [
     {
       "type": "text",
@@ -122,22 +88,10 @@
     {
       "type": "range",
       "id": "products_to_show",
-      "min": 2,
+      "min": 1,
       "max": 12,
-      "step": 1,
-      "default": 8,
-      "label": "Maximum products to show"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_view_all",
-      "default": true,
-      "label": "Show 'View All' button"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Featured collection"
+      "default": 4,
+      "label": "Products to show"
     }
   ]
 }
