@@ -367,26 +367,263 @@
   font-size: 1.1rem;
 }
 
-/* Filter Section Title */
-.filter-section-title {
-  font-size: 1.1rem;
+/* Collection Toolbar with Sort, View Toggle, Results Count */
+.collection-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 15px 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+}
+
+.results-count {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.results-count span {
+  color: #e84a7f;
   font-weight: 700;
+}
+
+/* Sort By Dropdown */
+.sort-by-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-by-label {
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.sort-by-select {
+  padding: 10px 35px 10px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
   color: #333;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #f0f0f0;
+  background: white;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.3s;
+}
+
+.sort-by-select:hover,
+.sort-by-select:focus {
+  border-color: #ff6b9d;
+  outline: none;
+}
+
+/* View Toggle */
+.view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.view-toggle-label {
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.view-toggle-buttons {
+  display: flex;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.view-btn {
+  padding: 8px 12px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-btn:not(:last-child) {
+  border-right: 1px solid #e0e0e0;
+}
+
+.view-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: #999;
+  transition: stroke 0.3s;
+}
+
+.view-btn:hover svg {
+  stroke: #ff6b9d;
+}
+
+.view-btn.active {
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+}
+
+.view-btn.active svg {
+  stroke: white;
+}
+
+/* Hero Image */
+.collection-hero {
+  position: relative;
+  margin-bottom: 30px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.collection-hero-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.collection-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+}
+
+.collection-hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.collection-hero-description {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* List View Styles */
+.collection__grid.list-view {
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.collection__grid.list-view .grid__item {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .collection-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .view-toggle {
+    justify-content: center;
+  }
+  
+  .collection-hero-image {
+    height: 200px;
+  }
+  
+  .collection-hero-title {
+    font-size: 1.8rem;
+  }
 }
 </style>
 
 <div class="collection-page page-width">
-  <div class="collection-header">
-    <h1 class="collection-title">{{ collection.title }}</h1>
-    {%- if collection.description != blank -%}
+  {% comment %}T-CL001: Collection Hero Image{% endcomment %}
+  {%- if collection.image and section.settings.show_collection_image -%}
+    <div class="collection-hero">
+      <img src="{{ collection.image | image_url: width: 1600 }}" 
+           alt="{{ collection.title | escape }}" 
+           class="collection-hero-image"
+           loading="lazy">
+      <div class="collection-hero-overlay">
+        <h1 class="collection-hero-title">{{ collection.title }}</h1>
+        {%- if collection.description != blank -%}
+          <p class="collection-hero-description">{{ collection.description | strip_html | truncatewords: 30 }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="collection-header">
+      <h1 class="collection-title">{{ collection.title }}</h1>
+    </div>
+  {%- endif -%}
+
+  {% comment %}T-CL002: Collection Description (below header if no hero){% endcomment %}
+  {%- if collection.description != blank and section.settings.show_collection_description and not collection.image -%}
+    <div class="collection-header">
       <div class="collection-description">{{ collection.description }}</div>
-    {%- endif -%}
-  </div>
+    </div>
+  {%- endif -%}
 
   {%- if collection.products.size > 0 -%}
+
+    {% comment %}T-CL003, T-CL004, T-CL005: Toolbar with View Toggle, Sort, Results Count{% endcomment %}
+    <div class="collection-toolbar">
+      <div class="results-count">
+        <span id="products-count">{{ collection.products.size }}</span> products
+      </div>
+
+      {% comment %}T-CL004: Sort By Dropdown{% endcomment %}
+      <div class="sort-by-container">
+        <label class="sort-by-label" for="sort-by">Sort by:</label>
+        <select id="sort-by" class="sort-by-select" onchange="window.location.href = updateSortUrl(this.value)">
+          <option value="featured">Featured</option>
+          <option value="price-ascending">Price: Low to High</option>
+          <option value="price-descending">Price: High to Low</option>
+          <option value="title-ascending">Name: A-Z</option>
+          <option value="title-descending">Name: Z-A</option>
+          <option value="created-descending">Newest First</option>
+          <option value="created-ascending">Oldest First</option>
+        </select>
+      </div>
+
+      {% comment %}T-CL003: Grid/List View Toggle{% endcomment %}
+      <div class="view-toggle">
+        <span class="view-toggle-label">View:</span>
+        <div class="view-toggle-buttons">
+          <button class="view-btn active" data-view="grid" aria-label="Grid view" title="Grid view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+          <button class="view-btn" data-view="list" aria-label="List view" title="List view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/>
+              <line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
     <!-- Active Filter Tags Display (T-F013) -->
     <div class="active-filters" id="activeFilters" style="display: none;">
       <span class="active-filters-label">Active Filters:</span>
@@ -567,7 +804,57 @@
     </div>
 
     <script>
+      // T-CL003: View Toggle Functionality
       document.addEventListener('DOMContentLoaded', function() {
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const productGrid = document.getElementById('product-grid');
+        
+        viewButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const view = this.dataset.view;
+            
+            // Update active button
+            viewButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Toggle grid/list class
+            if (view === 'list') {
+              productGrid.classList.add('list-view');
+            } else {
+              productGrid.classList.remove('list-view');
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('collection-view', view);
+          });
+        });
+
+        // Load saved view preference
+        const savedView = localStorage.getItem('collection-view');
+        if (savedView) {
+          const btn = document.querySelector(`.view-btn[data-view="${savedView}"]`);
+          if (btn) {
+            btn.click();
+          }
+        }
+
+        // T-CL004: Sort By URL Helper
+        window.updateSortUrl = function(sortValue) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('sort', sortValue);
+          window.location.href = url.toString();
+        };
+
+        // Set sort dropdown to current URL param
+        const params = new URLSearchParams(window.location.search);
+        const currentSort = params.get('sort');
+        if (currentSort) {
+          const sortSelect = document.getElementById('sort-by');
+          if (sortSelect) {
+            sortSelect.value = currentSort;
+          }
+        }
+        
         // Filter state
         const filters = {
           age: 'all',
@@ -779,6 +1066,14 @@
           btn.addEventListener('click', resetAllFilters);
         });
 
+        // T-CL005: Update results count display
+        function updateResultsCount(count) {
+          const countElement = document.getElementById('products-count');
+          if (countElement) {
+            countElement.textContent = count;
+          }
+        }
+
         // Update empty state
         function updateEmptyState(count) {
           let emptyState = document.getElementById('filterEmptyState');
@@ -800,6 +1095,7 @@
               document.getElementById('product-grid').style.display = '';
             }
           }
+          updateResultsCount(count);
         }
 
         // Initialize
