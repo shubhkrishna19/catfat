@@ -1,0 +1,242 @@
+{% comment %} About Page {% endcomment %}
+
+<style>
+.about-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.about-page h1 {
+  font-size: 2.5rem;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.about-intro {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 50px;
+}
+
+.about-section {
+  margin-bottom: 50px;
+}
+
+.about-section h2 {
+  font-size: 1.5rem;
+  color: #ff6b9d;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.about-section p {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.value-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.value-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.value-card h3 {
+  color: #1a1a2e;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.value-card p {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin: 40px 0;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+  color: white;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.team-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.team-section h2 {
+  margin-bottom: 30px;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  padding: 50px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  margin-top: 50px;
+}
+
+.cta-section h2 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.cta-section p {
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 25px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: white;
+  color: #ff6b9d;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+</style>
+
+<div class="about-page">
+  <h1>About CatFat India</h1>
+  
+  <p class="about-intro">
+    We believe that every meal time should be a happy time! 🍱<br>
+    CatFat brings you premium lunch boxes, water bottles, and kitchen essentials designed with love for kids and adults alike.
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-number">50K+</span>
+      <span class="stat-label">Happy Customers</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">200+</span>
+      <span class="stat-label">Products</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">4.8★</span>
+      <span class="stat-label">Rating</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">50+</span>
+      <span class="stat-label">Cities Delivered</span>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>Our Story</h2>
+    <p>CatFat India started with a simple mission - to make meal times fun and exciting for children. We noticed that kids often resist eating because their lunch boxes weren't appealing enough. That's when we decided to change that!</p>
+    <p>Since 2020, we've been dedicated to providing the best quality lunch boxes, water bottles, and accessories that combine functionality with attractive designs. Our products are crafted to bring joy to every child's lunch box while ensuring parents get value for their money.</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Why Choose CatFat?</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">⭐</div>
+        <h3>Premium Quality</h3>
+        <p>Durable materials that last long</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🎨</div>
+        <h3>Attractive Designs</h3>
+        <p>Fun colors that kids love</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🛡️</div>
+        <h3>Safe Materials</h3>
+        <p>BPA-free, food-safe plastics</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🚚</div>
+        <h3>Fast Delivery</h3>
+        <p>Free shipping above ₹499</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>Our Products</h2>
+    <p>We specialize in:</p>
+    <p>🍱 <strong>Lunch Boxes</strong> - Insulated, leak-proof, and fun designs<br>
+    🍶 <strong>Water Bottles</strong> - BPA-free, easy to carry<br>
+    🥄 <strong>Cutlery Sets</strong> - Safe and colorful<br>
+    🍱 <strong>Accessories</strong> - Bags, napkins, and more</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Our Mission</h2>
+    <p>To make every child's lunch time a delightful experience by providing high-quality, attractive, and affordable lunch solutions. We aim to encourage healthy eating habits by making meal times something children look forward to!</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Customer First</h2>
+    <p>Your satisfaction is our priority. We offer easy returns, responsive customer support via WhatsApp, and quality products that you can trust. Join thousands of happy families who've made the switch to CatFat!</p>
+  </div>
+
+  <div class="cta-section">
+    <h2>Join the CatFat Family! 🌟</h2>
+    <p>Explore our collection and find the perfect lunch box for your child.</p>
+    <a href="/collections/all" class="cta-btn">Shop Now</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Page",
+  "presets": [{ "name": "About Page" }]
+}
+{% endschema %}

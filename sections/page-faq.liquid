@@ -1,0 +1,260 @@
+{% comment %} FAQ Page {% endcomment %}
+
+<style>
+.faq-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.faq-page h1 {
+  font-size: 2.5rem;
+  color: #1a1a2e;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.faq-section {
+  margin-bottom: 40px;
+}
+
+.faq-section h2 {
+  font-size: 1.3rem;
+  color: #ff6b9d;
+  margin: 30px 0 20px;
+  font-weight: 600;
+}
+
+.faq-item {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.faq-question {
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.faq-question:hover {
+  background: #fafafa;
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  color: #ff6b9d;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  padding: 0 20px 20px;
+  max-height: 500px;
+}
+
+.faq-answer p, .faq-answer li {
+  color: #555;
+  line-height: 1.7;
+}
+
+.faq-answer ul {
+  padding-left: 20px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.faq-question').forEach(function(question) {
+    question.addEventListener('click', function() {
+      var item = this.parentElement;
+      item.classList.toggle('active');
+    });
+  });
+});
+</script>
+
+<div class="faq-page">
+  <h1>Frequently Asked Questions</h1>
+
+  <div class="faq-section">
+    <h2>🛍️ Ordering</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        How do I place an order?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Simply browse our collection, select the product, choose your preferred variant (size/color), and click "Add to Cart". Then proceed to checkout and fill in your delivery details. You can also order directly via WhatsApp!</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Can I modify or cancel my order?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Yes! You can modify or cancel your order within 2 hours of placing it, as long as it hasn't been shipped yet. Contact us on WhatsApp with your order number.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        How do I track my order?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Once your order ships, you'll receive a tracking number via SMS and WhatsApp. You can also check the status on our website or contact us directly.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <h2>🚚 Shipping & Delivery</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        How long does delivery take?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Delivery typically takes 3-7 business days depending on your location. Metro cities usually get delivery in 3-5 days, while remote areas may take 7-10 days.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Do you ship to my area?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>We ship across India! We deliver to metro cities, towns, and most remote areas. Our courier partners cover 90%+ of Indian pincodes.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Is shipping free?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Yes! We offer FREE shipping on all orders above ₹499. For orders below ₹499, a small shipping fee of ₹49 applies.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <h2>↩️ Returns & Refunds</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        What is your return policy?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>We offer a 7-day return policy for most items. The product must be unused, in original packaging, and with tags attached. Personalized items cannot be returned.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        How do I return a product?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Contact us on WhatsApp or email with your order number. We'll guide you through the return process and arrange pickup or provide return address.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        When will I get my refund?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Refunds are processed within 5-7 business days after we receive and verify the returned item. The amount will be credited to your original payment method.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <h2>💳 Payments</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        What payment methods do you accept?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>We accept:</p>
+        <ul>
+          <li>Credit/Debit Cards (Visa, Mastercard, RuPay)</li>
+          <li>UPI (Google Pay, PhonePe, Paytm)</li>
+          <li>Net Banking</li>
+          <li>Wallets (Paytm, Amazon Pay)</li>
+          <li>Cash on Delivery (COD)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Is Cash on Delivery available?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Yes! We offer Cash on Delivery (COD) for orders up to ₹10,000. A small COD fee of ₹49 applies.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <h2>🎁 Products</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        Are your products genuine?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Absolutely! We source directly from trusted manufacturers and all products are 100% genuine and quality-checked before shipping.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        How do I choose the right size?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Each product page has a detailed size chart. You can also contact us on WhatsApp for personalized size recommendations.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "presets": [{ "name": "FAQ Page" }]
+}
+{% endschema %}

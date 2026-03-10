@@ -1,0 +1,176 @@
+{% comment %} Shipping Policy Page {% endcomment %}
+
+<style>
+.policy-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.policy-page h1 {
+  font-size: 2.5rem;
+  color: #1a1a2e;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.policy-page h2 {
+  font-size: 1.4rem;
+  color: #ff6b9d;
+  margin: 35px 0 15px;
+  font-weight: 600;
+}
+
+.policy-page p, .policy-page li {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.policy-page ul {
+  padding-left: 20px;
+}
+
+.policy-page li {
+  margin-bottom: 10px;
+}
+
+.policy-highlight {
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  padding: 25px;
+  border-radius: 15px;
+  margin: 30px 0;
+  border-left: 4px solid #4caf50;
+}
+
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+}
+
+.policy-table th, .policy-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.policy-table th {
+  background: #f9f9f9;
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.policy-table tr:hover {
+  background: #fafafa;
+}
+
+.policy-contact {
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.policy-contact a {
+  color: #ff6b9d;
+  font-weight: 600;
+  text-decoration: none;
+}
+</style>
+
+<div class="policy-page">
+  <h1>Shipping & Delivery Policy</h1>
+
+  <div class="policy-highlight">
+    <strong>🚚 Free Shipping on Orders Above ₹499</strong><br>
+    We deliver across India with love and care!
+  </div>
+
+  <h2>Shipping Partners</h2>
+  <p>We partner with reliable courier services to ensure your products reach you safely and on time:</p>
+  <ul>
+    <li>Delhivery</li>
+    <li>FedEx</li>
+    <li>DTDC</li>
+    <li>India Post</li>
+    <li>Professional Couriers</li>
+  </ul>
+
+  <h2>Shipping Charges</h2>
+  <table class="policy-table">
+    <thead>
+      <tr>
+        <th>Order Value</th>
+        <th>Shipping Charge</th>
+        <th>Delivery Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Below ₹499</td>
+        <td>₹49</td>
+        <td>5-7 business days</td>
+      </tr>
+      <tr>
+        <td>₹499 - ₹999</td>
+        <td>₹29</td>
+        <td>4-6 business days</td>
+      </tr>
+      <tr>
+        <td>₹999 and above</td>
+        <td><strong>FREE</strong></td>
+        <td>3-5 business days</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Delivery Timeline</h2>
+  <ul>
+    <li><strong>Metro Cities:</strong> 3-5 business days</li>
+    <li><strong>Tier 2-3 Cities:</strong> 5-7 business days</li>
+    <li><strong>Remote Areas:</strong> 7-10 business days</li>
+  </ul>
+
+  <h2>Order Processing Time</h2>
+  <p>Orders are processed within 24-48 hours (excluding weekends and holidays). Once shipped, you will receive tracking details via SMS/WhatsApp.</p>
+
+  <h2>Tracking Your Order</h2>
+  <p>You can track your order:</p>
+  <ul>
+    <li>Via WhatsApp - we'll share tracking link</li>
+    <li>Via SMS - tracking number will be sent to your mobile</li>
+    <li>Contact our customer support</li>
+  </ul>
+
+  <h2>Shipping Restrictions</h2>
+  <ul>
+    <li>We currently ship only within India</li>
+    <li>Some remote areas may have extended delivery times</li>
+    <li>PO Box deliveries may take longer</li>
+  </ul>
+
+  <h2>Delivery Address</h2>
+  <p>Please provide complete address with landmark for accurate delivery. Our delivery partner may contact you for delivery confirmation.</p>
+
+  <h2>Undelivered Packages</h2>
+  <p>If a package is returned to us due to wrong address or non-delivery, we will contact you to reship with additional shipping charges.</p>
+
+  <div class="policy-contact">
+    <h3>Shipping Queries?</h3>
+    <p>Contact us for shipping-related questions:</p>
+    <p>
+      📱 <a href="https://api.whatsapp.com/send?phone=918383013068">WhatsApp: +91 8383013068</a><br>
+      📧 <a href="mailto:info@catfat.in">Email: info@catfat.in</a>
+    </p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shipping Page",
+  "presets": [{ "name": "Shipping Page" }]
+}
+{% endschema %}
