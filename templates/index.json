@@ -68,12 +68,48 @@
         "text_alignment": "center"
       }
     },
+    "as_seen_in": {
+      "type": "as-seen-in",
+      "settings": {}
+    },
+    "testimonial_carousel": {
+      "type": "testimonial-carousel",
+      "settings": {
+        "title": "What Our Customers Say",
+        "subtitle": "Join 50,000+ happy families across India"
+      }
+    },
+    "instagram_feed": {
+      "type": "instagram-feed",
+      "settings": {
+        "instagram_handle": "@catfatindia",
+        "cta_text": "Follow on Instagram"
+      }
+    },
+    "instagram_shop": {
+      "type": "instagram-shop",
+      "settings": {
+        "title": "Shop on Instagram"
+      }
+    },
     "multicolumn": {
       "type": "multicolumn",
       "settings": {
         "title": "Why Choose Us",
         "columns_desktop": 4,
-        "heading_alignment": "center"
+        "heading_alignment": "center",
+        "column_1_icon": "truck",
+        "column_1_title": "Free Shipping",
+        "column_1_text": "<p>Above ₹499</p>",
+        "column_2_icon": "card",
+        "column_2_title": "COD Available",
+        "column_2_text": "<p>Across India</p>",
+        "column_3_icon": "check",
+        "column_3_title": "Quality Products",
+        "column_3_text": "<p>100% Original</p>",
+        "column_4_icon": "chat",
+        "column_4_title": "WhatsApp Support",
+        "column_4_text": "<p>Quick Response</p>"
       }
     }
   },
@@ -81,6 +117,10 @@
     "slideshow",
     "featured_collection",
     "richtext",
+    "as_seen_in",
+    "testimonial_carousel",
+    "instagram_feed",
+    "instagram_shop",
     "multicolumn"
   ]
 }

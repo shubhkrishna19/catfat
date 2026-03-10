@@ -1,0 +1,172 @@
+<!-- Floating Trust Badges Bar -->
+{%- style -%}
+.floating-trust-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  padding: 12px 0;
+  z-index: 999;
+  display: none;
+}
+
+.floating-trust-bar.visible {
+  display: block;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.floating-trust-bar .trust-badges-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.floating-trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.floating-trust-badge svg {
+  width: 24px;
+  height: 24px;
+  color: #e84a7f;
+}
+
+.floating-trust-badge .badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-trust-badge .badge-label {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.floating-trust-badge .badge-value {
+  font-weight: 700;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .floating-trust-bar .trust-badges-container {
+    gap: 20px;
+    justify-content: space-around;
+  }
+  
+  .floating-trust-badge {
+    font-size: 0.8rem;
+  }
+  
+  .floating-trust-badge svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+{%- endstyle -%}
+
+<div class="floating-trust-bar" id="floatingTrustBar">
+  <div class="trust-badges-container">
+    <div class="floating-trust-badge">
+      {% render 'icon-truck' %}
+      <div class="badge-text">
+        <span class="badge-label">Free Shipping</span>
+        <span class="badge-value">Above ₹499</span>
+      </div>
+    </div>
+    
+    <div class="floating-trust-badge">
+      {% render 'icon-checkmark' %}
+      <div class="badge-text">
+        <span class="badge-label">Verified</span>
+        <span class="badge-value">100% Original</span>
+      </div>
+    </div>
+    
+    <div class="floating-trust-badge">
+      {% render 'icon-chat' %}
+      <div class="badge-text">
+        <span class="badge-label">WhatsApp</span>
+        <span class="badge-value">Support Available</span>
+      </div>
+    </div>
+    
+    <div class="floating-trust-badge">
+      {% render 'icon-success' %}
+      <div class="badge-text">
+        <span class="badge-label">Easy Returns</span>
+        <span class="badge-value">7 Days Return</span>
+      </div>
+    </div>
+    
+    <div class="floating-trust-badge">
+      {% render 'icon-credit-card' %}
+      <div class="badge-text">
+        <span class="badge-label">COD</span>
+        <span class="badge-value">Available</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const floatingBar = document.getElementById('floatingTrustBar');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+      const currentScroll = window.pageYOffset;
+      
+      // Show after scrolling 500px, hide when at top
+      if (currentScroll > 500) {
+        if (currentScroll > lastScroll) {
+          // Scrolling down - show the bar
+          floatingBar.classList.add('visible');
+        }
+      } else {
+        // At top - hide the bar
+        floatingBar.classList.remove('visible');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Floating Trust Badges",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This floating trust badges bar appears at the bottom of the screen when user scrolls down."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Floating Trust Badges"
+    }
+  ]
+}
+{% endschema %}

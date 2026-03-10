@@ -1,0 +1,133 @@
+<!-- As Seen In Media Section -->
+{%- style -%}
+.as-seen-section {
+  padding: 50px 0;
+  background: #f8f9fa;
+}
+
+.as-seen-section .section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.as-seen-section .as-seen-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.as-seen-section .as-seen-title::before,
+.as-seen-section .as-seen-title::after {
+  content: '—';
+  margin: 0 15px;
+  color: #e84a7f;
+}
+
+.logos-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  min-width: 150px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(232, 74, 127, 0.15);
+}
+
+.logo-item svg {
+  height: 40px;
+  width: auto;
+  fill: #555;
+}
+
+.logo-item .logo-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .logos-grid {
+    gap: 20px;
+  }
+  
+  .logo-item {
+    padding: 12px 20px;
+    min-width: 120px;
+  }
+  
+  .logo-item .logo-text {
+    font-size: 0.9rem;
+  }
+  
+  .as-seen-section .as-seen-title::before,
+  .as-seen-section .as-seen-title::after {
+    content: '';
+    margin: 0 10px;
+  }
+}
+{%- endstyle -%}
+
+<div class="as-seen-section section">
+  <div class="page-width">
+    <div class="section-header">
+      <h2 class="as-seen-title">As Seen In</h2>
+    </div>
+    
+    <div class="logos-grid">
+      <div class="logo-item">
+        <span class="logo-text">Times of India</span>
+      </div>
+      <div class="logo-item">
+        <span class="logo-text">The Hindu</span>
+      </div>
+      <div class="logo-item">
+        <span class="logo-text">India Today</span>
+      </div>
+      <div class="logo-item">
+        <span class="logo-text">ET Now</span>
+      </div>
+      <div class="logo-item">
+        <span class="logo-text">Moneycontrol</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "As Seen In",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Display media logos and press mentions to build trust"
+    }
+  ],
+  "presets": [
+    {
+      "name": "As Seen In"
+    }
+  ]
+}
+{% endschema %}
