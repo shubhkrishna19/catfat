@@ -1,0 +1,366 @@
+{% comment %}
+  Customer Photos Gallery Section
+  T-T007: Add customer photos gallery
+{% endcomment %}
+
+<style>
+.customer-gallery {
+  padding: 60px 0;
+  background: linear-gradient(135deg, #fff5f8 0%, #fff 100%);
+}
+
+.customer-gallery__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.customer-gallery__title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.customer-gallery__subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.customer-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .customer-gallery__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .customer-gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+.customer-gallery__item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.customer-gallery__item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.customer-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.customer-gallery__item:hover img {
+  transform: scale(1.1);
+}
+
+.customer-gallery__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 40px 15px 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.customer-gallery__item:hover .customer-gallery__overlay {
+  opacity: 1;
+}
+
+.customer-gallery__name {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.customer-gallery__rating {
+  color: #FFD700;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.customer-gallery__cta {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.customer-gallery__cta a {
+  display: inline-block;
+  padding: 15px 35px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.customer-gallery__cta a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.5);
+}
+
+/* Gallery Lightbox */
+.customer-gallery__lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-gallery__lightbox.active {
+  display: flex;
+}
+
+.customer-gallery__lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+.customer-gallery__lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+</style>
+
+<div class="customer-gallery">
+  <div class="page-width">
+    <div class="customer-gallery__header">
+      <h2 class="customer-gallery__title">{{ section.settings.title | default: 'Customer Photos' }}</h2>
+      <p class="customer-gallery__subtitle">{{ section.settings.subtitle | default: 'See what our happy customers are saying' }}</p>
+    </div>
+    
+    <div class="customer-gallery__grid">
+      {%- for i in (1..8) -%}
+        {%- assign image_key = 'image_' | append: i -%}
+        {%- assign name_key = 'name_' | append: i -%}
+        {%- assign rating_key = 'rating_' | append: i -%}
+        {%- if section.settings[image_key] != blank -%}
+          <div class="customer-gallery__item" onclick="openLightbox(this)">
+            {{ section.settings[image_key] | image_url: width: 400 | image_tag: loading: 'lazy', alt: section.settings[name_key] | default: 'Customer photo' }}
+            <div class="customer-gallery__overlay">
+              <p class="customer-gallery__name">{{ section.settings[name_key] | default: 'Happy Customer' }}</p>
+              <div class="customer-gallery__rating">
+                {%- assign rating = section.settings[rating_key] | default: 5 -%}
+                {%- for star in (1..rating) -%}
+                  ⭐
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="customer-gallery__item">
+            <img src="https://placehold.co/400x400/ffe4ec/ff6b9d?text=Customer+Photo" alt="Customer photo placeholder">
+            <div class="customer-gallery__overlay">
+              <p class="customer-gallery__name">Your Photo Here</p>
+              <div class="customer-gallery__rating">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    
+    <div class="customer-gallery__cta">
+      <a href="{{ section.settings.cta_link | default: '#' }}">{{ section.settings.cta_text | default: 'Share Your Photo' }}</a>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="customer-gallery__lightbox" id="customerGalleryLightbox" onclick="closeLightbox(event)">
+  <button class="customer-gallery__lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img src="" alt="Customer photo" id="lightboxImage">
+</div>
+
+<script>
+function openLightbox(element) {
+  const img = element.querySelector('img');
+  const lightbox = document.getElementById('customerGalleryLightbox');
+  const lightboxImg = document.getElementById('lightboxImage');
+  lightboxImg.src = img.src.replace('width=400', 'width=800');
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(event) {
+  if (event.target.id === 'customerGalleryLightbox' || event.target.classList.contains('customer-gallery__lightbox-close')) {
+    document.getElementById('customerGalleryLightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// Close on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('customerGalleryLightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Customer Photos Gallery",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Customer Photos",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "See what our happy customers are saying",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "default": "Share Your Photo",
+      "label": "CTA Button Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "header",
+      "content": "Customer Photos (Add up to 8)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "name_1",
+      "label": "Customer Name 1"
+    },
+    {
+      "type": "range",
+      "id": "rating_1",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5,
+      "label": "Rating 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "name_2",
+      "label": "Customer Name 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "text",
+      "id": "name_3",
+      "label": "Customer Name 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "text",
+      "id": "name_4",
+      "label": "Customer Name 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "text",
+      "id": "name_5",
+      "label": "Customer Name 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6"
+    },
+    {
+      "type": "text",
+      "id": "name_6",
+      "label": "Customer Name 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image 7"
+    },
+    {
+      "type": "text",
+      "id": "name_7",
+      "label": "Customer Name 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image 8"
+    },
+    {
+      "type": "text",
+      "id": "name_8",
+      "label": "Customer Name 8"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Photos Gallery"
+    }
+  ]
+}
+{% endschema %}

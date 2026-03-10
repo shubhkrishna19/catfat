@@ -58,6 +58,15 @@
         "overlay_opacity": 60
       }
     },
+    "customer_photos_gallery": {
+      "type": "customer-photos-gallery",
+      "settings": {
+        "title": "Happy Customers",
+        "subtitle": "See what our customers are loving",
+        "cta_text": "Share Your Photo",
+        "cta_link": "shopify://pages/contact"
+      }
+    },
     "new_arrivals": {
       "type": "new-arrivals",
       "settings": {
@@ -202,6 +211,7 @@
   "order": [
     "countdown_timer",
     "slideshow",
+    "customer_photos_gallery",
     "new_arrivals",
     "shop_by_age",
     "best_sellers",
