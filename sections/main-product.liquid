@@ -22,6 +22,167 @@
   position: relative;
 }
 
+/* ========== T-P010: Age Recommendation Badge ========== */
+.age-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.product__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.product__header-info {
+  flex: 1;
+}
+
+.product__header-badge {
+  flex-shrink: 0;
+}
+
+/* ========== T-P008: Add to Cart Animation ========== */
+@keyframes cartSuccessPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cartCheckmark {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.cart-success-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-success-overlay.active {
+  display: flex;
+}
+
+.cart-success-content {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 50px;
+  text-align: center;
+  animation: modalSlideIn 0.3s ease;
+}
+
+.cart-success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.cart-success-icon svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+  animation: cartCheckmark 0.4s ease 0.2s both;
+}
+
+.cart-success-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.cart-success-content p {
+  color: #666;
+  margin: 0 0 20px;
+}
+
+.cart-success-btn {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cart-success-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+/* ========== T-P007: Product Video Embed ========== */
+.product__video-wrapper {
+  position: relative;
+  margin-top: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.product__video-wrapper video,
+.product__video-wrapper iframe {
+  width: 100%;
+  display: block;
+}
+
+.product__video-wrapper iframe {
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+.product__video-trigger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: rgba(255, 107, 157, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.product__video-trigger:hover {
+  background: #e84a7f;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.product__video-trigger svg {
+  width: 30px;
+  height: 30px;
+  color: white;
+  margin-left: 4px;
+}
+
 .product__media-list {
   display: grid;
   gap: 15px;
@@ -123,10 +284,38 @@
   padding: 0;
   border-radius: 50%;
   border: 3px solid transparent;
+  position: relative;
+  overflow: visible;
 }
 
 .product-variant__option.color-swatch.selected {
   border-color: #333;
+}
+
+.product-variant__option.color-swatch::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transition: border-color 0.2s ease;
+}
+
+.product-variant__option.color-swatch.selected::after {
+  border-color: #ff6b9d;
+}
+
+/* Size Swatches */
+.product-variant__option.size-swatch {
+  min-width: 50px;
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 /* Quantity Selector */
@@ -709,11 +898,70 @@
   transition: all 0.3s ease;
 }
 
-.fbt-add-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+/* ========== T-T012: Free Return Badge ========== */
+.free-return-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  color: #2e7d32;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 15px;
 }
-</style>
+
+.free-return-badge svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ========== T-T009: Safety Certifications Badges ========== */
+.safety-certifications {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.safety-cert {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8f8f8;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.safety-cert svg {
+  width: 18px;
+  height: 18px;
+}
+
+.safety-cert.bis-certified {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.safety-cert.food-safe {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.safety-cert.bpa-free {
+  background: #fce4ec;
+  color: #c2185b;
+}
+
+.safety-cert.leak-proof {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
 
 <div class="product product--large product--{{ section.settings.media_position }} page-width">
   <!-- Product Media -->
@@ -737,11 +985,50 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
+
+    <!-- T-P007: Product Video Embed -->
+    {%- if product.metafields.video_embed.value != blank or product.metafields.custom_video.value != blank -%}
+      <div class="product__video-wrapper">
+        {%- if product.metafields.video_embed.value != blank -%}
+          {{ product.metafields.video_embed.value }}
+        {%- elsif product.metafields.custom_video.value != blank -%}
+          {%- if product.metafields.custom_video.value contains 'youtube' or product.metafields.custom_video.value contains 'youtu.be' -%}
+            {%- assign video_id = product.metafields.custom_video.value | split: 'v=' | last | split: '&' | first -%}
+            <iframe src="https://www.youtube.com/embed/{{ video_id }}" allowfullscreen></iframe>
+          {%- elsif product.metafields.custom_video.value contains 'vimeo' -%}
+            {%- assign video_id = product.metafields.custom_video.value | split: '/' | last -%}
+            <iframe src="https://player.vimeo.com/video/{{ video_id }}" allowfullscreen></iframe>
+          {%- else -%}
+            <video controls playsinline>
+              <source src="{{ product.metafields.custom_video.value }}" type="video/mp4">
+            </video>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
   </div>
 
   <!-- Product Info -->
   <div class="product__info-wrapper">
-    <h1 class="product__title">{{ product.title | escape }}</h1>
+    <div class="product__header">
+      <div class="product__header-info">
+        <h1 class="product__title">{{ product.title | escape }}</h1>
+      </div>
+      <div class="product__header-badge">
+        <!-- T-P010: Age Recommendation Badge -->
+        {%- assign age_group = '' -%}
+        {%- for tag in product.tags -%}
+          {%- if tag contains 'age-' or tag contains 'Age-' -%}
+            {%- assign age_group = tag | replace: 'age-', '' | replace: 'Age-', '' -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if age_group != '' -%}
+          <span class="age-badge">{{ age_group }}</span>
+        {%- elsif product.metafields.age_group.value != blank -%}
+          <span class="age-badge">{{ product.metafields.age_group.value }}</span>
+        {%- endif -%}
+      </div>
+    </div>
 
     <div class="product__price">
       {%- if product.price_varies -%}
@@ -772,12 +1059,43 @@
             <label class="product-variant__label">{{ option.name }}: <span id="selected-{{ option.name | downcase }}">{{ option.selected_value }}</span></label>
             <div class="product-variant__options">
               {%- for value in option.values -%}
+                {%- assign is_color = false -%}
+                {%- assign color_value = '' -%}
+                {%- if option.name == 'Color' or option.name == 'Color' -%}
+                  {%- assign is_color = true -%}
+                  {%- assign color_value = value | downcase | replace: ' ', '-' -%}
+                  {%- case color_value -%}
+                    {%- when 'red' -%}{%- assign color_value = '#e74c3c' -%}
+                    {%- when 'blue' -%}{%- assign color_value = '#3498db' -%}
+                    {%- when 'green' -%}{%- assign color_value = '#2ecc71' -%}
+                    {%- when 'yellow' -%}{%- assign color_value = '#f1c40f' -%}
+                    {%- when 'pink' -%}{%- assign color_value = '#ff6b9d' -%}
+                    {%- when 'purple' -%}{%- assign color_value = '#9b59b6' -%}
+                    {%- when 'orange' -%}{%- assign color_value = '#e67e22' -%}
+                    {%- when 'black' -%}{%- assign color_value = '#333333' -%}
+                    {%- when 'white' -%}{%- assign color_value = '#ffffff' -%}
+                    {%- when 'grey' or 'gray' -%}{%- assign color_value = '#95a5a6' -%}
+                    {%- when 'navy' -%}{%- assign color_value = '#2c3e50' -%}
+                    {%- when 'maroon' -%}{%- assign color_value = '#800000' -%}
+                    {%- when 'cream' -%}{%- assign color_value = '#fffdd0' -%}
+                    {%- else -%}{%- assign color_value = value | downcase -%}
+                  {%- endcase -%}
+                {%- endif -%}
+                
+                {%- assign is_size = false -%}
+                {%- if option.name == 'Size' or option.name == 'size' -%}
+                  {%- assign is_size = true -%}
+                {%- endif -%}
+                
                 <button type="button"
-                  class="product-variant__option{% if value == option.selected_value %} selected{% endif %}"
+                  class="product-variant__option{% if value == option.selected_value %} selected{% endif %}{% if is_color %} color-swatch{% endif %}{% if is_size %} size-swatch{% endif %}"
+                  {% if is_color %}style="background-color: {{ color_value }};"{% endif %}
                   data-option-name="{{ option.name }}"
                   data-option-value="{{ value }}"
+                  data-is-color="{{ is_color }}"
+                  data-is-size="{{ is_size }}"
                   onclick="selectVariant('{{ option.name }}', '{{ value }}')">
-                  {{ value }}
+                  {%- unless is_color -%}{{ value }}{%- endunless -%}
                 </button>
               {%- endfor -%}
             </div>
@@ -821,6 +1139,35 @@
           Sold Out
         {%- endif -%}
       </button>
+      
+      <!-- T-T012: Free Return Badge -->
+      <div class="free-return-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        🔄 Free 7-Day Returns
+      </div>
+      
+      <!-- T-T009: Safety Certifications Badges -->
+      <div class="safety-certifications">
+        <div class="safety-cert bis-certified">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.5l7.5 13h-15L12 5.5zM11 10v4h2v-4h-2zm0 5v2h2v-2h-2z"/></svg>
+          BIS Certified
+        </div>
+        <div class="safety-cert food-safe">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Food Safe
+        </div>
+        <div class="safety-cert bpa-free">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          BPA Free
+        </div>
+        <div class="safety-cert leak-proof">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Leak Proof
+        </div>
+      </div>
     {%- endform -%}
 
     <!-- WhatsApp Share Button -->
@@ -1059,6 +1406,20 @@
   </div>
 </div>
 
+<!-- T-P008: Cart Success Animation Overlay -->
+<div class="cart-success-overlay" id="cartSuccessOverlay">
+  <div class="cart-success-content">
+    <div class="cart-success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h3>Added to Cart!</h3>
+    <p>{{ product.title }} has been added to your cart.</p>
+    <button class="cart-success-btn" onclick="closeCartSuccess()">Continue Shopping</button>
+  </div>
+</div>
+
 <!-- T-P001: Sticky Add to Cart Bar -->
 <div class="sticky-add-to-cart" id="stickyAddToCart">
   <div class="sticky-add-to-cart__product">
@@ -1083,6 +1444,29 @@
 </div>
 
 <script>
+// T-P008: Handle main form Add to Cart submission
+document.getElementById('product-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const form = this;
+  const formData = new FormData(form);
+  
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      items: [{ id: formData.get('id'), quantity: formData.get('quantity') || 1 }]
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    showCartSuccess();
+    if (typeof updateCartCount === 'function') updateCartCount();
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
+  })
+  .catch(error => console.error('Error:', error));
+});
+
 function selectVariant(optionName, value) {
   // Update button states
   document.querySelectorAll('[data-option-name="' + optionName + '"]').forEach(btn => {
@@ -1148,11 +1532,29 @@ function stickyAddToCart() {
   })
   .then(response => response.json())
   .then(data => {
-    alert('Added to cart!');
-    // Optionally update cart count
+    // T-P008: Show cart success animation
+    showCartSuccess();
+    // Update cart count if function exists
     if (typeof updateCartCount === 'function') updateCartCount();
+    // Also try Shopify's cart refresh
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
   })
   .catch(error => console.error('Error:', error));
+}
+
+// T-P008: Cart Success Animation Functions
+function showCartSuccess() {
+  const overlay = document.getElementById('cartSuccessOverlay');
+  if (overlay) {
+    overlay.classList.add('active');
+  }
+}
+
+function closeCartSuccess() {
+  const overlay = document.getElementById('cartSuccessOverlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+  }
 }
 
 // Show/hide sticky bar on scroll
