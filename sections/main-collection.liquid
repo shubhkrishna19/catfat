@@ -51,10 +51,33 @@
   color: #333;
 }
 
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-group-title svg {
+  width: 16px;
+  height: 16px;
+}
+
 .filter-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .filter-btn {
@@ -62,7 +85,7 @@
   border: 2px solid #e0e0e0;
   background: white;
   border-radius: 25px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -80,6 +103,213 @@
   color: white;
 }
 
+/* Price Range Slider */
+.price-range-container {
+  padding: 10px 0;
+}
+
+.price-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.price-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+.price-input:focus {
+  outline: none;
+  border-color: #ff6b9d;
+}
+
+.price-separator {
+  color: #999;
+  font-weight: 500;
+}
+
+.price-range-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e0e0e0;
+  appearance: none;
+  cursor: pointer;
+}
+
+.price-range-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(232, 74, 127, 0.4);
+}
+
+.price-range-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Color Swatches */
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.color-swatch.active {
+  border-color: #e84a7f;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #e84a7f;
+}
+
+.color-swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Size Options */
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.size-btn {
+  min-width: 48px;
+  height: 40px;
+  padding: 0 14px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.size-btn:hover {
+  border-color: #ff6b9d;
+  color: #ff6b9d;
+}
+
+.size-btn.active {
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  border-color: #ff6b9d;
+  color: white;
+}
+
+/* Active Filter Tags */
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #fff5f8;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.active-filters-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e84a7f;
+}
+
+.filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid #ff6b9d;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #e84a7f;
+}
+
+.filter-tag-remove {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ff6b9d;
+  color: white;
+  font-size: 12px;
+  line-height: 1;
+  transition: background 0.3s;
+}
+
+.filter-tag-remove:hover {
+  background: #d63d6d;
+}
+
+/* Reset Button */
+.reset-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid #e84a7f;
+  border-radius: 25px;
+  color: #e84a7f;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-filters-btn:hover {
+  background: #e84a7f;
+  color: white;
+}
+
+.reset-filters-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Filters Grid */
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Collection Grid */
 .collection-grid {
   margin-top: 20px;
 }
@@ -109,6 +339,14 @@
   .filter-options {
     justify-content: center;
   }
+
+  .filters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .active-filters {
+    justify-content: center;
+  }
 }
 
 .collection-empty {
@@ -128,6 +366,16 @@
   color: #666;
   font-size: 1.1rem;
 }
+
+/* Filter Section Title */
+.filter-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
 </style>
 
 <div class="collection-page page-width">
@@ -139,32 +387,179 @@
   </div>
 
   {%- if collection.products.size > 0 -%}
-    <!-- Category Filter -->
-    {% assign all_products = collection.products %}
-    {% assign categories = "" %}
-    {% for product in all_products %}
-      {% if product.type != blank and product.type != "" %}
-        {% assign categories = categories | append: product.type | append: "," %}
-      {% endif %}
-    {% endfor %}
-    {% assign unique_categories = categories | split: "," | compact | uniq %}
-    
-    {% if unique_categories.size > 0 %}
+    <!-- Active Filter Tags Display (T-F013) -->
+    <div class="active-filters" id="activeFilters" style="display: none;">
+      <span class="active-filters-label">Active Filters:</span>
+      <div id="activeFilterTags"></div>
+      <button class="reset-filters-btn" id="resetAllFilters">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+        Reset All
+      </button>
+    </div>
+
+    <!-- Collection Filters -->
     <div class="collection-filters">
-      <div class="filter-heading">Filter by Category:</div>
-      <div class="filter-options">
-        <button class="filter-btn active" data-filter="all">All</button>
-        {% for cat in unique_categories %}
-          <button class="filter-btn" data-filter="{{ cat | handle }}">{{ cat }}</button>
-        {% endfor %}
+      <h2 class="filter-section-title">Filter Products</h2>
+      
+      <div class="filters-grid">
+        <!-- Age Filter (T-F001) -->
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Age Group
+          </div>
+          <div class="filter-options" data-filter-type="age">
+            <button class="filter-btn active" data-value="all" data-filter="age">All Ages</button>
+            <button class="filter-btn" data-value="0-3" data-filter="age">0-3 Years</button>
+            <button class="filter-btn" data-value="3-6" data-filter="age">3-6 Years</button>
+            <button class="filter-btn" data-value="6-9" data-filter="age">6-9 Years</button>
+            <button class="filter-btn" data-value="9-12" data-filter="age">9-12 Years</button>
+            <button class="filter-btn" data-value="12+" data-filter="age">12+ Years</button>
+          </div>
+        </div>
+
+        <!-- Price Range Slider (T-F002) -->
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+            Price Range
+          </div>
+          <div class="price-range-container">
+            <div class="price-range-inputs">
+              <input type="number" class="price-input" id="priceMin" placeholder="Min" value="0">
+              <span class="price-separator">-</span>
+              <input type="number" class="price-input" id="priceMax" placeholder="Max" value="5000">
+            </div>
+            <input type="range" class="price-range-slider" id="priceSlider" min="0" max="5000" value="5000">
+            <div class="price-range-values">
+              <span>₹0</span>
+              <span id="priceDisplay">₹5,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Color Filter with Swatches (T-F003) -->
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="13.5" cy="6.5" r="2.5"/>
+              <circle cx="17.5" cy="10.5" r="2.5"/>
+              <circle cx="8.5" cy="7.5" r="2.5"/>
+              <circle cx="6.5" cy="12.5" r="2.5"/>
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"/>
+            </svg>
+            Color
+          </div>
+          <div class="color-swatches" data-filter-type="color">
+            <button class="color-swatch active" data-value="all" data-filter="color" style="background: linear-gradient(135deg, #667eea, #764ba2);" title="All Colors"></button>
+            <button class="color-swatch" data-value="pink" data-filter="color" style="background: #ff6b9d;" title="Pink"></button>
+            <button class="color-swatch" data-value="blue" data-filter="color" style="background: #4a90d9;" title="Blue"></button>
+            <button class="color-swatch" data-value="green" data-filter="color" style="background: #52c41a;" title="Green"></button>
+            <button class="color-swatch" data-value="yellow" data-filter="color" style="background: #faad14;" title="Yellow"></button>
+            <button class="color-swatch" data-value="red" data-filter="color" style="background: #ff4d4f;" title="Red"></button>
+            <button class="color-swatch" data-value="purple" data-filter="color" style="background: #722ed1;" title="Purple"></button>
+            <button class="color-swatch" data-value="orange" data-filter="color" style="background: #fa8c16;" title="Orange"></button>
+            <button class="color-swatch" data-value="white" data-filter="color" style="background: #ffffff; border: 1px solid #ddd;" title="White"></button>
+            <button class="color-swatch" data-value="multicolor" data-filter="color" style="background: linear-gradient(45deg, #ff6b9d, #4a90d9, #52c41a);" title="Multicolor"></button>
+          </div>
+        </div>
+
+        <!-- Size Filter (T-F004) -->
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M9 3v18"/>
+              <path d="M15 3v18"/>
+              <path d="M3 9h18"/>
+              <path d="M3 15h18"/>
+            </svg>
+            Size
+          </div>
+          <div class="size-options" data-filter-type="size">
+            <button class="size-btn active" data-value="all" data-filter="size">All</button>
+            <button class="size-btn" data-value="small" data-filter="size">S</button>
+            <button class="size-btn" data-value="medium" data-filter="size">M</button>
+            <button class="size-btn" data-value="large" data-filter="size">L</button>
+            <button class="size-btn" data-value="xl" data-filter="size">XL</button>
+            <button class="size-btn" data-value="free" data-filter="size">Free</button>
+          </div>
+        </div>
+
+        <!-- Theme/Character Filter (T-F005) -->
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            Theme / Character
+          </div>
+          <div class="filter-options" data-filter-type="theme">
+            <button class="filter-btn active" data-value="all" data-filter="theme">All Themes</button>
+            <button class="filter-btn" data-value="animal" data-filter="theme">Animals</button>
+            <button class="filter-btn" data-value="cartoon" data-filter="theme">Cartoon</button>
+            <button class="filter-btn" data-value="superhero" data-filter="theme">Superhero</button>
+            <button class="filter-btn" data-value="princess" data-filter="theme">Princess</button>
+            <button class="filter-btn" data-value="sports" data-filter="theme">Sports</button>
+            <button class="filter-btn" data-value="nature" data-filter="theme">Nature</button>
+            <button class="filter-btn" data-value="vehicles" data-filter="theme">Vehicles</button>
+          </div>
+        </div>
+
+        <!-- Material Filter (T-F006) -->
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+            Material
+          </div>
+          <div class="filter-options" data-filter-type="material">
+            <button class="filter-btn active" data-value="all" data-filter="material">All Materials</button>
+            <button class="filter-btn" data-value="cotton" data-filter="material">Cotton</button>
+            <button class="filter-btn" data-value="polyester" data-filter="material">Polyester</button>
+            <button class="filter-btn" data-value="soft-plush" data-filter="material">Soft Plush</button>
+            <button class="filter-btn" data-value="organic" data-filter="material">Organic</button>
+            <button class="filter-btn" data-value="bamboo" data-filter="material">Bamboo</button>
+            <button class="filter-btn" data-value="wool" data-filter="material">Wool</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reset Button (T-F012) -->
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="reset-filters-btn" id="resetFiltersBottom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          Reset All Filters
+        </button>
       </div>
     </div>
-    {% endif %}
 
     <div class="collection-grid">
-      <ul class="collection__grid" role="list" id="product-grid">
+      <ul class="collection__grid" id="product-grid" role="list">
         {%- for product in collection.products -%}
-          <li class="grid__item" data-category="{{ product.type | handle }}">
+          {% assign price = product.price | divided_by: 100 %}
+          <li class="grid__item" 
+              data-age="{{ product.tags | join: ' ' | split: 'age-' | last | split: ' ' | first }}"
+              data-price="{{ price }}"
+              data-color="{{ product.options_with_values | where: 'name', 'Color' | first | map: 'value' | join: ' ' | handle }}"
+              data-size="{{ product.options_with_values | where: 'name', 'Size' | first | map: 'value' | join: ' ' | handle }}"
+              data-theme="{{ product.tags | join: ' ' | split: 'theme-' | last | split: ' ' | first }}"
+              data-material="{{ product.tags | join: ' ' | split: 'material-' | last | split: ' ' | first }}">
             {% render 'card-product', card_product: product %}
           </li>
         {%- endfor -%}
@@ -173,27 +568,242 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const products = document.querySelectorAll('#product-grid .grid__item');
+        // Filter state
+        const filters = {
+          age: 'all',
+          priceMin: 0,
+          priceMax: 5000,
+          color: 'all',
+          size: 'all',
+          theme: 'all',
+          material: 'all'
+        };
+
+        // DOM Elements
+        const productItems = document.querySelectorAll('#product-grid .grid__item');
+        const activeFiltersContainer = document.getElementById('activeFilters');
+        const activeFilterTags = document.getElementById('activeFilterTags');
+        const resetButtons = document.querySelectorAll('#resetAllFilters, #resetFiltersBottom');
         
-        filterBtns.forEach(btn => {
+        // Price slider elements
+        const priceSlider = document.getElementById('priceSlider');
+        const priceMinInput = document.getElementById('priceMin');
+        const priceMaxInput = document.getElementById('priceMax');
+        const priceDisplay = document.getElementById('priceDisplay');
+
+        // Update price display
+        function updatePriceDisplay() {
+          priceDisplay.textContent = '₹' + parseInt(filters.priceMax).toLocaleString();
+        }
+
+        // Price slider event
+        priceSlider.addEventListener('input', function() {
+          filters.priceMax = parseInt(this.value);
+          priceMaxInput.value = this.value;
+          updatePriceDisplay();
+          applyFilters();
+        });
+
+        // Price input events
+        priceMinInput.addEventListener('change', function() {
+          filters.priceMin = parseInt(this.value) || 0;
+          applyFilters();
+        });
+
+        priceMaxInput.addEventListener('change', function() {
+          filters.priceMax = parseInt(this.value) || 5000;
+          priceSlider.value = filters.priceMax;
+          updatePriceDisplay();
+          applyFilters();
+        });
+
+        // Filter button clicks
+        document.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(btn => {
           btn.addEventListener('click', function() {
-            const filter = this.dataset.filter;
+            const filterType = this.dataset.filter;
+            const value = this.dataset.value;
             
-            // Update active button
-            filterBtns.forEach(b => b.classList.remove('active'));
+            // Update active state
+            const parent = this.closest(`[data-filter-type="${filterType}"]`);
+            if (parent) {
+              parent.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(b => {
+                b.classList.remove('active');
+              });
+            }
             this.classList.add('active');
             
-            // Filter products
-            products.forEach(product => {
-              if (filter === 'all' || product.dataset.category === filter) {
-                product.style.display = '';
-              } else {
-                product.style.display = 'none';
-              }
-            });
+            // Update filters state
+            filters[filterType] = value;
+            applyFilters();
           });
         });
+
+        // Apply filters
+        function applyFilters() {
+          let visibleCount = 0;
+          
+          productItems.forEach(item => {
+            const itemAge = item.dataset.age || '';
+            const itemPrice = parseInt(item.dataset.price) || 0;
+            const itemColor = item.dataset.color || '';
+            const itemSize = item.dataset.size || '';
+            const itemTheme = item.dataset.theme || '';
+            const itemMaterial = item.dataset.material || '';
+
+            // Check each filter
+            const ageMatch = filters.age === 'all' || itemAge.includes(filters.age);
+            const priceMatch = itemPrice >= filters.priceMin && itemPrice <= filters.priceMax;
+            const colorMatch = filters.color === 'all' || itemColor.includes(filters.color);
+            const sizeMatch = filters.size === 'all' || itemSize.includes(filters.size);
+            const themeMatch = filters.theme === 'all' || itemTheme.includes(filters.theme);
+            const materialMatch = filters.material === 'all' || itemMaterial.includes(filters.material);
+
+            if (ageMatch && priceMatch && colorMatch && sizeMatch && themeMatch && materialMatch) {
+              item.style.display = '';
+              visibleCount++;
+            } else {
+              item.style.display = 'none';
+            }
+          });
+
+          // Update active filter tags
+          updateActiveFilterTags();
+
+          // Show/hide empty state
+          updateEmptyState(visibleCount);
+        }
+
+        // Update active filter tags display (T-F013)
+        function updateActiveFilterTags() {
+          const activeTags = [];
+          
+          if (filters.age !== 'all') {
+            activeTags.push({ type: 'age', label: 'Age: ' + filters.age, value: 'all' });
+          }
+          if (filters.priceMax < 5000 || filters.priceMin > 0) {
+            activeTags.push({ type: 'price', label: '₹' + filters.priceMin + ' - ₹' + filters.priceMax, value: 'all' });
+          }
+          if (filters.color !== 'all') {
+            activeTags.push({ type: 'color', label: 'Color: ' + filters.color, value: 'all' });
+          }
+          if (filters.size !== 'all') {
+            activeTags.push({ type: 'size', label: 'Size: ' + filters.size, value: 'all' });
+          }
+          if (filters.theme !== 'all') {
+            activeTags.push({ type: 'theme', label: 'Theme: ' + filters.theme, value: 'all' });
+          }
+          if (filters.material !== 'all') {
+            activeTags.push({ type: 'material', label: 'Material: ' + filters.material, value: 'all' });
+          }
+
+          // Show/hide active filters container
+          if (activeTags.length > 0) {
+            activeFiltersContainer.style.display = 'flex';
+          } else {
+            activeFiltersContainer.style.display = 'none';
+          }
+
+          // Render tags
+          activeFilterTags.innerHTML = activeTags.map(tag => `
+            <span class="filter-tag" data-type="${tag.type}" data-value="${tag.value}">
+              ${tag.label}
+              <span class="filter-tag-remove" data-type="${tag.type}" data-value="${tag.value}">×</span>
+            </span>
+          `).join('');
+
+          // Add click handlers for remove buttons
+          document.querySelectorAll('.filter-tag-remove').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const type = this.dataset.type;
+              resetFilter(type);
+            });
+          });
+        }
+
+        // Reset single filter
+        function resetFilter(type) {
+          filters[type] = 'all';
+          
+          // Reset UI
+          const filterGroup = document.querySelector(`[data-filter-type="${type}"]`);
+          if (filterGroup) {
+            filterGroup.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(btn => {
+              btn.classList.remove('active');
+              if (btn.dataset.value === 'all') {
+                btn.classList.add('active');
+              }
+            });
+          }
+
+          // Reset price
+          if (type === 'price') {
+            filters.priceMin = 0;
+            filters.priceMax = 5000;
+            priceMinInput.value = 0;
+            priceMaxInput.value = 5000;
+            priceSlider.value = 5000;
+            updatePriceDisplay();
+          }
+
+          applyFilters();
+        }
+
+        // Reset all filters (T-F012)
+        function resetAllFilters() {
+          filters.age = 'all';
+          filters.priceMin = 0;
+          filters.priceMax = 5000;
+          filters.color = 'all';
+          filters.size = 'all';
+          filters.theme = 'all';
+          filters.material = 'all';
+
+          // Reset all UI elements
+          document.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.value === 'all') {
+              btn.classList.add('active');
+            }
+          });
+
+          // Reset price inputs
+          priceMinInput.value = 0;
+          priceMaxInput.value = 5000;
+          priceSlider.value = 5000;
+          updatePriceDisplay();
+
+          applyFilters();
+        }
+
+        resetButtons.forEach(btn => {
+          btn.addEventListener('click', resetAllFilters);
+        });
+
+        // Update empty state
+        function updateEmptyState(count) {
+          let emptyState = document.getElementById('filterEmptyState');
+          if (count === 0) {
+            if (!emptyState) {
+              emptyState = document.createElement('div');
+              emptyState.id = 'filterEmptyState';
+              emptyState.className = 'collection-empty';
+              emptyState.innerHTML = `
+                <h2>No products match your filters</h2>
+                <p>Try adjusting your filters to find what you're looking for.</p>
+              `;
+              document.getElementById('product-grid').style.display = 'none';
+              document.querySelector('.collection-grid').appendChild(emptyState);
+            }
+          } else {
+            if (emptyState) {
+              emptyState.remove();
+              document.getElementById('product-grid').style.display = '';
+            }
+          }
+        }
+
+        // Initialize
+        applyFilters();
       });
     </script>
 
