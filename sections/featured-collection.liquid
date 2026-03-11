@@ -1,75 +1,26 @@
 <style>
 .featured-collection {
-  padding: 40px 20px;
+  padding: 50px 20px;
   max-width: 1400px;
   margin: 0 auto;
-}
-
-/* Banner Image */
-.featured-collection__banner {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 40px;
-}
-
-.featured-collection__banner-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.featured-collection__banner-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.85), rgba(232, 74, 127, 0.7));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.featured-collection__banner-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-  text-align: center;
-}
-
-.featured-collection__banner-subtitle {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.9);
-  text-align: center;
-  margin-top: 8px;
-}
-
-@media (max-width: 768px) {
-  .featured-collection__banner-image {
-    height: 150px;
-  }
-  .featured-collection__banner-title {
-    font-size: 1.8rem;
-  }
 }
 
 /* Header */
 .featured-collection__header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .featured-collection__title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: #333;
-  margin-bottom: 8px;
-  text-align: center;
+  margin-bottom: 10px;
 }
 
 .featured-collection__desc {
   color: #666;
-  font-size: 0.95rem;
-  text-align: center;
+  font-size: 1rem;
 }
 
 /* Grid */
@@ -80,38 +31,30 @@
 }
 
 @media (max-width: 1200px) {
-  .featured-collection__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .featured-collection__grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .featured-collection__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+  .featured-collection__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 
 @media (max-width: 480px) {
-  .featured-collection__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+  .featured-collection__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 }
 
-/* Product Card - Playful Style */
+/* Product Card */
 .product-card {
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   border: 2px solid transparent;
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(255, 107, 157, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(255, 107, 157, 0.2);
   border-color: #ff6b9d;
 }
 
@@ -126,41 +69,38 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
 }
 
 .product-card:hover .product-card__image img {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
-/* Badge */
 .product-card__badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 10px;
+  left: 10px;
   background: linear-gradient(135deg, #ff6b9d, #e84a7f);
   color: #fff;
-  padding: 6px 14px;
-  font-size: 0.7rem;
+  padding: 5px 12px;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
   border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(255, 107, 157, 0.4);
   z-index: 2;
 }
 
 .product-card__badge.sale {
   background: linear-gradient(135deg, #ffd93d, #ffb300);
-  box-shadow: 0 4px 10px rgba(255, 217, 61, 0.4);
+  color: #333;
 }
 
-/* Wishlist Heart */
 .product-card__wishlist {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 36px;
-  height: 36px;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
   background: #fff;
   border-radius: 50%;
   display: flex;
@@ -170,22 +110,21 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
   z-index: 2;
+  font-size: 14px;
 }
 
 .product-card__wishlist:hover {
-  transform: scale(1.1);
   background: #ff6b9d;
   color: #fff;
 }
 
-/* Quick View */
 .product-card__quick-view {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px;
-  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  padding: 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
   transform: translateY(100%);
   transition: transform 0.3s ease;
   z-index: 2;
@@ -199,13 +138,12 @@
   width: 100%;
   background: #fff;
   color: #333;
-  padding: 10px;
+  padding: 8px;
   border: none;
-  border-radius: 8px;
-  font-size: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .quick-view-btn:hover {
@@ -213,13 +151,12 @@
   color: #fff;
 }
 
-/* Content */
 .product-card__content {
-  padding: 14px;
+  padding: 12px;
 }
 
 .product-card__vendor {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: #ff6b9d;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -228,14 +165,13 @@
 }
 
 .product-card__title {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-decoration: none;
   display: block;
-  line-height: 1.4;
-  transition: color 0.2s ease;
+  line-height: 1.3;
 }
 
 .product-card__title:hover {
@@ -246,74 +182,62 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 
 .product-card__price-current {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #ff6b9d;
 }
 
 .product-card__price-compare {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #999;
   text-decoration: line-through;
 }
 
-.product-card__price-sale {
-  color: #e84a7f;
-}
-
-/* Add to Cart Button */
 .product-card__btn {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   background: linear-gradient(135deg, #ff6b9d, #e84a7f);
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .product-card__btn:hover {
   transform: scale(1.02);
-  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+  box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
 }
 
-.product-card__btn:active {
-  transform: scale(0.98);
+/* View All Link */
+.featured-collection__viewall {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+  color: #ff6b9d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.featured-collection__viewall:hover {
+  text-decoration: underline;
 }
 </style>
 
 <div class="featured-collection">
-  {%- if section.settings.banner_image != blank -%}
-    <div class="featured-collection__banner">
-      <img src="{{ section.settings.banner_image | image_url: width: 1400 }}" 
-           alt="{{ section.settings.title }}"
-           class="featured-collection__banner-image"
-           loading="lazy">
-      <div class="featured-collection__banner-overlay">
-        <div>
-          <h2 class="featured-collection__banner-title">{{ section.settings.title }}</h2>
-          {%- if section.settings.banner_subtitle != blank -%}
-            <p class="featured-collection__banner-subtitle">{{ section.settings.banner_subtitle }}</p>
-          {%- endif -%}
-        </div>
-      </div>
-    </div>
-  {%- else -%}
-    <div class="featured-collection__header">
-      <h2 class="featured-collection__title">{{ section.settings.title | default: 'Featured Products' }}</h2>
-      {%- if section.settings.description != blank -%}
-        <p class="featured-collection__desc">{{ section.settings.description }}</p>
-      {%- endif -%}
-    </div>
-  {%- endif -%}
+  <div class="featured-collection__header">
+    <h2 class="featured-collection__title">{{ section.settings.title | default: 'Featured Products' }}</h2>
+    {%- if section.settings.description != blank -%}
+      <p class="featured-collection__desc">{{ section.settings.description }}</p>
+    {%- endif -%}
+  </div>
   
   <div class="featured-collection__grid">
     {%- assign collection = collections[section.settings.collection] -%}
@@ -336,9 +260,7 @@
               <span class="product-card__badge sale">Sale</span>
             {%- endif -%}
             
-            <div class="product-card__wishlist" onclick="event.preventDefault(); event.stopPropagation(); alert('Wishlist coming soon!')">
-              ♥
-            </div>
+            <div class="product-card__wishlist" onclick="event.preventDefault(); event.stopPropagation();">♥</div>
             
             <div class="product-card__quick-view">
               <button class="quick-view-btn">Quick View</button>
@@ -375,6 +297,10 @@
       <p style="grid-column: 1/-1; text-align: center; color: #666;">No products found in this collection.</p>
     {%- endif -%}
   </div>
+  
+  {%- if collection and collection.url -%}
+    <a href="{{ collection.url }}" class="featured-collection__viewall">View All →</a>
+  {%- endif -%}
 </div>
 
 <script>
@@ -411,16 +337,6 @@ function addToCart(variantId) {
       "type": "text",
       "id": "description",
       "label": "Description"
-    },
-    {
-      "type": "image_picker",
-      "id": "banner_image",
-      "label": "Banner Image"
-    },
-    {
-      "type": "text",
-      "id": "banner_subtitle",
-      "label": "Banner Subtitle"
     },
     {
       "type": "collection",
