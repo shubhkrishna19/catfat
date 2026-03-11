@@ -11,7 +11,7 @@
       "type": "featured-collection",
       "settings": {
         "title": "Lunch Boxes",
-        "collection": "lunch-boxes",
+        "collection": "lunch-box",
         "products_to_show": 8
       }
     },
@@ -19,7 +19,7 @@
       "type": "featured-collection",
       "settings": {
         "title": "Water Bottles",
-        "collection": "bottles",
+        "collection": "bottles-flasks",
         "products_to_show": 8
       }
     },

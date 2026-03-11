@@ -797,7 +797,7 @@
               data-size="{{ product.options_with_values | where: 'name', 'Size' | first | map: 'value' | join: ' ' | handle }}"
               data-theme="{{ product.tags | join: ' ' | split: 'theme-' | last | split: ' ' | first }}"
               data-material="{{ product.tags | join: ' ' | split: 'material-' | last | split: ' ' | first }}">
-            {% render 'card-product', card_product: product %}
+            {% render 'card-product', product: product %}
           </li>
         {%- endfor -%}
       </ul>
