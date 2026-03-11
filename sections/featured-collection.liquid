@@ -211,7 +211,7 @@
                    alt="{{ product.title | escape }}">
             {%- endif -%}
             
-            {%- if product.tags contains 'new' or product.created_at > 'now' | date_modify: '-7 days' -%}
+            {%- if product.tags contains 'new' -%}
               <span class="product-card__badge">New</span>
             {%- elsif product.compare_at_price > product.price -%}
               <span class="product-card__badge" style="background: #e84a7f;">Sale</span>

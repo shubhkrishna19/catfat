@@ -2,22 +2,21 @@
 .footer {
   background: #1a1a2e;
   color: #fff;
-  padding: 50px 20px 30px;
+  padding: 60px 20px 30px;
   margin-top: 50px;
 }
 
 .footer__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
   gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .footer__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
   }
 }
 
@@ -28,8 +27,60 @@
   }
 }
 
+.footer__brand {
+  max-width: 280px;
+}
+
+@media (max-width: 480px) {
+  .footer__brand {
+    max-width: 100%;
+  }
+}
+
+.footer__logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ff6b9d;
+  margin-bottom: 15px;
+}
+
+.footer__desc {
+  color: #999;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer__contact {
+  margin-bottom: 15px;
+}
+
+.footer__contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #aaa;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 480px) {
+  .footer__contact-item {
+    justify-content: center;
+  }
+}
+
+.footer__contact-item a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.footer__contact-item a:hover {
+  color: #ff6b9d;
+}
+
 .footer__heading {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #ff6b9d;
   text-transform: uppercase;
@@ -58,10 +109,93 @@
   color: #fff;
 }
 
+/* Newsletter */
+.footer__newsletter {
+  margin-top: 20px;
+}
+
+.footer__newsletter-form {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .footer__newsletter-form {
+    flex-direction: column;
+  }
+}
+
+.footer__newsletter-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: #2a2a4a;
+  color: #fff;
+}
+
+.footer__newsletter-input::placeholder {
+  color: #666;
+}
+
+.footer__newsletter-input:focus {
+  outline: none;
+  background: #3a3a5a;
+}
+
+.footer__newsletter-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer__newsletter-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+}
+
+/* Social Icons */
+.footer__social {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .footer__social {
+    justify-content: center;
+  }
+}
+
+.footer__social a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a2a4a;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.footer__social a:hover {
+  background: #ff6b9d;
+  transform: translateY(-3px);
+}
+
+/* Bottom */
 .footer__bottom {
   border-top: 1px solid #333;
   margin-top: 40px;
-  padding-top: 20px;
+  padding-top: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,16 +211,6 @@
   font-size: 0.8rem;
 }
 
-.footer__social {
-  display: flex;
-  gap: 15px;
-}
-
-.footer__social a {
-  color: #fff;
-  font-size: 1.2rem;
-}
-
 .footer__payments {
   display: flex;
   gap: 10px;
@@ -96,6 +220,14 @@
 .footer__payments img {
   height: 24px;
   opacity: 0.7;
+}
+
+.footer__secure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 480px) {
@@ -108,6 +240,38 @@
 
 <footer class="footer">
   <div class="footer__grid">
+    <!-- Brand Column -->
+    <div class="footer__brand">
+      <div class="footer__logo">🐱 CatFat India</div>
+      <p class="footer__desc">
+        India's favorite destination for premium lunch boxes & insulated bottles. 
+        Making meal times fun for kids since 2020!
+      </p>
+      
+      <div class="footer__contact">
+        <div class="footer__contact-item">
+          <span>📞</span>
+          <a href="tel:+918383013068">+91 8383013068</a>
+        </div>
+        <div class="footer__contact-item">
+          <span>📧</span>
+          <a href="mailto:support@catfatindia.com">support@catfatindia.com</a>
+        </div>
+        <div class="footer__contact-item">
+          <span>📍</span>
+          <span>Pan India Delivery</span>
+        </div>
+      </div>
+      
+      <div class="footer__social">
+        <a href="https://wa.me/918383013068" title="WhatsApp">💬</a>
+        <a href="https://instagram.com/catfatindia" title="Instagram">📷</a>
+        <a href="https://facebook.com/catfatindia" title="Facebook">📘</a>
+        <a href="https://youtube.com" title="YouTube">▶️</a>
+      </div>
+    </div>
+    
+    <!-- Shop -->
     <div class="footer__block">
       <h3 class="footer__heading">Shop</h3>
       <ul class="footer__links">
@@ -115,42 +279,45 @@
         <li><a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a></li>
         <li><a href="{{ routes.collections_url }}/best-sellers">Best Sellers</a></li>
         <li><a href="{{ routes.collections_url }}/sale">Sale</a></li>
+        <li><a href="{{ routes.root_url }}">Track Order</a></li>
       </ul>
     </div>
     
+    <!-- Customer Service -->
     <div class="footer__block">
-      <h3 class="footer__heading">Customer Service</h3>
+      <h3 class="footer__heading">Help</h3>
       <ul class="footer__links">
         <li><a href="{{ routes.pages_url }}/contact">Contact Us</a></li>
         <li><a href="{{ routes.pages_url }}/shipping">Shipping Info</a></li>
-        <li><a href="{{ routes.pages_url }}/returns">Returns</a></li>
+        <li><a href="{{ routes.pages_url }}/returns">Returns & Refunds</a></li>
         <li><a href="{{ routes.pages_url }}/faq">FAQ</a></li>
-      </ul>
-    </div>
-    
-    <div class="footer__block">
-      <h3 class="footer__heading">Company</h3>
-      <ul class="footer__links">
-        <li><a href="{{ routes.pages_url }}/about">About Us</a></li>
         <li><a href="{{ routes.pages_url }}/privacy">Privacy Policy</a></li>
-        <li><a href="{{ routes.pages_url }}/terms">Terms of Service</a></li>
       </ul>
     </div>
     
+    <!-- Newsletter -->
     <div class="footer__block">
-      <h3 class="footer__heading">Connect</h3>
-      <ul class="footer__links">
-        <li><a href="https://wa.me/918383013068">WhatsApp</a></li>
-        <li><a href="https://instagram.com">Instagram</a></li>
-        <li><a href="https://facebook.com">Facebook</a></li>
-      </ul>
+      <h3 class="footer__heading">Stay Updated</h3>
+      <p style="color: #999; font-size: 0.85rem; margin-bottom: 15px;">
+        Get exclusive offers & new arrival updates!
+      </p>
+      <div class="footer__newsletter">
+        <form class="footer__newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+          <input type="email" class="footer__newsletter-input" placeholder="Enter your email" required>
+          <button type="submit" class="footer__newsletter-btn">Subscribe</button>
+        </form>
+      </div>
     </div>
   </div>
   
   <div class="footer__bottom">
     <p class="footer__copyright">© 2026 CatFat India. All rights reserved.</p>
+    <div class="footer__secure">
+      <span>🔒</span>
+      <span>100% Secure Payments</span>
+    </div>
     <div class="footer__payments">
-      <span style="color: #666; font-size: 0.8rem;">🔒 Secure Payments</span>
+      <span style="color: #666; font-size: 0.75rem;">Visa • Mastercard • UPI • Wallets</span>
     </div>
   </div>
 </footer>
