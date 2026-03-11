@@ -21,6 +21,7 @@
   aspect-ratio: 1;
   background: linear-gradient(135deg, #fff5f8 0%, #ffeef3 100%);
   overflow: hidden;
+  width: 100%;
 }
 
 .product-card__image img {
@@ -28,6 +29,14 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .product-card__image {
+    aspect-ratio: 1;
+  }
+}
 }
 
 .product-card:hover .product-card__image img {
