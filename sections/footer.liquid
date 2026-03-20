@@ -1,203 +1,101 @@
-<style>
-.footer {
-  background: #1a1a2e;
-  color: #fff;
-  padding: 50px 20px 25px;
-  margin-top: 40px;
-}
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
 
-.footer__grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+<footer class="catfat-footer">
+  <div class="page-width catfat-footer__inner">
+    <span class="catfat-footer__topline">Smart lunchware. Better deals.</span>
 
-@media (max-width: 1024px) {
-  .footer__grid { grid-template-columns: repeat(2, 1fr); }
-}
+    <div class="catfat-footer__grid">
+      <div class="catfat-footer__brand">
+        <h2 class="catfat-footer__brand-title">CatfatIndia for bold lunch picks and gifting wins.</h2>
+        <p class="catfat-footer__brand-text">
+          Bigger visuals, stronger value cues, and playful lunchware that helps shoppers compare fast and buy with confidence.
+        </p>
 
-@media (max-width: 480px) {
-  .footer__grid { grid-template-columns: 1fr; text-align: center; }
-}
+        <div class="catfat-footer__trust">
+          <span class="catfat-footer__trust-pill">Personalised picks</span>
+          <span class="catfat-footer__trust-pill">Visible sale pricing</span>
+          <span class="catfat-footer__trust-pill">Gift-friendly themes</span>
+        </div>
 
-.footer__brand { max-width: 280px; }
-@media (max-width: 480px) { .footer__brand { max-width: 100%; margin: 0 auto; } }
+        <div class="catfat-footer__contact-list">
+          <a class="catfat-footer__contact-link" href="tel:+918383013068">
+            <span>Call</span> +91 8383013068
+          </a>
+          <a class="catfat-footer__contact-link" href="mailto:support@catfatindia.com">
+            <span>Email</span> support@catfatindia.com
+          </a>
+        </div>
+      </div>
 
-.footer__logo {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #ff6b9d;
-  margin-bottom: 12px;
-}
+      <div>
+        <h3 class="catfat-footer__heading">Shop</h3>
+        <ul class="catfat-footer__links">
+          <li><a href="/collections/all-products">All Products</a></li>
+          <li><a href="/collections/lunch-box">Lunch Boxes</a></li>
+          <li><a href="/collections/bottles-flasks">Bottles and Flasks</a></li>
+          <li><a href="/collections/kids-collections">Kids Picks</a></li>
+          <li><a href="/collections/india-s-biggest-lunch-sale-upto-80">Live Sale</a></li>
+        </ul>
+      </div>
 
-.footer__desc {
-  color: #999;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  margin-bottom: 15px;
-}
+      <div>
+        <h3 class="catfat-footer__heading">Support</h3>
+        <ul class="catfat-footer__links">
+          <li><a href="/pages/contact-us">Contact Us</a></li>
+          <li><a href="/collections/corporate-gifting-bulk-gifting">Bulk Gifting</a></li>
+          <li><a href="/pages/terms-and-conditions">Terms and Conditions</a></li>
+          <li><a href="{{ routes.account_url }}">My Account</a></li>
+        </ul>
+      </div>
 
-.footer__contact-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #aaa;
-  font-size: 0.8rem;
-  margin-bottom: 6px;
-}
+      <div class="catfat-footer__signup">
+        <h3 class="catfat-footer__heading">Get Coupons First</h3>
+        <p class="catfat-footer__support-copy">
+          Share your email for discount coupons, latest product updates, and early access to Catfat launches before the best products sell out.
+        </p>
 
-@media (max-width: 480px) { .footer__contact-item { justify-content: center; } }
+        {%- form 'customer', class: 'catfat-footer__newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="catfat-footer__newsletter-fields">
+            <input
+              type="email"
+              name="contact[email]"
+              class="catfat-footer__newsletter-input"
+              value="{{ form.email }}"
+              placeholder="Enter your email"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              required
+            >
+            <button type="submit" class="catfat-footer__newsletter-button">Unlock updates</button>
+          </div>
 
-.footer__contact-item a { color: #aaa; text-decoration: none; }
-.footer__contact-item a:hover { color: #ff6b9d; }
+          {%- if form.posted_successfully? -%}
+            <p class="catfat-footer__newsletter-message">
+              You are in. Watch your inbox for coupons and new-drop updates.
+            </p>
+          {%- elsif form.errors -%}
+            <ul class="catfat-footer__newsletter-errors" role="alert">
+              {%- for field in form.errors -%}
+                <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        {%- endform -%}
 
-.footer__social {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-@media (max-width: 480px) { .footer__social { justify-content: center; } }
-
-.footer__social a {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #2a2a4a;
-  border-radius: 50%;
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.footer__social a:hover { background: #ff6b9d; transform: translateY(-2px); }
-
-.footer__heading {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #ff6b9d;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 15px;
-}
-
-.footer__links { list-style: none; padding: 0; margin: 0; }
-.footer__links li { margin-bottom: 8px; }
-.footer__links a {
-  color: #aaa;
-  text-decoration: none;
-  font-size: 0.8rem;
-  transition: color 0.3s ease;
-}
-.footer__links a:hover { color: #fff; }
-
-.footer__newsletter { margin-top: 15px; }
-.footer__newsletter-form { display: flex; gap: 8px; max-width: 260px; }
-@media (max-width: 480px) { .footer__newsletter-form { flex-direction: column; max-width: 100%; } }
-
-.footer__newsletter-input {
-  flex: 1;
-  padding: 10px 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  background: #2a2a4a;
-  color: #fff;
-}
-.footer__newsletter-input::placeholder { color: #666; }
-.footer__newsletter-input:focus { outline: none; background: #3a3a5a; }
-
-.footer__newsletter-btn {
-  padding: 10px 16px;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.footer__newsletter-btn:hover { transform: scale(1.05); }
-
-.footer__bottom {
-  border-top: 1px solid #333;
-  margin-top: 30px;
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.footer__copyright { color: #666; font-size: 0.75rem; }
-.footer__secure { display: flex; align-items: center; gap: 6px; color: #666; font-size: 0.75rem; }
-
-@media (max-width: 480px) {
-  .footer__bottom { flex-direction: column; text-align: center; }
-}
-</style>
-
-<footer class="footer">
-  <div class="footer__grid">
-    <div class="footer__brand">
-      <div class="footer__logo">🐱 CatFat India</div>
-      <p class="footer__desc">
-        India's favorite destination for premium lunch boxes & insulated bottles. Making meal times fun for kids!
-      </p>
-      <div class="footer__contact-item">📞 <a href="tel:+918383013068">+91 8383013068</a></div>
-      <div class="footer__contact-item">📧 <a href="mailto:support@catfatindia.com">support@catfatindia.com</a></div>
-      <div class="footer__social">
-        <a href="https://wa.me/918383013068" title="WhatsApp">💬</a>
-        <a href="https://instagram.com/catfatindia" title="Instagram">📷</a>
-        <a href="https://facebook.com/catfatindia" title="Facebook">📘</a>
+        <div class="catfat-footer__social">
+          <a href="https://wa.me/918383013068">WhatsApp</a>
+          <a href="https://instagram.com/catfatindia">Instagram</a>
+          <a href="https://facebook.com/catfatindia">Facebook</a>
+        </div>
       </div>
     </div>
-    
-    <div>
-      <h3 class="footer__heading">Shop</h3>
-      <ul class="footer__links">
-        <li><a href="{{ routes.collections_url }}">All Products</a></li>
-        <li><a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a></li>
-        <li><a href="{{ routes.collections_url }}/best-sellers">Best Sellers</a></li>
-        <li><a href="{{ routes.collections_url }}/sale">Sale</a></li>
-      </ul>
+
+    <div class="catfat-footer__bottom">
+      <p class="catfat-footer__bottom-copy">Copyright 2026 CatfatIndia. All rights reserved.</p>
+      <p class="catfat-footer__bottom-note">Secure checkout for lunchware, gifting, and themed favourites.</p>
     </div>
-    
-    <div>
-      <h3 class="footer__heading">Help</h3>
-      <ul class="footer__links">
-        <li><a href="{{ routes.pages_url }}/contact">Contact Us</a></li>
-        <li><a href="{{ routes.pages_url }}/shipping">Shipping Info</a></li>
-        <li><a href="{{ routes.pages_url }}/returns">Returns</a></li>
-        <li><a href="{{ routes.pages_url }}/faq">FAQ</a></li>
-      </ul>
-    </div>
-    
-    <div>
-      <h3 class="footer__heading">Stay Updated</h3>
-      <p style="color: #999; font-size: 0.8rem; margin-bottom: 10px;">Get exclusive offers & updates!</p>
-      <div class="footer__newsletter">
-        <form class="footer__newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
-          <input type="email" class="footer__newsletter-input" placeholder="Enter your email" required>
-          <button type="submit" class="footer__newsletter-btn">Subscribe</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  
-  <div class="footer__bottom">
-    <p class="footer__copyright">© 2026 CatFat India. All rights reserved.</p>
-    <div class="footer__secure">🔒 100% Secure Payments</div>
   </div>
 </footer>
 

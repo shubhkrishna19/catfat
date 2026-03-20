@@ -1,0 +1,171 @@
+{{ 'section-marketplace-discount-popup.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lunch_collection = collections['lunch-box']
+  assign popup_primary = blank
+  assign popup_secondary = blank
+
+  if lunch_collection != blank
+    for product in lunch_collection.products
+      if popup_primary == blank and product.featured_media != blank
+        assign popup_primary = product
+      elsif popup_secondary == blank and product.featured_media != blank
+        assign popup_secondary = product
+        break
+      endif
+    endfor
+  endif
+-%}
+
+<section
+  class="discount-popup"
+  data-discount-popup
+  data-delay-seconds="40"
+  data-storage-key="catfat-mystery-discount-dismissed"
+>
+  <div class="discount-popup__backdrop" data-popup-close></div>
+  <div class="discount-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="discount-popup-title-{{ section.id }}">
+    <button type="button" class="discount-popup__close" aria-label="Close popup" data-popup-close>&times;</button>
+
+    <div class="discount-popup__copy">
+      <span class="discount-popup__eyebrow">Mystery offer</span>
+      <h2 class="discount-popup__title" id="discount-popup-title-{{ section.id }}">Unlock your Catfat mystery discount.</h2>
+      <p class="discount-popup__description">
+        Join the Catfat list for surprise coupons, lunch-box launch drops, and early sale access before the best products sell out.
+      </p>
+
+      {%- form 'customer', class: 'discount-popup__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,mystery-discount">
+        <label for="DiscountPopupEmail-{{ section.id }}" class="discount-popup__label">Email address</label>
+        <input
+          id="DiscountPopupEmail-{{ section.id }}"
+          type="email"
+          name="contact[email]"
+          class="discount-popup__input"
+          value="{% if form.email %}{{ form.email }}{% endif %}"
+          placeholder="Enter your email"
+          required
+        >
+        <button type="submit" class="discount-popup__button">Unlock now</button>
+
+        {%- if form.posted_successfully? -%}
+          <p class="discount-popup__message discount-popup__message--success">You're in. Watch your inbox for the next Catfat offer.</p>
+        {%- elsif form.errors -%}
+          <p class="discount-popup__message discount-popup__message--error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+      {%- endform -%}
+
+      <div class="discount-popup__signals">
+        <span>Free shipping above Rs. 499</span>
+        <span>COD available</span>
+        <span>Lunch-box drops first</span>
+      </div>
+    </div>
+
+    <div class="discount-popup__visual" aria-hidden="true">
+      <div class="discount-popup__glow discount-popup__glow--one"></div>
+      <div class="discount-popup__glow discount-popup__glow--two"></div>
+
+      {%- if popup_primary != blank and popup_primary.featured_media != blank -%}
+        <div class="discount-popup__asset discount-popup__asset--primary">
+          {{
+            popup_primary.featured_media
+            | image_url: width: 900
+            | image_tag:
+              class: 'discount-popup__image',
+              widths: '320, 520, 720, 900',
+              loading: 'lazy',
+              alt: popup_primary.title
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- if popup_secondary != blank and popup_secondary.featured_media != blank -%}
+        <div class="discount-popup__asset discount-popup__asset--secondary">
+          {{
+            popup_secondary.featured_media
+            | image_url: width: 900
+            | image_tag:
+              class: 'discount-popup__image',
+              widths: '320, 520, 720, 900',
+              loading: 'lazy',
+              alt: popup_secondary.title
+          }}
+        </div>
+      {%- endif -%}
+
+      <div class="discount-popup__offer-card">
+        <span class="discount-popup__offer-label">Mystery perk</span>
+        <strong class="discount-popup__offer-title">Email unlock</strong>
+        <span class="discount-popup__offer-copy">Surprise savings, first access, and launch alerts.</span>
+      </div>
+
+      <div class="discount-popup__cube discount-popup__cube--one"></div>
+      <div class="discount-popup__cube discount-popup__cube--two"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var root = document.currentScript.previousElementSibling;
+    if (!root || !root.matches('[data-discount-popup]')) return;
+
+    var storageKey = root.getAttribute('data-storage-key');
+    var delay = parseInt(root.getAttribute('data-delay-seconds') || '25', 10) * 1000;
+    var dialog = root.querySelector('.discount-popup__dialog');
+    var closeTargets = root.querySelectorAll('[data-popup-close]');
+    var shown = false;
+
+    function openPopup() {
+      if (shown) return;
+      if (window.localStorage && window.localStorage.getItem(storageKey) === '1') return;
+      shown = true;
+      root.classList.add('is-visible');
+      document.documentElement.classList.add('discount-popup-open');
+    }
+
+    function closePopup() {
+      root.classList.remove('is-visible');
+      document.documentElement.classList.remove('discount-popup-open');
+      if (window.localStorage) {
+        window.localStorage.setItem(storageKey, '1');
+      }
+    }
+
+    window.setTimeout(openPopup, delay);
+
+    document.addEventListener('mouseout', function(event) {
+      if (event.clientY > 20 || shown) return;
+      openPopup();
+    });
+
+    closeTargets.forEach(function(target) {
+      target.addEventListener('click', closePopup);
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && root.classList.contains('is-visible')) {
+        closePopup();
+      }
+    });
+
+    if (dialog) {
+      dialog.addEventListener('click', function(event) {
+        event.stopPropagation();
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Discount Popup",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Discount Popup"
+    }
+  ]
+}
+{% endschema %}

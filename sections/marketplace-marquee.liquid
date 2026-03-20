@@ -1,0 +1,54 @@
+{{ 'section-marketplace-marquee.css' | asset_url | stylesheet_tag }}
+
+<section class="marketplace-marquee page-width">
+  <div class="marketplace-marquee__shell">
+    <div class="marketplace-marquee__track" aria-label="Catfat highlights">
+      {%- for duplicate in (1..2) -%}
+        <div class="marketplace-marquee__group" aria-hidden="{% if duplicate == 2 %}true{% else %}false{% endif %}">
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              <span class="marketplace-marquee__item" {{ block.shopify_attributes }}>
+                {{ block.settings.text | escape }}
+              </span>
+            {%- endfor -%}
+          {%- else -%}
+            <span class="marketplace-marquee__item">Original Catfat photos</span>
+            <span class="marketplace-marquee__item">Visible sale pricing</span>
+            <span class="marketplace-marquee__item">Kids-favourite themes</span>
+            <span class="marketplace-marquee__item">Microwave-safe picks</span>
+            <span class="marketplace-marquee__item">Insulated travel favourites</span>
+            <span class="marketplace-marquee__item">Bulk gifting support</span>
+            <span class="marketplace-marquee__item">Lunch picks for school days</span>
+            <span class="marketplace-marquee__item">Fast compare. Faster checkout.</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marketplace Marquee",
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Ticker item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Original Catfat photos",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marketplace Marquee"
+    }
+  ]
+}
+{% endschema %}

@@ -1,233 +1,216 @@
-<style>
-.slideshow {
-  position: relative;
-  height: 500px;
-  background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 50%, #ff8e53 100%);
-  overflow: hidden;
-}
+{{ 'section-marketplace-hero.css' | asset_url | stylesheet_tag }}
 
-@media (max-width: 768px) {
-  .slideshow {
-    height: 350px;
-  }
-}
+{%- liquid
+  assign catalog_collection = collections['all-products']
+  assign lunch_collection = collections['lunch-box']
+  assign bottle_collection = collections['bottles-flasks']
+  assign kids_collection = collections['kids-collections']
+  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
 
-.slideshow__slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
+  assign main_collection = lunch_collection
+  if main_collection == blank
+    assign main_collection = kids_collection
+  endif
 
-.slideshow__slide.active {
-  opacity: 1;
-}
+  assign main_product = blank
+  if main_collection != blank
+    for product in main_collection.products
+      if product.available
+        assign main_product = product
+        break
+      endif
+    endfor
+    if main_product == blank
+      assign main_product = main_collection.products.first
+    endif
+  endif
 
-.slideshow__content {
-  text-align: center;
-  color: #fff;
-  padding: 20px;
-  max-width: 600px;
-}
+  assign kids_product = blank
+  if kids_collection != blank
+    for product in kids_collection.products
+      if product.available
+        assign kids_product = product
+        break
+      endif
+    endfor
+    if kids_product == blank
+      assign kids_product = kids_collection.products.first
+    endif
+  endif
 
-.slideshow__subtitle {
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 10px;
-  background: rgba(255,255,255,0.2);
-  display: inline-block;
-  padding: 8px 20px;
-  border-radius: 25px;
-}
+  assign bottle_product = blank
+  if bottle_collection != blank
+    for product in bottle_collection.products
+      if product.available
+        assign bottle_product = product
+        break
+      endif
+    endfor
+    if bottle_product == blank
+      assign bottle_product = bottle_collection.products.first
+    endif
+  endif
 
-.slideshow__title {
-  font-size: 3rem;
-  font-weight: 800;
-  margin: 15px 0;
-  text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-}
+-%}
 
-@media (max-width: 768px) {
-  .slideshow__title {
-    font-size: 1.8rem;
-  }
-}
+<section
+  class="marketplace-hero{% if section.settings.auto_rotate %} marketplace-hero--animated{% endif %}"
+  style="--marketplace-float-speed: {{ section.settings.change_slides_speed }}s;"
+>
+  <div class="page-width">
+    <div class="marketplace-hero__shell">
+      <div class="marketplace-hero__copy">
+        <span class="marketplace-hero__eyebrow">Catfat lunchware</span>
+        <h2 class="marketplace-hero__title">Lunchware kids ask for.</h2>
+        <p class="marketplace-hero__description">
+          Explore Catfat lunch boxes, bottles, and gifting picks through a cleaner homepage built to help parents compare faster and buy with more confidence.
+        </p>
 
-.slideshow__text {
-  font-size: 1.1rem;
-  margin-bottom: 25px;
-  opacity: 0.95;
-}
+        <div class="marketplace-hero__actions">
+          <a
+            href="{% if lunch_collection != blank %}{{ lunch_collection.url }}{% elsif catalog_collection != blank %}{{ catalog_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
+            class="marketplace-hero__button marketplace-hero__button--primary"
+          >
+            Shop lunch boxes
+          </a>
+          <a
+            href="{% if catalog_collection != blank %}{{ catalog_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
+            class="marketplace-hero__button marketplace-hero__button--secondary"
+          >
+            Shop all products
+          </a>
+        </div>
 
-.slideshow__btn {
-  display: inline-block;
-  background: #fff;
-  color: #ff6b9d;
-  padding: 14px 35px;
-  font-weight: 700;
-  text-decoration: none;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-}
+        <div class="marketplace-hero__proof">
+          <span class="marketplace-hero__proof-item">750K+ on Instagram</span>
+          <span class="marketplace-hero__proof-item">Original product photos</span>
+          <span class="marketplace-hero__proof-item">Bulk gifting support</span>
+        </div>
 
-.slideshow__btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
+        <div class="marketplace-hero__quick-links">
+          {%- if lunch_collection != blank -%}
+            <a href="{{ lunch_collection.url }}" class="marketplace-hero__quick-link">Lunch Boxes</a>
+          {%- endif -%}
+          {%- if bottle_collection != blank -%}
+            <a href="{{ bottle_collection.url }}" class="marketplace-hero__quick-link">Bottles &amp; Thermos</a>
+          {%- endif -%}
+          {%- if kids_collection != blank -%}
+            <a href="{{ kids_collection.url }}" class="marketplace-hero__quick-link">Kids Themes</a>
+          {%- endif -%}
+          {%- if gifting_collection != blank -%}
+            <a href="{{ gifting_collection.url }}" class="marketplace-hero__quick-link">Bulk Gifting</a>
+          {%- endif -%}
+        </div>
+      </div>
 
-.slideshow__nav {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
+      <div class="marketplace-hero__visual">
+        <a
+          href="{% if main_collection != blank %}{{ main_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
+          class="marketplace-hero__feature marketplace-hero__feature--main"
+        >
+          <div class="marketplace-hero__feature-copy">
+            <span class="marketplace-hero__feature-label">
+              {% if main_collection != blank %}Bestselling lunch boxes{% else %}Lunch-box range{% endif %}
+            </span>
+            <strong class="marketplace-hero__feature-title">
+              {% if main_product != blank %}
+                {{ main_product.title | escape }}
+              {% else %}
+                Lunch-box picks made for school routines.
+              {% endif %}
+            </strong>
+            <div class="marketplace-hero__feature-meta">
+              <span class="marketplace-hero__feature-pill">School-ready picks</span>
+            </div>
+          </div>
+          <div class="marketplace-hero__feature-image-wrap">
+            {%- if main_product != blank and main_product.featured_media != blank -%}
+              {{
+                main_product.featured_media
+                | image_url: width: 1000
+                | image_tag:
+                  class: 'marketplace-hero__feature-image',
+                  widths: '420, 640, 840, 1000',
+                  loading: 'eager',
+                  alt: main_product.title
+              }}
+            {%- elsif main_collection != blank and main_collection.image != blank -%}
+              {{
+                main_collection.image
+                | image_url: width: 1000
+                | image_tag:
+                  class: 'marketplace-hero__feature-image',
+                  widths: '420, 640, 840, 1000',
+                  loading: 'eager',
+                  alt: main_collection.title
+              }}
+            {%- endif -%}
+          </div>
+        </a>
 
-.slideshow__dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+        <a
+          href="{% if kids_collection != blank %}{{ kids_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
+          class="marketplace-hero__feature"
+        >
+          <div class="marketplace-hero__feature-copy">
+            <span class="marketplace-hero__feature-label">Theme favourites</span>
+            <strong class="marketplace-hero__feature-title">
+              {% if kids_product != blank %}{{ kids_product.title | escape }}{% else %}Character-led picks for gift-ready lunches.{% endif %}
+            </strong>
+            <div class="marketplace-hero__feature-meta">
+              <span class="marketplace-hero__feature-pill">Character picks</span>
+            </div>
+          </div>
+          <div class="marketplace-hero__feature-image-wrap">
+            {%- if kids_product != blank and kids_product.featured_media != blank -%}
+              {{
+                kids_product.featured_media
+                | image_url: width: 900
+                | image_tag:
+                  class: 'marketplace-hero__feature-image',
+                  widths: '320, 520, 700, 900',
+                  loading: 'lazy',
+                  alt: kids_product.title
+              }}
+            {%- endif -%}
+          </div>
+        </a>
 
-.slideshow__dot.active {
-  background: #fff;
-  transform: scale(1.3);
-}
-
-.slideshow__arrows {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  box-sizing: border-box;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.slideshow__arrow {
-  width: 45px;
-  height: 45px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: all 0.3s ease;
-}
-
-.slideshow__arrow:hover {
-  background: #fff;
-  transform: scale(1.1);
-}
-
-.slideshow__arrow svg {
-  width: 20px;
-  height: 20px;
-  fill: #333;
-}
-</style>
-
-<div class="slideshow">
-  <div class="slideshow__slide active">
-    <div class="slideshow__content">
-      <span class="slideshow__subtitle">New Collection</span>
-      <h2 class="slideshow__title">Premium Lunch Boxes</h2>
-      <p class="slideshow__text">Safe, stylish & perfect for your kids</p>
-      <a href="{{ routes.collections_url }}/lunch-boxes" class="slideshow__btn">Shop Now</a>
+        <a
+          href="{% if bottle_collection != blank %}{{ bottle_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
+          class="marketplace-hero__feature"
+        >
+          <div class="marketplace-hero__feature-copy">
+            <span class="marketplace-hero__feature-label">Insulated carry</span>
+            <strong class="marketplace-hero__feature-title">
+              {% if bottle_product != blank %}
+                {{ bottle_product.title | escape }}
+              {% else %}
+                Bottles and thermos for school and travel.
+              {% endif %}
+            </strong>
+            <div class="marketplace-hero__feature-meta">
+              <span class="marketplace-hero__feature-pill">Daily carry</span>
+            </div>
+          </div>
+          <div class="marketplace-hero__feature-image-wrap">
+            {%- if bottle_product != blank and bottle_product.featured_media != blank -%}
+              {{
+                bottle_product.featured_media
+                | image_url: width: 900
+                | image_tag:
+                  class: 'marketplace-hero__feature-image',
+                  widths: '320, 520, 700, 900',
+                  loading: 'lazy',
+                  alt: bottle_product.title
+              }}
+            {%- endif -%}
+          </div>
+        </a>
+      </div>
     </div>
   </div>
-  
-  <div class="slideshow__slide">
-    <div class="slideshow__content">
-      <span class="slideshow__subtitle">Free Shipping</span>
-      <h2 class="slideshow__title">On Orders ₹499+</h2>
-      <p class="slideshow__text">Flat 50% Off on First Order</p>
-      <a href="{{ routes.collections_url }}/sale" class="slideshow__btn">Grab Offer</a>
-    </div>
-  </div>
-  
-  <div class="slideshow__slide">
-    <div class="slideshow__content">
-      <span class="slideshow__subtitle">Water Bottles</span>
-      <h2 class="slideshow__title">Stay Hydrated</h2>
-      <p class="slideshow__text">Insulated bottles for school & office</p>
-      <a href="{{ routes.collections_url }}/bottles" class="slideshow__btn">Shop Bottles</a>
-    </div>
-  </div>
-  
-  <div class="slideshow__arrows">
-    <div class="slideshow__arrow" onclick="changeSlide(-1)">
-      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-    </div>
-    <div class="slideshow__arrow" onclick="changeSlide(1)">
-      <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </div>
-  </div>
-  
-  <div class="slideshow__nav">
-    <div class="slideshow__dot active" onclick="goToSlide(0)"></div>
-    <div class="slideshow__dot" onclick="goToSlide(1)"></div>
-    <div class="slideshow__dot" onclick="goToSlide(2)"></div>
-  </div>
-</div>
-
-<script>
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slideshow__slide');
-const dots = document.querySelectorAll('.slideshow__dot');
-const totalSlides = slides.length;
-
-function showSlide(index) {
-  slides.forEach(s => s.classList.remove('active'));
-  dots.forEach(d => d.classList.remove('active'));
-  
-  slides[index].classList.add('active');
-  dots[index].classList.add('active');
-}
-
-function changeSlide(direction) {
-  currentSlide += direction;
-  if (currentSlide >= totalSlides) currentSlide = 0;
-  if (currentSlide < 0) currentSlide = totalSlides - 1;
-  showSlide(currentSlide);
-}
-
-function goToSlide(index) {
-  currentSlide = index;
-  showSlide(currentSlide);
-}
-
-// Auto-rotate
-let slideInterval = setInterval(() => changeSlide(1), 5000);
-
-// Pause on hover
-const slideshowEl = document.querySelector('.slideshow');
-if (slideshowEl) {
-  slideshowEl.addEventListener('mouseenter', () => {
-    clearInterval(slideInterval);
-  });
-  
-  slideshowEl.addEventListener('mouseleave', () => {
-    slideInterval = setInterval(() => changeSlide(1), 5000);
-  });
-}
-</script>
+</section>
 
 {% schema %}
 {
@@ -237,7 +220,7 @@ if (slideshowEl) {
       "type": "checkbox",
       "id": "auto_rotate",
       "default": true,
-      "label": "Auto rotate"
+      "label": "Animate feature cards"
     },
     {
       "type": "range",
@@ -245,7 +228,7 @@ if (slideshowEl) {
       "min": 3,
       "max": 10,
       "default": 5,
-      "label": "Change slides speed"
+      "label": "Animation speed"
     }
   ]
 }

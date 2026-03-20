@@ -1,0 +1,67 @@
+{{ 'section-marketplace-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '0' | plus: 0
+  assign all_reviews_rating = shop.metafields.judgeme.all_reviews_rating | default: '0' | plus: 0
+-%}
+
+<section class="marketplace-reviews page-width">
+  <div class="marketplace-reviews__shell">
+    <div class="marketplace-reviews__header">
+      <span class="marketplace-reviews__eyebrow">Real customer reviews</span>
+      <h2 class="marketplace-reviews__title">Proof from real Catfat buyers, not placeholder testimonials.</h2>
+      <p class="marketplace-reviews__description">
+        This review lane pulls from the same Judge.me reviews already collected on the live store, so shoppers see real buying proof before they reach the footer.
+      </p>
+    </div>
+
+    <div class="marketplace-reviews__proof">
+      <div class="marketplace-reviews__badge">
+        <!-- Start of Judge.me code -->
+        <div style='{{ shop.metafields.judgeme.all_reviews_style }}'>
+          {{ shop.metafields.judgeme.all_reviews }}
+        </div>
+        <!-- End of Judge.me code -->
+      </div>
+
+      <div class="marketplace-reviews__stat">
+        <span class="marketplace-reviews__stat-label">Storewide rating signal</span>
+        <strong class="marketplace-reviews__stat-value">
+          {% if all_reviews_count > 0 %}
+            {{ all_reviews_rating | round: 1 }}/5
+          {% else %}
+            Fresh reviews loading
+          {% endif %}
+        </strong>
+        <p class="marketplace-reviews__stat-copy">
+          {% if all_reviews_count > 0 %}
+            Based on {{ all_reviews_count }} verified customer review{% if all_reviews_count != 1 %}s{% endif %} collected on Catfat.
+          {% else %}
+            The live review feed will appear here once Judge.me finishes populating the widget on this preview.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <div class="marketplace-reviews__carousel-shell">
+      <!-- Start of Judge.me code -->
+      <div class='jdgm-carousel-title-and-link'>
+        <h2 class='jdgm-carousel-title'>Let customers speak for us</h2>
+        <span class='jdgm-all-reviews-rating-wrapper' style='display: none;'>
+          <span class='jdgm-all-reviews-rating'></span>
+        </span>
+      </div>
+      <div class='jdgm-carousel-wrapper'>
+        {{ shop.metafields.judgeme.featured_carousel }}
+      </div>
+      <!-- End of Judge.me code -->
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marketplace Reviews",
+  "settings": []
+}
+{% endschema %}

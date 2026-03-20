@@ -1,0 +1,169 @@
+.marketplace-reviews {
+  padding: 20px 0 16px;
+}
+
+.marketplace-reviews__shell {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(24px, 3vw, 34px);
+  border: 1px solid rgba(232, 74, 127, 0.12);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 217, 61, 0.2), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(255, 107, 157, 0.14), transparent 28%),
+    linear-gradient(180deg, #fff8fb 0%, #fffdf9 100%);
+  box-shadow: 0 20px 54px rgba(232, 74, 127, 0.08);
+}
+
+.marketplace-reviews__header {
+  display: grid;
+  gap: 1.2rem;
+  max-width: 74rem;
+}
+
+.marketplace-reviews__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 3.2rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  background: rgba(255, 107, 157, 0.1);
+  color: #d73d72;
+  font-size: 1.08rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.marketplace-reviews__title {
+  margin: 0;
+  color: #241520;
+  font-size: clamp(2.8rem, 2.4rem + 0.8vw, 4.2rem);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.marketplace-reviews__description {
+  margin: 0;
+  color: #685661;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+.marketplace-reviews__proof {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(24rem, 0.8fr);
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
+
+.marketplace-reviews__badge,
+.marketplace-reviews__stat {
+  padding: 1.6rem 1.8rem;
+  border: 1px solid rgba(232, 74, 127, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 22px rgba(89, 60, 76, 0.07);
+}
+
+.marketplace-reviews__badge .jdgm-all-reviews-text,
+.marketplace-reviews__badge .jdgm-all-reviews-text__text,
+.marketplace-reviews__badge .jdgm-all-reviews-text__rating {
+  color: #241520 !important;
+  font-size: 1.45rem !important;
+  line-height: 1.55 !important;
+  font-weight: 800 !important;
+}
+
+.marketplace-reviews__badge .jdgm-star {
+  color: #e84a7f !important;
+}
+
+.marketplace-reviews__stat-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #92546e;
+  font-size: 1.08rem;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.marketplace-reviews__stat-value {
+  color: #241520;
+  font-size: clamp(2rem, 1.8rem + 0.5vw, 2.6rem);
+  line-height: 1;
+  font-weight: 900;
+}
+
+.marketplace-reviews__stat-copy {
+  margin: 0.7rem 0 0;
+  color: #65505c;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.marketplace-reviews__carousel-shell {
+  margin-top: 2rem;
+  padding: 1.8rem;
+  border: 1px solid rgba(232, 74, 127, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 30px rgba(89, 60, 76, 0.08);
+}
+
+.marketplace-reviews__carousel-shell .jdgm-carousel-title-and-link {
+  margin-bottom: 1.4rem;
+}
+
+.marketplace-reviews__carousel-shell .jdgm-carousel-title {
+  color: #241520 !important;
+  font-size: 2rem !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+}
+
+.marketplace-reviews__carousel-shell .jdgm-carousel-wrapper {
+  max-width: none !important;
+}
+
+.marketplace-reviews__carousel-shell .jdgm-carousel-item {
+  border-radius: 12px !important;
+  border: 1px solid rgba(232, 74, 127, 0.08) !important;
+  box-shadow: 0 10px 18px rgba(89, 60, 76, 0.06) !important;
+}
+
+.marketplace-reviews__carousel-shell .jdgm-star {
+  color: #e84a7f !important;
+}
+
+.marketplace-reviews__carousel-shell .jdgm-carousel-item__review-body,
+.marketplace-reviews__carousel-shell .jdgm-carousel-item__reviewer-name,
+.marketplace-reviews__carousel-shell .jdgm-carousel-item__review-title {
+  color: #241520 !important;
+}
+
+@media screen and (max-width: 989px) {
+  .marketplace-reviews__proof {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .marketplace-reviews__shell {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .marketplace-reviews__badge,
+  .marketplace-reviews__stat,
+  .marketplace-reviews__carousel-shell {
+    padding: 1.4rem;
+  }
+}

@@ -159,6 +159,8 @@
       {{ content_for_layout }}
     </main>
 
+    {% section 'floating-trust-badges' %}
+
     {% section 'footer' %}
 
     <ul hidden>
@@ -191,8 +193,6 @@
     {%- if settings.cart_type == 'drawer' -%}
       {% render 'cart-drawer' %}
     {%- endif -%}
-
-    {% section 'floating-trust-badges' %}
 
     <!-- WhatsApp Floating Button -->
     <div class="custom_bottom_whatsapp_btn">

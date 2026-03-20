@@ -1,1163 +1,297 @@
-{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+﻿{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
 
 <style>
-.collection-page {
-  padding: 40px 0;
-  background: #fff;
-}
-
-.collection-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.collection-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #e84a7f;
-  margin-bottom: 15px;
-}
-
-.collection-title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #ff6b9d, #e84a7f);
-  margin: 15px auto 0;
-  border-radius: 2px;
-}
-
-.collection-description {
-  font-size: 1.1rem;
-  color: #666;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* Collection Filters */
-.collection-filters {
-  margin-bottom: 30px;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 12px;
-}
-
-.filter-heading {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-  color: #333;
-}
-
-.filter-group {
-  margin-bottom: 20px;
-}
-
-.filter-group:last-child {
-  margin-bottom: 0;
-}
-
-.filter-group-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.filter-group-title svg {
-  width: 16px;
-  height: 16px;
-}
-
-.filter-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.filter-btn {
-  padding: 8px 16px;
-  border: 2px solid #e0e0e0;
-  background: white;
-  border-radius: 25px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  color: #333;
-}
-
-.filter-btn:hover {
-  border-color: #ff6b9d;
-  color: #ff6b9d;
-}
-
-.filter-btn.active {
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  border-color: #ff6b9d;
-  color: white;
-}
-
-/* Price Range Slider */
-.price-range-container {
-  padding: 10px 0;
-}
-
-.price-range-inputs {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.price-input {
-  flex: 1;
-  padding: 10px 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  transition: border-color 0.3s;
-}
-
-.price-input:focus {
-  outline: none;
-  border-color: #ff6b9d;
-}
-
-.price-separator {
-  color: #999;
-  font-weight: 500;
-}
-
-.price-range-slider {
-  width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background: #e0e0e0;
-  appearance: none;
-  cursor: pointer;
-}
-
-.price-range-slider::-webkit-slider-thumb {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(232, 74, 127, 0.4);
-}
-
-.price-range-values {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
-  font-size: 0.85rem;
-  color: #666;
-}
-
-/* Color Swatches */
-.color-swatches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.color-swatch {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 3px solid transparent;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.color-swatch:hover {
-  transform: scale(1.1);
-}
-
-.color-swatch.active {
-  border-color: #e84a7f;
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #e84a7f;
-}
-
-.color-swatch::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Size Options */
-.size-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.size-btn {
-  min-width: 48px;
-  height: 40px;
-  padding: 0 14px;
-  border: 2px solid #e0e0e0;
-  background: white;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #333;
-}
-
-.size-btn:hover {
-  border-color: #ff6b9d;
-  color: #ff6b9d;
-}
-
-.size-btn.active {
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  border-color: #ff6b9d;
-  color: white;
-}
-
-/* Active Filter Tags */
-.active-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding: 15px;
-  background: #fff5f8;
-  border-radius: 10px;
-  align-items: center;
-}
-
-.active-filters-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #e84a7f;
-}
-
-.filter-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: white;
-  border: 1px solid #ff6b9d;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  color: #e84a7f;
-}
-
-.filter-tag-remove {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #ff6b9d;
-  color: white;
-  font-size: 12px;
-  line-height: 1;
-  transition: background 0.3s;
-}
-
-.filter-tag-remove:hover {
-  background: #d63d6d;
-}
-
-/* Reset Button */
-.reset-filters-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid #e84a7f;
-  border-radius: 25px;
-  color: #e84a7f;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.reset-filters-btn:hover {
-  background: #e84a7f;
-  color: white;
-}
-
-.reset-filters-btn svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* Filters Grid */
-.filters-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-/* Collection Grid */
-.collection-grid {
-  margin-top: 20px;
-}
-
-.collection__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.collection__grid .grid__item {
-  width: 100%;
-}
-
-.collection__grid .product-card {
-  height: 100%;
-}
-
-.collection__grid .product-card__image {
-  width: 100%;
-  aspect-ratio: 1;
-  overflow: hidden;
-}
-
-.collection__grid .product-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-@media (max-width: 1024px) {
-  .collection__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .collection__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+  .collection-template {
+    padding: 32px 0 56px;
   }
 
-  .collection-title {
-    font-size: 1.8rem;
-  }
-  
-  .filter-options {
-    justify-content: center;
-  }
-
-  .filters-grid {
-    grid-template-columns: 1fr;
+  .collection-template__hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    margin-bottom: 32px;
+    background: linear-gradient(135deg, #fff5f8, #fff7ef);
   }
 
-  .active-filters {
-    justify-content: center;
+  .collection-template__hero-image {
+    display: block;
+    width: 100%;
+    height: clamp(240px, 36vw, 420px);
+    object-fit: cover;
   }
-  
-  .collection__grid {
-    gap: 10px;
-  }
-}
 
-@media (max-width: 480px) {
-  .collection__grid {
-    grid-template-columns: repeat(2, 1fr);
+  .collection-template__hero-copy {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 28px;
+    color: #fff;
+    background: linear-gradient(180deg, rgba(30, 16, 28, 0) 0%, rgba(30, 16, 28, 0.78) 100%);
+  }
+
+  .collection-template__eyebrow {
+    display: inline-flex;
+    align-items: center;
     gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
-  
-  .product-card__content {
-    padding: 8px;
+
+  .collection-template__title {
+    margin: 16px 0 10px;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 0.96;
+    color: #2c1830;
   }
-  
-  .product-card__title {
-    font-size: 0.75rem;
+
+  .collection-template__hero-copy .collection-template__title {
+    color: #fff;
   }
-  
-  .product-card__price-current {
-    font-size: 0.85rem;
+
+  .collection-template__description {
+    max-width: 720px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #6f5c68;
   }
-  
-  .product-card__btn {
-    padding: 8px;
-    font-size: 0.7rem;
+
+  .collection-template__hero-copy .collection-template__description {
+    color: rgba(255, 255, 255, 0.92);
   }
-}
 
-.collection-empty {
-  text-align: center;
-  padding: 80px 20px;
-  background: #f9f9f9;
-  border-radius: 12px;
-}
-
-.collection-empty h2 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.collection-empty p {
-  color: #666;
-  font-size: 1.1rem;
-}
-
-/* Collection Toolbar with Sort, View Toggle, Results Count */
-.collection-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 25px;
-  padding: 15px 20px;
-  background: #f9f9f9;
-  border-radius: 12px;
-}
-
-.results-count {
-  font-size: 1rem;
-  color: #666;
-  font-weight: 500;
-}
-
-.results-count span {
-  color: #e84a7f;
-  font-weight: 700;
-}
-
-/* Sort By Dropdown */
-.sort-by-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sort-by-label {
-  font-size: 0.95rem;
-  color: #666;
-  font-weight: 500;
-}
-
-.sort-by-select {
-  padding: 10px 35px 10px 15px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #333;
-  background: white;
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  transition: border-color 0.3s;
-}
-
-.sort-by-select:hover,
-.sort-by-select:focus {
-  border-color: #ff6b9d;
-  outline: none;
-}
-
-/* View Toggle */
-.view-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.view-toggle-label {
-  font-size: 0.95rem;
-  color: #666;
-  font-weight: 500;
-}
-
-.view-toggle-buttons {
-  display: flex;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.view-btn {
-  padding: 8px 12px;
-  border: none;
-  background: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.view-btn:not(:last-child) {
-  border-right: 1px solid #e0e0e0;
-}
-
-.view-btn svg {
-  width: 18px;
-  height: 18px;
-  stroke: #999;
-  transition: stroke 0.3s;
-}
-
-.view-btn:hover svg {
-  stroke: #ff6b9d;
-}
-
-.view-btn.active {
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-}
-
-.view-btn.active svg {
-  stroke: white;
-}
-
-/* Hero Image */
-.collection-hero {
-  position: relative;
-  margin-bottom: 30px;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.collection-hero-image {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-}
-
-.collection-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 30px;
-}
-
-.collection-hero-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: white;
-  margin-bottom: 10px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-.collection-hero-description {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.9);
-  max-width: 500px;
-  line-height: 1.6;
-}
-
-/* List View Styles */
-.collection__grid.list-view {
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-.collection__grid.list-view .grid__item {
-  max-width: 100%;
-}
-
-@media (max-width: 768px) {
-  .collection-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
+  .collection-template__summary {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    margin-bottom: 28px;
   }
-  
-  .view-toggle {
+
+  .collection-template__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border: 1px solid rgba(232, 74, 127, 0.12);
+    border-radius: 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #fff8fb 100%);
+    box-shadow: 0 12px 30px rgba(232, 74, 127, 0.08);
+    margin-bottom: 24px;
+  }
+
+  .collection-template__count {
+    font-size: 15px;
+    color: #5f4d59;
+  }
+
+  .collection-template__count strong {
+    color: #e84a7f;
+  }
+
+  .collection-template__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #5f4d59;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .collection-template__sort select {
+    min-width: 220px;
+    padding: 12px 40px 12px 16px;
+    border: 1px solid rgba(232, 74, 127, 0.18);
+    border-radius: 999px;
+    background: #fff;
+    color: #2c1830;
+    font: inherit;
+  }
+
+  .collection-template__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--collection-grid-columns), minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .collection-template__item {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+  }
+
+  .collection-template__item .market-card {
+    width: 100%;
+  }
+
+  .collection-template__pagination {
+    margin-top: 32px;
+  }
+
+  .collection-template__pagination .pagination {
     justify-content: center;
   }
-  
-  .collection-hero-image {
-    height: 200px;
+
+  .collection-template__empty {
+    padding: 48px 24px;
+    text-align: center;
+    border-radius: 24px;
+    background: linear-gradient(180deg, #fff8fb 0%, #fff 100%);
+    border: 1px solid rgba(232, 74, 127, 0.12);
   }
-  
-  .collection-hero-title {
-    font-size: 1.8rem;
+
+  .collection-template__empty h2 {
+    margin: 0 0 12px;
+    color: #2c1830;
+    font-size: 28px;
   }
-}
+
+  .collection-template__empty p {
+    margin: 0;
+    color: #6f5c68;
+  }
+
+  @media screen and (max-width: 989px) {
+    .collection-template__summary {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .collection-template__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-template {
+      padding: 24px 0 44px;
+    }
+
+    .collection-template__hero {
+      border-radius: 22px;
+    }
+
+    .collection-template__hero-copy {
+      padding: 20px;
+    }
+
+    .collection-template__toolbar {
+      padding: 16px;
+    }
+
+    .collection-template__sort {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .collection-template__sort select {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 579px) {
+    .collection-template__grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 
-<div class="collection-page page-width">
-  {% comment %}T-CL001: Collection Hero Image{% endcomment %}
-  {%- if collection.image and section.settings.show_collection_image -%}
-    <div class="collection-hero">
-      <img src="{{ collection.image | image_url: width: 1600 }}" 
-           alt="{{ collection.title | escape }}" 
-           class="collection-hero-image"
-           loading="lazy">
-      <div class="collection-hero-overlay">
-        <h1 class="collection-hero-title">{{ collection.title }}</h1>
-        {%- if collection.description != blank -%}
-          <p class="collection-hero-description">{{ collection.description | strip_html | truncatewords: 30 }}</p>
+{%- liquid
+  assign current_sort = collection.sort_by | default: collection.default_sort_by
+  assign products_per_page = section.settings.products_per_page
+-%}
+
+<section
+  class="collection-template page-width"
+  style="--collection-grid-columns: {{ section.settings.columns_desktop }};"
+>
+  {%- if section.settings.show_collection_image and collection.image != blank -%}
+    <div class="collection-template__hero">
+      {{
+        collection.image
+        | image_url: width: 1800
+        | image_tag:
+          class: 'collection-template__hero-image',
+          widths: '750, 1100, 1500, 1800',
+          loading: 'eager',
+          alt: collection.title
+      }}
+      <div class="collection-template__hero-copy">
+        <span class="collection-template__eyebrow">CatFat Collection</span>
+        <h1 class="collection-template__title">{{ collection.title | escape }}</h1>
+        {%- if section.settings.show_collection_description and collection.description != blank -%}
+          <div class="collection-template__description rte">
+            {{ collection.description }}
+          </div>
         {%- endif -%}
       </div>
     </div>
   {%- else -%}
-    <div class="collection-header">
-      <h1 class="collection-title">{{ collection.title }}</h1>
-    </div>
-  {%- endif -%}
-
-  {% comment %}T-CL002: Collection Description (below header if no hero){% endcomment %}
-  {%- if collection.description != blank and section.settings.show_collection_description and not collection.image -%}
-    <div class="collection-header">
-      <div class="collection-description">{{ collection.description }}</div>
-    </div>
-  {%- endif -%}
-
-  {%- if collection.products.size > 0 -%}
-
-    {% comment %}T-CL003, T-CL004, T-CL005: Toolbar with View Toggle, Sort, Results Count{% endcomment %}
-    <div class="collection-toolbar">
-      <div class="results-count">
-        <span id="products-count">{{ collection.products.size }}</span> products
+    <div class="collection-template__summary">
+      <div>
+        <span class="collection-template__eyebrow">CatFat Collection</span>
+        <h1 class="collection-template__title">{{ collection.title | escape }}</h1>
+        {%- if section.settings.show_collection_description and collection.description != blank -%}
+          <div class="collection-template__description rte">
+            {{ collection.description }}
+          </div>
+        {%- endif -%}
       </div>
+    </div>
+  {%- endif -%}
 
-      {% comment %}T-CL004: Sort By Dropdown{% endcomment %}
-      <div class="sort-by-container">
-        <label class="sort-by-label" for="sort-by">Sort by:</label>
-        <select id="sort-by" class="sort-by-select" onchange="window.location.href = updateSortUrl(this.value)">
-          <option value="featured">Featured</option>
-          <option value="price-ascending">Price: Low to High</option>
-          <option value="price-descending">Price: High to Low</option>
-          <option value="title-ascending">Name: A-Z</option>
-          <option value="title-descending">Name: Z-A</option>
-          <option value="created-descending">Newest First</option>
-          <option value="created-ascending">Oldest First</option>
+  {%- paginate collection.products by products_per_page -%}
+    <div class="collection-template__toolbar">
+      <p class="collection-template__count">
+        <strong>{{ collection.products_count }}</strong>
+        products for
+        <strong>{{ collection.title | escape }}</strong>
+      </p>
+
+      <form class="collection-template__sort" method="get" action="{{ collection.url }}">
+        <label for="CollectionSort-{{ section.id }}">Sort by</label>
+        <select
+          id="CollectionSort-{{ section.id }}"
+          name="sort_by"
+          onchange="this.form.submit()"
+        >
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>
+              {{ option.name }}
+            </option>
+          {%- endfor -%}
         </select>
-      </div>
-
-      {% comment %}T-CL003: Grid/List View Toggle{% endcomment %}
-      <div class="view-toggle">
-        <span class="view-toggle-label">View:</span>
-        <div class="view-toggle-buttons">
-          <button class="view-btn active" data-view="grid" aria-label="Grid view" title="Grid view">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7"/>
-              <rect x="14" y="3" width="7" height="7"/>
-              <rect x="14" y="14" width="7" height="7"/>
-              <rect x="3" y="14" width="7" height="7"/>
-            </svg>
-          </button>
-          <button class="view-btn" data-view="list" aria-label="List view" title="List view">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="8" y1="6" x2="21" y2="6"/>
-              <line x1="8" y1="12" x2="21" y2="12"/>
-              <line x1="8" y1="18" x2="21" y2="18"/>
-              <line x1="3" y1="6" x2="3.01" y2="6"/>
-              <line x1="3" y1="12" x2="3.01" y2="12"/>
-              <line x1="3" y1="18" x2="3.01" y2="18"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Active Filter Tags Display (T-F013) -->
-    <div class="active-filters" id="activeFilters" style="display: none;">
-      <span class="active-filters-label">Active Filters:</span>
-      <div id="activeFilterTags"></div>
-      <button class="reset-filters-btn" id="resetAllFilters">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-          <path d="M3 3v5h5"/>
-        </svg>
-        Reset All
-      </button>
+      </form>
     </div>
 
-    <!-- Collection Filters -->
-    <div class="collection-filters">
-      <h2 class="filter-section-title">Filter Products</h2>
-      
-      <div class="filters-grid">
-        <!-- Age Filter (T-F001) -->
-        <div class="filter-group">
-          <div class="filter-group-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/>
-              <path d="M12 6v6l4 2"/>
-            </svg>
-            Age Group
-          </div>
-          <div class="filter-options" data-filter-type="age">
-            <button class="filter-btn active" data-value="all" data-filter="age">All Ages</button>
-            <button class="filter-btn" data-value="0-3" data-filter="age">0-3 Years</button>
-            <button class="filter-btn" data-value="3-6" data-filter="age">3-6 Years</button>
-            <button class="filter-btn" data-value="6-9" data-filter="age">6-9 Years</button>
-            <button class="filter-btn" data-value="9-12" data-filter="age">9-12 Years</button>
-            <button class="filter-btn" data-value="12+" data-filter="age">12+ Years</button>
-          </div>
-        </div>
-
-        <!-- Price Range Slider (T-F002) -->
-        <div class="filter-group">
-          <div class="filter-group-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="1" x2="12" y2="23"/>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-            Price Range
-          </div>
-          <div class="price-range-container">
-            <div class="price-range-inputs">
-              <input type="number" class="price-input" id="priceMin" placeholder="Min" value="0">
-              <span class="price-separator">-</span>
-              <input type="number" class="price-input" id="priceMax" placeholder="Max" value="5000">
-            </div>
-            <input type="range" class="price-range-slider" id="priceSlider" min="0" max="5000" value="5000">
-            <div class="price-range-values">
-              <span>₹0</span>
-              <span id="priceDisplay">₹5,000</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Color Filter with Swatches (T-F003) -->
-        <div class="filter-group">
-          <div class="filter-group-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="13.5" cy="6.5" r="2.5"/>
-              <circle cx="17.5" cy="10.5" r="2.5"/>
-              <circle cx="8.5" cy="7.5" r="2.5"/>
-              <circle cx="6.5" cy="12.5" r="2.5"/>
-              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"/>
-            </svg>
-            Color
-          </div>
-          <div class="color-swatches" data-filter-type="color">
-            <button class="color-swatch active" data-value="all" data-filter="color" style="background: linear-gradient(135deg, #667eea, #764ba2);" title="All Colors"></button>
-            <button class="color-swatch" data-value="pink" data-filter="color" style="background: #ff6b9d;" title="Pink"></button>
-            <button class="color-swatch" data-value="blue" data-filter="color" style="background: #4a90d9;" title="Blue"></button>
-            <button class="color-swatch" data-value="green" data-filter="color" style="background: #52c41a;" title="Green"></button>
-            <button class="color-swatch" data-value="yellow" data-filter="color" style="background: #faad14;" title="Yellow"></button>
-            <button class="color-swatch" data-value="red" data-filter="color" style="background: #ff4d4f;" title="Red"></button>
-            <button class="color-swatch" data-value="purple" data-filter="color" style="background: #722ed1;" title="Purple"></button>
-            <button class="color-swatch" data-value="orange" data-filter="color" style="background: #fa8c16;" title="Orange"></button>
-            <button class="color-swatch" data-value="white" data-filter="color" style="background: #ffffff; border: 1px solid #ddd;" title="White"></button>
-            <button class="color-swatch" data-value="multicolor" data-filter="color" style="background: linear-gradient(45deg, #ff6b9d, #4a90d9, #52c41a);" title="Multicolor"></button>
-          </div>
-        </div>
-
-        <!-- Size Filter (T-F004) -->
-        <div class="filter-group">
-          <div class="filter-group-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <path d="M9 3v18"/>
-              <path d="M15 3v18"/>
-              <path d="M3 9h18"/>
-              <path d="M3 15h18"/>
-            </svg>
-            Size
-          </div>
-          <div class="size-options" data-filter-type="size">
-            <button class="size-btn active" data-value="all" data-filter="size">All</button>
-            <button class="size-btn" data-value="small" data-filter="size">S</button>
-            <button class="size-btn" data-value="medium" data-filter="size">M</button>
-            <button class="size-btn" data-value="large" data-filter="size">L</button>
-            <button class="size-btn" data-value="xl" data-filter="size">XL</button>
-            <button class="size-btn" data-value="free" data-filter="size">Free</button>
-          </div>
-        </div>
-
-        <!-- Theme/Character Filter (T-F005) -->
-        <div class="filter-group">
-          <div class="filter-group-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-            Theme / Character
-          </div>
-          <div class="filter-options" data-filter-type="theme">
-            <button class="filter-btn active" data-value="all" data-filter="theme">All Themes</button>
-            <button class="filter-btn" data-value="animal" data-filter="theme">Animals</button>
-            <button class="filter-btn" data-value="cartoon" data-filter="theme">Cartoon</button>
-            <button class="filter-btn" data-value="superhero" data-filter="theme">Superhero</button>
-            <button class="filter-btn" data-value="princess" data-filter="theme">Princess</button>
-            <button class="filter-btn" data-value="sports" data-filter="theme">Sports</button>
-            <button class="filter-btn" data-value="nature" data-filter="theme">Nature</button>
-            <button class="filter-btn" data-value="vehicles" data-filter="theme">Vehicles</button>
-          </div>
-        </div>
-
-        <!-- Material Filter (T-F006) -->
-        <div class="filter-group">
-          <div class="filter-group-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-              <line x1="12" y1="22.08" x2="12" y2="12"/>
-            </svg>
-            Material
-          </div>
-          <div class="filter-options" data-filter-type="material">
-            <button class="filter-btn active" data-value="all" data-filter="material">All Materials</button>
-            <button class="filter-btn" data-value="cotton" data-filter="material">Cotton</button>
-            <button class="filter-btn" data-value="polyester" data-filter="material">Polyester</button>
-            <button class="filter-btn" data-value="soft-plush" data-filter="material">Soft Plush</button>
-            <button class="filter-btn" data-value="organic" data-filter="material">Organic</button>
-            <button class="filter-btn" data-value="bamboo" data-filter="material">Bamboo</button>
-            <button class="filter-btn" data-value="wool" data-filter="material">Wool</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Reset Button (T-F012) -->
-      <div style="margin-top: 20px; text-align: center;">
-        <button class="reset-filters-btn" id="resetFiltersBottom">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-            <path d="M3 3v5h5"/>
-          </svg>
-          Reset All Filters
-        </button>
-      </div>
-    </div>
-
-    <div class="collection-grid">
-      <ul class="collection__grid" id="product-grid" role="list">
+    {%- if collection.products_count > 0 -%}
+      <div class="collection-template__grid">
         {%- for product in collection.products -%}
-          {% assign price = product.price | divided_by: 100 %}
-          <li class="grid__item" 
-              data-age="{{ product.tags | join: ' ' | split: 'age-' | last | split: ' ' | first }}"
-              data-price="{{ price }}"
-              data-color="{{ product.options_with_values | where: 'name', 'Color' | first | map: 'value' | join: ' ' | handle }}"
-              data-size="{{ product.options_with_values | where: 'name', 'Size' | first | map: 'value' | join: ' ' | handle }}"
-              data-theme="{{ product.tags | join: ' ' | split: 'theme-' | last | split: ' ' | first }}"
-              data-material="{{ product.tags | join: ' ' | split: 'material-' | last | split: ' ' | first }}">
-            {% render 'card-product', product: product %}
-          </li>
+          <div class="collection-template__item">
+            {% render 'product-card', product: product %}
+          </div>
         {%- endfor -%}
-      </ul>
-    </div>
+      </div>
 
-    <script>
-      // T-CL003: View Toggle Functionality
-      document.addEventListener('DOMContentLoaded', function() {
-        const viewButtons = document.querySelectorAll('.view-btn');
-        const productGrid = document.getElementById('product-grid');
-        
-        viewButtons.forEach(btn => {
-          btn.addEventListener('click', function() {
-            const view = this.dataset.view;
-            
-            // Update active button
-            viewButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Toggle grid/list class
-            if (view === 'list') {
-              productGrid.classList.add('list-view');
-            } else {
-              productGrid.classList.remove('list-view');
-            }
-            
-            // Save preference to localStorage
-            localStorage.setItem('collection-view', view);
-          });
-        });
-
-        // Load saved view preference
-        const savedView = localStorage.getItem('collection-view');
-        if (savedView) {
-          const btn = document.querySelector(`.view-btn[data-view="${savedView}"]`);
-          if (btn) {
-            btn.click();
-          }
-        }
-
-        // T-CL004: Sort By URL Helper
-        window.updateSortUrl = function(sortValue) {
-          const url = new URL(window.location.href);
-          url.searchParams.set('sort', sortValue);
-          window.location.href = url.toString();
-        };
-
-        // Set sort dropdown to current URL param
-        const params = new URLSearchParams(window.location.search);
-        const currentSort = params.get('sort');
-        if (currentSort) {
-          const sortSelect = document.getElementById('sort-by');
-          if (sortSelect) {
-            sortSelect.value = currentSort;
-          }
-        }
-        
-        // Filter state
-        const filters = {
-          age: 'all',
-          priceMin: 0,
-          priceMax: 5000,
-          color: 'all',
-          size: 'all',
-          theme: 'all',
-          material: 'all'
-        };
-
-        // DOM Elements
-        const productItems = document.querySelectorAll('#product-grid .grid__item');
-        const activeFiltersContainer = document.getElementById('activeFilters');
-        const activeFilterTags = document.getElementById('activeFilterTags');
-        const resetButtons = document.querySelectorAll('#resetAllFilters, #resetFiltersBottom');
-        
-        // Price slider elements
-        const priceSlider = document.getElementById('priceSlider');
-        const priceMinInput = document.getElementById('priceMin');
-        const priceMaxInput = document.getElementById('priceMax');
-        const priceDisplay = document.getElementById('priceDisplay');
-
-        // Update price display
-        function updatePriceDisplay() {
-          priceDisplay.textContent = '₹' + parseInt(filters.priceMax).toLocaleString();
-        }
-
-        // Price slider event
-        priceSlider.addEventListener('input', function() {
-          filters.priceMax = parseInt(this.value);
-          priceMaxInput.value = this.value;
-          updatePriceDisplay();
-          applyFilters();
-        });
-
-        // Price input events
-        priceMinInput.addEventListener('change', function() {
-          filters.priceMin = parseInt(this.value) || 0;
-          applyFilters();
-        });
-
-        priceMaxInput.addEventListener('change', function() {
-          filters.priceMax = parseInt(this.value) || 5000;
-          priceSlider.value = filters.priceMax;
-          updatePriceDisplay();
-          applyFilters();
-        });
-
-        // Filter button clicks
-        document.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(btn => {
-          btn.addEventListener('click', function() {
-            const filterType = this.dataset.filter;
-            const value = this.dataset.value;
-            
-            // Update active state
-            const parent = this.closest(`[data-filter-type="${filterType}"]`);
-            if (parent) {
-              parent.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(b => {
-                b.classList.remove('active');
-              });
-            }
-            this.classList.add('active');
-            
-            // Update filters state
-            filters[filterType] = value;
-            applyFilters();
-          });
-        });
-
-        // Apply filters
-        function applyFilters() {
-          let visibleCount = 0;
-          
-          productItems.forEach(item => {
-            const itemAge = item.dataset.age || '';
-            const itemPrice = parseInt(item.dataset.price) || 0;
-            const itemColor = item.dataset.color || '';
-            const itemSize = item.dataset.size || '';
-            const itemTheme = item.dataset.theme || '';
-            const itemMaterial = item.dataset.material || '';
-
-            // Check each filter
-            const ageMatch = filters.age === 'all' || itemAge.includes(filters.age);
-            const priceMatch = itemPrice >= filters.priceMin && itemPrice <= filters.priceMax;
-            const colorMatch = filters.color === 'all' || itemColor.includes(filters.color);
-            const sizeMatch = filters.size === 'all' || itemSize.includes(filters.size);
-            const themeMatch = filters.theme === 'all' || itemTheme.includes(filters.theme);
-            const materialMatch = filters.material === 'all' || itemMaterial.includes(filters.material);
-
-            if (ageMatch && priceMatch && colorMatch && sizeMatch && themeMatch && materialMatch) {
-              item.style.display = '';
-              visibleCount++;
-            } else {
-              item.style.display = 'none';
-            }
-          });
-
-          // Update active filter tags
-          updateActiveFilterTags();
-
-          // Show/hide empty state
-          updateEmptyState(visibleCount);
-        }
-
-        // Update active filter tags display (T-F013)
-        function updateActiveFilterTags() {
-          const activeTags = [];
-          
-          if (filters.age !== 'all') {
-            activeTags.push({ type: 'age', label: 'Age: ' + filters.age, value: 'all' });
-          }
-          if (filters.priceMax < 5000 || filters.priceMin > 0) {
-            activeTags.push({ type: 'price', label: '₹' + filters.priceMin + ' - ₹' + filters.priceMax, value: 'all' });
-          }
-          if (filters.color !== 'all') {
-            activeTags.push({ type: 'color', label: 'Color: ' + filters.color, value: 'all' });
-          }
-          if (filters.size !== 'all') {
-            activeTags.push({ type: 'size', label: 'Size: ' + filters.size, value: 'all' });
-          }
-          if (filters.theme !== 'all') {
-            activeTags.push({ type: 'theme', label: 'Theme: ' + filters.theme, value: 'all' });
-          }
-          if (filters.material !== 'all') {
-            activeTags.push({ type: 'material', label: 'Material: ' + filters.material, value: 'all' });
-          }
-
-          // Show/hide active filters container
-          if (activeTags.length > 0) {
-            activeFiltersContainer.style.display = 'flex';
-          } else {
-            activeFiltersContainer.style.display = 'none';
-          }
-
-          // Render tags
-          activeFilterTags.innerHTML = activeTags.map(tag => `
-            <span class="filter-tag" data-type="${tag.type}" data-value="${tag.value}">
-              ${tag.label}
-              <span class="filter-tag-remove" data-type="${tag.type}" data-value="${tag.value}">×</span>
-            </span>
-          `).join('');
-
-          // Add click handlers for remove buttons
-          document.querySelectorAll('.filter-tag-remove').forEach(btn => {
-            btn.addEventListener('click', function() {
-              const type = this.dataset.type;
-              resetFilter(type);
-            });
-          });
-        }
-
-        // Reset single filter
-        function resetFilter(type) {
-          filters[type] = 'all';
-          
-          // Reset UI
-          const filterGroup = document.querySelector(`[data-filter-type="${type}"]`);
-          if (filterGroup) {
-            filterGroup.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(btn => {
-              btn.classList.remove('active');
-              if (btn.dataset.value === 'all') {
-                btn.classList.add('active');
-              }
-            });
-          }
-
-          // Reset price
-          if (type === 'price') {
-            filters.priceMin = 0;
-            filters.priceMax = 5000;
-            priceMinInput.value = 0;
-            priceMaxInput.value = 5000;
-            priceSlider.value = 5000;
-            updatePriceDisplay();
-          }
-
-          applyFilters();
-        }
-
-        // Reset all filters (T-F012)
-        function resetAllFilters() {
-          filters.age = 'all';
-          filters.priceMin = 0;
-          filters.priceMax = 5000;
-          filters.color = 'all';
-          filters.size = 'all';
-          filters.theme = 'all';
-          filters.material = 'all';
-
-          // Reset all UI elements
-          document.querySelectorAll('.filter-btn, .size-btn, .color-swatch').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.dataset.value === 'all') {
-              btn.classList.add('active');
-            }
-          });
-
-          // Reset price inputs
-          priceMinInput.value = 0;
-          priceMaxInput.value = 5000;
-          priceSlider.value = 5000;
-          updatePriceDisplay();
-
-          applyFilters();
-        }
-
-        resetButtons.forEach(btn => {
-          btn.addEventListener('click', resetAllFilters);
-        });
-
-        // T-CL005: Update results count display
-        function updateResultsCount(count) {
-          const countElement = document.getElementById('products-count');
-          if (countElement) {
-            countElement.textContent = count;
-          }
-        }
-
-        // Update empty state
-        function updateEmptyState(count) {
-          let emptyState = document.getElementById('filterEmptyState');
-          if (count === 0) {
-            if (!emptyState) {
-              emptyState = document.createElement('div');
-              emptyState.id = 'filterEmptyState';
-              emptyState.className = 'collection-empty';
-              emptyState.innerHTML = `
-                <h2>No products match your filters</h2>
-                <p>Try adjusting your filters to find what you're looking for.</p>
-              `;
-              document.getElementById('product-grid').style.display = 'none';
-              document.querySelector('.collection-grid').appendChild(emptyState);
-            }
-          } else {
-            if (emptyState) {
-              emptyState.remove();
-              document.getElementById('product-grid').style.display = '';
-            }
-          }
-          updateResultsCount(count);
-        }
-
-        // Initialize
-        applyFilters();
-      });
-    </script>
-
-  {%- else -%}
-    <div class="collection-empty">
-      <h2>No products found</h2>
-      <p>We're sorry, there are no products in this collection yet.</p>
-    </div>
-  {%- endif -%}
-</div>
+      {%- if paginate.pages > 1 -%}
+        <div class="collection-template__pagination">
+          {% render 'pagination', paginate: paginate %}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="collection-template__empty">
+        <h2>No products found</h2>
+        <p>We will refill this collection with fresh favorites soon.</p>
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</section>
 
 {% schema %}
 {
@@ -1176,6 +310,24 @@
       "id": "show_collection_description",
       "default": true,
       "label": "Show collection description"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 24,
+      "step": 4,
+      "default": 12,
+      "label": "Products per page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns"
     }
   ]
 }

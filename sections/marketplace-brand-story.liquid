@@ -1,0 +1,105 @@
+{{ 'section-marketplace-brand-story.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lunch_collection = collections['lunch-box']
+  assign bottle_collection = collections['bottles-flasks']
+  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+
+  assign lunch_count = 0
+  if lunch_collection != blank
+    assign lunch_count = lunch_collection.all_products_count
+  endif
+
+  assign bottle_count = 0
+  if bottle_collection != blank
+    assign bottle_count = bottle_collection.all_products_count
+  endif
+
+  assign gifting_count = 0
+  if gifting_collection != blank
+    assign gifting_count = gifting_collection.all_products_count
+  endif
+
+  assign logo_url = blank
+  if settings.logo != blank
+    assign logo_url = settings.logo | image_url: width: 360
+  else
+    assign logo_url = 'https://catfatindia.com/cdn/shop/files/catfat.png?v=1728204199&width=500'
+  endif
+-%}
+
+<section class="brand-story page-width">
+  <div class="brand-story__shell">
+    <div class="brand-story__lead">
+      <span class="brand-story__eyebrow">Why Catfat</span>
+
+      <div class="brand-story__logo-plate">
+        <img src="{{ logo_url }}" alt="{{ shop.name }}" class="brand-story__logo" loading="lazy">
+      </div>
+
+      <h2 class="brand-story__title">Playful for kids. Practical for parents.</h2>
+      <p class="brand-story__description">
+        Catfat brings school-ready lunchware, visible pricing, and gifting-friendly picks into one cleaner storefront so customers can decide faster.
+      </p>
+
+      <div class="brand-story__signals">
+        <span class="brand-story__signal">Original product photos</span>
+        <span class="brand-story__signal">Visible sale pricing</span>
+        <span class="brand-story__signal">Bulk gifting support</span>
+      </div>
+
+      <div class="brand-story__actions">
+        {%- if lunch_collection != blank -%}
+          <a href="{{ lunch_collection.url }}" class="brand-story__button brand-story__button--primary">Shop lunch boxes</a>
+        {%- endif -%}
+        {%- if gifting_collection != blank -%}
+          <a href="{{ gifting_collection.url }}" class="brand-story__button brand-story__button--secondary">Explore gifting</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="brand-story__grid">
+      {%- if lunch_collection != blank -%}
+        <a href="{{ lunch_collection.url }}" class="brand-story__card">
+          <span class="brand-story__card-label">School mornings</span>
+          <strong class="brand-story__card-title">
+            {% if lunch_count > 0 %}{{ lunch_count }} lunch-ready picks{% else %}Lunch-ready picks{% endif %}
+          </strong>
+          <p class="brand-story__card-copy">Compartment lunch boxes, stainless steel builds, and simpler daily-use choices.</p>
+        </a>
+      {%- endif -%}
+
+      {%- if bottle_collection != blank -%}
+        <a href="{{ bottle_collection.url }}" class="brand-story__card">
+          <span class="brand-story__card-label">Daily hydration</span>
+          <strong class="brand-story__card-title">
+            {% if bottle_count > 0 %}{{ bottle_count }} insulated carry picks{% else %}Insulated carry picks{% endif %}
+          </strong>
+          <p class="brand-story__card-copy">Bottles and thermos options that stay practical while still feeling giftable.</p>
+        </a>
+      {%- endif -%}
+
+      {%- if gifting_collection != blank -%}
+        <a href="{{ gifting_collection.url }}" class="brand-story__card">
+          <span class="brand-story__card-label">Bulk gifting</span>
+          <strong class="brand-story__card-title">
+            {% if gifting_count > 0 %}{{ gifting_count }} gifting-friendly options{% else %}Gifting-friendly options{% endif %}
+          </strong>
+          <p class="brand-story__card-copy">Personalised and theme-led products that work for return gifts and bulk orders.</p>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marketplace Brand Story",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Marketplace Brand Story"
+    }
+  ]
+}
+{% endschema %}

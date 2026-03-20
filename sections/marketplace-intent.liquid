@@ -1,0 +1,141 @@
+{{ 'section-marketplace-intent.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lunch_collection = collections['lunch-box']
+  assign bottle_collection = collections['bottles-flasks']
+  assign kids_collection = collections['kids-collections']
+  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+
+  assign lunch_media = blank
+  if lunch_collection != blank
+    if lunch_collection.image != blank
+      assign lunch_media = lunch_collection.image
+    elsif lunch_collection.products.first != blank and lunch_collection.products.first.featured_media != blank
+      assign lunch_media = lunch_collection.products.first.featured_media
+    endif
+  endif
+
+  assign bottle_media = blank
+  if bottle_collection != blank
+    if bottle_collection.image != blank
+      assign bottle_media = bottle_collection.image
+    elsif bottle_collection.products.first != blank and bottle_collection.products.first.featured_media != blank
+      assign bottle_media = bottle_collection.products.first.featured_media
+    endif
+  endif
+
+  assign kids_media = blank
+  if kids_collection != blank
+    if kids_collection.image != blank
+      assign kids_media = kids_collection.image
+    elsif kids_collection.products.first != blank and kids_collection.products.first.featured_media != blank
+      assign kids_media = kids_collection.products.first.featured_media
+    endif
+  endif
+
+  assign gifting_media = blank
+  if gifting_collection != blank
+    if gifting_collection.image != blank
+      assign gifting_media = gifting_collection.image
+    elsif gifting_collection.products.first != blank and gifting_collection.products.first.featured_media != blank
+      assign gifting_media = gifting_collection.products.first.featured_media
+    endif
+  endif
+-%}
+
+<section class="marketplace-intent page-width">
+  <div class="marketplace-intent__header">
+    <div>
+      <span class="marketplace-intent__eyebrow">Shop by need</span>
+      <h2 class="marketplace-intent__title">Start with what matters most.</h2>
+      <p class="marketplace-intent__description">
+        A cleaner way to browse Catfat: pick the need first, then compare the right products without homepage clutter.
+      </p>
+    </div>
+  </div>
+
+  <div class="marketplace-intent__grid">
+    <a href="{% if lunch_collection != blank %}{{ lunch_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
+      <span class="marketplace-intent__label">School-ready</span>
+      <h3 class="marketplace-intent__card-title">Lunch boxes for daily school wins.</h3>
+      <p class="marketplace-intent__card-copy">Bentos, stainless steel picks, and easy-carry lunchware for calmer mornings.</p>
+      <span class="marketplace-intent__card-link">Explore lunch boxes</span>
+      {%- if lunch_media != blank -%}
+        <span class="marketplace-intent__media">
+          {{
+            lunch_media
+            | image_url: width: 320
+            | image_tag:
+              widths: '120, 180, 240, 320',
+              loading: 'lazy',
+              alt: 'Lunch boxes'
+          }}
+        </span>
+      {%- endif -%}
+    </a>
+
+    <a href="{% if bottle_collection != blank %}{{ bottle_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
+      <span class="marketplace-intent__label">Hydration</span>
+      <h3 class="marketplace-intent__card-title">Bottles and thermos for longer days.</h3>
+      <p class="marketplace-intent__card-copy">Insulated bottles and travel-friendly flasks that are easier to compare at a glance.</p>
+      <span class="marketplace-intent__card-link">Explore bottles</span>
+      {%- if bottle_media != blank -%}
+        <span class="marketplace-intent__media">
+          {{
+            bottle_media
+            | image_url: width: 320
+            | image_tag:
+              widths: '120, 180, 240, 320',
+              loading: 'lazy',
+              alt: 'Bottles and thermos'
+          }}
+        </span>
+      {%- endif -%}
+    </a>
+
+    <a href="{% if kids_collection != blank %}{{ kids_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
+      <span class="marketplace-intent__label">Kids themes</span>
+      <h3 class="marketplace-intent__card-title">Character picks children notice fast.</h3>
+      <p class="marketplace-intent__card-copy">Theme-led favourites designed to feel fun first, while still staying practical for daily use.</p>
+      <span class="marketplace-intent__card-link">Explore kids picks</span>
+      {%- if kids_media != blank -%}
+        <span class="marketplace-intent__media">
+          {{
+            kids_media
+            | image_url: width: 320
+            | image_tag:
+              widths: '120, 180, 240, 320',
+              loading: 'lazy',
+              alt: 'Kids themed lunchware'
+          }}
+        </span>
+      {%- endif -%}
+    </a>
+
+    <a href="{% if gifting_collection != blank %}{{ gifting_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
+      <span class="marketplace-intent__label">Gifting</span>
+      <h3 class="marketplace-intent__card-title">Bulk and return-gift picks made simpler.</h3>
+      <p class="marketplace-intent__card-copy">Browse gifting-friendly lunchware and shortlist faster when the order is for more than one child.</p>
+      <span class="marketplace-intent__card-link">Explore gifting</span>
+      {%- if gifting_media != blank -%}
+        <span class="marketplace-intent__media">
+          {{
+            gifting_media
+            | image_url: width: 320
+            | image_tag:
+              widths: '120, 180, 240, 320',
+              loading: 'lazy',
+              alt: 'Bulk gifting collection'
+          }}
+        </span>
+      {%- endif -%}
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marketplace Intent",
+  "settings": []
+}
+{% endschema %}

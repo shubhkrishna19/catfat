@@ -10,7 +10,9 @@ Always work on a branch: feat/[agent]-T[id]-[slug]. Never commit directly to mai
 (none)
 
 ## IN PROGRESS
-(none)
+- [ ] [T-006] Start Shopify theme dev workflow and audit/fix theme rendering issues (Priority: HIGH) - claimed by [CODEX-01] on 2026-03-12
+  - Branch: codex/feat/codex-01-catfat-T006-theme-dev-render-audit
+  - Started: 2026-03-12 22:31 IST
 
 ## DONE
 - [x] [T-001] Add lazy loading to product grid images for faster page load (Priority: HIGH) - Already implemented

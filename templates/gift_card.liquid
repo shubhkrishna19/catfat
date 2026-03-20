@@ -1,0 +1,83 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ shop.name }}</title>
+    {{ content_for_header }}
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: linear-gradient(180deg, #fff8fb 0%, #fff6ef 100%);
+        color: #241520;
+        font-family: Arial, sans-serif;
+      }
+
+      .gift-card-shell {
+        width: min(100%, 560px);
+        padding: 28px;
+        border: 1px solid rgba(232, 74, 127, 0.12);
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 14px 40px rgba(85, 62, 75, 0.08);
+        text-align: center;
+      }
+
+      .gift-card-balance {
+        margin: 0 0 12px;
+        color: #e84a7f;
+        font-size: clamp(2.6rem, 2rem + 1vw, 4rem);
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .gift-card-code {
+        display: inline-flex;
+        margin-top: 18px;
+        padding: 12px 16px;
+        border-radius: 10px;
+        background: #fff6fa;
+        border: 1px solid rgba(232, 74, 127, 0.1);
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      .gift-card-copy {
+        margin: 12px 0 0;
+        color: #685864;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="gift-card-shell">
+      <p class="gift-card-balance">
+        {% if settings.currency_code_enabled %}
+          {{ gift_card.balance | money_with_currency }}
+        {% else %}
+          {{ gift_card.balance | money }}
+        {% endif %}
+      </p>
+      <p>{{ shop.name }}</p>
+      <div class="gift-card-code">{{ gift_card.code | format_code }}</div>
+      <p class="gift-card-copy">Gift card preview restored for theme development stability.</p>
+    </main>
+  </body>
+</html>

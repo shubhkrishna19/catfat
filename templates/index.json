@@ -7,44 +7,63 @@
         "change_slides_speed": 5
       }
     },
+    "marketplace_ticker": {
+      "type": "marketplace-ticker",
+      "settings": {}
+    },
+    "intent_lane": {
+      "type": "marketplace-intent",
+      "settings": {}
+    },
+    "brand_story": {
+      "type": "marketplace-brand-story",
+      "settings": {}
+    },
+    "discount_popup": {
+      "type": "marketplace-discount-popup",
+      "settings": {}
+    },
+    "routine_story": {
+      "type": "marketplace-routine",
+      "settings": {}
+    },
     "lunch_boxes": {
       "type": "featured-collection",
       "settings": {
-        "title": "Lunch Boxes",
+        "title": "Best sellers",
+        "description": "Lunch-box favourites that lead the Catfat range right now.",
         "collection": "lunch-box",
-        "products_to_show": 8
+        "products_to_show": 4
       }
     },
-    "bottles": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Water Bottles",
-        "collection": "bottles-flasks",
-        "products_to_show": 8
-      }
+    "instagram_strip": {
+      "type": "marketplace-instagram-strip",
+      "settings": {}
     },
-    "best_sellers": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Best Sellers",
-        "collection": "best-sellers",
-        "products_to_show": 8
-      }
+    "reviews_lane": {
+      "type": "marketplace-reviews",
+      "settings": {}
     },
-    "new_arrivals": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "New Arrivals",
-        "collection": "new-arrivals",
-        "products_to_show": 8
-      }
+    "trust_strip": {
+      "type": "marketplace-trust",
+      "settings": {}
+    },
+    "faq_lane": {
+      "type": "marketplace-faq",
+      "settings": {}
     }
   },
   "order": [
     "slideshow",
+    "marketplace_ticker",
+    "intent_lane",
+    "brand_story",
+    "discount_popup",
+    "routine_story",
     "lunch_boxes",
-    "bottles",
-    "best_sellers",
-    "new_arrivals"
+    "reviews_lane",
+    "instagram_strip",
+    "trust_strip",
+    "faq_lane"
   ]
 }

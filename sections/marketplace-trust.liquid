@@ -1,0 +1,54 @@
+{{ 'section-marketplace-trust.css' | asset_url | stylesheet_tag }}
+
+<section class="marketplace-trust page-width">
+  <div class="marketplace-trust__shell">
+    <div class="marketplace-trust__header">
+      <span class="marketplace-trust__eyebrow">Why Families Choose Catfat</span>
+      <h2 class="marketplace-trust__title">Sharper buying cues without the marketplace clutter.</h2>
+      <p class="marketplace-trust__description">
+        The best parts of marketplace shopping matter here too: original product photos, clear sale pricing, theme-led browsing,
+        and gifting-friendly support that makes faster decisions feel easier.
+      </p>
+    </div>
+
+    <div class="marketplace-trust__grid">
+      <article class="marketplace-trust__card">
+        <span class="marketplace-trust__icon">01</span>
+        <h3 class="marketplace-trust__card-title">Original product photos</h3>
+        <p class="marketplace-trust__card-copy">The catalog is built around the real Catfat images so shoppers can trust what they are opening.</p>
+      </article>
+
+      <article class="marketplace-trust__card">
+        <span class="marketplace-trust__icon">02</span>
+        <h3 class="marketplace-trust__card-title">Sale pricing shown early</h3>
+        <p class="marketplace-trust__card-copy">Discounts and savings appear before the click, which makes value comparison quicker for parents.</p>
+      </article>
+
+      <article class="marketplace-trust__card">
+        <span class="marketplace-trust__icon">03</span>
+        <h3 class="marketplace-trust__card-title">Theme-led discovery</h3>
+        <p class="marketplace-trust__card-copy">Kids can spot character favourites fast while adults still get cleaner material and use-case cues.</p>
+      </article>
+
+      <article class="marketplace-trust__card">
+        <span class="marketplace-trust__icon">04</span>
+        <h3 class="marketplace-trust__card-title">Bulk and gifting support</h3>
+        <p class="marketplace-trust__card-copy">Lunch picks, school gifting, and return-gift browsing stay close to the main shopping flow.</p>
+      </article>
+    </div>
+
+    <div class="marketplace-trust__ticker">
+      <span class="marketplace-trust__pill"><strong>Photos:</strong> real catalog imagery</span>
+      <span class="marketplace-trust__pill"><strong>Pricing:</strong> visible markdown cues</span>
+      <span class="marketplace-trust__pill"><strong>Support:</strong> gifting and bulk help</span>
+      <span class="marketplace-trust__pill"><strong>Flow:</strong> cleaner product selection</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marketplace Trust",
+  "settings": []
+}
+{% endschema %}
