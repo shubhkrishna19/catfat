@@ -1,279 +1,262 @@
-{% comment %}
-  Product Card Snippet
-  Displays a product in a grid format with image, title, price, and quick add
-  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
-{% endcomment %}
+﻿{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign price = current_variant.price | default: product.price_min
+  assign compare_at_price = current_variant.compare_at_price | default: product.compare_at_price_max
+  if compare_at_price < price
+    assign compare_at_price = product.compare_at_price_max
+  endif
 
-{%- assign product = product -%}
+  assign primary_media = current_variant.featured_media | default: product.featured_media
+  assign secondary_media = blank
+  for media in product.media
+    if media.media_type == 'image' and primary_media != blank and media.id != primary_media.id
+      assign secondary_media = media
+      break
+    elsif media.media_type == 'image' and primary_media == blank and secondary_media == blank
+      assign secondary_media = media
+    endif
+  endfor
 
-{%- assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id -%}
+  assign title_text = product.title | downcase
+  assign product_text = product.title | append: ' ' | append: product.description | strip_html | downcase
+  assign theme_count = 0
+  assign color_count = 0
+  assign style_count = 0
+  assign has_name_engraving = false
 
-<div class="product-card" js-product-card>
-  <div class="product-card__media">
-    <a href="{{ product.url }}" class="product-card__link">
-      <div class="product-card__image-wrapper">
-        {% if product.featured_media %}
-          <img
-            src="{{ product.featured_media | image_url: width: 533 }}"
-            alt="{{ product.featured_media.alt | escape }}"
-            class="product-card__image"
-            loading="lazy"
-            width="533"
-            height="{{ 533 | divided_by: product.featured_media.aspect_ratio | floor }}"
-          >
-        {% else %}
-          {{ 'product-1' | placeholder_svg_tag: 'product-card__image product-card__image--placeholder' }}
-        {% endif %}
-      </div>
-    </a>
+  if product_text contains 'engraving' or product_text contains 'personalised' or product_text contains 'personalized'
+    assign has_name_engraving = true
+  endif
 
-    {% render 'badge', product: product %}
+  for option in product.options_with_values
+    assign option_name = option.name | strip | downcase
+    if option_name contains 'theme'
+      assign theme_count = option.values.size
+    elsif option_name contains 'color' or option_name contains 'colour'
+      assign color_count = option.values.size
+    elsif option_name contains 'style' or option_name contains 'personal' or option_name contains 'engraving'
+      assign style_count = option.values.size
+    endif
 
-    <div class="product-card__actions">
-      {% if product.variants.size > 1 %}
-        <a href="{{ product.url }}" class="product-card__quick-add button button--secondary">
-          <span>{{ 'products.product.select_options' | t }}</span>
-        </a>
-      {% else %}
-        <product-form>
-          {%- form 'product', product, id: product_form_id, class: 'product-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
-            <button
-              type="submit"
-              name="add"
-              class="product-card__quick-add button button--primary"
-              {% if product.selected_or_first_available_variant.available == false %}
-                disabled
-              {% endif %}
-            >
-              <span>
-                {% if product.selected_or_first_available_variant.available %}
-                  {{ 'products.product.add_to_cart' | t }}
-                {% else %}
-                  {{ 'products.product.sold_out' | t }}
-                {% endif %}
-              </span>
-            </button>
-          {%- endform -%}
-        </product-form>
-      {% endif %}
+  endfor
+
+  assign eyebrow_text = 'Everyday pick'
+  if theme_count > 0
+    assign eyebrow_text = 'Kids themes'
+  elsif product_text contains 'vacuum' or product_text contains 'insulated'
+    assign eyebrow_text = 'Insulated'
+  elsif product_text contains 'microwave'
+    assign eyebrow_text = 'Microwave safe'
+  elsif product_text contains 'stainless'
+    assign eyebrow_text = 'Stainless steel'
+  endif
+
+  assign benefit_title = 'Daily-use lunchware for school and travel.'
+  if product_text contains 'microwave'
+    assign benefit_title = 'Microwave-ready for easier lunch prep.'
+  elsif product_text contains 'vacuum' or product_text contains 'insulated'
+    assign benefit_title = 'Insulated for longer-lasting freshness.'
+  elsif product_text contains 'leak' or product_text contains 'spill'
+    assign benefit_title = 'Leak-resistant for cleaner bag carry.'
+  elsif product_text contains 'stainless'
+    assign benefit_title = 'Stainless steel for everyday durability.'
+  elsif product_text contains 'spoon'
+    assign benefit_title = 'Built-in spoon for easier meal breaks.'
+  elsif product_text contains 'cutlery'
+    assign benefit_title = 'Compact cutlery for school and travel.'
+  endif
+
+  assign meta_primary = blank
+  assign meta_secondary = blank
+  if theme_count > 0
+    assign meta_primary = theme_count | append: ' theme'
+    if theme_count != 1
+      assign meta_primary = meta_primary | append: 's'
+    endif
+  elsif color_count > 0
+    assign meta_primary = color_count | append: ' color'
+    if color_count != 1
+      assign meta_primary = meta_primary | append: 's'
+    endif
+  elsif style_count > 1
+    assign meta_primary = style_count | append: ' style'
+    if style_count != 1
+      assign meta_primary = meta_primary | append: 's'
+    endif
+  elsif product.variants.size > 1
+    assign meta_primary = product.variants.size | append: ' option'
+    if product.variants.size != 1
+      assign meta_primary = meta_primary | append: 's'
+    endif
+  endif
+
+  if product_text contains 'vacuum' or product_text contains 'insulated'
+    assign meta_secondary = 'Hot and cold ready'
+  elsif product_text contains 'microwave'
+    assign meta_secondary = 'Microwave safe'
+  elsif product_text contains 'stainless'
+    assign meta_secondary = 'Stainless steel'
+  elsif product_text contains 'leak' or product_text contains 'spill'
+    assign meta_secondary = 'Leak resistant'
+  elsif product_text contains 'spoon'
+    assign meta_secondary = 'Built-in spoon'
+  endif
+
+  if meta_primary == blank and style_count > 1
+    assign meta_primary = style_count | append: ' style'
+    if style_count != 1
+      assign meta_primary = meta_primary | append: 's'
+    endif
+  endif
+
+  assign support_text = 'See colors, sizes, and product details.'
+  if product.available == false
+    assign support_text = 'Currently unavailable online.'
+  elsif title_text contains 'kuromi' and title_text contains 'panda'
+    assign support_text = 'Character-led gifting favourite.'
+  elsif title_text contains 'kuromi'
+    assign support_text = 'Bold character look kids notice fast.'
+  elsif title_text contains 'panda'
+    assign support_text = 'Playful panda styling for daily carry.'
+  elsif title_text contains 'kawaii'
+    assign support_text = 'Cute daily-use pick with gifting appeal.'
+  elsif title_text contains 'cutlery' or title_text contains 'fork' or title_text contains 'chopsticks'
+    assign support_text = 'Easy add-on for school and travel meals.'
+  elsif title_text contains 'mini' and title_text contains 'bento'
+    assign support_text = 'Compact fit for smaller appetites.'
+  elsif title_text contains 'tri bite' or product_text contains '3-compartment' or product_text contains '3 compartment' or product_text contains 'three compartment'
+    assign support_text = 'Three sections for tidier lunch packing.'
+  elsif title_text contains 'bento'
+    assign support_text = 'Organised compartments for cleaner packing.'
+  elsif title_text contains 'leak-lock' or product_text contains 'leakproof' or product_text contains 'leak resistant' or product_text contains 'leak-resistant'
+    assign support_text = 'Built for calmer bags and cleaner mornings.'
+  elsif title_text contains 'thermos' and title_text contains 'spoon'
+    assign support_text = 'Warm-meal support with spoon convenience.'
+  elsif title_text contains 'pot'
+    assign support_text = 'Comfort-meal format with easier carrying.'
+  elsif title_text contains 'vacuum' or title_text contains 'insulated'
+    assign support_text = 'Keeps drinks or meals ready for longer.'
+  elsif title_text contains 'microwave'
+    assign support_text = 'Quick reheat convenience for school days.'
+  elsif title_text contains 'stainless'
+    assign support_text = 'Steel build made for repeated daily use.'
+  elsif has_name_engraving
+    assign support_text = 'Personalised gifting option available.'
+  endif
+
+  assign savings_amount = 0
+  assign savings_percent = 0
+  assign savings_amount_money = blank
+  if compare_at_price > price and compare_at_price != blank
+    assign savings_amount = compare_at_price | minus: price
+    assign savings_percent = savings_amount | times: 100 | divided_by: compare_at_price
+    assign savings_amount_money = savings_amount | money
+  endif
+
+  assign action_label = 'Add to cart'
+  if product.available == false
+    assign action_label = 'View product'
+  elsif product.variants.size > 1
+    assign action_label = 'View options'
+  endif
+
+  assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
+-%}
+
+<article class="market-card{% unless product.available %} is-sold-out{% endunless %}">
+  <a href="{{ product.url }}" class="market-card__media">
+    <div class="market-card__badge-group">
+      {%- if savings_percent > 0 -%}
+        <span class="market-card__badge">Save {{ savings_percent }}%</span>
+      {%- endif -%}
+      {%- if has_name_engraving -%}
+        <span class="market-card__badge market-card__badge--light">Name engraving</span>
+      {%- endif -%}
     </div>
-  </div>
 
-  <div class="product-card__info">
-    <div class="product-card__details">
-      <a href="{{ product.url }}" class="product-card__title">
-        {{ product.title | escape }}
+    <div class="market-card__canvas">
+      {%- if primary_media != blank -%}
+        {{
+          primary_media
+          | image_url: width: 900
+          | image_tag:
+            class: 'market-card__image market-card__image--primary',
+            widths: '320, 480, 640, 900',
+            loading: 'lazy',
+            alt: product.title
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'market-card__image market-card__image--primary' }}
+      {%- endif -%}
+
+      {%- if secondary_media != blank -%}
+        {{
+          secondary_media
+          | image_url: width: 900
+          | image_tag:
+            class: 'market-card__image market-card__image--secondary',
+            widths: '320, 480, 640, 900',
+            loading: 'lazy',
+            alt: product.title
+        }}
+      {%- endif -%}
+    </div>
+  </a>
+
+  <div class="market-card__body">
+    <div class="market-card__topline">
+      <span class="market-card__eyebrow">{{ eyebrow_text }}</span>
+    </div>
+
+    <a href="{{ product.url }}" class="market-card__title">{{ product.title | escape }}</a>
+    <p class="market-card__subtitle">{{ benefit_title }}</p>
+
+    <div class="market-card__meta{% if meta_primary == blank and meta_secondary == blank %} market-card__meta--empty{% endif %}">
+      {%- if meta_primary != blank -%}
+        <span class="market-card__meta-item">{{ meta_primary }}</span>
+      {%- endif -%}
+      {%- if meta_secondary != blank -%}
+        <span class="market-card__meta-item">{{ meta_secondary }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="market-card__price-panel{% unless savings_percent > 0 %} market-card__price-panel--simple{% endunless %}">
+      <div class="market-card__price-stack">
+        <span class="market-card__price">
+          {%- if product.price_varies -%}
+            {{ product.price_min | money }}
+          {%- else -%}
+            {{ price | money }}
+          {%- endif -%}
+        </span>
+        {%- if compare_at_price > price and compare_at_price != blank -%}
+          <span class="market-card__compare">{{ compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if savings_percent > 0 -%}
+        <div class="market-card__deal">
+          <strong>{{ savings_percent }}% off</strong>
+          <span>Save {{ savings_amount_money }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <p class="market-card__proof">{{ support_text }}</p>
+
+    {%- if product.available and product.variants.size == 1 -%}
+      <product-form class="market-card__form">
+        {%- form 'product', product, id: product_form_id, class: 'market-card__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          <button type="submit" name="add" class="market-card__action">
+            {{ action_label }}
+          </button>
+        {%- endform -%}
+      </product-form>
+    {%- else -%}
+      <a href="{{ product.url }}" class="market-card__action{% unless product.available %} market-card__action--secondary{% endunless %}">
+        {{ action_label }}
       </a>
-
-      <div class="product-card__price">
-        {% render 'price', product: product, use_variant: true, show_badges: false %}
-      </div>
-    </div>
-
-    {% if product.options_by_name['Color'] or product.options_by_name['Size'] %}
-      <div class="product-card__options">
-        {% if product.options_by_name['Color'] %}
-          <span class="product-card__option">
-            {{ product.options_by_name['Color'].values | join: ', ' }}
-          </span>
-        {% endif %}
-        {% if product.options_by_name['Size'] %}
-          <span class="product-card__option">
-            {{ product.options_by_name['Size'].values | join: ', ' }}
-          </span>
-        {% endif %}
-      </div>
-    {% endif %}
+    {%- endif -%}
   </div>
-</div>
-
-<style>
-  .product-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(255, 107, 157, 0.15);
-  }
-
-  .product-card__media {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .product-card__image-wrapper {
-    position: relative;
-    aspect-ratio: 1;
-    overflow: hidden;
-    background: #f5f5f5;
-  }
-
-  .product-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .product-card:hover .product-card__image {
-    transform: scale(1.05);
-  }
-
-  .product-card__actions {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 12px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));
-  }
-
-  .product-card:hover .product-card__actions {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .product-card__quick-add {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .product-card__quick-add.button--primary {
-    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
-    color: #fff;
-  }
-
-  .product-card__quick-add.button--primary:hover {
-    background: linear-gradient(135deg, #ff8e53 0%, #ff6b9d 100%);
-    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
-  }
-
-  .product-card__quick-add.button--secondary {
-    background: #fff;
-    color: #e84a7f;
-    border: 2px solid #e84a7f;
-  }
-
-  .product-card__quick-add.button--secondary:hover {
-    background: #e84a7f;
-    color: #fff;
-  }
-
-  .product-card__info {
-    padding: 16px;
-  }
-
-  .product-card__title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a1a1a;
-    text-decoration: none;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    transition: color 0.2s ease;
-  }
-
-  .product-card__title:hover {
-    color: #e84a7f;
-  }
-
-  .product-card__price {
-    margin-top: 8px;
-    font-size: 15px;
-  }
-
-  .product-card__price .price {
-    color: #ff6b9d;
-  }
-
-  .product-card__price .price--sale {
-    color: #e84a7f;
-  }
-
-  .product-card__price .price__regular .price-item {
-    color: #1a1a1a;
-  }
-
-  .product-card__price .price__sale .price-item--regular {
-    color: #999;
-    text-decoration: line-through;
-  }
-
-  .product-card__options {
-    margin-top: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .product-card__option {
-    font-size: 12px;
-    color: #666;
-    background: #f5f5f5;
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
-</style>
-
-{% schema %}
-{
-  "name": "Product Card",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Product Card Settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_quick_add",
-      "default": true,
-      "label": "Show quick add button"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_badges",
-      "default": true,
-      "label": "Show sale badges"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "options": [
-        {
-          "value": "portrait",
-          "label": "Portrait"
-        },
-        {
-          "value": "square",
-          "label": "Square"
-        },
-        {
-          "value": "landscape",
-          "label": "Landscape"
-        }
-      ],
-      "default": "square",
-      "label": "Image ratio"
-    }
-  ]
-}
-{% endschema %}
+</article>

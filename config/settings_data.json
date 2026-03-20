@@ -1,41 +1,13 @@
 {
   "current": {
     "logo_width": 140,
-    "colors_text": {
-      "red": 51,
-      "green": 51,
-      "blue": 51
-    },
-    "colors_background_1": {
-      "red": 255,
-      "green": 255,
-      "blue": 255
-    },
-    "colors_background_2": {
-      "red": 243,
-      "green": 243,
-      "blue": 243
-    },
-    "colors_solid_button_labels": {
-      "red": 255,
-      "green": 255,
-      "blue": 255
-    },
-    "colors_outline_button_labels": {
-      "red": 51,
-      "green": 51,
-      "blue": 51
-    },
-    "colors_accent_1": {
-      "red": 255,
-      "green": 107,
-      "blue": 157
-    },
-    "colors_accent_2": {
-      "red": 255,
-      "green": 142,
-      "blue": 83
-    },
+    "colors_text": "#333333",
+    "colors_background_1": "#FFFFFF",
+    "colors_background_2": "#F3F3F3",
+    "colors_solid_button_labels": "#FFFFFF",
+    "colors_outline_button_labels": "#333333",
+    "colors_accent_1": "#ff6b9d",
+    "colors_accent_2": "#ff8e53",
     "type_header_font": "assistant_n4",
     "type_body_font": "assistant_n4",
     "page_width": 1400,
@@ -58,35 +30,6 @@
       },
       "footer": {
         "type": "footer",
-        "blocks": [
-          {
-            "type": "link_list",
-            "settings": {
-              "heading": "Shop",
-              "menu": "footer"
-            }
-          },
-          {
-            "type": "text",
-            "settings": {
-              "heading": "CatFat India",
-              "subtext": "<p>Premium lunch boxes and bottles for kids & adults.</p>"
-            }
-          },
-          {
-            "type": "newsletter",
-            "settings": {
-              "newsletter_heading": "Subscribe to our emails",
-              "newsletter_text": "Be the first to know about new collections and exclusive offers."
-            }
-          },
-          {
-            "type": "social",
-            "settings": {
-              "heading": "Follow Us"
-            }
-          }
-        ],
         "settings": {
           "primary_color": "#ff6b9d",
           "accent_color": "#e84a7f",

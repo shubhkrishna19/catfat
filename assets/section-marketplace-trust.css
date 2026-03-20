@@ -1,0 +1,139 @@
+.marketplace-trust {
+  padding: 20px 0 16px;
+}
+
+.marketplace-trust__shell {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(24px, 3vw, 34px);
+  border-radius: 24px;
+  border: 1px solid rgba(232, 74, 127, 0.12);
+  background:
+    radial-gradient(circle at top left, rgba(255, 217, 61, 0.22), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(255, 107, 157, 0.14), transparent 28%),
+    linear-gradient(180deg, #fff7fb 0%, #fffdf9 100%);
+  box-shadow: 0 20px 54px rgba(232, 74, 127, 0.08);
+}
+
+.marketplace-trust__header {
+  max-width: 72rem;
+}
+
+.marketplace-trust__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: rgba(255, 107, 157, 0.1);
+  color: #d73d72;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.marketplace-trust__title {
+  margin: 14px 0 12px;
+  color: #241520;
+  font-size: clamp(2.8rem, 2.4rem + 0.8vw, 4.4rem);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.marketplace-trust__description {
+  margin: 0;
+  color: #685661;
+  font-size: 1.55rem;
+  line-height: 1.7;
+}
+
+.marketplace-trust__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.marketplace-trust__card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  min-height: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(232, 74, 127, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 14px 28px rgba(215, 61, 114, 0.08);
+}
+
+.marketplace-trust__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.16), rgba(255, 142, 83, 0.14));
+  color: #d73d72;
+  font-size: 1.75rem;
+  font-weight: 900;
+}
+
+.marketplace-trust__card-title {
+  margin: 0;
+  color: #241520;
+  font-size: 1.9rem;
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.marketplace-trust__card-copy {
+  margin: 0;
+  color: #5f4d58;
+  font-size: 1.35rem;
+  line-height: 1.65;
+  font-weight: 700;
+}
+
+.marketplace-trust__ticker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.marketplace-trust__pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #4a3641;
+  font-size: 1.2rem;
+  font-weight: 900;
+  border: 1px solid rgba(232, 74, 127, 0.12);
+}
+
+.marketplace-trust__pill strong {
+  color: #d73d72;
+  margin-right: 6px;
+}
+
+@media screen and (max-width: 1100px) {
+  .marketplace-trust__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .marketplace-trust__shell {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .marketplace-trust__grid {
+    grid-template-columns: 1fr;
+  }
+}

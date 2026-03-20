@@ -2,261 +2,347 @@
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
 {{ 'component-menu-drawer.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign brand_logo_src = blank
+  if settings.logo != blank
+    assign brand_logo_src = settings.logo | image_url: width: section.settings.logo_width
+  endif
+  if brand_logo_src == blank
+    assign brand_logo_src = 'https://catfatindia.com/cdn/shop/files/catfat.png?v=1728204199&width=500'
+  endif
+-%}
+
 <style>
-:root {
-  --header-bg: #ff6b9d;
-  --header-text: #ffffff;
-}
-
-.header {
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  padding: 12px 20px;
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 100;
-}
-
-.header__left {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.header__menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.header__menu-toggle span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: #fff;
-  margin: 5px 0;
-  border-radius: 2px;
-}
-
-.header__logo {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #fff !important;
-  text-decoration: none;
-  letter-spacing: -0.5px;
-}
-
-.header__nav {
-  display: flex;
-  gap: 25px;
-}
-
-.header__nav-link {
-  color: #fff !important;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 5px 0;
-  position: relative;
-}
-
-.header__nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #fff;
-  transition: width 0.3s ease;
-}
-
-.header__nav-link:hover::after {
-  width: 100%;
-}
-
-.header__right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.header__icon-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header__icon-btn svg {
-  width: 22px;
-  height: 22px;
-  fill: #fff;
-}
-
-.header__cart-count {
-  background: #fff;
-  color: #ff6b9d;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 10px;
-  margin-left: -5px;
-  margin-top: -10px;
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-  .header__nav {
-    display: none;
+  .catfat-header-shell {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(232, 74, 127, 0.08);
+    box-shadow: 0 10px 24px rgba(49, 23, 39, 0.05);
   }
-  
-  .header__menu-toggle {
+
+  .catfat-header__notice {
+    min-height: 38px;
+    padding: 9px 16px;
+    text-align: center;
+    font-size: 1.08rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .catfat-header__notice--primary {
+    background: #fff8ea;
+    color: #7b4d08;
+    border-bottom: 1px solid rgba(255, 217, 61, 0.32);
+  }
+
+  .catfat-header__notice--secondary {
+    background: rgba(255, 107, 157, 0.08);
+    color: #8f516a;
+    border-bottom: 1px solid rgba(232, 74, 127, 0.08);
+  }
+
+  .catfat-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    min-height: 86px;
+  }
+
+  .catfat-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #21141f;
+    text-decoration: none;
+  }
+
+  .catfat-header__brand-plate {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 58px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #fff6da 0%, #fff0cb 100%);
+    border: 1px solid rgba(255, 217, 61, 0.28);
+    box-shadow: 0 10px 18px rgba(132, 92, 14, 0.08);
+  }
+
+  .catfat-header__brand-logo {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(var(--catfat-logo-width), 160px);
+    max-height: 42px;
+  }
+
+  .catfat-header__brand-copy {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .catfat-header__brand-subtitle {
+    color: #6c5965;
+    font-size: 1.08rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .catfat-header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .catfat-header__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    color: #43303b;
+    text-decoration: none;
+    font-size: 1.18rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    transition: color 0.22s ease, transform 0.22s ease;
+  }
+
+  .catfat-header__link:hover {
+    color: #d73d72;
+    transform: translateY(-1px);
+  }
+
+  .catfat-header__link--sale {
+    color: #d73d72;
+  }
+
+  .catfat-header__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .catfat-header__icon,
+  .catfat-header__menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(232, 74, 127, 0.1);
+    border-radius: 8px;
+    background: #ffffff;
+    color: #2b1924;
+    text-decoration: none;
+    box-shadow: 0 8px 16px rgba(67, 48, 59, 0.06);
+  }
+
+  .catfat-header__icon svg,
+  .catfat-header__menu-button svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .catfat-header__cart {
+    position: relative;
+  }
+
+  .catfat-header__cart-count {
+    position: absolute;
+    top: -5px;
+    right: -4px;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #d73d72;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .catfat-header__menu-button {
+    display: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .catfat-header__mobile {
+    display: none;
+    padding: 0 0 18px;
+  }
+
+  .catfat-header[data-menu-open='true'] .catfat-header__mobile {
     display: block;
   }
-  
-  .header {
-    padding: 10px 15px;
+
+  .catfat-header__mobile-links {
+    display: grid;
+    gap: 10px;
+    padding-top: 12px;
   }
-  
-  .header__logo {
-    font-size: 1.2rem;
+
+  .catfat-header__mobile-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: 8px;
+    background: #fffafc;
+    color: #432f3b;
+    text-decoration: none;
+    font-size: 1.22rem;
+    font-weight: 800;
+    border: 1px solid rgba(232, 74, 127, 0.08);
   }
-}
 
-/* Mobile Menu Drawer */
-.mobile-menu-drawer {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 280px;
-  height: 100vh;
-  background: #fff;
-  z-index: 1000;
-  transition: left 0.3s ease;
-  overflow-y: auto;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-}
+  .catfat-header__mobile-link--sale {
+    color: #d73d72;
+  }
 
-.mobile-menu-drawer.open {
-  left: 0;
-}
+  @media screen and (max-width: 1220px) {
+    .catfat-header__nav {
+      display: none;
+    }
 
-.mobile-menu-drawer__header {
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .catfat-header__menu-button {
+      display: inline-flex;
+    }
+  }
 
-.mobile-menu-drawer__close {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
+  @media screen and (max-width: 749px) {
+    .catfat-header__notice {
+      font-size: 0.98rem;
+      line-height: 1.4;
+      padding: 8px 14px;
+    }
 
-.mobile-menu-drawer__links {
-  padding: 20px 15px;
-}
+    .catfat-header {
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      min-height: 74px;
+    }
 
-.mobile-menu-drawer__link {
-  display: block;
-  color: #333;
-  text-decoration: none;
-  padding: 12px 0;
-  font-weight: 600;
-  border-bottom: 1px solid #eee;
-}
+    .catfat-header__brand-plate {
+      min-height: 48px;
+      padding: 8px 10px;
+    }
 
-.mobile-menu-drawer__overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: 999;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
+    .catfat-header__brand-logo {
+      max-width: min(var(--catfat-logo-width), 120px);
+      max-height: 30px;
+    }
 
-.mobile-menu-drawer__overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
+    .catfat-header__brand-copy {
+      display: none;
+    }
+
+    .catfat-header__actions {
+      gap: 8px;
+    }
+
+    .catfat-header__icon:nth-child(2) {
+      display: none;
+    }
+  }
 </style>
 
-<div class="header">
-  <div class="header__left">
-    <button class="header__menu-toggle" onclick="toggleMobileMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <a href="{{ routes.root_url }}" class="header__logo">
-      {{ section.settings.logo_text | default: 'CatFat' }}
-    </a>
+<header
+  id="catfat-header-{{ section.id }}"
+  class="catfat-header-shell"
+  style="--catfat-logo-width: {{ section.settings.logo_width }}px;"
+>
+  <div class="catfat-header__notice catfat-header__notice--primary">
+    Free shipping above Rs. 499 • COD available • WhatsApp support
   </div>
-  
-  <nav class="header__nav">
-    <a href="{{ routes.root_url }}" class="header__nav-link">Home</a>
-    <a href="{{ routes.collections_url }}" class="header__nav-link">Shop</a>
-    <a href="{{ routes.collections_url }}/new-arrivals" class="header__nav-link">New</a>
-    <a href="{{ routes.pages_url }}/about" class="header__nav-link">About</a>
-    <a href="{{ routes.contact_url }}" class="header__nav-link">Contact</a>
-  </nav>
-  
-  <div class="header__right">
-    <a href="{{ routes.search_url }}" class="header__icon-btn" aria-label="Search">
-      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-    </a>
-    <a href="{{ routes.account_url }}" class="header__icon-btn" aria-label="Account">
-      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-    </a>
-    <a href="{{ routes.cart_url }}" class="header__icon-btn" aria-label="Cart">
-      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-      {% if cart.item_count > 0 %}
-        <span class="header__cart-count">{{ cart.item_count }}</span>
-      {% endif %}
-    </a>
+  <div class="catfat-header__notice catfat-header__notice--secondary">
+    School-ready lunch boxes, bottles, and gifting picks in one cleaner store.
   </div>
-</div>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu-drawer__overlay" onclick="toggleMobileMenu()"></div>
-<div class="mobile-menu-drawer">
-  <div class="mobile-menu-drawer__header">
-    <span style="color: #fff; font-weight: 700;">Menu</span>
-    <button class="mobile-menu-drawer__close" onclick="toggleMobileMenu()">×</button>
+  <div class="page-width catfat-header" data-menu-open="false">
+    <a href="{{ routes.root_url }}" class="catfat-header__brand" aria-label="{{ shop.name }}">
+      <span class="catfat-header__brand-plate">
+        <img
+          src="{{ brand_logo_src }}"
+          alt="{{ section.settings.logo_text | default: shop.name }}"
+          class="catfat-header__brand-logo"
+          loading="eager"
+        >
+      </span>
+      <span class="catfat-header__brand-copy">
+        <span class="catfat-header__brand-subtitle">Lunchware for school, gifting, and daily carry.</span>
+      </span>
+    </a>
+
+    <nav class="catfat-header__nav" aria-label="Primary">
+      <a href="/collections/all-products" class="catfat-header__link">Shop All</a>
+      <a href="/collections/lunch-box" class="catfat-header__link">Lunch Boxes</a>
+      <a href="/collections/bottles-flasks" class="catfat-header__link">Bottles &amp; Thermos</a>
+      <a href="/collections/kids-collections" class="catfat-header__link">Kids Themes</a>
+      <a href="/collections/new-arrivals" class="catfat-header__link">New Arrivals</a>
+      <a href="/collections/corporate-gifting-bulk-gifting" class="catfat-header__link">Bulk Gifting</a>
+      <a href="/collections/india-s-biggest-lunch-sale-upto-80" class="catfat-header__link catfat-header__link--sale">Sale</a>
+    </nav>
+
+    <div class="catfat-header__actions">
+      <a href="{{ routes.search_url }}" class="catfat-header__icon" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L19 20.5 20.5 19zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+      </a>
+      <a href="{{ routes.account_url }}" class="catfat-header__icon" aria-label="Account">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-3.33 0-6 1.79-6 4v2h12v-2c0-2.21-2.67-4-6-4z"/></svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="catfat-header__icon catfat-header__cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM7.17 13h8.97a2 2 0 0 0 1.75-1l3.58-6.49A1 1 0 0 0 20.59 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 7 17h12v-2H7z"/></svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="catfat-header__cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+      <button type="button" class="catfat-header__menu-button" aria-expanded="false" aria-controls="catfat-mobile-nav-{{ section.id }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v2H4zm0 8h16v2H4zm0-4h16v2H4z"/></svg>
+      </button>
+    </div>
+
+    <div class="catfat-header__mobile" id="catfat-mobile-nav-{{ section.id }}">
+      <div class="catfat-header__mobile-links">
+        <a href="/collections/all-products" class="catfat-header__mobile-link">Shop All</a>
+        <a href="/collections/lunch-box" class="catfat-header__mobile-link">Lunch Boxes</a>
+        <a href="/collections/bottles-flasks" class="catfat-header__mobile-link">Bottles &amp; Thermos</a>
+        <a href="/collections/kids-collections" class="catfat-header__mobile-link">Kids Themes</a>
+        <a href="/collections/new-arrivals" class="catfat-header__mobile-link">New Arrivals</a>
+        <a href="/collections/corporate-gifting-bulk-gifting" class="catfat-header__mobile-link">Bulk Gifting</a>
+        <a href="/collections/india-s-biggest-lunch-sale-upto-80" class="catfat-header__mobile-link catfat-header__mobile-link--sale">Sale</a>
+        <a href="{{ routes.account_url }}" class="catfat-header__mobile-link">My Account</a>
+      </div>
+    </div>
   </div>
-  <div class="mobile-menu-drawer__links">
-    <a href="{{ routes.root_url }}" class="mobile-menu-drawer__link">Home</a>
-    <a href="{{ routes.collections_url }}" class="mobile-menu-drawer__link">All Products</a>
-    <a href="{{ routes.collections_url }}/new-arrivals" class="mobile-menu-drawer__link">New Arrivals</a>
-    <a href="{{ routes.collections_url }}/best-sellers" class="mobile-menu-drawer__link">Best Sellers</a>
-    <a href="{{ routes.pages_url }}/about" class="mobile-menu-drawer__link">About Us</a>
-    <a href="{{ routes.pages_url }}/contact" class="mobile-menu-drawer__link">Contact</a>
-    <a href="{{ routes.account_url }}" class="mobile-menu-drawer__link">My Account</a>
-  </div>
-</div>
+</header>
 
 <script>
-function toggleMobileMenu() {
-  document.querySelector('.mobile-menu-drawer').classList.toggle('open');
-  document.querySelector('.mobile-menu-drawer__overlay').classList.toggle('open');
-}
+  (() => {
+    const shell = document.getElementById('catfat-header-{{ section.id }}');
+    if (!shell) return;
+
+    const header = shell.querySelector('.catfat-header');
+    const toggle = shell.querySelector('.catfat-header__menu-button');
+
+    if (!header || !toggle) return;
+
+    toggle.addEventListener('click', () => {
+      const isOpen = header.getAttribute('data-menu-open') === 'true';
+      header.setAttribute('data-menu-open', isOpen ? 'false' : 'true');
+      toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    });
+  })();
 </script>
 
 {% schema %}
@@ -266,16 +352,16 @@ function toggleMobileMenu() {
     {
       "type": "text",
       "id": "logo_text",
-      "default": "CatFat",
+      "default": "CatfatIndia",
       "label": "Logo Text"
     },
     {
       "type": "range",
       "id": "logo_width",
       "min": 80,
-      "max": 200,
+      "max": 220,
       "step": 10,
-      "default": 120,
+      "default": 140,
       "label": "Logo Width"
     }
   ]

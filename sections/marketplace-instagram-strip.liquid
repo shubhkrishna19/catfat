@@ -1,0 +1,78 @@
+{{ 'section-marketplace-instagram-strip.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign lunch_collection = collections['lunch-box']
+  assign kids_collection = collections['kids-collections']
+  assign product_pool = lunch_collection.products
+  if product_pool == blank or product_pool.size == 0
+    assign product_pool = kids_collection.products
+  endif
+-%}
+
+<section class="instagram-strip page-width">
+  <div class="instagram-strip__header">
+    <div>
+      <span class="instagram-strip__eyebrow">Pack love from Instagram</span>
+      <h2 class="instagram-strip__title">See how Catfat fits into real lunch routines.</h2>
+      <p class="instagram-strip__description">
+        A scroll of lunch-box favourites, school packing moments, and gifting-ready picks inspired by the Catfat community of 750K+ followers.
+      </p>
+    </div>
+
+    <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="instagram-strip__link">Follow @catfatindia</a>
+  </div>
+
+  <div class="instagram-strip__rail">
+    {%- assign shown_count = 0 -%}
+    {%- for product in product_pool limit: 6 -%}
+      {%- if product.featured_media != blank -%}
+        <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="instagram-strip__card">
+          {{
+            product.featured_media
+            | image_url: width: 800
+            | image_tag:
+              class: 'instagram-strip__image',
+              widths: '280, 420, 620, 800',
+              loading: 'lazy',
+              alt: product.title
+          }}
+          <div class="instagram-strip__overlay">
+            <span class="instagram-strip__handle">@catfatindia • 750K+</span>
+            <strong class="instagram-strip__caption">
+              {%- case forloop.index -%}
+                {%- when 1 -%}School lunch setup
+                {%- when 2 -%}Theme pick of the week
+                {%- when 3 -%}Lunch-box unboxing
+                {%- when 4 -%}Bottle and box pairing
+                {%- when 5 -%}Gift-ready lunchware
+                {%- else -%}Packed with Catfat
+              {%- endcase -%}
+            </strong>
+            <span class="instagram-strip__product">{{ product.title | escape }}</span>
+          </div>
+        </a>
+        {%- assign shown_count = shown_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if shown_count == 0 -%}
+      {%- for i in (1..5) -%}
+        <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="instagram-strip__card instagram-strip__card--placeholder">
+          <span class="instagram-strip__placeholder-label">Catfat community post {{ i }}</span>
+        </a>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram Strip",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Instagram Strip"
+    }
+  ]
+}
+{% endschema %}

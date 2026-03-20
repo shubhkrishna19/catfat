@@ -1,0 +1,64 @@
+{{ 'section-marketplace-faq.css' | asset_url | stylesheet_tag }}
+
+<section class="marketplace-faq page-width">
+  <div class="marketplace-faq__shell">
+    <div class="marketplace-faq__header">
+      <div>
+        <span class="marketplace-faq__eyebrow">FAQ</span>
+        <h2 class="marketplace-faq__title">Small buying questions answered before they slow the cart.</h2>
+        <p class="marketplace-faq__description">
+          These are the fast questions shoppers usually ask when a lunchware catalog starts getting serious: photos, variants,
+          gifting, bulk orders, coupons, and how to compare products without getting lost.
+        </p>
+      </div>
+
+      <p class="marketplace-faq__note">
+        Catfat should feel easier than a crowded marketplace: less clutter, sharper visuals, and clearer reasons to choose the right product.
+      </p>
+    </div>
+
+    <div class="marketplace-faq__grid">
+      <details class="marketplace-faq__item" open>
+        <summary class="marketplace-faq__question">Are the product photos the real ones from the Catfat catalog?</summary>
+        <p class="marketplace-faq__answer">Yes. The theme is being structured around the original product photos so the shopper can trust the image-led buying flow.</p>
+      </details>
+
+      <details class="marketplace-faq__item">
+        <summary class="marketplace-faq__question">How do I know if a product has themes, colors, or more than one style?</summary>
+        <p class="marketplace-faq__answer">Product cards and product pages now highlight variant counts and option labels so shoppers can spot flexible products earlier.</p>
+      </details>
+
+      <details class="marketplace-faq__item">
+        <summary class="marketplace-faq__question">Which Catfat products are better for gifting or return gifts?</summary>
+        <p class="marketplace-faq__answer">Theme-heavy, character-led, and visibly discounted picks usually perform best for gifting. The site now keeps those lanes easier to discover.</p>
+      </details>
+
+      <details class="marketplace-faq__item">
+        <summary class="marketplace-faq__question">Can I browse bulk gifting options without leaving the main shopping flow?</summary>
+        <p class="marketplace-faq__answer">Yes. Bulk gifting remains linked from the main navigation and trust/support areas so it feels like part of the store, not a hidden side path.</p>
+      </details>
+
+      <details class="marketplace-faq__item">
+        <summary class="marketplace-faq__question">Where do I get coupons and new product updates?</summary>
+        <p class="marketplace-faq__answer">The footer signup captures email interest for coupon drops, new launches, and early access to the better-selling Catfat products.</p>
+      </details>
+
+      <details class="marketplace-faq__item">
+        <summary class="marketplace-faq__question">What makes the product page easier to use now?</summary>
+        <p class="marketplace-faq__answer">The product page is being tuned around original photos, clickable thumbnails, clearer variant switching, stronger pricing hierarchy, and cleaner purchase actions.</p>
+      </details>
+    </div>
+
+    <div class="marketplace-faq__footer">
+      <p class="marketplace-faq__note">Still comparing options for school, gifting, or launch-day buying? Reach out and keep the decision fast.</p>
+      <a href="/pages/contact-us" class="marketplace-faq__contact">Contact Catfat support</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marketplace FAQ",
+  "settings": []
+}
+{% endschema %}

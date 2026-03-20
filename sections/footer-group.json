@@ -4,26 +4,7 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": [
-        {
-          "type": "link_list",
-          "settings": {
-            "heading": "Shop",
-            "menu": "footer"
-          }
-        },
-        {
-          "type": "text",
-          "settings": {
-            "heading": "CatFat India",
-            "subtext": "<p>Premium lunch boxes and bottles for kids & adults.</p>"
-          }
-        },
-        {
-          "type": "newsletter",
-          "settings": {}
-        }
-      ]
+      "settings": {}
     }
   },
   "order": [

@@ -4,10 +4,8 @@
     "theme_name": "CatFat India",
     "theme_version": "1.0.0",
     "theme_author": "CatFat India",
-    "theme_documentation": "https://catfatindia.com",
-    "theme_support": "https://catfatindia.com/contact",
-    "theme_support_email": "support@catfatindia.com",
-    "theme_documentation_url": "https://help.shopify.com/"
+    "theme_documentation_url": "https://catfatindia.com",
+    "theme_support_url": "https://catfatindia.com/contact"
   },
   {
     "name": "Colors",
