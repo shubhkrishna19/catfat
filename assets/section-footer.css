@@ -1,15 +1,17 @@
 .catfat-footer {
-  margin-top: 48px;
+  margin: clamp(4.8rem, 6vw, 7.2rem) clamp(1.2rem, 2vw, 2.8rem) clamp(1.4rem, 2.2vw, 2.2rem);
   padding: 36px 0 20px;
+  border-radius: 18px;
+  overflow: hidden;
   background:
-    radial-gradient(circle at top left, rgba(255, 217, 61, 0.12), transparent 24%),
-    radial-gradient(circle at right bottom, rgba(255, 107, 157, 0.14), transparent 28%),
-  linear-gradient(180deg, #241520 0%, #1b1018 100%);
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.14), transparent 24%),
+    radial-gradient(circle at right bottom, rgba(var(--catfat-brand-purple-deep-rgb), 0.16), transparent 28%),
+    linear-gradient(180deg, #221132 0%, #160b22 100%);
   color: #ffffff;
 }
 
 .catfat-footer__inner {
-  padding: clamp(18px, 2vw, 26px) 0 0;
+  padding: clamp(2.2rem, 3vw, 3.2rem) 0 0;
 }
 
 .catfat-footer__topline {
@@ -17,9 +19,9 @@
   align-items: center;
   min-height: 34px;
   padding: 8px 14px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffd8e7;
+  border-radius: 8px;
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.18);
+  color: #efe5ff;
   font-size: 1.15rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -45,7 +47,7 @@
 .catfat-footer__brand-text {
   max-width: 36rem;
   margin: 0 0 18px;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(237, 230, 248, 0.8);
   font-size: 1.45rem;
   line-height: 1.7;
 }
@@ -63,11 +65,11 @@
   min-height: 38px;
   padding: 10px 14px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff0f6;
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.14);
+  color: #f3ebff;
   font-size: 1.2rem;
   font-weight: 800;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(var(--catfat-brand-purple-soft-rgb), 0.16);
 }
 
 .catfat-footer__signup {
@@ -91,14 +93,14 @@
 }
 
 .catfat-footer__contact-link span {
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(232, 223, 247, 0.72);
   font-size: 1.2rem;
   font-weight: 700;
 }
 
 .catfat-footer__heading {
   margin: 0 0 16px;
-  color: #ffd2e1;
+  color: #efe0ff;
   font-size: 1.9rem;
   line-height: 1.1;
   font-weight: 900;
@@ -115,7 +117,7 @@
 }
 
 .catfat-footer__links a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(236, 229, 248, 0.82);
   text-decoration: none;
   font-size: 1.4rem;
   line-height: 1.45;
@@ -130,7 +132,7 @@
 
 .catfat-footer__support-copy {
   margin: 0 0 16px;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(237, 230, 248, 0.8);
   font-size: 1.55rem;
   line-height: 1.75;
 }
@@ -149,9 +151,9 @@
   min-height: 60px;
   width: 100%;
   padding: 0 18px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(var(--catfat-brand-purple-soft-rgb), 0.2);
+  border-radius: 8px;
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.12);
   color: #ffffff;
   font-size: 1.42rem;
   font-weight: 800;
@@ -159,13 +161,13 @@
 }
 
 .catfat-footer__newsletter-input::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(225, 214, 243, 0.58);
 }
 
 .catfat-footer__newsletter-input:focus {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.34);
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.18);
 }
 
 .catfat-footer__newsletter-button {
@@ -176,19 +178,19 @@
   width: 100%;
   padding: 0 24px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   color: #ffffff;
   font-size: 1.42rem;
   font-weight: 900;
   letter-spacing: 0.02em;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f 55%, #ff8e53);
-  box-shadow: 0 14px 26px rgba(232, 74, 127, 0.22);
+  background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
+  box-shadow: 0 14px 26px rgba(var(--catfat-brand-purple-rgb), 0.22);
   cursor: pointer;
 }
 
 .catfat-footer__newsletter-message {
   margin: 12px 0 0;
-  color: #ffe8b0;
+  color: #efe0ff;
   font-size: 1.18rem;
   line-height: 1.5;
   font-weight: 800;
@@ -197,7 +199,7 @@
 .catfat-footer__newsletter-errors {
   margin: 12px 0 0;
   padding-left: 18px;
-  color: #ffd0d7;
+  color: #ecd9ff;
   font-size: 1.15rem;
   line-height: 1.6;
 }
@@ -215,13 +217,13 @@
   justify-content: center;
   min-height: 46px;
   padding: 0 18px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.12);
   color: #ffffff;
   text-decoration: none;
   font-size: 1.24rem;
   font-weight: 900;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(var(--catfat-brand-purple-soft-rgb), 0.16);
   transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
 }
 
@@ -231,8 +233,78 @@
 
 .catfat-footer__social a:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.18);
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.26);
+}
+
+.catfat-footer__bottom-side {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.catfat-footer__mode-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(var(--catfat-brand-purple-soft-rgb), 0.18);
+  border-radius: 999px;
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.12);
+  color: #f7ecff;
+  box-shadow: inset 0 1px 0 rgba(var(--catfat-brand-purple-soft-rgb), 0.1);
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+
+.catfat-footer__mode-button:hover {
+  transform: translateY(-1px);
+  background: rgba(var(--catfat-brand-purple-soft-rgb), 0.18);
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.26);
+}
+
+.catfat-footer__mode-button:focus-visible {
+  outline: 2px solid rgba(var(--catfat-brand-purple-soft-rgb), 0.7);
+  outline-offset: 2px;
+}
+
+.catfat-footer__mode-icon {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.catfat-footer__mode-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.catfat-footer__mode-icon--sun {
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.catfat-footer__mode-button.is-dark {
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.38), rgba(var(--catfat-brand-purple-rgb), 0.42) 58%, rgba(var(--catfat-brand-purple-deep-rgb), 0.5));
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.46);
+  color: #fff7ff;
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
+}
+
+.catfat-footer__mode-button.is-dark .catfat-footer__mode-icon--moon {
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.catfat-footer__mode-button.is-dark .catfat-footer__mode-icon--sun {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .catfat-footer__bottom {
@@ -243,13 +315,13 @@
   gap: 12px;
   margin-top: 28px;
   padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(var(--catfat-brand-purple-soft-rgb), 0.14);
 }
 
 .catfat-footer__bottom-copy,
 .catfat-footer__bottom-note {
   margin: 0;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(220, 210, 236, 0.72);
   font-size: 1.2rem;
   line-height: 1.5;
   font-weight: 700;
@@ -263,7 +335,9 @@
 
 @media screen and (max-width: 749px) {
   .catfat-footer {
+    margin: 4.8rem 1rem 1rem;
     padding-top: 28px;
+    border-radius: 16px;
   }
 
   .catfat-footer__grid {
@@ -293,5 +367,10 @@
   .catfat-footer__bottom {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .catfat-footer__bottom-side {
+    width: 100%;
+    justify-content: space-between;
   }
 }

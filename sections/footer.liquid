@@ -1,4 +1,6 @@
 {{ 'section-footer.css' | asset_url | stylesheet_tag }}
+{{ 'catfat-theme-mode.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'catfat-theme-mode.js' | asset_url }}" defer="defer"></script>
 
 <footer class="catfat-footer">
   <div class="page-width catfat-footer__inner">
@@ -18,8 +20,8 @@
         </div>
 
         <div class="catfat-footer__contact-list">
-          <a class="catfat-footer__contact-link" href="tel:+918383013068">
-            <span>Call</span> +91 8383013068
+          <a class="catfat-footer__contact-link" href="tel:292929292929">
+            <span>Call</span> 292929292929
           </a>
           <a class="catfat-footer__contact-link" href="mailto:support@catfatindia.com">
             <span>Email</span> support@catfatindia.com
@@ -85,7 +87,7 @@
         {%- endform -%}
 
         <div class="catfat-footer__social">
-          <a href="https://wa.me/918383013068">WhatsApp</a>
+          <a href="https://wa.me/292929292929">WhatsApp</a>
           <a href="https://instagram.com/catfatindia">Instagram</a>
           <a href="https://facebook.com/catfatindia">Facebook</a>
         </div>
@@ -94,7 +96,33 @@
 
     <div class="catfat-footer__bottom">
       <p class="catfat-footer__bottom-copy">Copyright 2026 CatfatIndia. All rights reserved.</p>
-      <p class="catfat-footer__bottom-note">Secure checkout for lunchware, gifting, and themed favourites.</p>
+      <div class="catfat-footer__bottom-side">
+        <p class="catfat-footer__bottom-note">Secure checkout for lunchware, gifting, and themed favourites.</p>
+        {%- if section.settings.show_theme_toggle -%}
+          <button
+            type="button"
+            class="catfat-footer__mode-button"
+            data-catfat-theme-toggle
+            data-default-mode="{{ section.settings.default_theme_mode }}"
+            data-light-label="{{ section.settings.light_mode_label }}"
+            data-dark-label="{{ section.settings.dark_mode_label }}"
+            aria-label="Switch to dark mode"
+            title="Switch to dark mode"
+            aria-pressed="false"
+          >
+            <span class="catfat-footer__mode-icon catfat-footer__mode-icon--moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M14.5 2.5c-2.2.8-3.8 2.9-3.8 5.4 0 3.2 2.6 5.8 5.8 5.8 2.1 0 4-.9 5.1-2.5-.5 5-4.7 8.8-9.8 8.8-5.5 0-10-4.5-10-10 0-4.9 3.5-9 8.3-9.8a6.3 6.3 0 0 0-.6 2.3c0 0 0 0 0 0z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="catfat-footer__mode-icon catfat-footer__mode-icon--sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M12 4.5a1 1 0 0 1 1 1v1.4a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1Zm0 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5-4.5a1 1 0 0 1 1 1 1 1 0 0 1-1 1h-1.4a1 1 0 1 1 0-2h1.4ZM6.9 11a1 1 0 1 1 0 2H5.5a1 1 0 1 1 0-2h1.4Zm9.17-4.76a1 1 0 0 1 1.41 0l.99.99a1 1 0 1 1-1.41 1.41l-.99-.99a1 1 0 0 1 0-1.41Zm-9.56 9.56a1 1 0 0 1 1.41 0l.99.99a1 1 0 1 1-1.41 1.41l-.99-.99a1 1 0 0 1 0-1.41Zm10.97.99a1 1 0 0 1 0 1.41l-.99.99a1 1 0 1 1-1.41-1.41l.99-.99a1 1 0 0 1 1.41 0Zm-9.56-9.56a1 1 0 0 1 0 1.41l-.99.99A1 1 0 1 1 5.52 7.8l.99-.99a1 1 0 0 1 1.41 0Z" fill="currentColor"/>
+              </svg>
+            </span>
+          </button>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </footer>
@@ -102,6 +130,48 @@
 {% schema %}
 {
   "name": "Footer",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_theme_toggle",
+      "default": true,
+      "label": "Show light/dark toggle"
+    },
+    {
+      "type": "select",
+      "id": "default_theme_mode",
+      "label": "Default theme mode",
+      "default": "light",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" },
+        { "value": "system", "label": "Match device" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "theme_toggle_heading",
+      "default": "View mode",
+      "label": "Toggle heading"
+    },
+    {
+      "type": "textarea",
+      "id": "theme_toggle_copy",
+      "default": "Switch between light and dark storefront views while you review the build.",
+      "label": "Toggle copy"
+    },
+    {
+      "type": "text",
+      "id": "light_mode_label",
+      "default": "Light",
+      "label": "Light button label"
+    },
+    {
+      "type": "text",
+      "id": "dark_mode_label",
+      "default": "Dark",
+      "label": "Dark button label"
+    }
+  ]
 }
 {% endschema %}

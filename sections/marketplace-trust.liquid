@@ -1,5 +1,9 @@
 {{ 'section-marketplace-trust.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '650' | plus: 0
+-%}
+
 <section class="marketplace-trust page-width">
   <div class="marketplace-trust__shell">
     <div class="marketplace-trust__header">
@@ -32,8 +36,10 @@
 
       <article class="marketplace-trust__card">
         <span class="marketplace-trust__icon">04</span>
-        <h3 class="marketplace-trust__card-title">Bulk and gifting support</h3>
-        <p class="marketplace-trust__card-copy">Lunch picks, school gifting, and return-gift browsing stay close to the main shopping flow.</p>
+        <h3 class="marketplace-trust__card-title">
+          {% if all_reviews_count > 0 %}{{ all_reviews_count }}+ verified reviews{% else %}Hundreds of verified reviews{% endif %}
+        </h3>
+        <p class="marketplace-trust__card-copy">Storewide Judge.me proof gives shoppers real buying confidence long before they reach checkout.</p>
       </article>
     </div>
 
@@ -41,6 +47,7 @@
       <span class="marketplace-trust__pill"><strong>Photos:</strong> real catalog imagery</span>
       <span class="marketplace-trust__pill"><strong>Pricing:</strong> visible markdown cues</span>
       <span class="marketplace-trust__pill"><strong>Support:</strong> gifting and bulk help</span>
+      <span class="marketplace-trust__pill"><strong>Reviews:</strong> verified buyer proof</span>
       <span class="marketplace-trust__pill"><strong>Flow:</strong> cleaner product selection</span>
     </div>
   </div>

@@ -1,7 +1,7 @@
-{% comment %}
+﻿{% comment %}
   Badge Snippet
   Displays sale/sold out/new product badges
-  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+  Uses the pink/coral color scheme: #741CB1, #642878, #5C34BA
 {% endcomment %}
 
 {%- assign product = product -%}
@@ -77,7 +77,7 @@
 
   /* Sale Badge */
   .badge--sale .badge__content {
-    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    background: linear-gradient(135deg, #741CB1 0%, #642878 100%);
     color: #fff;
     box-shadow: 0 4px 12px rgba(232, 74, 127, 0.4);
     animation: pulse-sale 2s ease-in-out infinite;
@@ -100,7 +100,7 @@
 
   /* New Badge */
   .badge--new .badge__content {
-    background: linear-gradient(135deg, #ff8e53 0%, #ff6b9d 100%);
+    background: linear-gradient(135deg, #5C34BA 0%, #741CB1 100%);
     color: #fff;
     box-shadow: 0 4px 12px rgba(255, 142, 83, 0.4);
   }
@@ -119,3 +119,4 @@
     box-shadow: 0 4px 12px rgba(255, 211, 42, 0.4);
   }
 </style>
+

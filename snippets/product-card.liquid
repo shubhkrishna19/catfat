@@ -51,102 +51,11 @@
     assign eyebrow_text = 'Stainless steel'
   endif
 
-  assign benefit_title = 'Daily-use lunchware for school and travel.'
-  if product_text contains 'microwave'
-    assign benefit_title = 'Microwave-ready for easier lunch prep.'
-  elsif product_text contains 'vacuum' or product_text contains 'insulated'
-    assign benefit_title = 'Insulated for longer-lasting freshness.'
-  elsif product_text contains 'leak' or product_text contains 'spill'
-    assign benefit_title = 'Leak-resistant for cleaner bag carry.'
-  elsif product_text contains 'stainless'
-    assign benefit_title = 'Stainless steel for everyday durability.'
-  elsif product_text contains 'spoon'
-    assign benefit_title = 'Built-in spoon for easier meal breaks.'
-  elsif product_text contains 'cutlery'
-    assign benefit_title = 'Compact cutlery for school and travel.'
-  endif
-
-  assign meta_primary = blank
-  assign meta_secondary = blank
-  if theme_count > 0
-    assign meta_primary = theme_count | append: ' theme'
-    if theme_count != 1
-      assign meta_primary = meta_primary | append: 's'
-    endif
-  elsif color_count > 0
-    assign meta_primary = color_count | append: ' color'
-    if color_count != 1
-      assign meta_primary = meta_primary | append: 's'
-    endif
-  elsif style_count > 1
-    assign meta_primary = style_count | append: ' style'
-    if style_count != 1
-      assign meta_primary = meta_primary | append: 's'
-    endif
-  elsif product.variants.size > 1
-    assign meta_primary = product.variants.size | append: ' option'
-    if product.variants.size != 1
-      assign meta_primary = meta_primary | append: 's'
-    endif
-  endif
-
-  if product_text contains 'vacuum' or product_text contains 'insulated'
-    assign meta_secondary = 'Hot and cold ready'
-  elsif product_text contains 'microwave'
-    assign meta_secondary = 'Microwave safe'
-  elsif product_text contains 'stainless'
-    assign meta_secondary = 'Stainless steel'
-  elsif product_text contains 'leak' or product_text contains 'spill'
-    assign meta_secondary = 'Leak resistant'
-  elsif product_text contains 'spoon'
-    assign meta_secondary = 'Built-in spoon'
-  endif
-
-  if meta_primary == blank and style_count > 1
-    assign meta_primary = style_count | append: ' style'
-    if style_count != 1
-      assign meta_primary = meta_primary | append: 's'
-    endif
-  endif
-
-  assign support_text = 'See colors, sizes, and product details.'
-  if product.available == false
-    assign support_text = 'Currently unavailable online.'
-  elsif title_text contains 'kuromi' and title_text contains 'panda'
-    assign support_text = 'Character-led gifting favourite.'
-  elsif title_text contains 'kuromi'
-    assign support_text = 'Bold character look kids notice fast.'
-  elsif title_text contains 'panda'
-    assign support_text = 'Playful panda styling for daily carry.'
-  elsif title_text contains 'kawaii'
-    assign support_text = 'Cute daily-use pick with gifting appeal.'
-  elsif title_text contains 'cutlery' or title_text contains 'fork' or title_text contains 'chopsticks'
-    assign support_text = 'Easy add-on for school and travel meals.'
-  elsif title_text contains 'mini' and title_text contains 'bento'
-    assign support_text = 'Compact fit for smaller appetites.'
-  elsif title_text contains 'tri bite' or product_text contains '3-compartment' or product_text contains '3 compartment' or product_text contains 'three compartment'
-    assign support_text = 'Three sections for tidier lunch packing.'
-  elsif title_text contains 'bento'
-    assign support_text = 'Organised compartments for cleaner packing.'
-  elsif title_text contains 'leak-lock' or product_text contains 'leakproof' or product_text contains 'leak resistant' or product_text contains 'leak-resistant'
-    assign support_text = 'Built for calmer bags and cleaner mornings.'
-  elsif title_text contains 'thermos' and title_text contains 'spoon'
-    assign support_text = 'Warm-meal support with spoon convenience.'
-  elsif title_text contains 'pot'
-    assign support_text = 'Comfort-meal format with easier carrying.'
-  elsif title_text contains 'vacuum' or title_text contains 'insulated'
-    assign support_text = 'Keeps drinks or meals ready for longer.'
-  elsif title_text contains 'microwave'
-    assign support_text = 'Quick reheat convenience for school days.'
-  elsif title_text contains 'stainless'
-    assign support_text = 'Steel build made for repeated daily use.'
-  elsif has_name_engraving
-    assign support_text = 'Personalised gifting option available.'
-  endif
-
   assign savings_amount = 0
   assign savings_percent = 0
   assign savings_amount_money = blank
+  assign review_count = product.metafields.reviews.rating_count | default: 0 | plus: 0
+  assign review_value = product.metafields.reviews.rating.value | default: 0 | plus: 0
   if compare_at_price > price and compare_at_price != blank
     assign savings_amount = compare_at_price | minus: price
     assign savings_percent = savings_amount | times: 100 | divided_by: compare_at_price
@@ -157,7 +66,7 @@
   if product.available == false
     assign action_label = 'View product'
   elsif product.variants.size > 1
-    assign action_label = 'View options'
+    assign action_label = 'Choose options'
   endif
 
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
@@ -206,19 +115,17 @@
   <div class="market-card__body">
     <div class="market-card__topline">
       <span class="market-card__eyebrow">{{ eyebrow_text }}</span>
+      {%- if review_count > 0 -%}
+        <span class="market-card__review-line">
+          <span class="market-card__review-star" aria-hidden="true">★</span>
+          <span>{{ review_value | round: 1 }}</span>
+          <span aria-hidden="true">·</span>
+          <span>{{ review_count }} review{% if review_count != 1 %}s{% endif %}</span>
+        </span>
+      {%- endif -%}
     </div>
 
     <a href="{{ product.url }}" class="market-card__title">{{ product.title | escape }}</a>
-    <p class="market-card__subtitle">{{ benefit_title }}</p>
-
-    <div class="market-card__meta{% if meta_primary == blank and meta_secondary == blank %} market-card__meta--empty{% endif %}">
-      {%- if meta_primary != blank -%}
-        <span class="market-card__meta-item">{{ meta_primary }}</span>
-      {%- endif -%}
-      {%- if meta_secondary != blank -%}
-        <span class="market-card__meta-item">{{ meta_secondary }}</span>
-      {%- endif -%}
-    </div>
 
     <div class="market-card__price-panel{% unless savings_percent > 0 %} market-card__price-panel--simple{% endunless %}">
       <div class="market-card__price-stack">
@@ -241,8 +148,6 @@
         </div>
       {%- endif -%}
     </div>
-
-    <p class="market-card__proof">{{ support_text }}</p>
 
     {%- if product.available and product.variants.size == 1 -%}
       <product-form class="market-card__form">

@@ -2,7 +2,7 @@
 
 {%- liquid
   assign lunch_collection = collections['lunch-box']
-  assign bottle_collection = collections['bottles-flasks']
+  assign kids_collection = collections['kids-collections']
   assign gifting_collection = collections['corporate-gifting-bulk-gifting']
 
   assign lunch_product = blank
@@ -18,16 +18,16 @@
     endif
   endif
 
-  assign bottle_product = blank
-  if bottle_collection != blank
-    for product in bottle_collection.products
+  assign kids_product = blank
+  if kids_collection != blank
+    for product in kids_collection.products
       if product.available
-        assign bottle_product = product
+        assign kids_product = product
         break
       endif
     endfor
-    if bottle_product == blank
-      assign bottle_product = bottle_collection.products.first
+    if kids_product == blank
+      assign kids_product = kids_collection.products.first
     endif
   endif
 
@@ -48,20 +48,20 @@
 <section class="routine-story page-width">
   <div class="routine-story__shell">
     <div class="routine-story__copy">
-      <span class="routine-story__eyebrow">One brand, many routines</span>
-      <h2 class="routine-story__title">Lunch boxes first. Everything else made to match.</h2>
+      <span class="routine-story__eyebrow">Theme and gifting spotlight</span>
+      <h2 class="routine-story__title">Themes kids notice. Picks that feel gift-ready.</h2>
       <p class="routine-story__description">
-        Start with Catfat lunch-box bestsellers, add bottles and thermos for daily carry, and keep personalised gifting picks ready for birthdays, return gifts, and bulk orders.
+        Bring the playful side of Catfat forward with character-led lunchware, personalised picks, and gifting-friendly options that feel special before checkout even starts.
       </p>
 
       <div class="routine-story__signals">
-        <span class="routine-story__signal">Lunch-box bestsellers</span>
-        <span class="routine-story__signal">Bottles that match</span>
-        <span class="routine-story__signal">Bulk gifting available</span>
+        <span class="routine-story__signal">Kids-favourite themes</span>
+        <span class="routine-story__signal">Return-gift friendly</span>
+        <span class="routine-story__signal">Bulk gifting help</span>
       </div>
 
-      {%- if lunch_collection != blank -%}
-        <a href="{{ lunch_collection.url }}" class="routine-story__button">Shop bestsellers</a>
+      {%- if kids_collection != blank -%}
+        <a href="{{ kids_collection.url }}" class="routine-story__button">Explore kids themes</a>
       {%- endif -%}
     </div>
 
@@ -84,16 +84,16 @@
         </div>
       {%- endif -%}
 
-      {%- if bottle_product != blank and bottle_product.featured_media != blank -%}
+      {%- if kids_product != blank and kids_product.featured_media != blank -%}
         <div class="routine-story__float routine-story__float--bottle">
           {{
-            bottle_product.featured_media
+            kids_product.featured_media
             | image_url: width: 900
             | image_tag:
               class: 'routine-story__product-image',
               widths: '320, 480, 680, 900',
               loading: 'lazy',
-              alt: bottle_product.title
+              alt: kids_product.title
           }}
         </div>
       {%- endif -%}
@@ -115,27 +115,27 @@
   </div>
 
   <div class="routine-story__grid">
-    {%- if lunch_collection != blank -%}
-      <a href="{{ lunch_collection.url }}" class="routine-story__card">
-        <span class="routine-story__card-label">Best sellers</span>
-        <strong class="routine-story__card-title">Lunch boxes shoppers can compare at a glance.</strong>
-        <p class="routine-story__card-copy">Compartment-first picks with strong visuals and faster everyday decision making.</p>
+    {%- if kids_collection != blank -%}
+      <a href="{{ kids_collection.url }}" class="routine-story__card">
+        <span class="routine-story__card-label">Kids themes</span>
+        <strong class="routine-story__card-title">Character picks that make the product feel exciting instantly.</strong>
+        <p class="routine-story__card-copy">A cleaner route into themed lunchware that feels playful without making the homepage noisy.</p>
       </a>
     {%- endif -%}
 
-    {%- if bottle_collection != blank -%}
-      <a href="{{ bottle_collection.url }}" class="routine-story__card">
-        <span class="routine-story__card-label">Complete the carry</span>
-        <strong class="routine-story__card-title">Insulated bottles and thermos to finish the set.</strong>
-        <p class="routine-story__card-copy">Hydration products that feel coordinated with the lunch-box range, not separated from it.</p>
+    {%- if lunch_collection != blank -%}
+      <a href="{{ lunch_collection.url }}" class="routine-story__card">
+        <span class="routine-story__card-label">Gifting-ready range</span>
+        <strong class="routine-story__card-title">Lunchware that still feels practical after the gift moment.</strong>
+        <p class="routine-story__card-copy">Use the bestseller range as the easy bridge between everyday utility and presentable gifting value.</p>
       </a>
     {%- endif -%}
 
     {%- if gifting_collection != blank -%}
       <a href="{{ gifting_collection.url }}" class="routine-story__card">
-        <span class="routine-story__card-label">Beyond school use</span>
-        <strong class="routine-story__card-title">Bulk gifting and personalised picks for bigger moments.</strong>
-        <p class="routine-story__card-copy">A cleaner path for return gifts, customisation, and larger gifting enquiries.</p>
+        <span class="routine-story__card-label">Bulk gifting</span>
+        <strong class="routine-story__card-title">Personalised and return-gift picks for bigger order moments.</strong>
+        <p class="routine-story__card-copy">A clearer lane for bulk gifting, customisation, and faster shortlist decisions when quantity matters.</p>
       </a>
     {%- endif -%}
   </div>

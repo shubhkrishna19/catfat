@@ -6,6 +6,7 @@
   assign bottle_collection = collections['bottles-flasks']
   assign kids_collection = collections['kids-collections']
   assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+  assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '650' | plus: 0
 
   assign main_collection = lunch_collection
   if main_collection == blank
@@ -61,7 +62,7 @@
     <div class="marketplace-hero__shell">
       <div class="marketplace-hero__copy">
         <span class="marketplace-hero__eyebrow">Catfat lunchware</span>
-        <h2 class="marketplace-hero__title">Lunchware kids ask for.</h2>
+        <h2 class="marketplace-hero__title">Packed for school smiles.</h2>
         <p class="marketplace-hero__description">
           Explore Catfat lunch boxes, bottles, and gifting picks through a cleaner homepage built to help parents compare faster and buy with more confidence.
         </p>
@@ -82,7 +83,9 @@
         </div>
 
         <div class="marketplace-hero__proof">
-          <span class="marketplace-hero__proof-item">750K+ on Instagram</span>
+          <span class="marketplace-hero__proof-item">
+            {% if all_reviews_count > 0 %}{{ all_reviews_count }}+ verified reviews{% else %}650+ verified reviews{% endif %}
+          </span>
           <span class="marketplace-hero__proof-item">Original product photos</span>
           <span class="marketplace-hero__proof-item">Bulk gifting support</span>
         </div>

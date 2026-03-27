@@ -28,10 +28,12 @@
   grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.85fr);
   gap: 18px;
   width: min(92vw, 920px);
-  padding: 26px;
+  padding: clamp(2.2rem, 3vw, 3rem);
   border-radius: 18px;
-  background: linear-gradient(135deg, #fff8fb 0%, #fff4f8 52%, #fff9ef 100%);
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.12), transparent 30%),
+    var(--catfat-panel-gradient);
+  border: 1px solid var(--catfat-card-border);
   box-shadow: 0 30px 80px rgba(30, 16, 24, 0.28);
   transform: translate(-50%, -50%);
 }
@@ -44,8 +46,8 @@
   height: 36px;
   border: none;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.88);
-  color: #7b5567;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-copy-body);
   font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
@@ -65,9 +67,9 @@
   min-height: 28px;
   padding: 4px 8px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(232, 74, 127, 0.12);
-  color: #d73d72;
+  background: var(--catfat-surface-soft);
+  border: 1px solid var(--catfat-card-border);
+  color: var(--catfat-brand-purple);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -76,7 +78,7 @@
 
 .discount-popup__title {
   margin: 0;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: clamp(2.8rem, 2.3rem + 0.8vw, 4rem);
   line-height: 0.98;
   font-weight: 900;
@@ -85,7 +87,7 @@
 
 .discount-popup__description {
   margin: 0;
-  color: #665764;
+  color: var(--catfat-copy-body);
   font-size: 1.2rem;
   line-height: 1.58;
 }
@@ -97,7 +99,7 @@
 }
 
 .discount-popup__label {
-  color: #5b4b57;
+  color: var(--catfat-copy-body);
   font-size: 0.94rem;
   font-weight: 800;
 }
@@ -106,10 +108,10 @@
   width: 100%;
   min-height: 48px;
   padding: 0 14px;
-  border: 1px solid rgba(232, 74, 127, 0.14);
+  border: 1px solid var(--catfat-card-border);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.94);
-  color: #241520;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-copy-strong);
   font-size: 1rem;
 }
 
@@ -121,12 +123,12 @@
   padding: 0 16px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f 58%, #ff9c59);
+  background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
   color: #ffffff;
   font-size: 1.06rem;
   font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 12px 24px rgba(232, 74, 127, 0.18);
+  box-shadow: 0 12px 24px rgba(var(--catfat-brand-purple-rgb), 0.18);
 }
 
 .discount-popup__message {
@@ -155,8 +157,8 @@
   min-height: 32px;
   padding: 0 10px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(232, 74, 127, 0.1);
+  background: rgba(248, 244, 255, 0.9);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.1);
   color: #5f4f5b;
   font-size: 0.94rem;
   font-weight: 800;
@@ -165,13 +167,13 @@
 .discount-popup__visual {
   position: relative;
   min-height: 360px;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   background:
-    radial-gradient(circle at top left, rgba(255, 215, 100, 0.32), transparent 26%),
-    radial-gradient(circle at bottom right, rgba(255, 107, 157, 0.18), transparent 34%),
-    linear-gradient(180deg, #ffffff 0%, #fff8fb 100%);
-  border: 1px solid rgba(232, 74, 127, 0.1);
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.2), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(var(--catfat-brand-purple-deep-rgb), 0.16), transparent 34%),
+    linear-gradient(180deg, #f8f4ff 0%, #efe7ff 100%);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.1);
 }
 
 .discount-popup__glow,
@@ -188,7 +190,7 @@
   right: 36px;
   width: 84px;
   height: 84px;
-  background: linear-gradient(135deg, rgba(255, 215, 100, 0.34), rgba(255, 142, 83, 0.2));
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.24), rgba(var(--catfat-brand-purple-deep-rgb), 0.18));
 }
 
 .discount-popup__glow--two {
@@ -196,7 +198,7 @@
   bottom: 48px;
   width: 54px;
   height: 54px;
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.24), rgba(232, 74, 127, 0.12));
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.18), rgba(var(--catfat-brand-purple-deep-rgb), 0.12));
 }
 
 .discount-popup__asset {
@@ -227,14 +229,14 @@
   max-width: 150px;
   padding: 14px 12px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  background: rgba(248, 244, 255, 0.94);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.12);
   box-shadow: 0 12px 22px rgba(85, 62, 75, 0.08);
   z-index: 3;
 }
 
 .discount-popup__offer-label {
-  color: #d73d72;
+  color: var(--catfat-brand-purple-deep);
   font-size: 0.82rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -265,8 +267,8 @@
 
 .discount-popup__cube {
   border-radius: 14px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 232, 239, 0.72));
-  border: 1px solid rgba(232, 74, 127, 0.1);
+  background: linear-gradient(135deg, rgba(248, 244, 255, 0.9), rgba(233, 224, 255, 0.76));
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.12);
   box-shadow: 0 14px 24px rgba(85, 62, 75, 0.08);
   transform: rotate(-12deg);
 }

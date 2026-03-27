@@ -9,9 +9,15 @@
   <div class="marketplace-reviews__shell">
     <div class="marketplace-reviews__header">
       <span class="marketplace-reviews__eyebrow">Real customer reviews</span>
-      <h2 class="marketplace-reviews__title">Proof from real Catfat buyers, not placeholder testimonials.</h2>
+      <h2 class="marketplace-reviews__title">
+        {% if all_reviews_count > 0 %}
+          Trusted by {{ all_reviews_count }}+ verified Catfat reviews.
+        {% else %}
+          Proof from real Catfat buyers, not placeholder testimonials.
+        {% endif %}
+      </h2>
       <p class="marketplace-reviews__description">
-        This review lane pulls from the same Judge.me reviews already collected on the live store, so shoppers see real buying proof before they reach the footer.
+        This section uses the same live Judge.me data already visible on Catfat, so the homepage carries real review proof instead of invented testimonial copy.
       </p>
     </div>
 
@@ -44,6 +50,16 @@
     </div>
 
     <div class="marketplace-reviews__carousel-shell">
+      <div class="marketplace-reviews__micro-proof">
+        <span class="marketplace-reviews__micro-pill">Judge.me synced</span>
+        <span class="marketplace-reviews__micro-pill">
+          {% if all_reviews_count > 0 %}{{ all_reviews_count }}+ review voices{% else %}Live review feed{% endif %}
+        </span>
+        <span class="marketplace-reviews__micro-pill">
+          {% if all_reviews_rating > 0 %}{{ all_reviews_rating | round: 1 }}/5 storewide rating{% else %}Real customer proof{% endif %}
+        </span>
+      </div>
+
       <!-- Start of Judge.me code -->
       <div class='jdgm-carousel-title-and-link'>
         <h2 class='jdgm-carousel-title'>Let customers speak for us</h2>

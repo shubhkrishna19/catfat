@@ -1,5 +1,5 @@
 .instagram-strip {
-  padding: 16px 0 12px;
+  padding: clamp(3rem, 4vw, 4.6rem) 0 clamp(2.4rem, 3vw, 3.2rem);
 }
 
 .instagram-strip__header {
@@ -17,8 +17,8 @@
   min-height: 26px;
   padding: 4px 8px;
   border-radius: 6px;
-  background: rgba(255, 107, 157, 0.08);
-  color: #d73d72;
+  background: var(--catfat-chip-bg);
+  color: var(--catfat-brand-purple-deep);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -27,7 +27,7 @@
 
 .instagram-strip__title {
   margin: 8px 0;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: clamp(2.2rem, 1.9rem + 0.5vw, 3rem);
   line-height: 1.04;
   font-weight: 900;
@@ -37,7 +37,7 @@
 .instagram-strip__description {
   max-width: 52rem;
   margin: 0;
-  color: #675864;
+  color: var(--catfat-copy-body);
   font-size: 1.22rem;
   line-height: 1.55;
 }
@@ -49,13 +49,13 @@
   min-height: 42px;
   padding: 0 16px;
   border-radius: 8px;
-  background: #ffffff;
-  color: #d73d72;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-brand-purple);
   text-decoration: none;
   font-size: 1.08rem;
   font-weight: 900;
-  border: 1px solid rgba(232, 74, 127, 0.14);
-  box-shadow: 0 8px 16px rgba(97, 77, 89, 0.06);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
+  box-shadow: 0 8px 16px rgba(63, 40, 79, 0.06);
 }
 
 .instagram-strip__rail {
@@ -74,8 +74,8 @@
   min-height: 280px;
   border-radius: 12px;
   overflow: hidden;
-  background: linear-gradient(180deg, #fff3f8 0%, #fffefc 100%);
-  border: 1px solid rgba(232, 74, 127, 0.1);
+  background: var(--catfat-shell-gradient);
+  border: 1px solid var(--catfat-card-border);
   box-shadow: 0 10px 24px rgba(85, 62, 75, 0.06);
   text-decoration: none;
 }
@@ -128,7 +128,7 @@
 }
 
 .instagram-strip__placeholder-label {
-  color: #d73d72;
+  color: var(--catfat-brand-purple-deep);
   font-size: 1.1rem;
   font-weight: 900;
 }

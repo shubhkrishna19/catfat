@@ -10,8 +10,13 @@
   assign theme_count = 0
   assign color_count = 0
   assign style_count = 0
+  assign has_name_engraving = false
   assign option_summary = blank
   assign product_text = product.title | append: ' ' | append: product.description | strip_html | downcase
+
+  if product_text contains 'engraving' or product_text contains 'personalised' or product_text contains 'personalized'
+    assign has_name_engraving = true
+  endif
 
   for option in product.options_with_values
     assign option_name = option.name | strip | downcase
@@ -51,29 +56,76 @@
   assign feature_one = 'Original product images from the live Catfat catalog.'
   assign feature_two = 'Cleaner variant selection flow for faster buying decisions.'
   assign feature_three = 'Secure add-to-cart flow tied to the active variant.'
+  assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '0' | plus: 0
+  assign proof_title_one = 'Built for daily use'
+  assign proof_copy_one = 'Practical lunchware details are surfaced early so the product feels easier to trust before checkout.'
+  assign proof_title_two = 'Feels gift-ready too'
+  assign proof_copy_two = 'Themed styling and cleaner presentation help the product feel special enough for gifting moments.'
+  assign proof_title_three = 'Options stay easy to compare'
+  assign proof_copy_three = 'The right theme, color, or style can be chosen without making the page feel crowded.'
+  assign proof_title_four = 'A more emotional buy'
+  assign proof_copy_four = 'The product should feel useful for parents and exciting for kids at the same time.'
+  assign proof_title_five = 'Original photos. Real pricing.'
+  assign proof_copy_five = 'The same product imagery and visible pricing stay in view before the shopper commits.'
   assign has_legacy_review_widget = false
   assign has_review_data = false
 
   if product_text contains 'insulated' or product_text contains 'vacuum'
     assign feature_one = 'Insulated design made for stronger temperature hold on the go.'
+    assign proof_title_one = 'Insulated for longer carry'
+    assign proof_copy_one = 'Designed to help drinks or meals stay ready for longer through school days and travel.'
   elsif product_text contains 'microwave'
     assign feature_one = 'Microwave-safe convenience for practical school lunches.'
+    assign proof_title_one = 'Microwave-friendly convenience'
+    assign proof_copy_one = 'A simpler fit for reheating and school lunch prep when speed matters.'
   elsif product_text contains 'leak' or product_text contains 'spill'
     assign feature_one = 'Leak-resistant build for calmer bags and easier mornings.'
+    assign proof_title_one = 'School-bag ready'
+    assign proof_copy_one = 'Leak-resistant details reduce mess risk and make morning carry feel more reliable.'
   elsif product_text contains 'stainless'
     assign feature_one = 'Food-grade stainless steel suited for everyday school use.'
+    assign proof_title_one = 'Stainless steel confidence'
+    assign proof_copy_one = 'Durable daily-use material cues make the product feel stronger and more dependable.'
   endif
 
   if product_text contains 'spoon'
     assign feature_two = 'Built-in spoon support for quick lunch and snack breaks.'
+    assign proof_title_two = 'Useful details kids remember'
+    assign proof_copy_two = 'Built-in spoon convenience adds a small practical win that also feels thoughtful to buy.'
   elsif theme_count > 0
     assign feature_two = theme_count | append: ' character themes available on this product.'
+    assign proof_title_two = 'Kids notice the theme first'
+    assign proof_copy_two = theme_count | append: ' character options make this feel more exciting before the utility even gets evaluated.'
   elsif color_count > 0
     assign feature_two = color_count | append: ' color options available on this product.'
+    assign proof_title_two = 'Color makes it feel personal'
+    assign proof_copy_two = color_count | append: ' visible color choices help the product feel more giftable and more owned.'
   endif
 
   if style_count > 1
     assign feature_three = style_count | append: ' style variants available for this listing.'
+  endif
+
+  if option_summary != blank
+    assign proof_copy_three = option_summary | append: ' shown in a cleaner selection flow so comparison stays fast.'
+  elsif product.variants.size > 1
+    assign proof_copy_three = product.variants.size | append: ' buying options are kept visible without turning the page into a cluttered selector.'
+  endif
+
+  if has_name_engraving
+    assign proof_title_four = 'Personal touch available'
+    assign proof_copy_four = 'Name engraving gives the product a stronger gifting angle and makes the purchase feel more specific.'
+  elsif theme_count > 0
+    assign proof_title_four = 'Theme-led gifting energy'
+    assign proof_copy_four = 'Character-led styling gives the product more emotional value for birthdays, return gifts, and surprise buys.'
+  elsif product_text contains 'gift' or product_text contains 'hamper'
+    assign proof_title_four = 'Ready for gifting moments'
+    assign proof_copy_four = 'The presentation leans into gifting so the product feels like an easy pick for occasions.'
+  endif
+
+  if all_reviews_count > 0
+    assign proof_title_five = all_reviews_count | append: '+ verified reviews behind the store'
+    assign proof_copy_five = 'Product pages now sit inside a storefront backed by real Judge.me proof, so trust is visible before checkout.'
   endif
 
   if product.metafields.judgeme.widget.size > 20
@@ -216,24 +268,50 @@
 
         <p class="catfat-product__summary">{{ summary_text }}</p>
 
-        <div class="catfat-product__trust-grid">
-          <div class="catfat-product__trust-card">{{ feature_one }}</div>
-          <div class="catfat-product__trust-card">{{ feature_two }}</div>
-          <div class="catfat-product__trust-card">{{ feature_three }}</div>
-        </div>
+        <div class="catfat-product__proof-carousel">
+          <div class="catfat-product__proof-head">
+            <div>
+              <span class="catfat-product__proof-eyebrow">Why this works</span>
+              <h2 class="catfat-product__proof-title">Utility first. Emotional enough to gift.</h2>
+            </div>
 
-        <div class="catfat-product__service-strip">
-          <div class="catfat-product__service-item">
-            <strong>Original photos</strong>
-            <span>Catalog imagery shown before checkout.</span>
+            <div class="catfat-product__proof-controls">
+              <button type="button" class="catfat-product__proof-button" data-proof-prev aria-label="Previous proof card">Prev</button>
+              <button type="button" class="catfat-product__proof-button" data-proof-next aria-label="Next proof card">Next</button>
+            </div>
           </div>
-          <div class="catfat-product__service-item">
-            <strong>Need gifting help?</strong>
-            <span>Use the bulk gifting lane for faster shortlist decisions.</span>
+
+          <div class="catfat-product__proof-track" data-proof-track>
+            <article class="catfat-product__proof-card catfat-product__proof-card--utility">
+              <span class="catfat-product__proof-card-label">Utility fact</span>
+              <strong class="catfat-product__proof-card-title">{{ proof_title_one }}</strong>
+              <p class="catfat-product__proof-card-copy">{{ proof_copy_one }}</p>
+            </article>
+
+            <article class="catfat-product__proof-card catfat-product__proof-card--emotion">
+              <span class="catfat-product__proof-card-label">Theme emotion</span>
+              <strong class="catfat-product__proof-card-title">{{ proof_title_two }}</strong>
+              <p class="catfat-product__proof-card-copy">{{ proof_copy_two }}</p>
+            </article>
+
+            <article class="catfat-product__proof-card catfat-product__proof-card--utility">
+              <span class="catfat-product__proof-card-label">Buying clarity</span>
+              <strong class="catfat-product__proof-card-title">{{ proof_title_three }}</strong>
+              <p class="catfat-product__proof-card-copy">{{ proof_copy_three }}</p>
+            </article>
+
+            <article class="catfat-product__proof-card catfat-product__proof-card--emotion">
+              <span class="catfat-product__proof-card-label">Gifting angle</span>
+              <strong class="catfat-product__proof-card-title">{{ proof_title_four }}</strong>
+              <p class="catfat-product__proof-card-copy">{{ proof_copy_four }}</p>
+            </article>
+
+            <article class="catfat-product__proof-card catfat-product__proof-card--utility">
+              <span class="catfat-product__proof-card-label">Trust cue</span>
+              <strong class="catfat-product__proof-card-title">{{ proof_title_five }}</strong>
+              <p class="catfat-product__proof-card-copy">{{ proof_copy_five }}</p>
+            </article>
           </div>
-          <a href="/collections/corporate-gifting-bulk-gifting" class="catfat-product__service-link">
-            Explore bulk gifting
-          </a>
         </div>
 
         {%- form 'product', product, id: form_id, class: 'catfat-product__form' -%}
@@ -383,6 +461,9 @@
       const qtyInput = root.querySelector('[data-qty-input]');
       const mediaCountNode = root.querySelector('[data-media-count]');
       const currentVariantTitleNode = root.querySelector('[data-current-variant-title]');
+      const proofTrack = root.querySelector('[data-proof-track]');
+      const proofPrev = root.querySelector('[data-proof-prev]');
+      const proofNext = root.querySelector('[data-proof-next]');
       const mainImage = document.getElementById('{{ main_image_id }}');
       const thumbButtons = Array.from(root.querySelectorAll('.catfat-product__thumb'));
       const optionInputs = Array.from(root.querySelectorAll('.catfat-product__option-input'));
@@ -529,6 +610,18 @@
         increase.addEventListener('click', () => {
           qtyInput.value = Math.max(1, Number(qtyInput.value || 1) + 1);
         });
+      }
+
+      if (proofTrack && proofPrev && proofNext) {
+        const scrollProof = (direction) => {
+          const firstCard = proofTrack.querySelector('.catfat-product__proof-card');
+          const gap = parseFloat(window.getComputedStyle(proofTrack).columnGap || window.getComputedStyle(proofTrack).gap || 0);
+          const step = (firstCard ? firstCard.getBoundingClientRect().width : proofTrack.clientWidth * 0.86) + gap;
+          proofTrack.scrollBy({ left: direction * step, behavior: 'smooth' });
+        };
+
+        proofPrev.addEventListener('click', () => scrollProof(-1));
+        proofNext.addEventListener('click', () => scrollProof(1));
       }
     })();
   </script>

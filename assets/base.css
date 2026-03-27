@@ -3,6 +3,20 @@
    Modern, Colorful, Beautiful
    =================================== */
 
+:root {
+  --catfat-brand-purple: #741cb1;
+  --catfat-brand-purple-soft: #8b63de;
+  --catfat-brand-purple-deep: #43205f;
+  --catfat-brand-orange: #f9a519;
+  --catfat-brand-orange-deep: #9d6b1b;
+  --catfat-brand-cream: #fcf9f4;
+  --catfat-brand-ink: #1f1c1f;
+  --catfat-brand-purple-rgb: 116, 28, 177;
+  --catfat-brand-purple-soft-rgb: 139, 99, 222;
+  --catfat-brand-purple-deep-rgb: 67, 32, 95;
+  --catfat-brand-orange-rgb: 249, 165, 25;
+}
+
 /* --- T-A001: Button Hover Scale Effect --- */
 .button,
 button,
@@ -76,7 +90,7 @@ button:active::after,
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(255, 107, 157, 0.2);
+  border: 4px solid rgba(var(--catfat-brand-purple-soft-rgb), 0.2);
   border-top-color: var(--color-primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -107,7 +121,7 @@ button:active::after,
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(246, 240, 255, 0.82);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,23 +227,35 @@ button:active::after,
 
 /* --- CSS Variables --- */
 :root {
-  --color-primary: #ff6b9d;
-  --color-primary-dark: #e84a7f;
-  --color-secondary: #ff8e53;
-  --color-accent: #ffd93d;
-  --color-text: #333333;
-  --color-text-light: #666666;
-  --color-background: #ffffff;
-  --color-background-alt: #fff5f8;
-  --color-border: #f0f0f0;
+  --color-primary: var(--catfat-brand-purple);
+  --color-primary-dark: var(--catfat-brand-purple-soft);
+  --color-secondary: var(--catfat-brand-purple-soft);
+  --color-accent: var(--catfat-brand-purple-deep);
+  --color-text: var(--catfat-brand-ink);
+  --color-text-light: #5f4f71;
+  --color-background: #f7f1ff;
+  --color-background-alt: #ece1ff;
+  --color-border: rgba(var(--catfat-brand-purple-rgb), 0.14);
+  --catfat-copy-strong: #241432;
+  --catfat-copy-body: #5b4a6c;
+  --catfat-copy-muted: #7a6a8b;
+  --catfat-surface-soft: rgba(242, 235, 255, 0.94);
+  --catfat-surface-soft-strong: rgba(234, 224, 255, 0.97);
+  --catfat-chip-bg: rgba(var(--catfat-brand-purple-soft-rgb), 0.09);
+  --catfat-chip-bg-strong: rgba(var(--catfat-brand-purple-soft-rgb), 0.16);
+  --catfat-card-border: rgba(var(--catfat-brand-purple-rgb), 0.16);
+  --catfat-shell-gradient: linear-gradient(180deg, #faf5ff 0%, #eee3ff 100%);
+  --catfat-card-gradient: linear-gradient(180deg, rgba(251, 247, 255, 0.98) 0%, rgba(238, 227, 255, 0.98) 100%);
+  --catfat-panel-gradient: linear-gradient(135deg, #fbf7ff 0%, #efe2ff 44%, #e7dbff 100%);
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  --border-radius: 16px;
+  --border-radius: 12px;
   --border-radius-sm: 8px;
-  --border-radius-lg: 24px;
+  --border-radius-lg: 18px;
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
-  --shadow-lg: 0 8px 32px rgba(255, 107, 157, 0.2);
+  --shadow-lg: 0 14px 36px rgba(var(--catfat-brand-purple-rgb), 0.12);
   --transition: all 0.3s ease;
+  --catfat-page-gutter: clamp(1.6rem, 2.6vw, 3.2rem);
 }
 
 /* --- Reset --- */
@@ -249,6 +275,10 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.1), transparent 26%),
+    radial-gradient(circle at right 12%, rgba(var(--catfat-brand-purple-rgb), 0.08), transparent 24%),
+    linear-gradient(180deg, #fbf8ff 0%, #f1e7ff 52%, #ebe1ff 100%);
   background-color: var(--color-background);
 }
 
@@ -256,7 +286,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   margin: 0 0 1rem;
-  color: #e84a7f;
+  color: var(--catfat-brand-purple-deep);
 }
 
 a {
@@ -278,7 +308,7 @@ img {
 .page-width {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--catfat-page-gutter);
 }
 
 /* --- Buttons --- */
@@ -298,20 +328,20 @@ img {
 }
 
 .button--primary {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(135deg, var(--catfat-brand-purple-soft) 0%, var(--catfat-brand-purple) 56%, var(--catfat-brand-purple-deep) 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+  box-shadow: 0 8px 18px rgba(var(--catfat-brand-purple-rgb), 0.22);
 }
 
 .button--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.5);
+  box-shadow: 0 12px 24px rgba(var(--catfat-brand-purple-rgb), 0.24);
   color: white;
 }
 
 /* --- Cards --- */
 .card-wrapper {
-  background: white;
+  background: var(--catfat-card-gradient);
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: var(--transition);
@@ -727,7 +757,7 @@ img {
 }
 
 .multicolumn__item {
-  background: white;
+  background: var(--catfat-card-gradient);
   padding: 40px 30px;
   border-radius: var(--border-radius-lg);
   text-align: center;
@@ -758,7 +788,7 @@ img {
 
 /* --- Product Card --- */
 .product-card {
-  background: white;
+  background: var(--catfat-card-gradient);
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: var(--transition);
@@ -887,7 +917,7 @@ img {
 
 /* Skeleton Card */
 .skeleton-card {
-  background: white;
+  background: var(--catfat-card-gradient);
   border-radius: 16px;
   overflow: hidden;
   padding: 15px;
@@ -911,7 +941,7 @@ img {
    Product Cards
    ======================== */
 .product-card {
-  background: #fff;
+  background: var(--catfat-card-gradient);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -926,7 +956,7 @@ img {
 .product-card__image {
   position: relative;
   aspect-ratio: 1;
-  background: #f5f5f5;
+  background: var(--catfat-shell-gradient);
   overflow: hidden;
 }
 
@@ -945,7 +975,7 @@ img {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: #ff6b9d;
+  background: var(--catfat-brand-purple-soft);
   color: #fff;
   padding: 5px 12px;
   font-size: 0.7rem;
@@ -978,7 +1008,7 @@ img {
 }
 
 .product-card__title:hover {
-  color: #ff6b9d;
+  color: var(--catfat-brand-purple-soft);
 }
 
 .product-card__price {
@@ -992,7 +1022,7 @@ img {
 .product-card__price-current {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ff6b9d;
+  color: var(--catfat-brand-purple-soft);
 }
 
 .product-card__price-compare {
@@ -1004,7 +1034,7 @@ img {
 .product-card__btn {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple));
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -1015,7 +1045,7 @@ img {
 
 .product-card__btn:hover {
   transform: scale(1.02);
-  box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+  box-shadow: 0 5px 15px rgba(var(--catfat-brand-purple-soft-rgb), 0.4);
 }
 
 .product-card__btn:disabled {
@@ -1039,8 +1069,8 @@ img {
 }
 
 .quick-view-btn {
-  background: #fff;
-  color: #333;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-brand-purple-deep);
   padding: 8px 20px;
   border: none;
   border-radius: 20px;
@@ -1051,6 +1081,6 @@ img {
 }
 
 .quick-view-btn:hover {
-  background: #ff6b9d;
+  background: var(--catfat-brand-purple-soft);
   color: #fff;
 }

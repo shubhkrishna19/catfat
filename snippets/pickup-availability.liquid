@@ -1,6 +1,6 @@
-{% comment %}
+﻿{% comment %}
   Pickup Availability Snippet
-  Uses the pink/coral color scheme: #ff6b9d, #e84a7f, #ff8e53
+  Uses the pink/coral color scheme: #741CB1, #642878, #5C34BA
 {% endcomment %}
 {%- unless product.available -%}
   <pickup-availability-preview class="pickup-availability-preview">
@@ -44,14 +44,14 @@
     gap: 10px;
     padding: 12px;
     border-radius: 8px;
-    background: rgba(255, 107, 157, 0.08);
-    border: 1px solid rgba(255, 107, 157, 0.2);
+    background: rgba(var(--catfat-brand-purple-soft-rgb), 0.08);
+    border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.16);
   }
 
   .pickup-availability-preview svg {
     width: 20px;
     height: 20px;
-    color: #e84a7f;
+    color: #642878;
     flex-shrink: 0;
   }
 
@@ -69,13 +69,13 @@
   .pickup-availability-button {
     font-size: 13px;
     font-weight: 600;
-    color: #e84a7f;
+    color: #642878;
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .pickup-availability-button:hover {
-    color: #ff6b9d;
+    color: #741CB1;
   }
 
   pickup-availability-drawer {
@@ -85,7 +85,7 @@
     bottom: 0;
     width: 100%;
     max-width: 400px;
-    background: #fff;
+    background: linear-gradient(180deg, rgba(248, 244, 255, 0.98) 0%, rgba(239, 231, 255, 0.98) 100%);
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     transform: translateX(100%);
@@ -102,8 +102,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid #eee;
-    background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+    border-bottom: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.12);
+    background: linear-gradient(135deg, #741CB1 0%, #642878 100%);
     color: #fff;
   }
 
@@ -141,15 +141,16 @@
 
   .pickup-availability-list__item {
     padding: 16px;
-    border: 1px solid #eee;
+    border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.12);
     border-radius: 12px;
     margin-bottom: 12px;
     transition: all 0.2s ease;
+    background: linear-gradient(180deg, rgba(248, 244, 255, 0.98) 0%, rgba(239, 231, 255, 0.98) 100%);
   }
 
   .pickup-availability-list__item:hover {
-    border-color: #ff6b9d;
-    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
+    border-color: #741CB1;
+    box-shadow: 0 4px 12px rgba(var(--catfat-brand-purple-rgb), 0.16);
   }
 
   .pickup-availability-list__location-name {
@@ -173,7 +174,7 @@
   }
 
   .pickup-availability-list__status--available {
-    color: #e84a7f;
+    color: #642878;
     font-weight: 600;
     font-size: 14px;
   }
@@ -188,3 +189,4 @@
     color: #666;
   }
 </style>
+

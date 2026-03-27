@@ -30,8 +30,8 @@
     "lunch_boxes": {
       "type": "featured-collection",
       "settings": {
-        "title": "Best sellers",
-        "description": "Lunch-box favourites that lead the Catfat range right now.",
+        "title": "Most-loved lunch boxes",
+        "description": "A tighter shortlist of Catfat lunch boxes shoppers keep coming back to.",
         "collection": "lunch-box",
         "products_to_show": 4
       }
@@ -57,13 +57,13 @@
     "slideshow",
     "marketplace_ticker",
     "intent_lane",
-    "brand_story",
-    "discount_popup",
-    "routine_story",
     "lunch_boxes",
+    "routine_story",
+    "brand_story",
     "reviews_lane",
     "instagram_strip",
     "trust_strip",
-    "faq_lane"
+    "faq_lane",
+    "discount_popup"
   ]
 }

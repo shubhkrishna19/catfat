@@ -22,7 +22,7 @@
 .catfat-product__panel,
 .catfat-product__details-card {
   position: relative;
-  border: 1px solid rgba(232, 74, 127, 0.14);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
   border-radius: 16px;
   box-shadow: 0 18px 44px rgba(100, 71, 87, 0.08);
 }
@@ -30,9 +30,9 @@
 .catfat-product__stage-shell {
   padding: 1.8rem;
   background:
-    radial-gradient(circle at top left, rgba(255, 217, 61, 0.24), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(255, 107, 157, 0.18), transparent 30%),
-    linear-gradient(180deg, #fff8f1 0%, #fff5fb 54%, #fff0f6 100%);
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.2), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(var(--catfat-brand-purple-deep-rgb), 0.16), transparent 30%),
+    var(--catfat-panel-gradient);
 }
 
 .catfat-product__stage {
@@ -40,10 +40,10 @@
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.12);
   background:
-    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.18) 40%, transparent 64%),
-    linear-gradient(145deg, #fffdfc 0%, #fff6ee 48%, #ffeef7 100%);
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.14) 40%, transparent 64%),
+    var(--catfat-panel-gradient);
 }
 
 .catfat-product__stage-image {
@@ -73,9 +73,9 @@
   justify-content: center;
   min-height: 8.8rem;
   padding: 0.8rem;
-  border: 1px solid rgba(232, 74, 127, 0.14);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--catfat-surface-soft);
   cursor: pointer;
   transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
 }
@@ -83,8 +83,8 @@
 .catfat-product__thumb:hover,
 .catfat-product__thumb.is-active {
   transform: translateY(-2px);
-  border-color: rgba(232, 74, 127, 0.34);
-  box-shadow: 0 12px 22px rgba(232, 74, 127, 0.14);
+  border-color: rgba(var(--catfat-brand-purple-rgb), 0.34);
+  box-shadow: 0 12px 22px rgba(var(--catfat-brand-purple-rgb), 0.14);
 }
 
 .catfat-product__thumb-image {
@@ -109,11 +109,11 @@
   min-height: 3.4rem;
   padding: 0.8rem 1.1rem;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.78);
-  color: #5c4753;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-copy-body);
   font-size: 1.18rem;
   font-weight: 800;
-  border: 1px solid rgba(232, 74, 127, 0.1);
+  border: 1px solid var(--catfat-card-border);
 }
 
 .catfat-product__panel {
@@ -121,8 +121,8 @@
   gap: 1.6rem;
   padding: 2.2rem;
   background:
-    radial-gradient(circle at top right, rgba(255, 215, 61, 0.18), transparent 24%),
-    linear-gradient(180deg, #ffffff 0%, #fff9fc 100%);
+    radial-gradient(circle at top right, rgba(var(--catfat-brand-purple-soft-rgb), 0.18), transparent 24%),
+    var(--catfat-shell-gradient);
 }
 
 .catfat-product__heading {
@@ -147,18 +147,18 @@
 }
 
 .catfat-product__eyebrow {
-  background: rgba(255, 107, 157, 0.12);
-  color: #d73d72;
+  background: var(--catfat-chip-bg-strong);
+  color: var(--catfat-brand-purple-deep);
 }
 
 .catfat-product__option-summary {
-  background: rgba(255, 217, 61, 0.24);
-  color: #684d07;
+  background: var(--catfat-chip-bg-strong);
+  color: var(--catfat-brand-purple-deep);
 }
 
 .catfat-product__title {
   margin: 0;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: clamp(3rem, 2.5rem + 1vw, 4.8rem);
   line-height: 0.98;
   font-weight: 900;
@@ -181,13 +181,13 @@
   align-items: center;
   gap: 0.8rem;
   padding: 0.9rem 1.2rem;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border: 1px solid var(--catfat-card-border);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--catfat-surface-soft);
 }
 
 .catfat-product__review-copy {
-  color: #6f5966;
+  color: var(--catfat-copy-body);
   font-size: 1.22rem;
   line-height: 1.5;
   font-weight: 800;
@@ -200,9 +200,11 @@
   justify-content: space-between;
   gap: 1.4rem;
   padding: 1.6rem 1.8rem;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border: 1px solid var(--catfat-card-border);
   border-radius: 12px;
-  background: #ffffff;
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.12), transparent 30%),
+    var(--catfat-shell-gradient);
 }
 
 .catfat-product__price-stack {
@@ -213,14 +215,14 @@
 }
 
 .catfat-product__price {
-  color: #e84a7f;
+  color: var(--catfat-brand-purple);
   font-size: clamp(3rem, 2.6rem + 0.8vw, 4.2rem);
   line-height: 1;
   font-weight: 900;
 }
 
 .catfat-product__compare {
-  color: #8a7a85;
+  color: var(--catfat-copy-muted);
   font-size: 1.7rem;
   font-weight: 800;
   text-decoration: line-through;
@@ -232,17 +234,17 @@
   gap: 0.4rem;
   padding: 0.9rem 1.2rem;
   border-radius: 10px;
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.12), rgba(255, 142, 83, 0.16));
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.16), rgba(var(--catfat-brand-purple-deep-rgb), 0.12));
 }
 
 .catfat-product__deal strong {
-  color: #d73d72;
+  color: var(--catfat-brand-purple);
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .catfat-product__deal span {
-  color: #604c59;
+  color: var(--catfat-copy-body);
   font-size: 1.25rem;
   line-height: 1.35;
   font-weight: 700;
@@ -255,12 +257,12 @@
   gap: 1rem;
   padding: 1.2rem 1.4rem;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  background: var(--catfat-surface-soft);
+  border: 1px solid var(--catfat-card-border);
 }
 
 .catfat-product__selection-label {
-  color: #745a66;
+  color: var(--catfat-copy-muted);
   font-size: 1.16rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -268,7 +270,7 @@
 }
 
 .catfat-product__selection-value {
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: 1.5rem;
   line-height: 1.3;
   font-weight: 900;
@@ -276,10 +278,142 @@
 
 .catfat-product__summary {
   margin: 0;
-  color: #56424e;
+  color: var(--catfat-copy-body);
   font-size: 1.58rem;
   line-height: 1.72;
   font-weight: 600;
+}
+
+.catfat-product__proof-carousel {
+  display: grid;
+  gap: 1.4rem;
+  padding: 1.8rem;
+  border: 1px solid var(--catfat-card-border);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at top right, rgba(var(--catfat-brand-purple-soft-rgb), 0.12), transparent 26%),
+    var(--catfat-card-gradient);
+}
+
+.catfat-product__proof-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.catfat-product__proof-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  background: var(--catfat-chip-bg);
+  color: var(--catfat-brand-purple);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.catfat-product__proof-title {
+  margin: 0.8rem 0 0;
+  color: var(--catfat-copy-strong);
+  font-size: clamp(2rem, 1.8rem + 0.4vw, 2.6rem);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.catfat-product__proof-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.catfat-product__proof-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7.2rem;
+  min-height: 4rem;
+  padding: 0 1.2rem;
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
+  border-radius: 8px;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-brand-purple-deep);
+  font-size: 1.15rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.catfat-product__proof-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(var(--catfat-brand-purple-rgb), 0.24);
+  box-shadow: 0 10px 20px rgba(var(--catfat-brand-purple-rgb), 0.1);
+}
+
+.catfat-product__proof-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(22rem, 1fr);
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.catfat-product__proof-track::-webkit-scrollbar {
+  display: none;
+}
+
+.catfat-product__proof-card {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  min-height: 15.2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--catfat-card-border);
+  background: var(--catfat-surface-soft-strong);
+  box-shadow: 0 10px 22px rgba(63, 40, 79, 0.06);
+  scroll-snap-align: start;
+}
+
+.catfat-product__proof-card--utility {
+  background: var(--catfat-card-gradient);
+}
+
+.catfat-product__proof-card--emotion {
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.1), transparent 28%),
+    var(--catfat-shell-gradient);
+}
+
+.catfat-product__proof-card-label {
+  color: var(--catfat-copy-muted);
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.catfat-product__proof-card-title {
+  color: var(--catfat-copy-strong);
+  font-size: 1.7rem;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.catfat-product__proof-card-copy {
+  margin: 0;
+  color: var(--catfat-copy-body);
+  font-size: 1.24rem;
+  line-height: 1.58;
+  font-weight: 700;
 }
 
 .catfat-product__trust-grid {
@@ -291,10 +425,10 @@
 .catfat-product__trust-card {
   min-height: 100%;
   padding: 1.4rem;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border: 1px solid var(--catfat-card-border);
   border-radius: 12px;
-  background: linear-gradient(180deg, #fffef9 0%, #fff7fb 100%);
-  color: #3c2331;
+  background: var(--catfat-shell-gradient);
+  color: var(--catfat-copy-body);
   font-size: 1.32rem;
   line-height: 1.55;
   font-weight: 700;
@@ -311,20 +445,20 @@
   display: grid;
   gap: 0.4rem;
   padding: 1.2rem 1.4rem;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border: 1px solid var(--catfat-card-border);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--catfat-shell-gradient);
 }
 
 .catfat-product__service-item strong {
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: 1.28rem;
   line-height: 1.25;
   font-weight: 900;
 }
 
 .catfat-product__service-item span {
-  color: #66525e;
+  color: var(--catfat-copy-body);
   font-size: 1.2rem;
   line-height: 1.55;
   font-weight: 700;
@@ -337,12 +471,12 @@
   min-height: 100%;
   padding: 0 1.6rem;
   border-radius: 12px;
-  background: #ffffff;
-  color: #d73d72;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-brand-purple-deep);
   text-decoration: none;
   font-size: 1.26rem;
   font-weight: 900;
-  border: 1px solid rgba(232, 74, 127, 0.14);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
   box-shadow: 0 12px 22px rgba(97, 77, 89, 0.08);
 }
 
@@ -361,7 +495,7 @@
 
 .catfat-product__option-label {
   margin: 0;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: 1.35rem;
   line-height: 1.2;
   font-weight: 900;
@@ -385,9 +519,9 @@
   justify-content: center;
   min-height: 4.2rem;
   padding: 1rem 1.4rem;
-  border: 1px solid rgba(232, 74, 127, 0.16);
-  background: #ffffff;
-  color: #44303b;
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.16);
+  background: var(--catfat-card-gradient);
+  color: var(--catfat-copy-strong);
   font-size: 1.25rem;
   letter-spacing: 0.03em;
   text-transform: none;
@@ -397,20 +531,20 @@
 
 .catfat-product__option-chip:hover {
   transform: translateY(-2px);
-  border-color: rgba(232, 74, 127, 0.24);
-  box-shadow: 0 10px 18px rgba(232, 74, 127, 0.1);
+  border-color: rgba(var(--catfat-brand-purple-rgb), 0.24);
+  box-shadow: 0 10px 18px rgba(var(--catfat-brand-purple-rgb), 0.1);
 }
 
 .catfat-product__option-input:checked + .catfat-product__option-chip {
-  border-color: rgba(232, 74, 127, 0.34);
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.12), rgba(255, 142, 83, 0.12));
-  color: #c8386c;
-  box-shadow: 0 12px 20px rgba(232, 74, 127, 0.12);
+  border-color: rgba(var(--catfat-brand-purple-rgb), 0.34);
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.14), rgba(var(--catfat-brand-purple-deep-rgb), 0.12));
+  color: var(--catfat-brand-purple-deep);
+  box-shadow: 0 12px 20px rgba(var(--catfat-brand-purple-rgb), 0.12);
 }
 
 .catfat-product__option-helper {
   margin: -0.2rem 0 0;
-  color: #6c5662;
+  color: var(--catfat-copy-body);
   font-size: 1.28rem;
   line-height: 1.6;
   font-weight: 700;
@@ -429,7 +563,7 @@
 }
 
 .catfat-product__quantity-label {
-  color: #5a4753;
+  color: var(--catfat-copy-muted);
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -441,16 +575,16 @@
   grid-template-columns: 4.4rem minmax(6rem, 1fr) 4.4rem;
   min-height: 5.4rem;
   overflow: hidden;
-  border: 1px solid rgba(232, 74, 127, 0.16);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.16);
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--catfat-surface-soft);
 }
 
 .catfat-product__qty-button,
 .catfat-product__qty-input {
   border: 0;
   background: transparent;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: 1.8rem;
   font-weight: 800;
   text-align: center;
@@ -481,20 +615,20 @@
   padding: 0 1.8rem;
   border: 0;
   border-radius: 10px;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f 58%, #ff8e53);
+  background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: 900;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  box-shadow: 0 16px 28px rgba(232, 74, 127, 0.24);
+  box-shadow: 0 16px 28px rgba(var(--catfat-brand-purple-rgb), 0.24);
   cursor: pointer;
   transition: transform 0.24s ease, box-shadow 0.24s ease, filter 0.24s ease;
 }
 
 .catfat-product__submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 18px 32px rgba(232, 74, 127, 0.28);
+  box-shadow: 0 18px 32px rgba(var(--catfat-brand-purple-rgb), 0.28);
   filter: saturate(1.04);
 }
 
@@ -506,7 +640,7 @@
 
 .catfat-product__variant-status {
   margin: 0;
-  color: #92546e;
+  color: var(--catfat-copy-muted);
   font-size: 1.25rem;
   line-height: 1.45;
   font-weight: 700;
@@ -518,7 +652,7 @@
 
 .catfat-product__details-card {
   padding: 2rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 247, 251, 0.98) 100%);
+  background: var(--catfat-card-gradient);
 }
 
 .catfat-product__details-head {
@@ -532,7 +666,7 @@
 
 .catfat-product__details-title {
   margin: 0;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: 2rem;
   line-height: 1.05;
   font-weight: 900;
@@ -540,12 +674,12 @@
 }
 
 .catfat-product__vendor {
-  background: rgba(255, 217, 61, 0.22);
-  color: #674803;
+  background: var(--catfat-chip-bg-strong);
+  color: var(--catfat-brand-purple-deep);
 }
 
 .catfat-product__details-content {
-  color: #53414c;
+  color: var(--catfat-copy-body);
   font-size: 1.5rem;
   line-height: 1.8;
 }
@@ -572,21 +706,21 @@
 .catfat-product__details-content th,
 .catfat-product__details-content td {
   padding: 1rem 1.2rem;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border: 1px solid var(--catfat-card-border);
   text-align: left;
 }
 
 .catfat-product__reviews-card {
   padding: 2rem;
-  border: 1px solid rgba(232, 74, 127, 0.14);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 247, 251, 0.98) 100%);
+  background: var(--catfat-card-gradient);
   box-shadow: 0 18px 44px rgba(100, 71, 87, 0.08);
 }
 
 .catfat-product__reviews-intro {
   margin: 0 0 1.6rem;
-  color: #5a4752;
+  color: var(--catfat-copy-body);
   font-size: 1.35rem;
   line-height: 1.65;
   font-weight: 700;
@@ -599,9 +733,9 @@
 }
 
 .catfat-product__reviews-card .jdgm-rev-widg {
-  border: 1px solid rgba(232, 74, 127, 0.1);
+  border: 1px solid var(--catfat-card-border);
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--catfat-card-gradient);
   box-shadow: 0 12px 24px rgba(89, 60, 76, 0.08);
   padding: 1.6rem;
 }
@@ -609,19 +743,19 @@
 .catfat-product__reviews-card .jdgm-rev-widg__title,
 .catfat-product__reviews-card .jdgm-rev__author,
 .catfat-product__reviews-card .jdgm-rev__title {
-  color: #241520;
+  color: var(--catfat-copy-strong);
 }
 
 .catfat-product__reviews-card .jdgm-rev__body,
 .catfat-product__reviews-card .jdgm-rev__timestamp,
 .catfat-product__reviews-card .jdgm-rev__prod-link,
 .catfat-product__reviews-card .jdgm-rev-widg__summary-text {
-  color: #5c4955;
+  color: var(--catfat-copy-body);
 }
 
 .catfat-product__reviews-card .jdgm-histogram__bar-content,
 .catfat-product__reviews-card .jdgm-star {
-  color: #e84a7f;
+  color: var(--catfat-brand-orange);
 }
 
 .catfat-product__reviews-card .jdgm-write-rev-link,
@@ -662,6 +796,10 @@
   .catfat-product__purchase-row {
     grid-template-columns: 1fr;
   }
+
+  .catfat-product__proof-head {
+    align-items: start;
+  }
 }
 
 @media screen and (max-width: 749px) {
@@ -698,6 +836,18 @@
   .catfat-product__summary,
   .catfat-product__details-content {
     font-size: 1.45rem;
+  }
+
+  .catfat-product__proof-carousel {
+    padding: 1.5rem;
+  }
+
+  .catfat-product__proof-track {
+    grid-auto-columns: minmax(18rem, 86%);
+  }
+
+  .catfat-product__proof-button {
+    min-width: 6.2rem;
   }
 
   .catfat-product__thumbs {

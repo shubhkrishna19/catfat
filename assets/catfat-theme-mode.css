@@ -1,0 +1,379 @@
+:root[data-catfat-theme='dark'] {
+  color-scheme: dark;
+  --color-text: #fffaff;
+  --color-text-light: #d9cdea;
+  --color-background: #100816;
+  --color-background-alt: #1a1025;
+  --color-border: rgba(var(--catfat-brand-purple-soft-rgb), 0.3);
+  --catfat-copy-strong: #fffaff;
+  --catfat-copy-body: #ded2ee;
+  --catfat-copy-muted: #b9abcd;
+  --catfat-surface-soft: rgba(56, 38, 82, 0.96);
+  --catfat-surface-soft-strong: rgba(46, 30, 68, 0.98);
+  --catfat-chip-bg: rgba(var(--catfat-brand-purple-soft-rgb), 0.22);
+  --catfat-chip-bg-strong: rgba(var(--catfat-brand-purple-soft-rgb), 0.28);
+  --catfat-card-border: rgba(var(--catfat-brand-purple-soft-rgb), 0.26);
+  --catfat-shell-gradient: linear-gradient(180deg, rgba(31, 19, 46, 0.98) 0%, rgba(21, 13, 33, 0.98) 100%);
+  --catfat-card-gradient: linear-gradient(180deg, rgba(53, 35, 79, 0.98) 0%, rgba(31, 20, 47, 0.98) 100%);
+  --catfat-panel-gradient: linear-gradient(135deg, rgba(47, 31, 70, 0.98) 0%, rgba(32, 20, 50, 0.98) 52%, rgba(24, 15, 37, 0.98) 100%);
+  --shadow-lg: 0 22px 44px rgba(0, 0, 0, 0.3);
+}
+:root[data-catfat-theme='dark'] body {
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.16), transparent 24%),
+    radial-gradient(circle at right 14%, rgba(var(--catfat-brand-purple-rgb), 0.14), transparent 24%),
+    linear-gradient(180deg, #100816 0%, #171024 50%, #201332 100%);
+  color: var(--color-text);
+}
+
+:root[data-catfat-theme='dark'] .catfat-header-shell,
+:root[data-catfat-theme='dark'] .marketplace-hero__shell,
+:root[data-catfat-theme='dark'] .marketplace-reviews__shell,
+:root[data-catfat-theme='dark'] .marketplace-trust__shell,
+:root[data-catfat-theme='dark'] .marketplace-faq__shell,
+:root[data-catfat-theme='dark'] .routine-story__shell,
+:root[data-catfat-theme='dark'] .collection-template__hero,
+:root[data-catfat-theme='dark'] .collection-template__toolbar,
+:root[data-catfat-theme='dark'] .collection-template__empty,
+:root[data-catfat-theme='dark'] .catfat-product__stage-shell,
+:root[data-catfat-theme='dark'] .catfat-product__panel,
+:root[data-catfat-theme='dark'] .catfat-product__details-card,
+:root[data-catfat-theme='dark'] .catfat-product__reviews-card,
+:root[data-catfat-theme='dark'] .discount-popup__dialog,
+:root[data-catfat-theme='dark'] .drawer__inner,
+:root[data-catfat-theme='dark'] .cart-drawer__shipping,
+:root[data-catfat-theme='dark'] .cart-drawer__footer,
+:root[data-catfat-theme='dark'] .cart-drawer__recommendations,
+:root[data-catfat-theme='dark'] .cart-page__empty,
+:root[data-catfat-theme='dark'] .cart-page__shipping-progress,
+:root[data-catfat-theme='dark'] .cart-page__discount-section,
+:root[data-catfat-theme='dark'] .cart-page__totals,
+:root[data-catfat-theme='dark'] .recommendation-card,
+:root[data-catfat-theme='dark'] .cart-upsell,
+:root[data-catfat-theme='dark'] .checkout-trust-signals,
+:root[data-catfat-theme='dark'] .checkout-payment-icons {
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(34, 22, 49, 0.98) 0%, rgba(23, 15, 35, 0.98) 100%) !important;
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.24) !important;
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.24) !important;
+}
+
+:root[data-catfat-theme='dark'] .brand-story__shell,
+:root[data-catfat-theme='dark'] .catfat-footer {
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.18), transparent 26%),
+    linear-gradient(180deg, #130b1d 0%, #0d0714 100%) !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-hero__eyebrow,
+:root[data-catfat-theme='dark'] .marketplace-hero__proof-item,
+:root[data-catfat-theme='dark'] .marketplace-hero__quick-link,
+:root[data-catfat-theme='dark'] .marketplace-hero__feature,
+:root[data-catfat-theme='dark'] .marketplace-hero__feature-pill,
+:root[data-catfat-theme='dark'] .marketplace-intent__card,
+:root[data-catfat-theme='dark'] .marketplace-intent__eyebrow,
+:root[data-catfat-theme='dark'] .marketplace-intent__label,
+:root[data-catfat-theme='dark'] .marketplace-intent__media,
+:root[data-catfat-theme='dark'] .routine-story__eyebrow,
+:root[data-catfat-theme='dark'] .routine-story__signal,
+:root[data-catfat-theme='dark'] .routine-story__stage,
+:root[data-catfat-theme='dark'] .routine-story__card,
+:root[data-catfat-theme='dark'] .brand-story__logo-plate,
+:root[data-catfat-theme='dark'] .brand-story__button--secondary,
+:root[data-catfat-theme='dark'] .brand-story__card,
+:root[data-catfat-theme='dark'] .market-card,
+:root[data-catfat-theme='dark'] .market-card__canvas,
+:root[data-catfat-theme='dark'] .market-card__price-panel,
+:root[data-catfat-theme='dark'] .market-card__badge--accent,
+:root[data-catfat-theme='dark'] .market-card__action--secondary,
+:root[data-catfat-theme='dark'] .marketplace-reviews__badge,
+:root[data-catfat-theme='dark'] .marketplace-reviews__stat,
+:root[data-catfat-theme='dark'] .marketplace-reviews__carousel-shell,
+:root[data-catfat-theme='dark'] .marketplace-reviews__micro-pill,
+:root[data-catfat-theme='dark'] .marketplace-trust__card,
+:root[data-catfat-theme='dark'] .marketplace-trust__pill,
+:root[data-catfat-theme='dark'] .marketplace-faq__item,
+:root[data-catfat-theme='dark'] .marketplace-faq__contact,
+:root[data-catfat-theme='dark'] .instagram-strip__card,
+:root[data-catfat-theme='dark'] .collection-template__sort select,
+:root[data-catfat-theme='dark'] .catfat-product__stage,
+:root[data-catfat-theme='dark'] .catfat-product__thumb,
+:root[data-catfat-theme='dark'] .catfat-product__media-caption,
+:root[data-catfat-theme='dark'] .catfat-product__media-count,
+:root[data-catfat-theme='dark'] .catfat-product__review-summary .jdgm-prev-badge,
+:root[data-catfat-theme='dark'] .catfat-product__price-row,
+:root[data-catfat-theme='dark'] .catfat-product__selection-bar,
+:root[data-catfat-theme='dark'] .catfat-product__proof-carousel,
+:root[data-catfat-theme='dark'] .catfat-product__proof-button,
+:root[data-catfat-theme='dark'] .catfat-product__proof-card,
+:root[data-catfat-theme='dark'] .catfat-product__trust-card,
+:root[data-catfat-theme='dark'] .catfat-product__service-item,
+:root[data-catfat-theme='dark'] .catfat-product__service-link,
+:root[data-catfat-theme='dark'] .catfat-product__option-chip,
+:root[data-catfat-theme='dark'] .catfat-product__reviews-card .jdgm-rev-widg,
+:root[data-catfat-theme='dark'] .discount-popup__close,
+:root[data-catfat-theme='dark'] .discount-popup__input,
+:root[data-catfat-theme='dark'] .discount-popup__signals span,
+:root[data-catfat-theme='dark'] .discount-popup__visual,
+:root[data-catfat-theme='dark'] .discount-popup__offer-card,
+:root[data-catfat-theme='dark'] .discount-popup__cube,
+:root[data-catfat-theme='dark'] .variant-picker__option-label,
+:root[data-catfat-theme='dark'] .pickup-availability-preview,
+:root[data-catfat-theme='dark'] pickup-availability-drawer,
+:root[data-catfat-theme='dark'] .pickup-availability-list__item,
+:root[data-catfat-theme='dark'] .payment-icon {
+  background:
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(54, 38, 77, 0.98) 0%, rgba(32, 21, 47, 0.98) 100%) !important;
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.2) !important;
+  color: #fffaff !important;
+}
+
+:root[data-catfat-theme='dark'] .catfat-header__brand-plate,
+:root[data-catfat-theme='dark'] .catfat-header__icon,
+:root[data-catfat-theme='dark'] .catfat-header__menu-button,
+:root[data-catfat-theme='dark'] .catfat-header__mobile-link,
+:root[data-catfat-theme='dark'] .catfat-footer__mode-button {
+  background: linear-gradient(180deg, rgba(46, 32, 67, 0.98) 0%, rgba(27, 18, 40, 0.98) 100%) !important;
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.24) !important;
+  color: #fffaff !important;
+}
+
+:root[data-catfat-theme='dark'] .catfat-header-shell {
+  background: rgba(18, 11, 29, 0.9) !important;
+  border-bottom-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.22) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24) !important;
+}
+
+:root[data-catfat-theme='dark'] .catfat-header__brand,
+:root[data-catfat-theme='dark'] .catfat-header__link,
+:root[data-catfat-theme='dark'] .catfat-header__mobile-link,
+:root[data-catfat-theme='dark'] .catfat-header__brand-subtitle {
+  color: #efe6ff !important;
+}
+
+:root[data-catfat-theme='dark'] .catfat-header__link:hover,
+:root[data-catfat-theme='dark'] .catfat-header__link--sale,
+:root[data-catfat-theme='dark'] .catfat-header__mobile-link--sale {
+  color: #ffffff !important;
+}
+
+:root[data-catfat-theme='dark'] .catfat-header__notice--primary {
+  background: linear-gradient(135deg, rgba(54, 29, 81, 0.98) 0%, rgba(116, 28, 177, 0.98) 100%) !important;
+  border-bottom-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.28) !important;
+}
+
+:root[data-catfat-theme='dark'] .catfat-header__cart-count {
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.92), rgba(var(--catfat-brand-purple-rgb), 0.98) 58%, rgba(var(--catfat-brand-purple-deep-rgb), 1)) !important;
+}
+
+:root[data-catfat-theme='dark'] .catfat-footer__mode-button.is-dark {
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.52), rgba(var(--catfat-brand-purple-rgb), 0.58) 58%, rgba(var(--catfat-brand-purple-deep-rgb), 0.72)) !important;
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.56) !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-hero__title,
+:root[data-catfat-theme='dark'] .marketplace-hero__feature-title,
+:root[data-catfat-theme='dark'] .marketplace-intent__title,
+:root[data-catfat-theme='dark'] .marketplace-intent__card-title,
+:root[data-catfat-theme='dark'] .routine-story__title,
+:root[data-catfat-theme='dark'] .routine-story__card-title,
+:root[data-catfat-theme='dark'] .brand-story__title,
+:root[data-catfat-theme='dark'] .brand-story__card-title,
+:root[data-catfat-theme='dark'] .marketplace-reviews__title,
+:root[data-catfat-theme='dark'] .marketplace-trust__title,
+:root[data-catfat-theme='dark'] .marketplace-trust__card-title,
+:root[data-catfat-theme='dark'] .marketplace-faq__title,
+:root[data-catfat-theme='dark'] .collection-template__title,
+:root[data-catfat-theme='dark'] .collection-template__empty h2,
+:root[data-catfat-theme='dark'] .market-card__title,
+:root[data-catfat-theme='dark'] .market-card__price,
+:root[data-catfat-theme='dark'] .catfat-product__title,
+:root[data-catfat-theme='dark'] .catfat-product__proof-title,
+:root[data-catfat-theme='dark'] .catfat-product__proof-card-title,
+:root[data-catfat-theme='dark'] .cart-page__title,
+:root[data-catfat-theme='dark'] .recommendations-section__title,
+:root[data-catfat-theme='dark'] .recommendation-card__title,
+:root[data-catfat-theme='dark'] .cart-upsell__title,
+:root[data-catfat-theme='dark'] .drawer__heading,
+:root[data-catfat-theme='dark'] .cart-drawer__recommendations h3 {
+  color: #fffaff !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-hero__description,
+:root[data-catfat-theme='dark'] .marketplace-intent__description,
+:root[data-catfat-theme='dark'] .marketplace-intent__card-copy,
+:root[data-catfat-theme='dark'] .routine-story__description,
+:root[data-catfat-theme='dark'] .routine-story__card-copy,
+:root[data-catfat-theme='dark'] .brand-story__description,
+:root[data-catfat-theme='dark'] .brand-story__card-copy,
+:root[data-catfat-theme='dark'] .marketplace-reviews__description,
+:root[data-catfat-theme='dark'] .marketplace-reviews__stat-copy,
+:root[data-catfat-theme='dark'] .marketplace-trust__description,
+:root[data-catfat-theme='dark'] .marketplace-trust__card-copy,
+:root[data-catfat-theme='dark'] .marketplace-faq__answer,
+:root[data-catfat-theme='dark'] .collection-template__description,
+:root[data-catfat-theme='dark'] .collection-template__count,
+:root[data-catfat-theme='dark'] .collection-template__sort,
+:root[data-catfat-theme='dark'] .collection-template__empty p,
+:root[data-catfat-theme='dark'] .market-card__review-line,
+:root[data-catfat-theme='dark'] .market-card__compare,
+:root[data-catfat-theme='dark'] .market-card__deal span,
+:root[data-catfat-theme='dark'] .catfat-product__review-copy,
+:root[data-catfat-theme='dark'] .catfat-product__summary,
+:root[data-catfat-theme='dark'] .catfat-product__proof-card-copy,
+:root[data-catfat-theme='dark'] .catfat-product__reviews-intro,
+:root[data-catfat-theme='dark'] .cart-page__continue,
+:root[data-catfat-theme='dark'] .cart-drawer__continue,
+:root[data-catfat-theme='dark'] .totals__subtotal,
+:root[data-catfat-theme='dark'] .shipping-progress__text,
+:root[data-catfat-theme='dark'] .discount-section__title,
+:root[data-catfat-theme='dark'] .pickup-availability-info .caption-large,
+:root[data-catfat-theme='dark'] .pickup-availability-list__location-distance,
+:root[data-catfat-theme='dark'] .pickup-availability-list__pickup-time,
+:root[data-catfat-theme='dark'] .catfat-footer__brand-text,
+:root[data-catfat-theme='dark'] .catfat-footer__support-copy,
+:root[data-catfat-theme='dark'] .catfat-footer__bottom-copy,
+:root[data-catfat-theme='dark'] .catfat-footer__bottom-note,
+:root[data-catfat-theme='dark'] .catfat-footer__links a,
+:root[data-catfat-theme='dark'] .catfat-footer__contact-link span {
+  color: #e4d9f0 !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-hero__proof-item,
+:root[data-catfat-theme='dark'] .marketplace-hero__quick-link,
+:root[data-catfat-theme='dark'] .marketplace-intent__eyebrow,
+:root[data-catfat-theme='dark'] .marketplace-intent__label,
+:root[data-catfat-theme='dark'] .routine-story__eyebrow,
+:root[data-catfat-theme='dark'] .marketplace-reviews__badge,
+:root[data-catfat-theme='dark'] .marketplace-reviews__micro-pill,
+:root[data-catfat-theme='dark'] .marketplace-trust__pill,
+:root[data-catfat-theme='dark'] .market-card__eyebrow,
+:root[data-catfat-theme='dark'] .market-card__badge,
+:root[data-catfat-theme='dark'] .catfat-footer__topline,
+:root[data-catfat-theme='dark'] .catfat-footer__heading {
+  color: #f0e1ff !important;
+}
+
+:root[data-catfat-theme='dark'] .market-card__compare,
+:root[data-catfat-theme='dark'] .catfat-product__compare,
+:root[data-catfat-theme='dark'] .market-card__deal,
+:root[data-catfat-theme='dark'] .catfat-product__price-note {
+  color: #d8c4ef !important;
+}
+:root[data-catfat-theme='dark'] .marketplace-marquee__shell {
+  background:
+    radial-gradient(circle at left center, rgba(var(--catfat-brand-purple-soft-rgb), 0.18), transparent 22%),
+    linear-gradient(90deg, rgba(30, 18, 44, 0.98), rgba(47, 30, 69, 0.98)) !important;
+  border-top-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.2) !important;
+  border-bottom-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.2) !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-marquee__item,
+:root[data-catfat-theme='dark'] .market-shelf__link,
+:root[data-catfat-theme='dark'] .market-shelf__empty,
+:root[data-catfat-theme='dark'] .instagram-strip__link {
+  background: linear-gradient(180deg, rgba(54, 38, 77, 0.96) 0%, rgba(32, 21, 47, 0.96) 100%) !important;
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.2) !important;
+  color: #f4e8ff !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18) !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-marquee__item::before {
+  box-shadow: 0 0 0 4px rgba(var(--catfat-brand-purple-soft-rgb), 0.18);
+}
+
+:root[data-catfat-theme='dark'] .market-shelf__title,
+:root[data-catfat-theme='dark'] .instagram-strip__title,
+:root[data-catfat-theme='dark'] .marketplace-reviews__stat-value,
+:root[data-catfat-theme='dark'] .marketplace-faq__question {
+  color: #fffaff !important;
+}
+
+:root[data-catfat-theme='dark'] .market-shelf__eyebrow,
+:root[data-catfat-theme='dark'] .instagram-strip__eyebrow,
+:root[data-catfat-theme='dark'] .marketplace-reviews__stat-label,
+:root[data-catfat-theme='dark'] .marketplace-faq__question::after {
+  color: #f0e1ff !important;
+}
+
+:root[data-catfat-theme='dark'] .market-shelf__description,
+:root[data-catfat-theme='dark'] .instagram-strip__description,
+:root[data-catfat-theme='dark'] .marketplace-faq__note,
+:root[data-catfat-theme='dark'] .marketplace-reviews__stat-copy,
+:root[data-catfat-theme='dark'] .instagram-strip__placeholder-label,
+:root[data-catfat-theme='dark'] .marketplace-marquee__item {
+  color: #ddd0ec !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-reviews__badge .jdgm-star,
+:root[data-catfat-theme='dark'] .marketplace-reviews__carousel-shell .jdgm-star,
+:root[data-catfat-theme='dark'] .catfat-product__review-summary .jdgm-star,
+:root[data-catfat-theme='dark'] .catfat-product__reviews-card .jdgm-star {
+  color: #d4b9ff !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-reviews__badge .jdgm-all-reviews-text,
+:root[data-catfat-theme='dark'] .marketplace-reviews__badge .jdgm-all-reviews-text__text,
+:root[data-catfat-theme='dark'] .marketplace-reviews__badge .jdgm-all-reviews-text__rating,
+:root[data-catfat-theme='dark'] .marketplace-trust__card-title,
+:root[data-catfat-theme='dark'] .marketplace-trust__pill strong,
+:root[data-catfat-theme='dark'] .instagram-strip__product,
+:root[data-catfat-theme='dark'] .instagram-strip__caption,
+:root[data-catfat-theme='dark'] .cart-item__name,
+:root[data-catfat-theme='dark'] .price--end,
+:root[data-catfat-theme='dark'] .totals__subtotal-value,
+:root[data-catfat-theme='dark'] .recommendation-item__price {
+  color: #fffaff !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-trust__icon,
+:root[data-catfat-theme='dark'] .marketplace-faq__contact,
+:root[data-catfat-theme='dark'] .discount-form__input,
+:root[data-catfat-theme='dark'] .quantity__button,
+:root[data-catfat-theme='dark'] .quantity__input,
+:root[data-catfat-theme='dark'] .recommendation-item__add {
+  background: linear-gradient(180deg, rgba(54, 38, 77, 0.96) 0%, rgba(32, 21, 47, 0.96) 100%) !important;
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.22) !important;
+  color: #f0e1ff !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-trust__icon {
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.16) !important;
+}
+
+:root[data-catfat-theme='dark'] .marketplace-trust__card-copy,
+:root[data-catfat-theme='dark'] .marketplace-trust__pill,
+:root[data-catfat-theme='dark'] .marketplace-faq__contact,
+:root[data-catfat-theme='dark'] .marketplace-faq__answer,
+:root[data-catfat-theme='dark'] .product-option,
+:root[data-catfat-theme='dark'] .cart-item__old-price,
+:root[data-catfat-theme='dark'] .shipping-progress__message,
+:root[data-catfat-theme='dark'] .discount-success,
+:root[data-catfat-theme='dark'] .discount-error,
+:root[data-catfat-theme='dark'] .cart-remove-button,
+:root[data-catfat-theme='dark'] .recommendation-item__add,
+:root[data-catfat-theme='dark'] .discount-form__input::placeholder {
+  color: #d9ccec !important;
+}
+
+:root[data-catfat-theme='dark'] .quantity,
+:root[data-catfat-theme='dark'] .discount-form__input,
+:root[data-catfat-theme='dark'] .recommendation-item__add {
+  box-shadow: none !important;
+}
+
+:root[data-catfat-theme='dark'] .quantity {
+  border-color: rgba(var(--catfat-brand-purple-soft-rgb), 0.22) !important;
+}
+
+:root[data-catfat-theme='dark'] .quantity__button:hover,
+:root[data-catfat-theme='dark'] .recommendation-item__add:hover {
+  background: linear-gradient(135deg, rgba(var(--catfat-brand-purple-soft-rgb), 0.46), rgba(var(--catfat-brand-purple-rgb), 0.54) 58%, rgba(var(--catfat-brand-purple-deep-rgb), 0.64)) !important;
+  color: #fffaff !important;
+}
+
+:root[data-catfat-theme='dark'] .shipping-progress__message::before {
+  filter: brightness(1.2);
+}

@@ -1,5 +1,5 @@
 .market-shelf {
-  padding: 24px 0 10px;
+  padding: clamp(3rem, 4vw, 4.6rem) 0 clamp(2rem, 3vw, 3rem);
 }
 
 .market-shelf__header {
@@ -17,8 +17,8 @@
   min-height: 26px;
   padding: 4px 8px;
   border-radius: 6px;
-  background: rgba(255, 107, 157, 0.08);
-  color: #d73d72;
+  background: var(--catfat-chip-bg);
+  color: var(--catfat-brand-purple-deep);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -27,7 +27,7 @@
 
 .market-shelf__title {
   margin: 8px 0 8px;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: clamp(2.3rem, 2rem + 0.55vw, 3.2rem);
   line-height: 1.02;
   font-weight: 900;
@@ -37,7 +37,7 @@
 .market-shelf__description {
   max-width: 48rem;
   margin: 0;
-  color: #695762;
+  color: var(--catfat-copy-body);
   font-size: 1.28rem;
   line-height: 1.55;
 }
@@ -47,14 +47,14 @@
   align-items: center;
   min-height: 42px;
   padding: 0 16px;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #d73d72;
+  border-radius: 6px;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-brand-purple);
   text-decoration: none;
   font-size: 1.16rem;
   font-weight: 900;
-  border: 1px solid rgba(232, 74, 127, 0.14);
-  box-shadow: 0 8px 16px rgba(97, 77, 89, 0.06);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
+  box-shadow: 0 8px 16px rgba(63, 40, 79, 0.06);
 }
 
 .market-shelf__grid {
@@ -76,10 +76,10 @@
 .market-shelf__empty {
   padding: 38px 22px;
   text-align: center;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #fff8fb 0%, #ffffff 100%);
-  border: 1px solid rgba(232, 74, 127, 0.12);
-  color: #6e5c68;
+  border-radius: 10px;
+  background: var(--catfat-shell-gradient);
+  border: 1px solid var(--catfat-card-border);
+  color: var(--catfat-copy-body);
   font-size: 1.45rem;
 }
 

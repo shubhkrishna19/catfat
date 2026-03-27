@@ -1,7 +1,7 @@
 .marketplace-hero {
   position: relative;
   overflow: hidden;
-  padding: 18px 0 10px;
+  padding: clamp(2.4rem, 4vw, 4.8rem) 0 clamp(1.6rem, 2.8vw, 2.8rem);
 }
 
 .marketplace-hero__shell {
@@ -10,13 +10,13 @@
   grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
   gap: 30px;
   padding: clamp(24px, 4vw, 40px);
-  border-radius: 18px;
+  border-radius: 14px;
   background:
-    radial-gradient(circle at top left, rgba(255, 217, 61, 0.24), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255, 142, 83, 0.14), transparent 26%),
-    linear-gradient(135deg, #fff8fb 0%, #fff4f8 30%, #fff9ef 70%, #ffffff 100%);
-  border: 1px solid rgba(232, 74, 127, 0.12);
-  box-shadow: 0 18px 46px rgba(232, 74, 127, 0.08);
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(var(--catfat-brand-purple-deep-rgb), 0.14), transparent 26%),
+    var(--catfat-panel-gradient);
+  border: 1px solid var(--catfat-card-border);
+  box-shadow: 0 18px 46px rgba(var(--catfat-brand-purple-rgb), 0.08);
 }
 
 .marketplace-hero__copy {
@@ -30,21 +30,21 @@
   gap: 8px;
   min-height: 34px;
   padding: 8px 14px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.92);
-  color: #d73d72;
+  border-radius: 6px;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-brand-purple);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid rgba(232, 74, 127, 0.14);
-  box-shadow: 0 12px 26px rgba(215, 61, 114, 0.08);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.14);
+  box-shadow: 0 12px 26px rgba(var(--catfat-brand-purple-deep-rgb), 0.08);
 }
 
 .marketplace-hero__title {
   max-width: 11ch;
   margin: 18px 0 12px;
-  color: #261622;
+  color: var(--catfat-copy-strong);
   font-size: clamp(3.6rem, 3rem + 1.8vw, 5.8rem);
   line-height: 0.98;
   letter-spacing: -0.05em;
@@ -54,7 +54,7 @@
 .marketplace-hero__description {
   max-width: 56rem;
   margin: 0;
-  color: #614d59;
+  color: var(--catfat-copy-body);
   font-size: 1.55rem;
   line-height: 1.62;
 }
@@ -72,7 +72,7 @@
   justify-content: center;
   min-height: 50px;
   padding: 0 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   text-decoration: none;
   font-size: 1.25rem;
   font-weight: 900;
@@ -85,16 +85,16 @@
 }
 
 .marketplace-hero__button--primary {
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f 58%, #ff9c59);
+  background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
   color: #ffffff;
-  box-shadow: 0 12px 22px rgba(232, 74, 127, 0.18);
+  box-shadow: 0 12px 22px rgba(var(--catfat-brand-purple-rgb), 0.18);
 }
 
 .marketplace-hero__button--secondary {
-  background: rgba(255, 255, 255, 0.9);
-  color: #d73d72;
-  border: 1px solid rgba(232, 74, 127, 0.15);
-  box-shadow: 0 12px 22px rgba(97, 77, 89, 0.08);
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-copy-strong);
+  border: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.15);
+  box-shadow: 0 12px 22px rgba(var(--catfat-brand-purple-rgb), 0.08);
 }
 
 .marketplace-hero__proof {
@@ -109,10 +109,10 @@
   align-items: center;
   min-height: 36px;
   padding: 0 14px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(232, 74, 127, 0.12);
-  color: #584450;
+  border-radius: 6px;
+  background: var(--catfat-surface-soft);
+  border: 1px solid var(--catfat-card-border);
+  color: var(--catfat-copy-body);
   font-size: 1.14rem;
   font-weight: 800;
 }
@@ -129,19 +129,19 @@
   align-items: center;
   min-height: 34px;
   padding: 7px 12px;
-  border-radius: 7px;
+  border-radius: 6px;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.78);
-  color: #5a4653;
+  background: var(--catfat-surface-soft);
+  color: var(--catfat-copy-body);
   font-size: 1.15rem;
   font-weight: 800;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border: 1px solid var(--catfat-card-border);
   transition: background 0.24s ease, color 0.24s ease, transform 0.24s ease;
 }
 
 .marketplace-hero__quick-link:hover {
-  background: #ffffff;
-  color: #d73d72;
+  background: var(--catfat-surface-soft-strong);
+  color: var(--catfat-copy-strong);
   transform: translateY(-1px);
 }
 
@@ -160,12 +160,13 @@
   display: flex;
   min-height: 210px;
   padding: 18px;
-  border-radius: 14px;
+  border-radius: 12px;
   background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.78), transparent 32%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 251, 0.98));
-  border: 1px solid rgba(232, 74, 127, 0.12);
-  box-shadow: 0 12px 24px rgba(232, 74, 127, 0.08);
+    radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(var(--catfat-brand-purple-rgb), 0.1), transparent 28%),
+    var(--catfat-card-gradient);
+  border: 1px solid var(--catfat-card-border);
+  box-shadow: 0 12px 24px rgba(var(--catfat-brand-purple-rgb), 0.08);
   text-decoration: none;
 }
 
@@ -186,9 +187,9 @@
   align-items: center;
   min-height: 30px;
   padding: 6px 10px;
-  border-radius: 7px;
-  background: rgba(255, 107, 157, 0.12);
-  color: #d73d72;
+  border-radius: 6px;
+  background: var(--catfat-chip-bg-strong);
+  color: var(--catfat-brand-purple);
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -198,7 +199,7 @@
 .marketplace-hero__feature-title {
   display: block;
   margin-top: 12px;
-  color: #24141f;
+  color: var(--catfat-copy-strong);
   font-size: clamp(1.9rem, 1.74rem + 0.5vw, 2.7rem);
   line-height: 1.08;
   font-weight: 900;
@@ -216,12 +217,12 @@
   align-items: center;
   min-height: 28px;
   padding: 6px 10px;
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.88);
-  color: #5c4753;
+  border-radius: 6px;
+  background: var(--catfat-surface-soft-strong);
+  color: var(--catfat-copy-body);
   font-size: 1.05rem;
   font-weight: 800;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border: 1px solid var(--catfat-card-border);
 }
 
 .marketplace-hero__feature-image-wrap {
@@ -284,7 +285,7 @@
 
 @media screen and (max-width: 749px) {
   .marketplace-hero {
-    padding-top: 12px;
+    padding-top: 2rem;
   }
 
   .marketplace-hero__shell {
