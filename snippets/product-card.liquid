@@ -17,11 +17,8 @@
     endif
   endfor
 
-  assign title_text = product.title | downcase
   assign product_text = product.title | append: ' ' | append: product.description | strip_html | downcase
   assign theme_count = 0
-  assign color_count = 0
-  assign style_count = 0
   assign has_name_engraving = false
 
   if product_text contains 'engraving' or product_text contains 'personalised' or product_text contains 'personalized'
@@ -32,10 +29,6 @@
     assign option_name = option.name | strip | downcase
     if option_name contains 'theme'
       assign theme_count = option.values.size
-    elsif option_name contains 'color' or option_name contains 'colour'
-      assign color_count = option.values.size
-    elsif option_name contains 'style' or option_name contains 'personal' or option_name contains 'engraving'
-      assign style_count = option.values.size
     endif
 
   endfor

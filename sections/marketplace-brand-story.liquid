@@ -20,12 +20,6 @@
     assign gifting_count = gifting_collection.all_products_count
   endif
 
-  assign logo_url = blank
-  if settings.logo != blank
-    assign logo_url = settings.logo | image_url: width: 360
-  else
-    assign logo_url = 'https://catfatindia.com/cdn/shop/files/catfat.png?v=1728204199&width=500'
-  endif
 -%}
 
 <section class="brand-story page-width">
@@ -34,7 +28,19 @@
       <span class="brand-story__eyebrow">Why Catfat</span>
 
       <div class="brand-story__logo-plate">
-        <img src="{{ logo_url }}" alt="{{ shop.name }}" class="brand-story__logo" loading="lazy">
+        {%- if settings.logo != blank -%}
+          {{
+            settings.logo
+            | image_url: width: 360
+            | image_tag:
+              class: 'brand-story__logo',
+              widths: '180, 240, 320, 360',
+              loading: 'lazy',
+              alt: shop.name
+          }}
+        {%- else -%}
+          <img src="{{ 'catfat-wordmark.png' | asset_url }}" alt="{{ shop.name }}" class="brand-story__logo" loading="lazy" width="500" height="500">
+        {%- endif -%}
       </div>
 
       <h2 class="brand-story__title">Playful enough for kids. Clear enough for confident buying.</h2>

@@ -149,9 +149,13 @@
         
         <div class="age-card">
           {%- if section.settings[age_image] != blank -%}
-            <img src="{{ section.settings[age_image] | img_url: '400x400' }}" 
-                 alt="{{ section.settings[age_title] }}"
-                 loading="lazy">
+            {{
+              section.settings[age_image]
+              | image_url: width: 400
+              | image_tag:
+                alt: section.settings[age_title],
+                loading: 'lazy'
+            }}
           {%- else -%}
             <div class="age-card-placeholder">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

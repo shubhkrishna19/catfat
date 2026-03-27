@@ -140,10 +140,14 @@
         
         <a href="{{ section.settings[cat_link] }}" class="category-card">
           {%- if section.settings[cat_image] != blank -%}
-            <img src="{{ section.settings[cat_image] | img_url: '80x80' }}" 
-                 alt="{{ section.settings[cat_name] }}"
-                 class="category-image"
-                 loading="lazy">
+            {{
+              section.settings[cat_image]
+              | image_url: width: 80
+              | image_tag:
+                class: 'category-image',
+                alt: section.settings[cat_name],
+                loading: 'lazy'
+            }}
           {%- else -%}
             <div class="category-icon">
               {%- case section.settings[cat_icon] -%}

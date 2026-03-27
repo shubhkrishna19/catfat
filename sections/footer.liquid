@@ -2,6 +2,21 @@
 {{ 'catfat-theme-mode.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'catfat-theme-mode.js' | asset_url }}" defer="defer"></script>
 
+{%- liquid
+  assign shop_all_url = routes.all_products_collection_url
+  assign lunch_collection = collections['lunch-box']
+  assign bottles_collection = collections['bottles-flasks']
+  assign kids_collection = collections['kids-collections']
+  assign sale_collection = collections['india-s-biggest-lunch-sale-upto-80']
+  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+
+  assign lunch_url = lunch_collection.url | default: routes.collections_url
+  assign bottles_url = bottles_collection.url | default: routes.collections_url
+  assign kids_url = kids_collection.url | default: routes.collections_url
+  assign sale_url = sale_collection.url | default: routes.collections_url
+  assign gifting_url = gifting_collection.url | default: routes.collections_url
+-%}
+
 <footer class="catfat-footer">
   <div class="page-width catfat-footer__inner">
     <span class="catfat-footer__topline">Smart lunchware. Better deals.</span>
@@ -32,11 +47,11 @@
       <div>
         <h3 class="catfat-footer__heading">Shop</h3>
         <ul class="catfat-footer__links">
-          <li><a href="/collections/all-products">All Products</a></li>
-          <li><a href="/collections/lunch-box">Lunch Boxes</a></li>
-          <li><a href="/collections/bottles-flasks">Bottles and Flasks</a></li>
-          <li><a href="/collections/kids-collections">Kids Picks</a></li>
-          <li><a href="/collections/india-s-biggest-lunch-sale-upto-80">Live Sale</a></li>
+          <li><a href="{{ shop_all_url }}">All Products</a></li>
+          <li><a href="{{ lunch_url }}">Lunch Boxes</a></li>
+          <li><a href="{{ bottles_url }}">Bottles and Flasks</a></li>
+          <li><a href="{{ kids_url }}">Kids Picks</a></li>
+          <li><a href="{{ sale_url }}">Live Sale</a></li>
         </ul>
       </div>
 
@@ -44,7 +59,7 @@
         <h3 class="catfat-footer__heading">Support</h3>
         <ul class="catfat-footer__links">
           <li><a href="/pages/contact-us">Contact Us</a></li>
-          <li><a href="/collections/corporate-gifting-bulk-gifting">Bulk Gifting</a></li>
+          <li><a href="{{ gifting_url }}">Bulk Gifting</a></li>
           <li><a href="/pages/terms-and-conditions">Terms and Conditions</a></li>
           <li><a href="{{ routes.account_url }}">My Account</a></li>
         </ul>

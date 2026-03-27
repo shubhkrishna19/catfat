@@ -186,7 +186,7 @@
           </div>
         {%- else -%}
           <div class="customer-gallery__item">
-            <img src="https://placehold.co/400x400/ffe4ec/ff6b9d?text=Customer+Photo" alt="Customer photo placeholder">
+            {{ 'image' | placeholder_svg_tag: 'customer-gallery__placeholder' }}
             <div class="customer-gallery__overlay">
               <p class="customer-gallery__name">Your Photo Here</p>
               <div class="customer-gallery__rating">*****</div>
@@ -205,7 +205,7 @@
 <!-- Lightbox -->
 <div class="customer-gallery__lightbox" id="customerGalleryLightbox" onclick="closeLightbox(event)">
   <button class="customer-gallery__lightbox-close" onclick="closeLightbox(event)">&times;</button>
-  <img src="" alt="Customer photo" id="lightboxImage">
+  <img src="{{ 'catfat-wordmark.png' | asset_url }}" alt="Customer photo" id="lightboxImage" width="800" height="800">
 </div>
 
 <script>

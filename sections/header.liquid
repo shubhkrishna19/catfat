@@ -4,11 +4,27 @@
 
 {%- liquid
   assign brand_logo_src = blank
+  assign brand_logo_alt = section.settings.logo_text | default: shop.name
+  assign shop_all_url = routes.all_products_collection_url
+  assign lunch_collection = collections['lunch-box']
+  assign bottles_collection = collections['bottles-flasks']
+  assign kids_collection = collections['kids-collections']
+  assign arrivals_collection = collections['new-arrivals']
+  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+  assign sale_collection = collections['india-s-biggest-lunch-sale-upto-80']
+
+  assign lunch_url = lunch_collection.url | default: routes.collections_url
+  assign bottles_url = bottles_collection.url | default: routes.collections_url
+  assign kids_url = kids_collection.url | default: routes.collections_url
+  assign arrivals_url = arrivals_collection.url | default: routes.collections_url
+  assign gifting_url = gifting_collection.url | default: routes.collections_url
+  assign sale_url = sale_collection.url | default: routes.collections_url
+
   if settings.logo != blank
     assign brand_logo_src = settings.logo | image_url: width: section.settings.logo_width
   endif
   if brand_logo_src == blank
-    assign brand_logo_src = 'https://catfatindia.com/cdn/shop/files/catfat.png?v=1728204199&width=500'
+    assign brand_logo_src = 'catfat-wordmark.png' | asset_url
   endif
 -%}
 
@@ -271,12 +287,26 @@
   <div class="page-width catfat-header" data-menu-open="false">
     <a href="{{ routes.root_url }}" class="catfat-header__brand" aria-label="{{ shop.name }}">
       <span class="catfat-header__brand-plate">
-        <img
-          src="{{ brand_logo_src }}"
-          alt="{{ section.settings.logo_text | default: shop.name }}"
-          class="catfat-header__brand-logo"
-          loading="eager"
-        >
+        {%- if settings.logo != blank -%}
+          {{
+            settings.logo
+            | image_url: width: section.settings.logo_width
+            | image_tag:
+              class: 'catfat-header__brand-logo',
+              widths: '120, 180, 240, 320',
+              loading: 'eager',
+              alt: brand_logo_alt
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'catfat-wordmark.png' | asset_url }}"
+            alt="{{ brand_logo_alt }}"
+            class="catfat-header__brand-logo"
+            loading="eager"
+            width="500"
+            height="500"
+          >
+        {%- endif -%}
       </span>
       <span class="catfat-header__brand-copy">
         <span class="catfat-header__brand-subtitle">Lunchware for school, gifting, and daily carry.</span>
@@ -284,13 +314,13 @@
     </a>
 
     <nav class="catfat-header__nav" aria-label="Primary">
-      <a href="/collections/all-products" class="catfat-header__link">Shop All</a>
-      <a href="/collections/lunch-box" class="catfat-header__link">Lunch Boxes</a>
-      <a href="/collections/bottles-flasks" class="catfat-header__link">Bottles &amp; Thermos</a>
-      <a href="/collections/kids-collections" class="catfat-header__link">Kids Themes</a>
-      <a href="/collections/new-arrivals" class="catfat-header__link">New Arrivals</a>
-      <a href="/collections/corporate-gifting-bulk-gifting" class="catfat-header__link">Bulk Gifting</a>
-      <a href="/collections/india-s-biggest-lunch-sale-upto-80" class="catfat-header__link catfat-header__link--sale">Sale</a>
+      <a href="{{ shop_all_url }}" class="catfat-header__link">Shop All</a>
+      <a href="{{ lunch_url }}" class="catfat-header__link">Lunch Boxes</a>
+      <a href="{{ bottles_url }}" class="catfat-header__link">Bottles &amp; Thermos</a>
+      <a href="{{ kids_url }}" class="catfat-header__link">Kids Themes</a>
+      <a href="{{ arrivals_url }}" class="catfat-header__link">New Arrivals</a>
+      <a href="{{ gifting_url }}" class="catfat-header__link">Bulk Gifting</a>
+      <a href="{{ sale_url }}" class="catfat-header__link catfat-header__link--sale">Sale</a>
     </nav>
 
     <div class="catfat-header__actions">
@@ -313,13 +343,13 @@
 
     <div class="catfat-header__mobile" id="catfat-mobile-nav-{{ section.id }}">
       <div class="catfat-header__mobile-links">
-        <a href="/collections/all-products" class="catfat-header__mobile-link">Shop All</a>
-        <a href="/collections/lunch-box" class="catfat-header__mobile-link">Lunch Boxes</a>
-        <a href="/collections/bottles-flasks" class="catfat-header__mobile-link">Bottles &amp; Thermos</a>
-        <a href="/collections/kids-collections" class="catfat-header__mobile-link">Kids Themes</a>
-        <a href="/collections/new-arrivals" class="catfat-header__mobile-link">New Arrivals</a>
-        <a href="/collections/corporate-gifting-bulk-gifting" class="catfat-header__mobile-link">Bulk Gifting</a>
-        <a href="/collections/india-s-biggest-lunch-sale-upto-80" class="catfat-header__mobile-link catfat-header__mobile-link--sale">Sale</a>
+        <a href="{{ shop_all_url }}" class="catfat-header__mobile-link">Shop All</a>
+        <a href="{{ lunch_url }}" class="catfat-header__mobile-link">Lunch Boxes</a>
+        <a href="{{ bottles_url }}" class="catfat-header__mobile-link">Bottles &amp; Thermos</a>
+        <a href="{{ kids_url }}" class="catfat-header__mobile-link">Kids Themes</a>
+        <a href="{{ arrivals_url }}" class="catfat-header__mobile-link">New Arrivals</a>
+        <a href="{{ gifting_url }}" class="catfat-header__mobile-link">Bulk Gifting</a>
+        <a href="{{ sale_url }}" class="catfat-header__mobile-link catfat-header__mobile-link--sale">Sale</a>
         <a href="{{ routes.account_url }}" class="catfat-header__mobile-link">My Account</a>
       </div>
     </div>

@@ -9,7 +9,6 @@
 
   assign theme_count = 0
   assign color_count = 0
-  assign style_count = 0
   assign has_name_engraving = false
   assign option_summary = blank
   assign product_text = product.title | append: ' ' | append: product.description | strip_html | downcase
@@ -24,8 +23,6 @@
       assign theme_count = option.values.size
     elsif option_name contains 'color' or option_name contains 'colour'
       assign color_count = option.values.size
-    elsif option_name contains 'style' or option_name contains 'personal' or option_name contains 'engraving'
-      assign style_count = option.values.size
     endif
   endfor
 
@@ -53,9 +50,6 @@
     assign summary_text = 'Playful lunchware designed for school days, gifting, and everyday carry.'
   endif
 
-  assign feature_one = 'Original product images from the live Catfat catalog.'
-  assign feature_two = 'Cleaner variant selection flow for faster buying decisions.'
-  assign feature_three = 'Secure add-to-cart flow tied to the active variant.'
   assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '0' | plus: 0
   assign proof_title_one = 'Built for daily use'
   assign proof_copy_one = 'Practical lunchware details are surfaced early so the product feels easier to trust before checkout.'
@@ -71,39 +65,28 @@
   assign has_review_data = false
 
   if product_text contains 'insulated' or product_text contains 'vacuum'
-    assign feature_one = 'Insulated design made for stronger temperature hold on the go.'
     assign proof_title_one = 'Insulated for longer carry'
     assign proof_copy_one = 'Designed to help drinks or meals stay ready for longer through school days and travel.'
   elsif product_text contains 'microwave'
-    assign feature_one = 'Microwave-safe convenience for practical school lunches.'
     assign proof_title_one = 'Microwave-friendly convenience'
     assign proof_copy_one = 'A simpler fit for reheating and school lunch prep when speed matters.'
   elsif product_text contains 'leak' or product_text contains 'spill'
-    assign feature_one = 'Leak-resistant build for calmer bags and easier mornings.'
     assign proof_title_one = 'School-bag ready'
     assign proof_copy_one = 'Leak-resistant details reduce mess risk and make morning carry feel more reliable.'
   elsif product_text contains 'stainless'
-    assign feature_one = 'Food-grade stainless steel suited for everyday school use.'
     assign proof_title_one = 'Stainless steel confidence'
     assign proof_copy_one = 'Durable daily-use material cues make the product feel stronger and more dependable.'
   endif
 
   if product_text contains 'spoon'
-    assign feature_two = 'Built-in spoon support for quick lunch and snack breaks.'
     assign proof_title_two = 'Useful details kids remember'
     assign proof_copy_two = 'Built-in spoon convenience adds a small practical win that also feels thoughtful to buy.'
   elsif theme_count > 0
-    assign feature_two = theme_count | append: ' character themes available on this product.'
     assign proof_title_two = 'Kids notice the theme first'
     assign proof_copy_two = theme_count | append: ' character options make this feel more exciting before the utility even gets evaluated.'
   elsif color_count > 0
-    assign feature_two = color_count | append: ' color options available on this product.'
     assign proof_title_two = 'Color makes it feel personal'
     assign proof_copy_two = color_count | append: ' visible color choices help the product feel more giftable and more owned.'
-  endif
-
-  if style_count > 1
-    assign feature_three = style_count | append: ' style variants available for this listing.'
   endif
 
   if option_summary != blank
