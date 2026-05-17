@@ -225,6 +225,12 @@
     right: clamp(1.2rem, 2vw, 2.8rem);
     width: clamp(28rem, 46vw, 44rem);
   }
+
+  /* Tablet: shift hero image left so subject + lunch stays centered in the
+   * narrower viewport (was anchored to center which pushes subject off-screen). */
+  .marketplace-hero__image {
+    object-position: 30% center;
+  }
 }
 
 @media screen and (max-width: 989px) and (min-width: 750px) {
@@ -253,6 +259,9 @@
   .marketplace-hero__image--fallback,
   .marketplace-hero__image--placeholder {
     min-height: 52rem;
+    /* Shift image LEFT on mobile so the kid + lunchbox stays in frame.
+     * Desktop keeps center positioning to preserve the editorial empty space. */
+    object-position: 22% center;
   }
 
   .marketplace-hero__media--fallback-portrait::before {
