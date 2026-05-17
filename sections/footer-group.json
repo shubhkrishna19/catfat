@@ -2,6 +2,10 @@
   "name": "Footer",
   "type": "footer",
   "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    },
     "social_proof": {
       "type": "catfat-social-proof",
       "settings": {
@@ -14,18 +18,14 @@
         "start_delay_ms": 4000
       }
     },
-    "footer": {
-      "type": "footer",
-      "settings": {}
-    },
     "floating_trust_badges": {
       "type": "floating-trust-badges",
       "settings": {}
     }
   },
   "order": [
-    "social_proof",
     "footer",
+    "social_proof",
     "floating_trust_badges"
   ]
 }

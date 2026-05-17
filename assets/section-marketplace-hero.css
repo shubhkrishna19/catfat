@@ -226,10 +226,10 @@
     width: clamp(28rem, 46vw, 44rem);
   }
 
-  /* Tablet: shift hero image left so subject + lunch stays centered in the
-   * narrower viewport (was anchored to center which pushes subject off-screen). */
+  /* Tablet: shift hero image RIGHT so subject + lunch stays in frame as the
+   * viewport narrows. Empty kitchen space on the left slides off naturally. */
   .marketplace-hero__image {
-    object-position: 30% center;
+    object-position: 70% center;
   }
 }
 
@@ -259,9 +259,10 @@
   .marketplace-hero__image--fallback,
   .marketplace-hero__image--placeholder {
     min-height: 52rem;
-    /* Shift image LEFT on mobile so the kid + lunchbox stays in frame.
-     * Desktop keeps center positioning to preserve the editorial empty space. */
-    object-position: 22% center;
+    /* Anchor image to the RIGHT on mobile — the kid + lunchbox lives on the
+     * right side of the source photo. The empty kitchen space slides off-screen
+     * left so the subject stays visible behind the copy block. */
+    object-position: 78% center;
   }
 
   .marketplace-hero__media--fallback-portrait::before {
