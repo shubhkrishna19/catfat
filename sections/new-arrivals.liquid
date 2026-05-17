@@ -17,6 +17,9 @@
     assign collection_url = arrivals_collection.url
   endif
 
+  # Priority: 1) theme-editor upload, 2) collection.image (curated banner),
+  # 3) bundled brand fallback. NEVER fall back to the first product's image
+  # because that's already shown in the rail's first card — would duplicate.
   assign anchor_image = section.settings.anchor_image
   if anchor_image == blank and arrivals_collection != blank and arrivals_collection.image != blank
     assign anchor_image = arrivals_collection.image
@@ -27,14 +30,9 @@
   endif
 
   assign anchor_alt = section.settings.anchor_image_alt | default: section_title
-  if anchor_image == blank and arrivals_collection != blank
-    for product in arrivals_collection.products
-      if product.featured_media != blank
-        assign anchor_image = product.featured_media.preview_image
-        assign anchor_alt = product.title
-        break
-      endif
-    endfor
+  assign anchor_uses_brand_fallback = false
+  if anchor_image == blank
+    assign anchor_uses_brand_fallback = true
   endif
 
   assign products_limit = section.settings.products_to_show | default: 8
@@ -57,7 +55,12 @@
                 alt: anchor_alt
             }}
           {%- else -%}
-            <div class="new-arrivals-showcase__anchor-placeholder" aria-hidden="true"></div>
+            <img
+              src="{{ 'catfat-hero-kitchen.jpg' | asset_url }}"
+              class="new-arrivals-showcase__anchor-image"
+              alt="{{ anchor_alt | escape }}"
+              loading="lazy"
+              width="2200" height="1238">
           {%- endif -%}
         </div>
 

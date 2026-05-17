@@ -205,7 +205,7 @@
 <!-- Lightbox -->
 <div class="customer-gallery__lightbox" id="customerGalleryLightbox" onclick="closeLightbox(event)">
   <button class="customer-gallery__lightbox-close" onclick="closeLightbox(event)">&times;</button>
-  <img src="{{ 'catfat-wordmark.png' | asset_url }}" alt="Customer photo" id="lightboxImage" width="800" height="800">
+  <img src="{{ 'catfat-wordmark.png' | asset_url }}" alt="Customer photo" id="lightboxImage" loading="lazy" decoding="async" width="800" height="800">
 </div>
 
 <script>

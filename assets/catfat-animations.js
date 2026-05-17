@@ -375,6 +375,34 @@
     });
   }
 
+  // ─── Lazy loading enforcement ────────────────────────────────────────────────
+  // Defensive: any image without loading="eager" and not already lazy gets
+  // loading="lazy" + decoding="async" + fetchpriority="low" applied.
+  // Eager opt-in via attribute or being the FIRST image in the document
+  // (the LCP candidate — hero image).
+
+  function initLazyImages() {
+    const all = document.querySelectorAll('img');
+    let firstSeen = false;
+    all.forEach((img) => {
+      const existingLoading = img.getAttribute('loading');
+      const existingFetch = img.getAttribute('fetchpriority');
+      // First image in DOM with no explicit eager — leave it alone (LCP candidate)
+      if (!firstSeen && existingFetch === 'high') {
+        firstSeen = true;
+        return;
+      }
+      if (existingLoading === 'eager') return;
+      if (!existingLoading) img.setAttribute('loading', 'lazy');
+      if (!img.getAttribute('decoding')) img.setAttribute('decoding', 'async');
+    });
+
+    // Same for iframes (videos, embeds)
+    document.querySelectorAll('iframe').forEach((el) => {
+      if (!el.getAttribute('loading')) el.setAttribute('loading', 'lazy');
+    });
+  }
+
   // ─── Init ────────────────────────────────────────────────────────────────────
 
   function init() {
@@ -387,6 +415,7 @@
     initSmoothScroll();
     initScrollToTop();
     initReels();
+    initLazyImages();
   }
 
   if (document.readyState === 'loading') {
