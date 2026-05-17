@@ -1,9 +1,10 @@
 {{ 'component-list-menu.css' | asset_url | stylesheet_tag }}
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
 {{ 'component-menu-drawer.css' | asset_url | stylesheet_tag }}
+{{ 'section-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'section-header.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign brand_logo_src = blank
   assign brand_logo_alt = section.settings.logo_text | default: shop.name
   assign shop_all_url = routes.all_products_collection_url
   assign lunch_collection = collections['lunch-box']
@@ -19,299 +20,45 @@
   assign arrivals_url = arrivals_collection.url | default: routes.collections_url
   assign gifting_url = gifting_collection.url | default: routes.collections_url
   assign sale_url = sale_collection.url | default: routes.collections_url
-
-  if settings.logo != blank
-    assign brand_logo_src = settings.logo | image_url: width: section.settings.logo_width
-  endif
-  if brand_logo_src == blank
-    assign brand_logo_src = 'catfat-wordmark.png' | asset_url
-  endif
 -%}
-
-<style>
-  .catfat-header-shell {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    background: rgba(248, 243, 255, 0.9);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(116, 28, 177, 0.14);
-    box-shadow: 0 10px 24px rgba(67, 32, 95, 0.08);
-  }
-
-  .catfat-header__notice {
-    min-height: 38px;
-    padding: 9px 16px;
-    text-align: center;
-    font-size: 1.08rem;
-    font-weight: 900;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .catfat-header__notice--primary {
-    background: linear-gradient(135deg, #43205f 0%, #741cb1 100%);
-    color: #ffffff;
-    border-bottom: 1px solid rgba(139, 99, 222, 0.22);
-  }
-
-  .catfat-header__notice--secondary {
-    background: rgba(116, 28, 177, 0.12);
-    color: var(--catfat-brand-purple);
-    border-bottom: 1px solid rgba(116, 28, 177, 0.12);
-  }
-
-  .catfat-header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 24px;
-    align-items: center;
-    min-height: 86px;
-  }
-
-  .catfat-header__brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--catfat-copy-strong);
-    text-decoration: none;
-  }
-
-  .catfat-header__brand-plate {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 58px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    background:
-      radial-gradient(circle at top left, rgba(var(--catfat-brand-purple-soft-rgb), 0.12), transparent 30%),
-      var(--catfat-card-gradient);
-    border: 1px solid var(--catfat-card-border);
-    box-shadow: 0 10px 18px rgba(var(--catfat-brand-purple-rgb), 0.08);
-  }
-
-  .catfat-header__brand-logo {
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: min(var(--catfat-logo-width), 160px);
-    max-height: 42px;
-  }
-
-  .catfat-header__brand-copy {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .catfat-header__brand-subtitle {
-    color: var(--catfat-copy-muted);
-    font-size: 1.08rem;
-    line-height: 1.4;
-    font-weight: 700;
-  }
-
-  .catfat-header__nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .catfat-header__link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 34px;
-    color: var(--catfat-copy-body);
-    text-decoration: none;
-    font-size: 1.18rem;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    transition: color 0.22s ease, transform 0.22s ease;
-  }
-
-  .catfat-header__link:hover {
-    color: var(--catfat-brand-purple);
-    transform: translateY(-1px);
-  }
-
-  .catfat-header__link--sale {
-    color: var(--catfat-brand-purple);
-  }
-
-  .catfat-header__actions {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .catfat-header__icon,
-  .catfat-header__menu-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border: 1px solid var(--catfat-card-border);
-    border-radius: 8px;
-    background: var(--catfat-surface-soft);
-    color: var(--catfat-copy-strong);
-    text-decoration: none;
-    box-shadow: 0 8px 16px rgba(var(--catfat-brand-purple-rgb), 0.06);
-  }
-
-  .catfat-header__icon svg,
-  .catfat-header__menu-button svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-  }
-
-  .catfat-header__cart {
-    position: relative;
-  }
-
-  .catfat-header__cart-count {
-    position: absolute;
-    top: -5px;
-    right: -4px;
-    min-width: 20px;
-    min-height: 20px;
-    padding: 0 5px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 900;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .catfat-header__menu-button {
-    display: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .catfat-header__mobile {
-    display: none;
-    padding: 0 0 18px;
-  }
-
-  .catfat-header[data-menu-open='true'] .catfat-header__mobile {
-    display: block;
-  }
-
-  .catfat-header__mobile-links {
-    display: grid;
-    gap: 10px;
-    padding-top: 12px;
-  }
-
-  .catfat-header__mobile-link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 46px;
-    padding: 0 14px;
-    border-radius: 8px;
-    background: var(--catfat-surface-soft);
-    color: var(--catfat-copy-body);
-    text-decoration: none;
-    font-size: 1.22rem;
-    font-weight: 800;
-    border: 1px solid var(--catfat-card-border);
-  }
-
-  .catfat-header__mobile-link--sale {
-    color: var(--catfat-brand-purple);
-  }
-
-  @media screen and (max-width: 1220px) {
-    .catfat-header__nav {
-      display: none;
-    }
-
-    .catfat-header__menu-button {
-      display: inline-flex;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .catfat-header__notice {
-      font-size: 0.98rem;
-      line-height: 1.4;
-      padding: 8px 14px;
-    }
-
-    .catfat-header {
-      grid-template-columns: auto 1fr auto;
-      gap: 14px;
-      min-height: 74px;
-    }
-
-    .catfat-header__brand-plate {
-      min-height: 48px;
-      padding: 8px 10px;
-    }
-
-    .catfat-header__brand-logo {
-      max-width: min(var(--catfat-logo-width), 120px);
-      max-height: 30px;
-    }
-
-    .catfat-header__brand-copy {
-      display: none;
-    }
-
-    .catfat-header__actions {
-      gap: 8px;
-    }
-
-    .catfat-header__icon:nth-child(2) {
-      display: none;
-    }
-  }
-</style>
 
 <header
   id="catfat-header-{{ section.id }}"
   class="catfat-header-shell"
+  data-section-id="{{ section.id }}"
+  data-menu-open="false"
+  data-scrolled="false"
   style="--catfat-logo-width: {{ section.settings.logo_width }}px;"
 >
-  <div class="catfat-header__notice catfat-header__notice--primary">
-    Free shipping above Rs. 499 | COD available | Sweet Cat sale live | Get extra 20% off with SWEETCAT20
-  </div>
-
-  <div class="page-width catfat-header" data-menu-open="false">
-    <a href="{{ routes.root_url }}" class="catfat-header__brand" aria-label="{{ shop.name }}">
-      <span class="catfat-header__brand-plate">
+  <div class="page-width catfat-header">
+    <div class="catfat-header__left">
+      <a href="{{ routes.root_url }}" class="catfat-header__brand" aria-label="{{ shop.name }}">
         {%- if settings.logo != blank -%}
-          {{
-            settings.logo
-            | image_url: width: section.settings.logo_width
-            | image_tag:
-              class: 'catfat-header__brand-logo',
-              widths: '120, 180, 240, 320',
-              loading: 'eager',
-              alt: brand_logo_alt
-          }}
+          <span class="catfat-header__brand-mark">
+            {{
+              settings.logo
+              | image_url: width: section.settings.logo_width
+              | image_tag:
+                class: 'catfat-header__brand-logo',
+                widths: '160, 220, 280, 360',
+                loading: 'eager',
+                alt: brand_logo_alt
+            }}
+          </span>
         {%- else -%}
-          <img
-            src="{{ 'catfat-wordmark.png' | asset_url }}"
-            alt="{{ brand_logo_alt }}"
-            class="catfat-header__brand-logo"
-            loading="eager"
-            width="500"
-            height="500"
-          >
+          <span class="catfat-header__brand-mark catfat-header__brand-mark--wordmark">
+            <img
+              src="{{ 'catfat-wordmark.png' | asset_url }}"
+              alt="{{ brand_logo_alt }}"
+              class="catfat-header__brand-logo catfat-header__brand-logo--wordmark"
+              loading="eager"
+              width="500"
+              height="500"
+            >
+          </span>
         {%- endif -%}
-      </span>
-      <span class="catfat-header__brand-copy">
-        <span class="catfat-header__brand-subtitle">Lunchware for school, gifting, and daily carry.</span>
-      </span>
-    </a>
+      </a>
+    </div>
 
     <nav class="catfat-header__nav" aria-label="Primary">
       <a href="{{ shop_all_url }}" class="catfat-header__link">Shop All</a>
@@ -324,25 +71,47 @@
     </nav>
 
     <div class="catfat-header__actions">
-      <a href="{{ routes.search_url }}" class="catfat-header__icon" aria-label="Search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L19 20.5 20.5 19zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+      <a href="{{ routes.search_url }}" class="catfat-header__icon-link" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5"></circle>
+          <path d="M16 16L21 21"></path>
+        </svg>
       </a>
-      <a href="{{ routes.account_url }}" class="catfat-header__icon" aria-label="Account">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-3.33 0-6 1.79-6 4v2h12v-2c0-2.21-2.67-4-6-4z"/></svg>
+      <a href="{{ routes.account_url }}" class="catfat-header__icon-link" aria-label="Account">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8.25" r="3.25"></circle>
+          <path d="M5 20c0-3.28 3.13-5.25 7-5.25S19 16.72 19 20"></path>
+        </svg>
       </a>
-      <a href="{{ routes.cart_url }}" class="catfat-header__icon catfat-header__cart" aria-label="Cart">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM7.17 13h8.97a2 2 0 0 0 1.75-1l3.58-6.49A1 1 0 0 0 20.59 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 7 17h12v-2H7z"/></svg>
+      <a href="{{ routes.cart_url }}" class="catfat-header__icon-link catfat-header__cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="9" cy="19" r="1.65"></circle>
+          <circle cx="17" cy="19" r="1.65"></circle>
+          <path d="M3 4h2.1l2.15 10.2h9.95l2.35-7.2H6.2"></path>
+        </svg>
         {%- if cart.item_count > 0 -%}
           <span class="catfat-header__cart-count">{{ cart.item_count }}</span>
         {%- endif -%}
       </a>
-      <button type="button" class="catfat-header__menu-button" aria-expanded="false" aria-controls="catfat-mobile-nav-{{ section.id }}">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v2H4zm0 8h16v2H4zm0-4h16v2H4z"/></svg>
+      <button
+        type="button"
+        class="catfat-header__menu-button"
+        aria-expanded="false"
+        aria-controls="catfat-mobile-nav-{{ section.id }}"
+        aria-label="Open menu"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 17h16"></path>
+        </svg>
       </button>
     </div>
+  </div>
 
-    <div class="catfat-header__mobile" id="catfat-mobile-nav-{{ section.id }}">
-      <div class="catfat-header__mobile-links">
+  <div class="catfat-header__mobile" id="catfat-mobile-nav-{{ section.id }}" hidden>
+    <div class="page-width">
+      <nav class="catfat-header__mobile-panel" aria-label="Mobile primary">
         <a href="{{ shop_all_url }}" class="catfat-header__mobile-link">Shop All</a>
         <a href="{{ lunch_url }}" class="catfat-header__mobile-link">Lunch Boxes</a>
         <a href="{{ bottles_url }}" class="catfat-header__mobile-link">Bottles &amp; Thermos</a>
@@ -350,29 +119,10 @@
         <a href="{{ arrivals_url }}" class="catfat-header__mobile-link">New Arrivals</a>
         <a href="{{ gifting_url }}" class="catfat-header__mobile-link">Bulk Gifting</a>
         <a href="{{ sale_url }}" class="catfat-header__mobile-link catfat-header__mobile-link--sale">Sale</a>
-        <a href="{{ routes.account_url }}" class="catfat-header__mobile-link">My Account</a>
-      </div>
+      </nav>
     </div>
   </div>
 </header>
-
-<script>
-  (() => {
-    const shell = document.getElementById('catfat-header-{{ section.id }}');
-    if (!shell) return;
-
-    const header = shell.querySelector('.catfat-header');
-    const toggle = shell.querySelector('.catfat-header__menu-button');
-
-    if (!header || !toggle) return;
-
-    toggle.addEventListener('click', () => {
-      const isOpen = header.getAttribute('data-menu-open') === 'true';
-      header.setAttribute('data-menu-open', isOpen ? 'false' : 'true');
-      toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-    });
-  })();
-</script>
 
 {% schema %}
 {
@@ -381,17 +131,17 @@
     {
       "type": "text",
       "id": "logo_text",
-      "default": "CatfatIndia",
-      "label": "Logo Text"
+      "default": "Catfat India",
+      "label": "Logo text"
     },
     {
       "type": "range",
       "id": "logo_width",
-      "min": 80,
-      "max": 220,
+      "min": 120,
+      "max": 280,
       "step": 10,
-      "default": 140,
-      "label": "Logo Width"
+      "default": 190,
+      "label": "Logo width"
     }
   ]
 }

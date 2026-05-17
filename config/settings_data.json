@@ -1,6 +1,5 @@
 {
   "current": {
-    "logo_width": 140,
     "colors_text": "#333333",
     "colors_background_1": "#FFFFFF",
     "colors_background_2": "#F3F3F3",
@@ -16,30 +15,7 @@
     "spacing_grid_vertical": 8,
     "header__icon_color": "#333333",
     "cart_type": "drawer",
-    "sections": {
-      "header": {
-        "type": "header",
-        "settings": {
-          "primary_color": "#741CB1",
-          "accent_color": "#5C34BA",
-          "hover_color": "#F9A519",
-          "header_background": "#741CB1",
-          "text_color": "#ffffff",
-          "menu": "main-menu"
-        }
-      },
-      "footer": {
-        "type": "footer",
-        "settings": {
-          "primary_color": "#741CB1",
-          "accent_color": "#5C34BA",
-          "hover_color": "#F9A519",
-          "background_color": "#1F1C1F",
-          "text_color": "#ffffff",
-          "columns_desktop": 4
-        }
-      }
-    }
+    "logo_width": 140
   },
   "presets": {
     "Default": {

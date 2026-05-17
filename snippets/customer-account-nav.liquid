@@ -1,0 +1,82 @@
+{%- liquid
+  assign profile_url = routes.account_url | append: '#profile'
+  assign orders_url = routes.account_url | append: '#orders'
+  assign returns_url = routes.account_url | append: '#returns'
+  assign support_url = routes.account_url | append: '#support'
+  assign addresses_url = routes.account_addresses_url
+  assign current_view = current_page | default: 'profile'
+  assign customer_name = customer.first_name | default: customer.name | default: 'Catfat customer'
+  assign customer_email = customer.email | default: 'Signed in securely'
+-%}
+
+<aside class="customer-sidebar">
+  <div class="customer-sidebar__panel">
+    <span class="customer-sidebar__eyebrow">My account</span>
+    <h2 class="customer-sidebar__title">{{ customer_name }}</h2>
+    <p class="customer-sidebar__copy">{{ customer_email }}</p>
+  </div>
+
+  <div class="customer-sidebar__panel">
+    <div class="customer-mobile-nav">
+      <label class="customer-visually-hidden" for="CustomerAccountNav">Account navigation</label>
+      <select id="CustomerAccountNav" class="customer-form__select" data-account-mobile-nav>
+        <option value="{{ profile_url }}" {% if current_view == 'profile' %}selected{% endif %}>Profile</option>
+        <option value="{{ orders_url }}" {% if current_view == 'orders' %}selected{% endif %}>My Orders</option>
+        <option value="{{ returns_url }}" {% if current_view == 'returns' %}selected{% endif %}>Returns & Refunds</option>
+        <option value="{{ addresses_url }}" {% if current_view == 'addresses' %}selected{% endif %}>Addresses</option>
+        <option value="{{ support_url }}" {% if current_view == 'support' %}selected{% endif %}>Help & Support</option>
+      </select>
+    </div>
+
+    <nav class="customer-nav" aria-label="Account navigation">
+      <a class="customer-nav__link {% if current_view == 'profile' %}is-active{% endif %}" href="{{ profile_url }}" data-account-link="profile">
+        <span>Profile</span>
+        <span class="customer-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 10.2a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2Zm0 1.8c-3.7 0-6.7 1.9-6.7 4.2 0 .5.4.8.8.8h11.8c.4 0 .8-.3.8-.8 0-2.3-3-4.2-6.7-4.2Z" fill="currentColor"/></svg>
+        </span>
+      </a>
+      <a class="customer-nav__link {% if current_view == 'orders' %}is-active{% endif %}" href="{{ orders_url }}" data-account-link="orders">
+        <span>My Orders</span>
+        <span class="customer-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M4.4 5.2h11.2M4.4 9.9h11.2M4.4 14.6h7.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+      </a>
+      <a class="customer-nav__link {% if current_view == 'returns' %}is-active{% endif %}" href="{{ returns_url }}" data-account-link="returns">
+        <span>Returns & Refunds</span>
+        <span class="customer-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M5.3 10a4.7 4.7 0 0 1 8-3.3l1.4 1.3M14.7 10A4.7 4.7 0 0 1 6.7 13.3l-1.4-1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+      <a class="customer-nav__link {% if current_view == 'addresses' %}is-active{% endif %}" href="{{ addresses_url }}">
+        <span>Addresses</span>
+        <span class="customer-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 17s5-4.7 5-8.7A5 5 0 1 0 5 8.3C5 12.3 10 17 10 17Z" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="8.3" r="1.6" fill="currentColor"/></svg>
+        </span>
+      </a>
+      <a class="customer-nav__link {% if current_view == 'support' %}is-active{% endif %}" href="{{ support_url }}" data-account-link="support">
+        <span>Help & Support</span>
+        <span class="customer-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 16.7a6.7 6.7 0 1 0 0-13.4 6.7 6.7 0 0 0 0 13.4Zm0-2.7v-.1m-2-5a2 2 0 1 1 3.5 1.4c-.7.7-1.2 1.1-1.2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+      </a>
+      <a class="customer-nav__link" href="{{ routes.account_logout_url }}" data-logout-open>
+        <span>Logout</span>
+        <span class="customer-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M8.2 5H5.7A1.7 1.7 0 0 0 4 6.7v6.6A1.7 1.7 0 0 0 5.7 15h2.5M11.4 13.3 14.7 10l-3.3-3.3M14.7 10H7.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </nav>
+  </div>
+</aside>
+
+<div class="customer-logout-modal" data-logout-modal>
+  <div class="customer-logout-modal__scrim" data-logout-close></div>
+  <div class="customer-logout-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="CustomerLogoutTitle">
+    <h3 id="CustomerLogoutTitle" class="customer-logout-modal__title">Are you sure you want to logout?</h3>
+    <p class="customer-note">You can sign back in anytime to check orders, addresses, and support updates.</p>
+    <div class="customer-auth__actions">
+      <a class="customer-button" href="{{ routes.account_logout_url }}">Logout</a>
+      <button type="button" class="customer-button--secondary" data-logout-close>Stay signed in</button>
+    </div>
+  </div>
+</div>

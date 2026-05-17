@@ -1,78 +1,67 @@
-﻿{%- liquid
+{%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign price = current_variant.price | default: product.price_min
   assign compare_at_price = current_variant.compare_at_price | default: product.compare_at_price_max
+
   if compare_at_price < price
     assign compare_at_price = product.compare_at_price_max
   endif
 
   assign primary_media = current_variant.featured_media | default: product.featured_media
-  assign secondary_media = blank
-  for media in product.media
-    if media.media_type == 'image' and primary_media != blank and media.id != primary_media.id
-      assign secondary_media = media
-      break
-    elsif media.media_type == 'image' and primary_media == blank and secondary_media == blank
-      assign secondary_media = media
-    endif
-  endfor
+  assign secondary_media = product.media[1]
+  assign show_sale_badge = false
 
-  assign product_text = product.title | append: ' ' | append: product.description | strip_html | downcase
-  assign theme_count = 0
-  assign has_name_engraving = false
-
-  if product_text contains 'engraving' or product_text contains 'personalised' or product_text contains 'personalized'
-    assign has_name_engraving = true
-  endif
-
-  for option in product.options_with_values
-    assign option_name = option.name | strip | downcase
-    if option_name contains 'theme'
-      assign theme_count = option.values.size
-    endif
-
-  endfor
-
-  assign eyebrow_text = 'Everyday pick'
-  if theme_count > 0
-    assign eyebrow_text = 'Kids themes'
-  elsif product_text contains 'vacuum' or product_text contains 'insulated'
-    assign eyebrow_text = 'Insulated'
-  elsif product_text contains 'microwave'
-    assign eyebrow_text = 'Microwave safe'
-  elsif product_text contains 'stainless'
-    assign eyebrow_text = 'Stainless steel'
-  endif
-
-  assign savings_amount = 0
-  assign savings_percent = 0
-  assign savings_amount_money = blank
-  assign review_count = product.metafields.reviews.rating_count | default: 0 | plus: 0
-  assign review_value = product.metafields.reviews.rating.value | default: 0 | plus: 0
   if compare_at_price > price and compare_at_price != blank
-    assign savings_amount = compare_at_price | minus: price
-    assign savings_percent = savings_amount | times: 100 | divided_by: compare_at_price
-    assign savings_amount_money = savings_amount | money
+    assign show_sale_badge = true
   endif
 
-  assign action_label = 'Add to cart'
-  if product.available == false
-    assign action_label = 'View product'
-  elsif product.variants.size > 1
-    assign action_label = 'Choose options'
+  assign discount_pct = 0
+  if show_sale_badge and compare_at_price > 0
+    assign discount_pct = compare_at_price | minus: price | times: 100 | divided_by: compare_at_price
+  endif
+
+  assign is_multi_variant = false
+  if product.variants.size > 1
+    assign is_multi_variant = true
+  endif
+
+  assign action_label = 'Add to Cart'
+  unless product.available
+    assign action_label = 'Sold out'
+  endunless
+  if is_multi_variant and product.available
+    assign action_label = 'View Options'
   endif
 
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
+
+  # Optional Instagram reel (set product metafield catfat.reel_url to an MP4 URL
+  # or a Shopify-hosted video file). If a file metafield, render its sources.
+  assign reel_url = product.metafields.catfat.reel_url
+  assign reel_video = product.metafields.catfat.reel_video
+  assign reel_poster = product.metafields.catfat.reel_poster
+  assign has_reel = false
+  if reel_url != blank or reel_video != blank
+    assign has_reel = true
+  endif
 -%}
 
-<article class="market-card{% unless product.available %} is-sold-out{% endunless %}">
+<article
+  class="market-card{% unless product.available %} is-sold-out{% endunless %}{% if is_multi_variant %} is-multi-variant{% endif %}{% if has_reel %} has-reel{% endif %}"
+  data-card-depth
+  data-product-id="{{ product.id }}"
+  data-product-handle="{{ product.handle }}"
+  {% if has_reel %}data-has-reel="true"{% endif %}
+>
   <a href="{{ product.url }}" class="market-card__media">
     <div class="market-card__badge-group">
-      {%- if savings_percent > 0 -%}
-        <span class="market-card__badge">Save {{ savings_percent }}%</span>
+      {%- if show_sale_badge and discount_pct > 0 -%}
+        <span class="market-card__badge">-{{ discount_pct }}%</span>
+      {%- elsif show_sale_badge -%}
+        <span class="market-card__badge">Sale</span>
       {%- endif -%}
-      {%- if has_name_engraving -%}
-        <span class="market-card__badge market-card__badge--light">Name engraving</span>
+      {%- if product.tags contains 'new' or product.tags contains 'New' -%}
+        <span class="market-card__badge market-card__badge--new">New</span>
       {%- endif -%}
     </div>
 
@@ -87,74 +76,89 @@
             loading: 'lazy',
             alt: product.title
         }}
+        {%- if secondary_media != blank -%}
+          {{
+            secondary_media
+            | image_url: width: 900
+            | image_tag:
+              class: 'market-card__image market-card__image--secondary',
+              widths: '320, 480, 640, 900',
+              loading: 'lazy',
+              alt: product.title
+          }}
+        {%- endif -%}
       {%- else -%}
         {{ 'product-1' | placeholder_svg_tag: 'market-card__image market-card__image--primary' }}
       {%- endif -%}
 
-      {%- if secondary_media != blank -%}
-        {{
-          secondary_media
-          | image_url: width: 900
-          | image_tag:
-            class: 'market-card__image market-card__image--secondary',
-            widths: '320, 480, 640, 900',
-            loading: 'lazy',
-            alt: product.title
-        }}
+      {%- if has_reel -%}
+        <video
+          class="market-card__reel"
+          muted
+          loop
+          playsinline
+          preload="none"
+          {% if reel_poster != blank %}poster="{{ reel_poster | image_url: width: 720 }}"{% endif %}
+          aria-hidden="true"
+        >
+          {%- if reel_video != blank -%}
+            {%- for source in reel_video.value.sources -%}
+              <source src="{{ source.url }}" type="{{ source.mime_type }}">
+            {%- endfor -%}
+          {%- elsif reel_url != blank -%}
+            <source src="{{ reel_url }}" type="video/mp4">
+          {%- endif -%}
+        </video>
+        <span class="market-card__reel-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+          REEL
+        </span>
       {%- endif -%}
     </div>
   </a>
 
   <div class="market-card__body">
-    <div class="market-card__topline">
-      <span class="market-card__eyebrow">{{ eyebrow_text }}</span>
-      {%- if review_count > 0 -%}
-        <span class="market-card__review-line">
-          <span class="market-card__review-star" aria-hidden="true">★</span>
-          <span>{{ review_value | round: 1 }}</span>
-          <span aria-hidden="true">·</span>
-          <span>{{ review_count }} review{% if review_count != 1 %}s{% endif %}</span>
-        </span>
-      {%- endif -%}
-    </div>
-
     <a href="{{ product.url }}" class="market-card__title">{{ product.title | escape }}</a>
 
-    <div class="market-card__price-panel{% unless savings_percent > 0 %} market-card__price-panel--simple{% endunless %}">
-      <div class="market-card__price-stack">
-        <span class="market-card__price">
-          {%- if product.price_varies -%}
-            {{ product.price_min | money }}
-          {%- else -%}
-            {{ price | money }}
-          {%- endif -%}
-        </span>
-        {%- if compare_at_price > price and compare_at_price != blank -%}
-          <span class="market-card__compare">{{ compare_at_price | money }}</span>
+    <div class="market-card__price-panel">
+      <span class="market-card__price">
+        {%- if product.price_varies -%}
+          From {{ product.price_min | money }}
+        {%- else -%}
+          {{ price | money }}
         {%- endif -%}
-      </div>
-
-      {%- if savings_percent > 0 -%}
-        <div class="market-card__deal">
-          <strong>{{ savings_percent }}% off</strong>
-          <span>Save {{ savings_amount_money }}</span>
-        </div>
+      </span>
+      {%- if show_sale_badge -%}
+        <s class="market-card__compare">{{ compare_at_price | money }}</s>
       {%- endif -%}
     </div>
 
-    {%- if product.available and product.variants.size == 1 -%}
-      <product-form class="market-card__form">
-        {%- form 'product', product, id: product_form_id, class: 'market-card__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-          <input type="hidden" name="id" value="{{ current_variant.id }}">
-          <button type="submit" name="add" class="market-card__action">
+    <div class="market-card__cta">
+      {%- if product.available -%}
+        {%- if is_multi_variant -%}
+          <a href="{{ product.url }}" class="market-card__action">
             {{ action_label }}
-          </button>
-        {%- endform -%}
-      </product-form>
-    {%- else -%}
-      <a href="{{ product.url }}" class="market-card__action{% unless product.available %} market-card__action--secondary{% endunless %}">
-        {{ action_label }}
-      </a>
-    {%- endif -%}
+          </a>
+        {%- else -%}
+          <product-form class="market-card__form">
+            {%- form 'product', product, id: product_form_id, class: 'market-card__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+              <button
+                type="submit"
+                name="add"
+                class="market-card__action"
+                aria-label="Add {{ product.title | escape }} to cart"
+              >
+                {{ action_label }}
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- endif -%}
+      {%- else -%}
+        <button type="button" class="market-card__action market-card__action--disabled" disabled aria-disabled="true">
+          {{ action_label }}
+        </button>
+      {%- endif -%}
+    </div>
   </div>
 </article>

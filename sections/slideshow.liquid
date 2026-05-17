@@ -1,214 +1,148 @@
 {{ 'section-marketplace-hero.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  assign hero_eyebrow = section.settings.eyebrow
+  assign hero_heading = section.settings.heading | default: 'Lunch, packed with care.'
+  assign hero_description = section.settings.description | default: 'Smart lunch boxes, bottles, and essentials designed'
+  assign hero_description_line_2 = section.settings.description_line_2 | default: 'for everyday Indian life.'
+  assign primary_button_label = section.settings.primary_button_label | default: 'Shop Lunch Boxes'
+  assign secondary_button_label = section.settings.secondary_button_label | default: 'Shop All Products'
   assign catalog_collection = collections['all-products']
   assign lunch_collection = collections['lunch-box']
-  assign bottle_collection = collections['bottles-flasks']
-  assign kids_collection = collections['kids-collections']
-  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
-  assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '650' | plus: 0
 
-  assign main_collection = lunch_collection
-  if main_collection == blank
-    assign main_collection = kids_collection
-  endif
-
-  assign main_product = blank
-  if main_collection != blank
-    for product in main_collection.products
-      if product.available
-        assign main_product = product
-        break
-      endif
-    endfor
-    if main_product == blank
-      assign main_product = main_collection.products.first
+  assign primary_link = section.settings.primary_button_link
+  if primary_link == blank
+    if lunch_collection != blank
+      assign primary_link = lunch_collection.url
+    elsif catalog_collection != blank
+      assign primary_link = catalog_collection.url
+    else
+      assign primary_link = routes.collections_url
     endif
   endif
 
-  assign kids_product = blank
-  if kids_collection != blank
-    for product in kids_collection.products
-      if product.available
-        assign kids_product = product
-        break
-      endif
-    endfor
-    if kids_product == blank
-      assign kids_product = kids_collection.products.first
+  assign secondary_link = section.settings.secondary_button_link
+  if secondary_link == blank
+    if catalog_collection != blank
+      assign secondary_link = catalog_collection.url
+    else
+      assign secondary_link = routes.collections_url
     endif
   endif
 
-  assign bottle_product = blank
-  if bottle_collection != blank
-    for product in bottle_collection.products
-      if product.available
-        assign bottle_product = product
+  assign fallback_media = blank
+  assign fallback_product = blank
+  assign fallback_media_is_portrait = false
+  if lunch_collection != blank
+    for product in lunch_collection.products
+      if product.media != blank
+        for media in product.media
+          if media.media_type == 'image' and media.preview_image.aspect_ratio >= 1.18
+            assign fallback_media = media
+            assign fallback_product = product
+            break
+          endif
+        endfor
+      endif
+
+      if fallback_media != blank
         break
       endif
     endfor
-    if bottle_product == blank
-      assign bottle_product = bottle_collection.products.first
+
+    if fallback_media == blank
+      for product in lunch_collection.products
+        if product.featured_media != blank
+          assign fallback_media = product.featured_media
+          assign fallback_product = product
+          break
+        endif
+      endfor
     endif
   endif
 
+  if fallback_media != blank and fallback_media.preview_image != blank and fallback_media.preview_image.aspect_ratio < 1.18
+    assign fallback_media_is_portrait = true
+  endif
+
+  assign hero_image_alt = hero_heading
+  if section.settings.hero_image != blank
+    assign hero_image_alt = section.settings.hero_image_alt | default: hero_heading
+  elsif fallback_product != blank
+    assign hero_image_alt = fallback_product.title
+  endif
+
+  assign fallback_media_class = 'marketplace-hero__image marketplace-hero__image--fallback'
+  assign media_wrapper_class = 'marketplace-hero__media'
+  if section.settings.hero_image == blank and fallback_media != blank
+    assign media_wrapper_class = media_wrapper_class | append: ' marketplace-hero__media--fallback'
+    if fallback_media_is_portrait
+      assign fallback_media_class = fallback_media_class | append: ' marketplace-hero__image--fallback-portrait'
+      assign media_wrapper_class = media_wrapper_class | append: ' marketplace-hero__media--fallback-portrait'
+    else
+      assign fallback_media_class = fallback_media_class | append: ' marketplace-hero__image--fallback-landscape'
+      assign media_wrapper_class = media_wrapper_class | append: ' marketplace-hero__media--fallback-landscape'
+    endif
+  endif
 -%}
 
 <section
-  class="marketplace-hero{% if section.settings.auto_rotate %} marketplace-hero--animated{% endif %}"
-  style="--marketplace-float-speed: {{ section.settings.change_slides_speed }}s;"
+  id="catfat-hero-{{ section.id }}"
+  class="marketplace-hero"
+  aria-label="{{ hero_heading | escape }}"
 >
-  <div class="page-width">
-    <div class="marketplace-hero__shell">
-      <div class="marketplace-hero__copy">
-        <span class="marketplace-hero__eyebrow">Catfat lunchware</span>
-        <h2 class="marketplace-hero__title">Packed for school smiles.</h2>
-        <p class="marketplace-hero__description">
-          Explore Catfat lunch boxes, bottles, and gifting picks through a cleaner homepage built to help parents compare faster and buy with more confidence.
-        </p>
+  <div
+    class="marketplace-hero__media"
+    data-scrub
+    data-scrub-layer="0.18"
+    data-scrub-opacity-from="0.85"
+    data-scrub-scale="1.04">
+    {%- if section.settings.hero_image != blank -%}
+      {{
+        section.settings.hero_image
+        | image_url: width: 2200, format: 'webp'
+        | image_tag:
+          class: 'marketplace-hero__image',
+          widths: '768, 1080, 1440, 1760, 2200',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: hero_image_alt
+      }}
+    {%- else -%}
+      {%- comment -%}
+        Bundled brand hero. To pull live-product images instead, upload one to
+        the theme editor's Hero background image setting.
+      {%- endcomment -%}
+      <img
+        src="{{ 'catfat-hero-kitchen.jpg' | asset_url }}"
+        class="marketplace-hero__image"
+        alt="{{ hero_image_alt }}"
+        loading="eager"
+        fetchpriority="high"
+        width="2200"
+        height="1238">
+    {%- endif -%}
 
-        <div class="marketplace-hero__actions">
-          <a
-            href="{% if lunch_collection != blank %}{{ lunch_collection.url }}{% elsif catalog_collection != blank %}{{ catalog_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
-            class="marketplace-hero__button marketplace-hero__button--primary"
-          >
-            Shop lunch boxes
-          </a>
-          <a
-            href="{% if catalog_collection != blank %}{{ catalog_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
-            class="marketplace-hero__button marketplace-hero__button--secondary"
-          >
-            Shop all products
-          </a>
-        </div>
+    <div class="marketplace-hero__overlay"></div>
+  </div>
 
-        <div class="marketplace-hero__proof">
-          <span class="marketplace-hero__proof-item">
-            {% if all_reviews_count > 0 %}{{ all_reviews_count }}+ verified reviews{% else %}650+ verified reviews{% endif %}
-          </span>
-          <span class="marketplace-hero__proof-item">Original product photos</span>
-          <span class="marketplace-hero__proof-item">Bulk gifting support</span>
-        </div>
+  <div class="marketplace-hero__content">
+    <div class="marketplace-hero__copy">
+      <span class="marketplace-hero__eyebrow" data-scrub data-scrub-y="20" data-scrub-opacity-from="0">{{ hero_eyebrow | default: 'New Arrivals' }}</span>
+      <h1 class="marketplace-hero__title" data-scrub data-scrub-y="36" data-scrub-opacity-from="0" data-scrub-from="0.05">{{ hero_heading }}</h1>
+      <p class="marketplace-hero__description" data-scrub data-scrub-y="30" data-scrub-opacity-from="0" data-scrub-from="0.12">
+        <span class="marketplace-hero__description-line">{{ hero_description }}</span>
+        {%- if hero_description_line_2 != blank -%}
+          <span class="marketplace-hero__description-line">{{ hero_description_line_2 }}</span>
+        {%- endif -%}
+      </p>
 
-        <div class="marketplace-hero__quick-links">
-          {%- if lunch_collection != blank -%}
-            <a href="{{ lunch_collection.url }}" class="marketplace-hero__quick-link">Lunch Boxes</a>
-          {%- endif -%}
-          {%- if bottle_collection != blank -%}
-            <a href="{{ bottle_collection.url }}" class="marketplace-hero__quick-link">Bottles &amp; Thermos</a>
-          {%- endif -%}
-          {%- if kids_collection != blank -%}
-            <a href="{{ kids_collection.url }}" class="marketplace-hero__quick-link">Kids Themes</a>
-          {%- endif -%}
-          {%- if gifting_collection != blank -%}
-            <a href="{{ gifting_collection.url }}" class="marketplace-hero__quick-link">Bulk Gifting</a>
-          {%- endif -%}
-        </div>
-      </div>
-
-      <div class="marketplace-hero__visual">
-        <a
-          href="{% if main_collection != blank %}{{ main_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
-          class="marketplace-hero__feature marketplace-hero__feature--main"
-        >
-          <div class="marketplace-hero__feature-copy">
-            <span class="marketplace-hero__feature-label">
-              {% if main_collection != blank %}Bestselling lunch boxes{% else %}Lunch-box range{% endif %}
-            </span>
-            <strong class="marketplace-hero__feature-title">
-              {% if main_product != blank %}
-                {{ main_product.title | escape }}
-              {% else %}
-                Lunch-box picks made for school routines.
-              {% endif %}
-            </strong>
-            <div class="marketplace-hero__feature-meta">
-              <span class="marketplace-hero__feature-pill">School-ready picks</span>
-            </div>
-          </div>
-          <div class="marketplace-hero__feature-image-wrap">
-            {%- if main_product != blank and main_product.featured_media != blank -%}
-              {{
-                main_product.featured_media
-                | image_url: width: 1000
-                | image_tag:
-                  class: 'marketplace-hero__feature-image',
-                  widths: '420, 640, 840, 1000',
-                  loading: 'eager',
-                  alt: main_product.title
-              }}
-            {%- elsif main_collection != blank and main_collection.image != blank -%}
-              {{
-                main_collection.image
-                | image_url: width: 1000
-                | image_tag:
-                  class: 'marketplace-hero__feature-image',
-                  widths: '420, 640, 840, 1000',
-                  loading: 'eager',
-                  alt: main_collection.title
-              }}
-            {%- endif -%}
-          </div>
+      <div class="marketplace-hero__actions" data-scrub data-scrub-y="24" data-scrub-opacity-from="0" data-scrub-from="0.2">
+        <a href="{{ primary_link }}" class="marketplace-hero__button marketplace-hero__button--primary">
+          {{ primary_button_label }}
         </a>
-
-        <a
-          href="{% if kids_collection != blank %}{{ kids_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
-          class="marketplace-hero__feature"
-        >
-          <div class="marketplace-hero__feature-copy">
-            <span class="marketplace-hero__feature-label">Theme favourites</span>
-            <strong class="marketplace-hero__feature-title">
-              {% if kids_product != blank %}{{ kids_product.title | escape }}{% else %}Character-led picks for gift-ready lunches.{% endif %}
-            </strong>
-            <div class="marketplace-hero__feature-meta">
-              <span class="marketplace-hero__feature-pill">Character picks</span>
-            </div>
-          </div>
-          <div class="marketplace-hero__feature-image-wrap">
-            {%- if kids_product != blank and kids_product.featured_media != blank -%}
-              {{
-                kids_product.featured_media
-                | image_url: width: 900
-                | image_tag:
-                  class: 'marketplace-hero__feature-image',
-                  widths: '320, 520, 700, 900',
-                  loading: 'lazy',
-                  alt: kids_product.title
-              }}
-            {%- endif -%}
-          </div>
-        </a>
-
-        <a
-          href="{% if bottle_collection != blank %}{{ bottle_collection.url }}{% else %}{{ routes.collections_url }}{% endif %}"
-          class="marketplace-hero__feature"
-        >
-          <div class="marketplace-hero__feature-copy">
-            <span class="marketplace-hero__feature-label">Insulated carry</span>
-            <strong class="marketplace-hero__feature-title">
-              {% if bottle_product != blank %}
-                {{ bottle_product.title | escape }}
-              {% else %}
-                Bottles and thermos for school and travel.
-              {% endif %}
-            </strong>
-            <div class="marketplace-hero__feature-meta">
-              <span class="marketplace-hero__feature-pill">Daily carry</span>
-            </div>
-          </div>
-          <div class="marketplace-hero__feature-image-wrap">
-            {%- if bottle_product != blank and bottle_product.featured_media != blank -%}
-              {{
-                bottle_product.featured_media
-                | image_url: width: 900
-                | image_tag:
-                  class: 'marketplace-hero__feature-image',
-                  widths: '320, 520, 700, 900',
-                  loading: 'lazy',
-                  alt: bottle_product.title
-              }}
-            {%- endif -%}
-          </div>
+        <a href="{{ secondary_link }}" class="marketplace-hero__button marketplace-hero__button--secondary">
+          {{ secondary_button_label }}
         </a>
       </div>
     </div>
@@ -217,21 +151,64 @@
 
 {% schema %}
 {
-  "name": "Slideshow",
+  "name": "Hero banner",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "auto_rotate",
-      "default": true,
-      "label": "Animate feature cards"
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero background image"
     },
     {
-      "type": "range",
-      "id": "change_slides_speed",
-      "min": 3,
-      "max": 10,
-      "default": 5,
-      "label": "Animation speed"
+      "type": "text",
+      "id": "hero_image_alt",
+      "default": "Lunchbox with roti, fruit, and snacks on a school desk",
+      "label": "Hero image alt text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "CATFAT LUNCHWARE",
+      "label": "Eyebrow label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Lunch, packed with care.",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "default": "Smart lunch boxes, bottles, and essentials designed",
+      "label": "Description (line 1)"
+    },
+    {
+      "type": "text",
+      "id": "description_line_2",
+      "default": "for everyday Indian life.",
+      "label": "Description (line 2)"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "default": "Shop Lunch Boxes",
+      "label": "Primary button label"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "default": "Shop All Products",
+      "label": "Secondary button label"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
     }
   ]
 }

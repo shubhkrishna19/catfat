@@ -1,0 +1,180 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- capture return_link -%}https://api.whatsapp.com/send?phone=918178136702&text=Hi%20Catfat%2C%20I%20need%20help%20with%20a%20return%20for%20order%20{{ order.name | url_encode }}.{%- endcapture -%}
+{%- assign display_address = order.shipping_address | default: order.billing_address -%}
+
+<section class="customer-page section-{{ section.id }}-padding">
+  <div class="page-width customer-shell">
+    {% render 'customer-account-nav', current_page: 'orders', customer: customer %}
+
+    <div class="customer-main">
+      <div class="customer-order-detail__header">
+        <span class="customer-section__eyebrow">Order details</span>
+        <h1 class="customer-order-detail__title">{{ order.name }}</h1>
+        <p class="customer-panel__copy">
+          Placed on {{ order.created_at | date: '%d %b %Y' }} • {{ order.financial_status_label }} • {{ order.fulfillment_status_label }}
+        </p>
+      </div>
+
+      <div class="customer-order-detail">
+        <div class="customer-order-detail__main">
+          <div class="customer-card">
+            <div class="customer-card__header">
+              <div>
+                <h2 class="customer-card__title">Items in this order</h2>
+                <p class="customer-card__meta">{{ order.line_items.size }} item{% if order.line_items.size != 1 %}s{% endif %} in total.</p>
+              </div>
+            </div>
+
+            <div>
+              {%- for line_item in order.line_items -%}
+                {%- assign item_image = line_item.image | default: line_item.product.featured_image -%}
+                <article class="customer-line-item">
+                  <div class="customer-product-thumb">
+                    {%- if item_image != blank -%}
+                      {{ item_image | image_url: width: 192 | image_tag: loading: 'lazy', widths: '96,192', alt: line_item.title }}
+                    {%- endif -%}
+                  </div>
+                  <div>
+                    <h3 class="customer-line-item__title">{{ line_item.title }}</h3>
+                    <div class="customer-line-item__meta">
+                      {%- unless line_item.product.has_only_default_variant -%}
+                        <span>{{ line_item.variant.title }}</span>
+                      {%- endunless -%}
+                      <span>Quantity: {{ line_item.quantity }}</span>
+                      <span>Price: {{ line_item.final_line_price | money }}</span>
+                    </div>
+
+                    {%- if line_item.properties != blank -%}
+                      <div class="customer-line-item__properties">
+                        {%- for property in line_item.properties -%}
+                          {% assign property_first_char = property.first | slice: 0 %}
+                          {%- if property.last != blank and property_first_char != '_' -%}
+                            <span>{{ property.first }}: {{ property.last }}</span>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if line_item.fulfillment and line_item.fulfillment.tracking_url != blank -%}
+                      <div class="customer-line-item__tracking">
+                        <span>{{ line_item.fulfillment.tracking_company }}{% if line_item.fulfillment.tracking_number != blank %} • {{ line_item.fulfillment.tracking_number }}{% endif %}</span>
+                        <a class="customer-inline-link" href="{{ line_item.fulfillment.tracking_url }}">Track shipment</a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </article>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="customer-card">
+            <div class="customer-card__header">
+              <div>
+                <h2 class="customer-card__title">Shipping and payment</h2>
+                <p class="customer-card__meta">A clear view of totals, payment status, and where the order is headed.</p>
+              </div>
+            </div>
+
+            <div class="customer-order-table">
+              <div class="customer-order-table__row"><span>Subtotal</span><strong>{{ order.line_items_subtotal_price | money }}</strong></div>
+              {%- for shipping_method in order.shipping_methods -%}
+                <div class="customer-order-table__row"><span>Shipping ({{ shipping_method.title }})</span><strong>{{ shipping_method.price | money }}</strong></div>
+              {%- endfor -%}
+              {%- for tax_line in order.tax_lines -%}
+                <div class="customer-order-table__row"><span>{{ tax_line.title }} tax</span><strong>{{ tax_line.price | money }}</strong></div>
+              {%- endfor -%}
+              {%- if order.total_refunded_amount > 0 -%}
+                <div class="customer-order-table__row"><span>Refunded</span><strong>-{{ order.total_refunded_amount | money_with_currency }}</strong></div>
+              {%- endif -%}
+              <div class="customer-order-table__row customer-order-table__row--total"><span>Total</span><strong>{{ order.total_net_amount | money_with_currency }}</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="customer-order-detail__side">
+          <div class="customer-order-detail__summary">
+            <div class="customer-card__header">
+              <div>
+                <h2 class="customer-card__title">Order summary</h2>
+                <p class="customer-card__meta">Everything important, without hunting through the order.</p>
+              </div>
+              <span class="customer-status {% if order.fulfillment_status == 'fulfilled' %}customer-status--success{% elsif order.cancelled %}customer-status--neutral{% endif %}">
+                {{ order.fulfillment_status_label }}
+              </span>
+            </div>
+
+            <div class="customer-summary__list">
+              <div class="customer-summary__item"><span>Payment</span><strong>{{ order.financial_status_label }}</strong></div>
+              <div class="customer-summary__item"><span>Delivery</span><strong>{{ order.fulfillment_status_label }}</strong></div>
+              <div class="customer-summary__item"><span>Address</span><strong>{{ display_address.city }}, {{ display_address.country }}</strong></div>
+            </div>
+
+            <div class="customer-address-card__meta">
+              <span>{{ display_address.name }}</span>
+              <span>{{ display_address.address1 }}</span>
+              {%- if display_address.address2 != blank -%}<span>{{ display_address.address2 }}</span>{%- endif -%}
+              <span>{{ display_address.city }}, {{ display_address.province }} {{ display_address.zip }}</span>
+              <span>{{ display_address.country }}</span>
+              {%- if display_address.phone != blank -%}<span>{{ display_address.phone }}</span>{%- endif -%}
+            </div>
+
+            <div class="customer-order-detail__actions">
+              <a class="customer-button--secondary" href="{{ routes.account_url }}#support">Need help?</a>
+              {%- if order.fulfillment_status == 'fulfilled' and order.total_refunded_amount == 0 -%}
+                <a class="customer-button--secondary" href="{{ return_link }}">Return item</a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer order",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    }
+  ]
+}
+{% endschema %}

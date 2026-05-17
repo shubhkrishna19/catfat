@@ -183,9 +183,16 @@
   font-size: 1.42rem;
   font-weight: 900;
   letter-spacing: 0.02em;
-  background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
-  box-shadow: 0 14px 26px rgba(var(--catfat-brand-purple-rgb), 0.22);
+  background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+  box-shadow: 0 10px 24px rgba(255, 107, 157, 0.28);
   cursor: pointer;
+  transition: background 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.catfat-footer__newsletter-button:hover {
+  background: linear-gradient(135deg, #e84a7f 0%, #d03a6f 100%);
+  box-shadow: 0 14px 30px rgba(255, 107, 157, 0.36);
+  transform: translateY(-1px);
 }
 
 .catfat-footer__newsletter-message {
@@ -335,14 +342,20 @@
 
 @media screen and (max-width: 749px) {
   .catfat-footer {
-    margin: 4.8rem 1rem 1rem;
-    padding-top: 28px;
+    margin: 3.6rem 1rem 1rem;
+    padding: 2.4rem 0 2rem;
     border-radius: 16px;
+  }
+
+  .catfat-footer__inner {
+    padding-top: 0;
+    padding-inline: 0.8rem;
   }
 
   .catfat-footer__grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 2.8rem;
+    margin-top: 2rem;
   }
 
   .catfat-footer__brand-text,
@@ -352,25 +365,458 @@
     font-size: 1.32rem;
   }
 
-  .catfat-footer__actions {
-    gap: 10px;
+  .catfat-footer__brand-title {
+    max-width: 9.5ch;
+    margin: 1.2rem 0 1.2rem;
+    font-size: clamp(1.9rem, 7vw, 2.7rem);
+    line-height: 1.02;
+  }
+
+  .catfat-footer__brand-text,
+  .catfat-footer__support-copy {
+    margin-bottom: 1.6rem;
+    line-height: 1.6;
+  }
+
+  .catfat-footer__trust {
+    gap: 0.8rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .catfat-footer__trust-pill {
+    min-height: 3.4rem;
+    padding: 0.8rem 1.1rem;
+  }
+
+  .catfat-footer__heading {
+    margin-bottom: 1.4rem;
+  }
+
+  .catfat-footer__links {
+    gap: 1.2rem;
+  }
+
+  .catfat-footer__contact-list {
+    gap: 1rem;
+  }
+
+  .catfat-footer__newsletter-form {
+    margin-top: 1.4rem;
   }
 
   .catfat-footer__newsletter-fields {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .catfat-footer__social {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .catfat-footer__social a:last-child:nth-child(odd) {
+    grid-column: auto;
   }
 
   .catfat-footer__bottom {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.4rem;
+    margin-top: 2.4rem;
+    padding-top: 1.8rem;
   }
 
   .catfat-footer__bottom-side {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+/* ─── Payment icons row ──────────────────────────────────────────────────── */
+
+.catfat-footer__payments {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2rem 0 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 2.4rem;
+}
+
+.catfat-footer__payments-label {
+  color: rgba(224, 210, 244, 0.6);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-right: 0.4rem;
+}
+
+.catfat-footer__payment-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.catfat-footer__payment-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(240, 230, 255, 0.9);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Trust pills: pink accent ───────────────────────────────────────────── */
+
+.catfat-footer__trust-pill {
+  border-color: rgba(255, 107, 157, 0.22);
+  background: rgba(255, 107, 157, 0.1);
+  color: #ffb8d4;
+}
+
+/* ─── Social links: pill style ───────────────────────────────────────────── */
+
+.catfat-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.catfat-footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.6rem;
+  padding: 0 1.4rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255, 107, 157, 0.24);
+  background: rgba(255, 107, 157, 0.1);
+  color: #ffb8d4;
+  font-size: 1.22rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.catfat-footer__social a:hover {
+  background: rgba(255, 107, 157, 0.2);
+  border-color: rgba(255, 107, 157, 0.44);
+  color: #ffffff;
+}
+
+/* ─── Footer grid: mobile collapse ──────────────────────────────────────── */
+
+@media screen and (max-width: 749px) {
+  .catfat-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+
+  .catfat-footer__payments {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .catfat-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.4rem 3.2rem;
+  }
+}
+
+/* ─── Redesigned newsletter card (Get Coupons First) ────────────────────── */
+
+.catfat-footer__signup-card {
+  position: relative;
+  padding: 2.4rem;
+  border-radius: 1.8rem;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 107, 157, 0.18), transparent 40%),
+    linear-gradient(135deg, rgba(255, 107, 157, 0.08) 0%, rgba(116, 28, 177, 0.12) 100%);
+  border: 1px solid rgba(255, 107, 157, 0.18);
+  overflow: hidden;
+}
+
+.catfat-footer__signup-eyebrow {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 107, 157, 0.22);
+  color: #ffb8d4;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.catfat-footer__signup-title {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.95rem, 1.6rem + 0.8vw, 2.4rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.catfat-footer__signup-card .catfat-footer__support-copy {
+  margin: 0 0 1.6rem;
+  font-size: 1.32rem;
+  line-height: 1.5;
+  color: rgba(237, 230, 248, 0.85);
+}
+
+.catfat-footer__newsletter-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.catfat-footer__newsletter-input {
+  width: 100%;
+  padding: 1.3rem 1.4rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.22);
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.catfat-footer__newsletter-input::placeholder {
+  color: rgba(237, 230, 248, 0.4);
+}
+
+.catfat-footer__newsletter-input:focus {
+  outline: none;
+  border-color: #ff6b9d;
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.catfat-footer__newsletter-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.3rem 1.8rem;
+  border: none;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+  color: #ffffff;
+  font-size: 1.42rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(232, 74, 127, 0.36);
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s ease;
+}
+
+.catfat-footer__newsletter-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(232, 74, 127, 0.46);
+}
+
+.catfat-footer__newsletter-message {
+  margin: 1.2rem 0 0;
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  background: rgba(37, 211, 102, 0.16);
+  color: #b9f4cb;
+  font-size: 1.28rem;
+}
+
+.catfat-footer__signup-perks {
+  list-style: none;
+  margin: 1.8rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+}
+
+.catfat-footer__signup-perks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: #c8b3e6;
+}
+
+.catfat-footer__signup-perks svg {
+  color: #25d366;
+  flex-shrink: 0;
+}
+
+/* ─── Social row (above We accept) ──────────────────────────────────── */
+
+.catfat-footer__social-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
+  margin: 2.4rem 0 1.6rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(237, 230, 248, 0.1);
+}
+
+.catfat-footer__social-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(237, 230, 248, 0.55);
+}
+
+.catfat-footer__social-icons {
+  display: inline-flex;
+  gap: 0.8rem;
+}
+
+.catfat-footer__social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(237, 230, 248, 0.85);
+  text-decoration: none;
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.24s ease, color 0.24s ease, border-color 0.24s ease;
+}
+
+.catfat-footer__social-icon:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(232, 74, 127, 0.36);
+}
+
+/* Hide the legacy social text list if it lingers somewhere */
+.catfat-footer__social {
+  display: none;
+}
+
+/* ─── Mobile compaction ─────────────────────────────────────────────── */
+
+@media screen and (max-width: 749px) {
+  .catfat-footer {
+    margin: clamp(3.6rem, 5vw, 5.6rem) 1rem 0.8rem;
+    padding: 18px 0 12px;
+    border-radius: 14px;
+  }
+
+  .catfat-footer__inner {
+    padding: 1.4rem 0 0;
+  }
+
+  .catfat-footer__topline {
+    font-size: 1rem;
+    padding: 6px 10px;
+    min-height: 28px;
+  }
+
+  .catfat-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    margin-top: 1.6rem;
+  }
+
+  .catfat-footer__brand-title {
+    font-size: clamp(1.95rem, 1.7rem + 1vw, 2.4rem);
+    margin: 8px 0 6px;
+  }
+
+  .catfat-footer__brand-text {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .catfat-footer__heading {
+    font-size: 1.35rem;
+  }
+
+  .catfat-footer__links a {
+    font-size: 1.32rem;
+  }
+
+  .catfat-footer__signup-card {
+    padding: 1.6rem 1.4rem;
+  }
+
+  .catfat-footer__signup-title {
+    font-size: 1.85rem;
+  }
+
+  .catfat-footer__signup-card .catfat-footer__support-copy {
+    font-size: 1.22rem;
+  }
+
+  .catfat-footer__social-row {
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    margin: 1.8rem 0 1.2rem;
+    padding-top: 1.6rem;
+  }
+
+  .catfat-footer__social-icon {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  .catfat-footer__payments {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+    padding-top: 1.4rem;
+  }
+
+  .catfat-footer__payments-label {
+    font-size: 1.15rem;
+  }
+
+  .catfat-footer__payment-pill {
+    font-size: 1.1rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .catfat-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+  }
+
+  .catfat-footer__bottom-copy,
+  .catfat-footer__bottom-note {
+    font-size: 1.18rem;
+  }
+
+  .catfat-footer__signup-perks {
+    margin-top: 1.2rem;
+    gap: 0.4rem 0.9rem;
+  }
+
+  .catfat-footer__signup-perks li {
+    font-size: 1.08rem;
   }
 }

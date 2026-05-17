@@ -4,138 +4,130 @@
   assign lunch_collection = collections['lunch-box']
   assign bottle_collection = collections['bottles-flasks']
   assign kids_collection = collections['kids-collections']
-  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+  assign arrivals_collection = collections['new-arrivals']
 
-  assign lunch_media = blank
-  if lunch_collection != blank
-    if lunch_collection.image != blank
-      assign lunch_media = lunch_collection.image
-    elsif lunch_collection.products.first != blank and lunch_collection.products.first.featured_media != blank
-      assign lunch_media = lunch_collection.products.first.featured_media
+  assign hero_url = section.settings.hero_link
+  if hero_url == blank
+    assign hero_url = routes.collections_url
+    if lunch_collection != blank and lunch_collection.url != blank
+      assign hero_url = lunch_collection.url
     endif
   endif
 
-  assign bottle_media = blank
-  if bottle_collection != blank
-    if bottle_collection.image != blank
-      assign bottle_media = bottle_collection.image
-    elsif bottle_collection.products.first != blank and bottle_collection.products.first.featured_media != blank
-      assign bottle_media = bottle_collection.products.first.featured_media
-    endif
-  endif
+  # Hero priority: theme editor upload > bundled brand image. Collection
+  # auto-fetch is intentionally disabled here because it was picking up loose
+  # product shots that didn't read as a hero.
+  assign hero_media = section.settings.hero_image
 
-  assign kids_media = blank
-  if kids_collection != blank
-    if kids_collection.image != blank
-      assign kids_media = kids_collection.image
-    elsif kids_collection.products.first != blank and kids_collection.products.first.featured_media != blank
-      assign kids_media = kids_collection.products.first.featured_media
-    endif
-  endif
-
-  assign gifting_media = blank
-  if gifting_collection != blank
-    if gifting_collection.image != blank
-      assign gifting_media = gifting_collection.image
-    elsif gifting_collection.products.first != blank and gifting_collection.products.first.featured_media != blank
-      assign gifting_media = gifting_collection.products.first.featured_media
-    endif
-  endif
+  # Category card images: theme editor upload only. Bundled brand defaults are
+  # rendered in the markup below when these are blank.
+  assign lunch_media = section.settings.category_image_lunch
+  assign bottle_media = section.settings.category_image_bottle
 -%}
 
-<section class="marketplace-intent page-width">
-  <div class="marketplace-intent__header">
-    <div>
-      <span class="marketplace-intent__eyebrow">Shopper intent</span>
-      <h2 class="marketplace-intent__title">Start with why they came.</h2>
-      <p class="marketplace-intent__description">
-        A cleaner Catfat homepage starts with shopper intent first: school mornings, kids themes, hydration, or gift-ready picks.
-      </p>
+<section class="marketplace-intent">
+  <div class="page-width">
+    <div class="marketplace-intent__layout">
+      <a href="{{ hero_url }}" class="marketplace-intent__hero" aria-label="Shop Catfat collections" data-scrub data-scrub-y="40" data-scrub-scale="0.96" data-scrub-opacity-from="0.2" data-scrub-layer="0.18">
+        <div class="marketplace-intent__hero-media">
+          {%- if hero_media != blank -%}
+            {{
+              hero_media
+              | image_url: width: 1600
+              | image_tag:
+                class: 'marketplace-intent__hero-image',
+                widths: '480, 720, 960, 1280, 1600',
+                loading: 'lazy',
+                alt: 'Catfat lunchware packed for school-day meals'
+            }}
+          {%- else -%}
+            <img
+              src="{{ 'catfat-smart-lunch-flatlay.jpg' | asset_url }}"
+              class="marketplace-intent__hero-image"
+              alt="Catfat lunchware flat-lay with bottle and Indian meal"
+              loading="lazy"
+              width="1600" height="1067">
+          {%- endif -%}
+        </div>
+
+        <div class="marketplace-intent__hero-overlay"></div>
+        <div class="marketplace-intent__hero-copy">
+          <h2 class="marketplace-intent__hero-title">Smart Lunch for Everyday Life</h2>
+          <span class="marketplace-intent__hero-button">Shop Now</span>
+        </div>
+      </a>
+
+      <div class="marketplace-intent__panel" data-scrub data-scrub-y="32" data-scrub-opacity-from="0" data-scrub-from="0.1">
+        <div class="marketplace-intent__heading">
+          <h2 class="marketplace-intent__panel-title">Explore Our Range</h2>
+          <p class="marketplace-intent__panel-copy">Made for school &amp; Indian meals.</p>
+        </div>
+
+        <div class="marketplace-intent__category-grid">
+          <a
+            href="{% if lunch_collection != blank and lunch_collection.url != blank %}{{ lunch_collection.url }}{% else %}/collections/all{% endif %}"
+            class="marketplace-intent__category-card" data-card-depth
+            aria-label="Browse Lunch Boxes"
+          >
+            <span class="marketplace-intent__category-media">
+              {%- if lunch_media != blank -%}
+                {{
+                  lunch_media
+                  | image_url: width: 720
+                  | image_tag:
+                    class: 'marketplace-intent__category-image',
+                    widths: '180, 280, 420, 560, 720',
+                    loading: 'lazy',
+                    alt: 'Lunch Boxes'
+                }}
+              {%- else -%}
+                <img src="{{ 'catfat-smart-lunch-flatlay.jpg' | asset_url }}" class="marketplace-intent__category-image" alt="Lunch Boxes" loading="lazy" width="720" height="480">
+              {%- endif -%}
+            </span>
+            <span class="marketplace-intent__category-title">Lunch Boxes</span>
+          </a>
+
+          <a
+            href="{% if bottle_collection != blank and bottle_collection.url != blank %}{{ bottle_collection.url }}{% else %}/collections/all{% endif %}"
+            class="marketplace-intent__category-card" data-card-depth
+            aria-label="Browse Bottles and Flasks"
+          >
+            <span class="marketplace-intent__category-media">
+              {%- if bottle_media != blank -%}
+                {{
+                  bottle_media
+                  | image_url: width: 720
+                  | image_tag:
+                    class: 'marketplace-intent__category-image',
+                    widths: '180, 280, 420, 560, 720',
+                    loading: 'lazy',
+                    alt: 'Bottles and Flasks'
+                }}
+              {%- else -%}
+                <img src="{{ 'catfat-routine-school.jpg' | asset_url }}" class="marketplace-intent__category-image" alt="Bottles and Flasks" loading="lazy" width="720" height="960">
+              {%- endif -%}
+            </span>
+            <span class="marketplace-intent__category-title">Bottles &amp; Flasks</span>
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="marketplace-intent__grid">
-    <a href="{% if lunch_collection != blank %}{{ lunch_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
-      <span class="marketplace-intent__label">School-ready</span>
-      <h3 class="marketplace-intent__card-title">Lunch boxes for calmer school mornings.</h3>
-      <p class="marketplace-intent__card-copy">Bento favourites, stainless steel picks, and everyday lunch boxes that are easy to shortlist fast.</p>
-      <span class="marketplace-intent__card-link">Explore lunch boxes</span>
-      {%- if lunch_media != blank -%}
-        <span class="marketplace-intent__media">
-          {{
-            lunch_media
-            | image_url: width: 320
-            | image_tag:
-              widths: '120, 180, 240, 320',
-              loading: 'lazy',
-              alt: 'Lunch boxes'
-          }}
-        </span>
-      {%- endif -%}
-    </a>
-
-    <a href="{% if bottle_collection != blank %}{{ bottle_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
-      <span class="marketplace-intent__label">Hydration</span>
-      <h3 class="marketplace-intent__card-title">Bottles and thermos for daily carry.</h3>
-      <p class="marketplace-intent__card-copy">Insulated bottles and travel-friendly flasks that feel coordinated with the lunch-box range.</p>
-      <span class="marketplace-intent__card-link">Explore bottles</span>
-      {%- if bottle_media != blank -%}
-        <span class="marketplace-intent__media">
-          {{
-            bottle_media
-            | image_url: width: 320
-            | image_tag:
-              widths: '120, 180, 240, 320',
-              loading: 'lazy',
-              alt: 'Bottles and thermos'
-          }}
-        </span>
-      {%- endif -%}
-    </a>
-
-    <a href="{% if kids_collection != blank %}{{ kids_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
-      <span class="marketplace-intent__label">Kids themes</span>
-      <h3 class="marketplace-intent__card-title">Themes children notice before anything else.</h3>
-      <p class="marketplace-intent__card-copy">Character-led picks that feel playful first while still working for everyday school use.</p>
-      <span class="marketplace-intent__card-link">Explore kids picks</span>
-      {%- if kids_media != blank -%}
-        <span class="marketplace-intent__media">
-          {{
-            kids_media
-            | image_url: width: 320
-            | image_tag:
-              widths: '120, 180, 240, 320',
-              loading: 'lazy',
-              alt: 'Kids themed lunchware'
-          }}
-        </span>
-      {%- endif -%}
-    </a>
-
-    <a href="{% if gifting_collection != blank %}{{ gifting_collection.url }}{% else %}/collections/all-products{% endif %}" class="marketplace-intent__card">
-      <span class="marketplace-intent__label">Gifting</span>
-      <h3 class="marketplace-intent__card-title">Gift-ready picks for return gifts and bulk orders.</h3>
-      <p class="marketplace-intent__card-copy">A cleaner lane for personalised, theme-led, and bulk-gifting-friendly lunchware.</p>
-      <span class="marketplace-intent__card-link">Explore gifting</span>
-      {%- if gifting_media != blank -%}
-        <span class="marketplace-intent__media">
-          {{
-            gifting_media
-            | image_url: width: 320
-            | image_tag:
-              widths: '120, 180, 240, 320',
-              loading: 'lazy',
-              alt: 'Bulk gifting collection'
-          }}
-        </span>
-      {%- endif -%}
-    </a>
   </div>
 </section>
 
 {% schema %}
 {
   "name": "Marketplace Intent",
-  "settings": []
+  "settings": [
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (overrides auto fallback)" },
+    { "type": "url", "id": "hero_link", "label": "Hero link (defaults to Lunch Boxes collection)" },
+    { "type": "image_picker", "id": "category_image_lunch", "label": "Lunch Boxes card image (override)" },
+    { "type": "image_picker", "id": "category_image_bottle", "label": "Bottles card image (override)" }
+  ],
+  "presets": [
+    {
+      "name": "Marketplace Intent"
+    }
+  ]
 }
 {% endschema %}

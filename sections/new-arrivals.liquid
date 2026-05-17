@@ -1,199 +1,186 @@
-﻿<style>
-.new-arrivals {
-  padding: 60px 0;
-  background: #fff;
-}
+﻿{{ 'section-new-arrivals.css' | asset_url | stylesheet_tag }}
 
-.new-arrivals .section-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
+{%- liquid
+  assign arrivals_collection = section.settings.collection
+  if arrivals_collection != blank and arrivals_collection.url == blank
+    assign arrivals_collection = collections[section.settings.collection]
+  endif
 
-.new-arrivals .section-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #642878;
-  margin: 0;
-  position: relative;
-  display: inline-block;
-}
+  if arrivals_collection == blank
+    assign arrivals_collection = collections['new-arrivals']
+  endif
 
-.new-arrivals .section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #741CB1, #642878);
-  border-radius: 2px;
-}
+  assign section_title = section.settings.title | default: 'New Arrivals'
+  assign section_subtitle = section.settings.subtitle | default: 'Fresh picks for everyday meals'
+  assign collection_url = routes.collections_url
+  if arrivals_collection != blank and arrivals_collection.url != blank
+    assign collection_url = arrivals_collection.url
+  endif
 
-.new-arrivals .carousel-wrapper {
-  position: relative;
-  overflow: hidden;
-  padding: 0 50px;
-}
+  assign anchor_image = section.settings.anchor_image
+  if anchor_image == blank and arrivals_collection != blank and arrivals_collection.image != blank
+    assign anchor_image = arrivals_collection.image
+  endif
 
-.new-arrivals .carousel-track {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 10px 0;
-}
+  if anchor_image == blank and arrivals_collection != blank and arrivals_collection.featured_image != blank
+    assign anchor_image = arrivals_collection.featured_image
+  endif
 
-.new-arrivals .carousel-track::-webkit-scrollbar {
-  display: none;
-}
+  assign anchor_alt = section.settings.anchor_image_alt | default: section_title
+  if anchor_image == blank and arrivals_collection != blank
+    for product in arrivals_collection.products
+      if product.featured_media != blank
+        assign anchor_image = product.featured_media.preview_image
+        assign anchor_alt = product.title
+        break
+      endif
+    endfor
+  endif
 
-.new-arrivals .carousel-card {
-  flex: 0 0 calc(25% - 15px);
-  min-width: 250px;
-}
+  assign products_limit = section.settings.products_to_show | default: 8
+  assign carousel_id = 'new-arrivals-rail-' | append: section.id
+-%}
 
-@media (max-width: 1024px) {
-  .new-arrivals .carousel-card {
-    flex: 0 0 calc(33.333% - 14px);
-  }
-}
-
-@media (max-width: 768px) {
-  .new-arrivals .carousel-card {
-    flex: 0 0 calc(50% - 10px);
-    min-width: 180px;
-  }
-  .new-arrivals .carousel-wrapper {
-    padding: 0 40px;
-  }
-  .new-arrivals .section-title {
-    font-size: 1.8rem;
-  }
-}
-
-.new-arrivals .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #642878;
-  color: #642878;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.new-arrivals .carousel-btn:hover {
-  background: #642878;
-  color: #fff;
-}
-
-.new-arrivals .carousel-btn.prev {
-  left: 5px;
-}
-
-.new-arrivals .carousel-btn.next {
-  right: 5px;
-}
-
-.new-arrivals .view-all-link {
-  text-align: center;
-  margin-top: 35px;
-}
-
-.new-arrivals .view-all-link a {
-  display: inline-block;
-  padding: 12px 30px;
-  background: linear-gradient(135deg, #741CB1, #642878);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: 600;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.new-arrivals .view-all-link a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(232, 74, 127, 0.3);
-}
-</style>
-
-<div class="new-arrivals section">
+<section class="new-arrivals-showcase">
   <div class="page-width">
-    <div class="section-header">
-      <h2 class="section-title">{{ section.settings.title }}</h2>
-    </div>
+    <div class="new-arrivals-showcase__layout" id="new-arrivals-showcase-{{ section.id }}">
+      <a href="{{ collection_url }}" class="new-arrivals-showcase__anchor" data-scrub data-scrub-y="32" data-scrub-opacity-from="0.2" data-scrub-scale="0.96" data-scrub-layer="0.1">
+        <div class="new-arrivals-showcase__anchor-media">
+          {%- if anchor_image != blank -%}
+            {{
+              anchor_image
+              | image_url: width: 1200
+              | image_tag:
+                class: 'new-arrivals-showcase__anchor-image',
+                widths: '400, 600, 900, 1200',
+                loading: 'lazy',
+                alt: anchor_alt
+            }}
+          {%- else -%}
+            <div class="new-arrivals-showcase__anchor-placeholder" aria-hidden="true"></div>
+          {%- endif -%}
+        </div>
 
-    <div class="carousel-wrapper">
-      <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
-      <div class="carousel-track" id="new-arrivals-track">
-        {%- assign collection = collections[section.settings.collection] -%}
-        {%- if collection == blank or collection.products == nil or collection.products.size == 0 -%}
-          {%- for i in (1..8) -%}
-            <div class="carousel-card">
-              {% render 'card-product', placeholder: true, index: forloop.index %}
-            </div>
-          {%- endfor -%}
-        {%- else -%}
-          {%- for product in collection.products limit: section.settings.products_to_show -%}
-            <div class="carousel-card">
-              {% render 'card-product', card_product: product %}
-            </div>
-          {%- endfor -%}
-        {%- endif -%}
-      </div>
-      <button class="carousel-btn next" aria-label="Next">&#8250;</button>
-    </div>
+        <div class="new-arrivals-showcase__anchor-overlay"></div>
+        <div class="new-arrivals-showcase__anchor-copy">
+          <span class="new-arrivals-showcase__anchor-kicker">NEW COLLECTION</span>
+          <h2 class="new-arrivals-showcase__anchor-title">{{ section_title }}</h2>
+          {%- if section_subtitle != blank -%}
+            <p class="new-arrivals-showcase__anchor-subtitle">{{ section_subtitle }}</p>
+          {%- endif -%}
+        </div>
+      </a>
 
-    {%- if section.settings.show_view_all and collection != blank -%}
-      <div class="view-all-link">
-        <a href="{{ collection.url }}">{{ section.settings.view_all_text }}</a>
+      <div class="new-arrivals-showcase__rail-shell" data-scrub data-scrub-y="20" data-scrub-opacity-from="0" data-scrub-from="0.1">
+        <div class="new-arrivals-showcase__rail-toolbar">
+          <div class="new-arrivals-showcase__rail-heading">
+            <p class="new-arrivals-showcase__eyebrow">NEW COLLECTION</p>
+            <p class="new-arrivals-showcase__support">Scroll through the latest Catfat additions.</p>
+          </div>
+
+          <div class="new-arrivals-showcase__controls" aria-label="New arrivals navigation">
+            <button
+              type="button"
+              class="new-arrivals-showcase__arrow"
+              data-arrivals-prev
+              aria-controls="{{ carousel_id }}"
+              aria-label="Scroll new arrivals left"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14.5 6.5 9 12l5.5 5.5"></path>
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="new-arrivals-showcase__arrow"
+              data-arrivals-next
+              aria-controls="{{ carousel_id }}"
+              aria-label="Scroll new arrivals right"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9.5 6.5 15 12l-5.5 5.5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="new-arrivals-showcase__rail" id="{{ carousel_id }}" data-arrivals-rail>
+          {%- if arrivals_collection != blank and arrivals_collection.products.size > 0 -%}
+            {%- for product in arrivals_collection.products limit: products_limit -%}
+              {% render 'new-arrival-card', product: product %}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for index in (1..4) -%}
+              <article class="new-arrivals-card new-arrivals-card--placeholder">
+                <div class="new-arrivals-card__media new-arrivals-card__media--placeholder"></div>
+                <div class="new-arrivals-card__body">
+                  <div class="new-arrivals-card__rating new-arrivals-card__rating--placeholder"></div>
+                  <div class="new-arrivals-card__title new-arrivals-card__title--placeholder"></div>
+                  <div class="new-arrivals-card__swatches new-arrivals-card__swatches--placeholder"></div>
+                  <div class="new-arrivals-card__price new-arrivals-card__price--placeholder"></div>
+                </div>
+              </article>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
       </div>
-    {%- endif -%}
+    </div>
   </div>
-</div>
+</section>
 
 <script>
-(function() {
-  const wrapper = document.querySelector('.new-arrivals .carousel-wrapper');
-  if (!wrapper) return;
-  
-  const track = wrapper.querySelector('.carousel-track');
-  const prevBtn = wrapper.querySelector('.carousel-btn.prev');
-  const nextBtn = wrapper.querySelector('.carousel-btn.next');
-  const scrollAmount = 300;
-  
-  prevBtn.addEventListener('click', () => {
-    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  });
-  
-  nextBtn.addEventListener('click', () => {
-    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
-})();
+  (() => {
+    const section = document.getElementById('new-arrivals-showcase-{{ section.id }}');
+    if (!section) return;
+
+    const rail = section.querySelector('[data-arrivals-rail]');
+    const previousButton = section.querySelector('[data-arrivals-prev]');
+    const nextButton = section.querySelector('[data-arrivals-next]');
+    if (!rail || !previousButton || !nextButton) return;
+
+    const getStep = () => {
+      const card = rail.querySelector('.new-arrivals-card');
+      if (!card) return rail.clientWidth * 0.85;
+
+      const styles = window.getComputedStyle(rail);
+      const gap = parseFloat(styles.gap || styles.columnGap || 0);
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const syncButtons = () => {
+      previousButton.disabled = rail.scrollLeft <= 4;
+      nextButton.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+    };
+
+    previousButton.addEventListener('click', () => {
+      rail.scrollBy({ left: getStep() * -1, behavior: 'smooth' });
+    });
+
+    nextButton.addEventListener('click', () => {
+      rail.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+
+    rail.addEventListener('scroll', syncButtons, { passive: true });
+    window.addEventListener('resize', syncButtons);
+    syncButtons();
+  })();
 </script>
 
 {% schema %}
 {
-  "name": "New Arrivals Carousel",
-  "tag": "section",
-  "class": "section",
+  "name": "New Arrivals Showcase",
   "settings": [
     {
       "type": "text",
       "id": "title",
       "default": "New Arrivals",
-      "label": "Heading"
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Fresh picks for everyday meals",
+      "label": "Subtitle"
     },
     {
       "type": "collection",
@@ -201,32 +188,30 @@
       "label": "Collection"
     },
     {
-      "type": "range",
-      "id": "products_to_show",
-      "min": 4,
-      "max": 16,
-      "step": 1,
-      "default": 8,
-      "label": "Products to show"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_view_all",
-      "default": true,
-      "label": "Show View All button"
+      "type": "image_picker",
+      "id": "anchor_image",
+      "label": "Anchor card image"
     },
     {
       "type": "text",
-      "id": "view_all_text",
-      "default": "View All New Arrivals",
-      "label": "View All Text"
+      "id": "anchor_image_alt",
+      "default": "Catfat new arrivals in a school-day setting",
+      "label": "Anchor image alt text"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
     }
   ],
   "presets": [
     {
-      "name": "New Arrivals Carousel"
+      "name": "New Arrivals Showcase"
     }
   ]
 }
 {% endschema %}
-

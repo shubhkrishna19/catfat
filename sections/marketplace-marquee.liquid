@@ -1,6 +1,6 @@
 {{ 'section-marketplace-marquee.css' | asset_url | stylesheet_tag }}
 
-<section class="marketplace-marquee page-width">
+<section class="marketplace-marquee page-width" data-rail-couple>
   <div class="marketplace-marquee__shell">
     <div class="marketplace-marquee__track" aria-label="Catfat highlights">
       {%- for duplicate in (1..2) -%}

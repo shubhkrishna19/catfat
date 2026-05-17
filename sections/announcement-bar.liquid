@@ -1,81 +1,58 @@
-<style>
-.announcement-bar {
-  background: linear-gradient(135deg, #741CB1, #642878);
-  color: #fff;
-  padding: 12px 20px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  position: relative;
-}
-
-.announcement-bar--gradient {
-  background: linear-gradient(90deg, #741CB1 0%, #642878 50%, #5C34BA 100%);
-  background-size: 200% 100%;
-  animation: announcementGradient 3s ease infinite;
-}
-
-@keyframes announcementGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.announcement-bar a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.announcement-bar a:hover {
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: underline;
-}
-
-.announcement-bar__link {
-  display: inline-block;
-}
-
-.announcement-bar__close {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.2rem;
-  cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
-  padding: 0;
-  line-height: 1;
-}
-
-.announcement-bar__close:hover {
-  opacity: 1;
-}
-</style>
-
 {%- if section.settings.text != blank -%}
-  <div class="announcement-bar announcement-bar--gradient" id="announcement-bar">
-    {%- if section.settings.link != blank -%}
-      <a href="{{ section.settings.link }}" class="announcement-bar__link">
-        {{ section.settings.text }}
-      </a>
-    {%- else -%}
-      {{ section.settings.text }}
-    {%- endif -%}
-    {%- if section.settings.enable_close -%}
-      <button class="announcement-bar__close" onclick="document.getElementById('announcement-bar').style.display='none'; localStorage.setItem('announcement-closed', 'true');" aria-label="Close">
-        &times;
-      </button>
-    {%- endif -%}
+  <div
+    id="announcement-bar-{{ section.id }}"
+    class="announcement-bar"
+    style="--announcement-background: {{ section.settings.background_color }}; --announcement-text: {{ section.settings.text_color }};"
+  >
+    <div class="announcement-bar__inner">
+      {%- if section.settings.link != blank -%}
+        <a href="{{ section.settings.link }}" class="announcement-bar__text">
+          {{ section.settings.text }}
+        </a>
+      {%- else -%}
+        <p class="announcement-bar__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.enable_close -%}
+        <button
+          type="button"
+          class="announcement-bar__close"
+          aria-label="Close announcement"
+          data-announcement-close
+        >
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5 5L15 15"></path>
+            <path d="M15 5L5 15"></path>
+          </svg>
+        </button>
+      {%- endif -%}
+    </div>
   </div>
+
   <script>
-    if (localStorage.getItem('announcement-closed') === 'true') {
-      document.getElementById('announcement-bar').style.display = 'none';
-    }
+    (() => {
+      const bar = document.getElementById('announcement-bar-{{ section.id }}');
+      if (!bar) return;
+
+      const storageKey = 'catfat-announcement-{{ section.id }}-dismissed';
+      const closeButton = bar.querySelector('[data-announcement-close]');
+
+      try {
+        if (window.localStorage.getItem(storageKey) === 'true') {
+          bar.hidden = true;
+        }
+      } catch (error) {}
+
+      if (!closeButton) return;
+
+      closeButton.addEventListener('click', () => {
+        bar.hidden = true;
+
+        try {
+          window.localStorage.setItem(storageKey, 'true');
+        } catch (error) {}
+      });
+    })();
   </script>
 {%- endif -%}
 
@@ -86,7 +63,7 @@
     {
       "type": "text",
       "id": "text",
-      "default": "Free shipping above Rs. 499 | COD available | Sweet Cat sale live | Get extra 20% off with SWEETCAT20",
+      "default": "Free shipping above ₹499 | COD available | Get extra 20% off with SWEETCAT20",
       "label": "Text"
     },
     {
@@ -101,13 +78,9 @@
       "label": "Enable close button"
     },
     {
-      "type": "header",
-      "content": "Colors"
-    },
-    {
       "type": "color",
       "id": "background_color",
-      "default": "#741CB1",
+      "default": "#6d4a8d",
       "label": "Background color"
     },
     {
@@ -124,4 +97,3 @@
   ]
 }
 {% endschema %}
-

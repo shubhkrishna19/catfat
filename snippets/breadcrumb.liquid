@@ -1,0 +1,156 @@
+{%- liquid
+  # Build a breadcrumb trail with JSON-LD output.
+  # Pass `parent_collection` from the rendering template if you want a
+  # specific collection in the path; otherwise we infer from product.collections.
+
+  assign crumb_count = 0
+-%}
+
+<nav class="catfat-breadcrumb" aria-label="Breadcrumb">
+  <ol class="catfat-breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="catfat-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a class="catfat-breadcrumb__link" href="{{ routes.root_url }}" itemprop="item">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1">
+      <span class="catfat-breadcrumb__sep" aria-hidden="true">/</span>
+    </li>
+
+    {%- if template contains 'product' and product != blank -%}
+      {%- assign crumb_collection = parent_collection -%}
+      {%- if crumb_collection == blank -%}
+        {%- if collection != blank -%}
+          {%- assign crumb_collection = collection -%}
+        {%- elsif product.collections != blank and product.collections.first != blank -%}
+          {%- assign crumb_collection = product.collections.first -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if crumb_collection != blank -%}
+        <li class="catfat-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a class="catfat-breadcrumb__link" href="{{ crumb_collection.url }}" itemprop="item">
+            <span itemprop="name">{{ crumb_collection.title | escape }}</span>
+          </a>
+          <meta itemprop="position" content="2">
+          <span class="catfat-breadcrumb__sep" aria-hidden="true">/</span>
+        </li>
+      {%- endif -%}
+
+      <li class="catfat-breadcrumb__item catfat-breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+        <span class="catfat-breadcrumb__current" itemprop="name">{{ product.title | escape }}</span>
+        <meta itemprop="position" content="{% if crumb_collection != blank %}3{% else %}2{% endif %}">
+      </li>
+
+    {%- elsif template contains 'collection' and collection != blank -%}
+      <li class="catfat-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a class="catfat-breadcrumb__link" href="{{ routes.collections_url }}" itemprop="item">
+          <span itemprop="name">Collections</span>
+        </a>
+        <meta itemprop="position" content="2">
+        <span class="catfat-breadcrumb__sep" aria-hidden="true">/</span>
+      </li>
+      <li class="catfat-breadcrumb__item catfat-breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+        <span class="catfat-breadcrumb__current" itemprop="name">{{ collection.title | escape }}</span>
+        <meta itemprop="position" content="3">
+      </li>
+
+    {%- elsif template contains 'article' and article != blank -%}
+      {%- if blog != blank -%}
+        <li class="catfat-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a class="catfat-breadcrumb__link" href="{{ blog.url }}" itemprop="item">
+            <span itemprop="name">{{ blog.title | escape }}</span>
+          </a>
+          <meta itemprop="position" content="2">
+          <span class="catfat-breadcrumb__sep" aria-hidden="true">/</span>
+        </li>
+      {%- endif -%}
+      <li class="catfat-breadcrumb__item catfat-breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+        <span class="catfat-breadcrumb__current" itemprop="name">{{ article.title | escape }}</span>
+        <meta itemprop="position" content="3">
+      </li>
+
+    {%- elsif template contains 'page' and page != blank -%}
+      <li class="catfat-breadcrumb__item catfat-breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+        <span class="catfat-breadcrumb__current" itemprop="name">{{ page.title | escape }}</span>
+        <meta itemprop="position" content="2">
+      </li>
+    {%- endif -%}
+  </ol>
+</nav>
+
+<style>
+.catfat-breadcrumb {
+  margin: 0 auto;
+  padding: 1.4rem clamp(1.6rem, 2.4vw, 2.4rem);
+  max-width: var(--page-width, 140rem);
+  font-size: 1.32rem;
+  line-height: 1.4;
+}
+
+.catfat-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.catfat-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #5a4569;
+}
+
+.catfat-breadcrumb__link {
+  color: #5a4569;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.catfat-breadcrumb__link:hover,
+.catfat-breadcrumb__link:focus-visible {
+  color: #c93070;
+  text-decoration: underline;
+}
+
+.catfat-breadcrumb__sep {
+  color: rgba(90, 69, 105, 0.5);
+}
+
+.catfat-breadcrumb__current {
+  color: #2a1140;
+  font-weight: 700;
+}
+
+:root[data-catfat-theme="dark"] .catfat-breadcrumb__link,
+:root[data-catfat-theme="dark"] .catfat-breadcrumb__item {
+  color: rgba(237, 230, 248, 0.75);
+}
+:root[data-catfat-theme="dark"] .catfat-breadcrumb__link:hover,
+:root[data-catfat-theme="dark"] .catfat-breadcrumb__link:focus-visible {
+  color: #ff9bc0;
+}
+:root[data-catfat-theme="dark"] .catfat-breadcrumb__current {
+  color: #ffffff;
+}
+:root[data-catfat-theme="dark"] .catfat-breadcrumb__sep {
+  color: rgba(237, 230, 248, 0.3);
+}
+
+@media screen and (max-width: 749px) {
+  .catfat-breadcrumb {
+    padding: 1rem 1.6rem;
+    font-size: 1.22rem;
+  }
+  /* Hide all but the last 2 levels on mobile */
+  .catfat-breadcrumb__item:nth-last-child(n+3):not(:first-child) {
+    display: none;
+  }
+  .catfat-breadcrumb__item:first-child .catfat-breadcrumb__sep {
+    display: none;
+  }
+}
+</style>

@@ -55,21 +55,46 @@
       font-size: 6rem;
     }
   }
+
+  [data-standard-404][hidden],
+  [data-account-404-fallback][hidden] {
+    display: none !important;
+  }
 {%- endstyle -%}
 
-<div class="template-404 page-width page-margin center">
-  <div class="error-code">404</div>
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <p>Sorry, the page you're looking for doesn't exist or has been moved.</p>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
+<div data-account-404-fallback hidden>
+  {% render 'customer-account-fallback', customer: customer %}
 </div>
+
+<div data-standard-404>
+  <div class="template-404 page-width page-margin center">
+    <div class="error-code">404</div>
+    <p>
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <h1 class="title">
+      {{ 'templates.404.title' | t }}
+    </h1>
+    <p>Sorry, the page you're looking for doesn't exist or has been moved.</p>
+    <a href="{{ routes.all_products_collection_url }}" class="button">
+      {{ 'general.continue_shopping' | t }}
+    </a>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var path = window.location.pathname || '';
+    var accountPreviewRoute = /\/\d+\/account(?:\/|$)/.test(path) || /\/account(?:\/|$)/.test(path);
+    if (!accountPreviewRoute) return;
+
+    var fallback = document.querySelector('[data-account-404-fallback]');
+    var standard404 = document.querySelector('[data-standard-404]');
+
+    if (fallback) fallback.hidden = false;
+    if (standard404) standard404.hidden = true;
+  })();
+</script>
 
 {% schema %}
 {

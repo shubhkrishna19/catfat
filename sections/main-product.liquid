@@ -135,6 +135,9 @@
   endif
 -%}
 
+{% render 'breadcrumb' %}
+{% render 'product-structured-data', product: product %}
+
 <section class="catfat-product page-width" data-product-section-id="{{ section.id }}">
   <div class="catfat-product__layout catfat-product__layout--{{ section.settings.media_position }}">
     <div class="catfat-product__media-column">
@@ -198,102 +201,51 @@
 
     <div class="catfat-product__info-column">
       <div class="catfat-product__panel">
-        <div class="catfat-product__heading">
-          <span class="catfat-product__eyebrow">{{ eyebrow }}</span>
-          {%- if option_summary != blank -%}
-            <span class="catfat-product__option-summary">{{ option_summary }}</span>
-          {%- endif -%}
-        </div>
-
-        <h1 class="catfat-product__title">{{ product.title | escape }}</h1>
-
-        {%- if has_review_data -%}
-          <div class="catfat-product__review-summary">
-            <!-- Start of Judge.me code -->
-            <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
-              {{ product.metafields.judgeme.badge }}
-            </div>
-            <!-- End of Judge.me code -->
-
-            {%- if product.metafields.reviews.rating_count > 0 -%}
-              <span class="catfat-product__review-copy">
-                Rated {{ product.metafields.reviews.rating.value }} / {{ product.metafields.reviews.rating.value.scale_max }}
-                from {{ product.metafields.reviews.rating_count }} review{% if product.metafields.reviews.rating_count != 1 %}s{% endif %}.
-              </span>
+        <div class="catfat-product__meta-stack">
+          <div class="catfat-product__heading">
+            <span class="catfat-product__eyebrow">{{ eyebrow }}</span>
+            {%- if option_summary != blank -%}
+              <span class="catfat-product__option-summary">{{ option_summary }}</span>
             {%- endif -%}
           </div>
-        {%- endif -%}
 
-        <div class="catfat-product__price-row">
-          <div class="catfat-product__price-stack">
-            <span class="catfat-product__price" data-product-price>
-              {%- if product.price_varies -%}
-                From {{ product.price_min | money }}
-              {%- else -%}
-                {{ current_variant.price | money }}
+          <h1 class="catfat-product__title">{{ product.title | escape }}</h1>
+
+          {%- if has_review_data -%}
+            <div class="catfat-product__review-summary">
+              <!-- Start of Judge.me code -->
+              <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
+                {{ product.metafields.judgeme.badge }}
+              </div>
+              <!-- End of Judge.me code -->
+
+              {%- if product.metafields.reviews.rating_count > 0 -%}
+                <span class="catfat-product__review-copy">
+                  Rated {{ product.metafields.reviews.rating.value }} / {{ product.metafields.reviews.rating.value.scale_max }}
+                  from {{ product.metafields.reviews.rating_count }} review{% if product.metafields.reviews.rating_count != 1 %}s{% endif %}.
+                </span>
               {%- endif -%}
-            </span>
-            <span class="catfat-product__compare{% unless compare_at_price > current_variant.price %} is-hidden{% endunless %}" data-product-compare>
-              {{ compare_at_price | money }}
-            </span>
-          </div>
+            </div>
+          {%- endif -%}
 
-          <div class="catfat-product__deal{% unless savings_percent > 0 %} is-hidden{% endunless %}" data-product-deal>
-            <strong data-product-savings-percent>{{ savings_percent }}% off</strong>
-            <span data-product-savings-amount>You save {{ savings_amount | money }}</span>
-          </div>
-        </div>
-
-        <div class="catfat-product__selection-bar">
-          <span class="catfat-product__selection-label">Current selection</span>
-          <strong class="catfat-product__selection-value" data-current-variant-title>{{ current_variant_title }}</strong>
-        </div>
-
-        <p class="catfat-product__summary">{{ summary_text }}</p>
-
-        <div class="catfat-product__proof-carousel">
-          <div class="catfat-product__proof-head">
-            <div>
-              <span class="catfat-product__proof-eyebrow">Why this works</span>
-              <h2 class="catfat-product__proof-title">Utility first. Emotional enough to gift.</h2>
+          <div class="catfat-product__price-row">
+            <div class="catfat-product__price-stack">
+              <span class="catfat-product__price" data-product-price>
+                {%- if product.price_varies -%}
+                  From {{ product.price_min | money }}
+                {%- else -%}
+                  {{ current_variant.price | money }}
+                {%- endif -%}
+              </span>
+              <span class="catfat-product__compare{% unless compare_at_price > current_variant.price %} is-hidden{% endunless %}" data-product-compare>
+                {{ compare_at_price | money }}
+              </span>
             </div>
 
-            <div class="catfat-product__proof-controls">
-              <button type="button" class="catfat-product__proof-button" data-proof-prev aria-label="Previous proof card">Prev</button>
-              <button type="button" class="catfat-product__proof-button" data-proof-next aria-label="Next proof card">Next</button>
+            <div class="catfat-product__deal{% unless savings_percent > 0 %} is-hidden{% endunless %}" data-product-deal>
+              <strong data-product-savings-percent>{{ savings_percent }}% off</strong>
+              <span data-product-savings-amount>You save {{ savings_amount | money }}</span>
             </div>
-          </div>
-
-          <div class="catfat-product__proof-track" data-proof-track>
-            <article class="catfat-product__proof-card catfat-product__proof-card--utility">
-              <span class="catfat-product__proof-card-label">Utility fact</span>
-              <strong class="catfat-product__proof-card-title">{{ proof_title_one }}</strong>
-              <p class="catfat-product__proof-card-copy">{{ proof_copy_one }}</p>
-            </article>
-
-            <article class="catfat-product__proof-card catfat-product__proof-card--emotion">
-              <span class="catfat-product__proof-card-label">Theme emotion</span>
-              <strong class="catfat-product__proof-card-title">{{ proof_title_two }}</strong>
-              <p class="catfat-product__proof-card-copy">{{ proof_copy_two }}</p>
-            </article>
-
-            <article class="catfat-product__proof-card catfat-product__proof-card--utility">
-              <span class="catfat-product__proof-card-label">Buying clarity</span>
-              <strong class="catfat-product__proof-card-title">{{ proof_title_three }}</strong>
-              <p class="catfat-product__proof-card-copy">{{ proof_copy_three }}</p>
-            </article>
-
-            <article class="catfat-product__proof-card catfat-product__proof-card--emotion">
-              <span class="catfat-product__proof-card-label">Gifting angle</span>
-              <strong class="catfat-product__proof-card-title">{{ proof_title_four }}</strong>
-              <p class="catfat-product__proof-card-copy">{{ proof_copy_four }}</p>
-            </article>
-
-            <article class="catfat-product__proof-card catfat-product__proof-card--utility">
-              <span class="catfat-product__proof-card-label">Trust cue</span>
-              <strong class="catfat-product__proof-card-title">{{ proof_title_five }}</strong>
-              <p class="catfat-product__proof-card-copy">{{ proof_copy_five }}</p>
-            </article>
           </div>
         </div>
 
@@ -356,66 +308,135 @@
               This combination is currently unavailable. Choose another option.
             {% endif %}
           </p>
+
+          {% render 'catfat-tutorial-popup', product: product %}
         {%- endform -%}
 
-        <div class="catfat-product__details-card">
-          <div class="catfat-product__details-head">
-            <h2 class="catfat-product__details-title">Product details</h2>
-            {%- if product.vendor != blank -%}
-              <span class="catfat-product__vendor">{{ product.vendor }}</span>
-            {%- endif -%}
+        <div class="catfat-product__supporting-info">
+          <div class="catfat-product__selection-bar">
+            <span class="catfat-product__selection-label">Current selection</span>
+            <strong class="catfat-product__selection-value" data-current-variant-title>{{ current_variant_title }}</strong>
           </div>
 
-        <div class="catfat-product__details-content rte">
-          {{ product.description }}
-        </div>
-      </div>
+          <p class="catfat-product__summary">{{ summary_text }}</p>
 
-      <div class="catfat-product__reviews-card">
-        <div class="catfat-product__details-head">
-          <h2 class="catfat-product__details-title">Customer reviews</h2>
-          {%- if product.metafields.reviews.rating_count > 0 -%}
-            <span class="catfat-product__vendor">
-              {{ product.metafields.reviews.rating_count }} review{% if product.metafields.reviews.rating_count != 1 %}s{% endif %}
-            </span>
-          {%- endif -%}
+          <div class="catfat-product__proof-carousel">
+            <div class="catfat-product__proof-head">
+              <div>
+                <span class="catfat-product__proof-eyebrow">Why this works</span>
+                <h2 class="catfat-product__proof-title">Utility first. Emotional enough to gift.</h2>
+              </div>
+
+              <div class="catfat-product__proof-controls">
+                <button type="button" class="catfat-product__proof-button" data-proof-prev aria-label="Previous proof card">Prev</button>
+                <button type="button" class="catfat-product__proof-button" data-proof-next aria-label="Next proof card">Next</button>
+              </div>
+            </div>
+
+            <div class="catfat-product__proof-track" data-proof-track>
+              <article class="catfat-product__proof-card catfat-product__proof-card--utility">
+                <span class="catfat-product__proof-card-label">Utility fact</span>
+                <strong class="catfat-product__proof-card-title">{{ proof_title_one }}</strong>
+                <p class="catfat-product__proof-card-copy">{{ proof_copy_one }}</p>
+              </article>
+
+              <article class="catfat-product__proof-card catfat-product__proof-card--emotion">
+                <span class="catfat-product__proof-card-label">Theme emotion</span>
+                <strong class="catfat-product__proof-card-title">{{ proof_title_two }}</strong>
+                <p class="catfat-product__proof-card-copy">{{ proof_copy_two }}</p>
+              </article>
+
+              <article class="catfat-product__proof-card catfat-product__proof-card--utility">
+                <span class="catfat-product__proof-card-label">Buying clarity</span>
+                <strong class="catfat-product__proof-card-title">{{ proof_title_three }}</strong>
+                <p class="catfat-product__proof-card-copy">{{ proof_copy_three }}</p>
+              </article>
+
+              <article class="catfat-product__proof-card catfat-product__proof-card--emotion">
+                <span class="catfat-product__proof-card-label">Gifting angle</span>
+                <strong class="catfat-product__proof-card-title">{{ proof_title_four }}</strong>
+                <p class="catfat-product__proof-card-copy">{{ proof_copy_four }}</p>
+              </article>
+
+              <article class="catfat-product__proof-card catfat-product__proof-card--utility">
+                <span class="catfat-product__proof-card-label">Trust cue</span>
+                <strong class="catfat-product__proof-card-title">{{ proof_title_five }}</strong>
+                <p class="catfat-product__proof-card-copy">{{ proof_copy_five }}</p>
+              </article>
+            </div>
+          </div>
         </div>
 
-        <p class="catfat-product__reviews-intro">
-          Real Catfat buyer feedback collected on the store and shown here where the buying decision happens.
-        </p>
+        <div class="catfat-product__accordion-group">
+          <details class="catfat-product__accordion">
+            <summary class="catfat-product__accordion-summary">
+              <div class="catfat-product__accordion-heading">
+                <h2 class="catfat-product__details-title">Product details</h2>
+                {%- if product.vendor != blank -%}
+                  <span class="catfat-product__vendor">{{ product.vendor }}</span>
+                {%- endif -%}
+              </div>
+              <span class="catfat-product__accordion-icon" aria-hidden="true"></span>
+            </summary>
 
-        <!-- Start of Judge.me code -->
-        <div style='clear:both'></div>
-        <div
-          id='judgeme_product_reviews'
-          class='jdgm-widget jdgm-review-widget'
-          data-product-title='{{ product.title | escape }}'
-          data-id='{{ product.id }}'
-          data-product-id='{{ product.id }}'
-          data-widget='review'
-          data-auto-install='false'
-          data-shop-reviews-count='{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}'
-          data-entry-point='review_widget.js'
-          data-entry-key='review-widget/main.js'
-        >
-          {% if has_legacy_review_widget %}
-            <div class='jdgm-legacy-widget-content' style='display: none;'>{{ product.metafields.judgeme.widget }}</div>
-          {% endif %}
+            <div class="catfat-product__accordion-content">
+              <div class="catfat-product__details-content rte">
+                {{ product.description }}
+              </div>
+            </div>
+          </details>
+
+          <details class="catfat-product__accordion">
+            <summary class="catfat-product__accordion-summary">
+              <div class="catfat-product__accordion-heading">
+                <h2 class="catfat-product__details-title">Customer reviews</h2>
+                {%- if product.metafields.reviews.rating_count > 0 -%}
+                  <span class="catfat-product__vendor">
+                    {{ product.metafields.reviews.rating_count }} review{% if product.metafields.reviews.rating_count != 1 %}s{% endif %}
+                  </span>
+                {%- endif -%}
+              </div>
+              <span class="catfat-product__accordion-icon" aria-hidden="true"></span>
+            </summary>
+
+            <div class="catfat-product__accordion-content">
+              <p class="catfat-product__reviews-intro">
+                Real Catfat buyer feedback collected on the store and shown here where the buying decision happens.
+              </p>
+
+              <!-- Start of Judge.me code -->
+              <div style='clear:both'></div>
+              <div
+                id='judgeme_product_reviews'
+                class='jdgm-widget jdgm-review-widget'
+                data-product-title='{{ product.title | escape }}'
+                data-id='{{ product.id }}'
+                data-product-id='{{ product.id }}'
+                data-widget='review'
+                data-auto-install='false'
+                data-shop-reviews-count='{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}'
+                data-entry-point='review_widget.js'
+                data-entry-key='review-widget/main.js'
+              >
+                {% if has_legacy_review_widget %}
+                  <div class='jdgm-legacy-widget-content' style='display: none;'>{{ product.metafields.judgeme.widget }}</div>
+                {% endif %}
+              </div>
+              {% if product.metafields.judgeme.review_widget_data %}
+                <script>
+                  window.jdgm = window.jdgm || {};
+                  window.jdgm.data = window.jdgm.data || {};
+                  window.jdgm.data.reviewWidget = window.jdgm.data.reviewWidget || {};
+                  window.jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }};
+                </script>
+              {% endif %}
+              <!-- End of Judge.me code -->
+            </div>
+          </details>
         </div>
-        {% if product.metafields.judgeme.review_widget_data %}
-          <script>
-            window.jdgm = window.jdgm || {};
-            window.jdgm.data = window.jdgm.data || {};
-            window.jdgm.data.reviewWidget = window.jdgm.data.reviewWidget || {};
-            window.jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }};
-          </script>
-        {% endif %}
-        <!-- End of Judge.me code -->
+        </div>
       </div>
     </div>
-  </div>
-  </div>
 
   <script type="application/json" id="CatfatProductData-{{ section.id }}">
     {{ product | json }}

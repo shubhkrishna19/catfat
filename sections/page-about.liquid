@@ -1,243 +1,139 @@
-﻿{% comment %} About Page {% endcomment %}
+{{ 'section-page-about.css' | asset_url | stylesheet_tag }}
 
-<style>
-.about-page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 20px;
-}
-
-.about-page h1 {
-  font-size: 2.5rem;
-  color: #1a1a2e;
-  margin-bottom: 20px;
-  text-align: center;
-  font-weight: 700;
-}
-
-.about-intro {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #555;
-  line-height: 1.8;
-  margin-bottom: 50px;
-}
-
-.about-section {
-  margin-bottom: 50px;
-}
-
-.about-section h2 {
-  font-size: 1.5rem;
-  color: #741CB1;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.about-section p {
-  color: #555;
-  line-height: 1.8;
-  margin-bottom: 15px;
-}
-
-.values-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-}
-
-.value-card {
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.value-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-
-.value-card h3 {
-  color: #1a1a2e;
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-}
-
-.value-card p {
-  color: #666;
-  font-size: 0.95rem;
-  margin: 0;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin: 40px 0;
-}
-
-.stat-card {
-  background: linear-gradient(135deg, #741CB1, #642878);
-  padding: 25px;
-  border-radius: 16px;
-  text-align: center;
-  color: white;
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  display: block;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-@media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.team-section {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.team-section h2 {
-  margin-bottom: 30px;
-}
-
-.cta-section {
-  background: linear-gradient(135deg, #741CB1, #642878);
-  padding: 50px;
-  border-radius: 20px;
-  text-align: center;
-  color: white;
-  margin-top: 50px;
-}
-
-.cta-section h2 {
-  color: white;
-  margin-bottom: 15px;
-}
-
-.cta-section p {
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 25px;
-}
-
-.cta-btn {
-  display: inline-block;
-  background: white;
-  color: #741CB1;
-  padding: 15px 35px;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-</style>
-
-<div class="about-page">
-  <h1>About CatFat India</h1>
-  
-  <p class="about-intro">
-    We believe that every meal time should be a happy time.<br>
-    CatFat brings you premium lunch boxes, water bottles, and kitchen essentials designed with love for kids and adults alike.
-  </p>
-
-  <div class="stats-grid">
-    <div class="stat-card">
-      <span class="stat-number">50K+</span>
-      <span class="stat-label">Happy Customers</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">200+</span>
-      <span class="stat-label">Products</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">4.8/5</span>
-      <span class="stat-label">Rating</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">50+</span>
-      <span class="stat-label">Cities Delivered</span>
-    </div>
-  </div>
-
-  <div class="about-section">
-    <h2>Our Story</h2>
-    <p>CatFat India started with a simple mission - to make meal times fun and exciting for children. We noticed that kids often resist eating because their lunch boxes weren't appealing enough. That's when we decided to change that!</p>
-    <p>Since 2020, we've been dedicated to providing the best quality lunch boxes, water bottles, and accessories that combine functionality with attractive designs. Our products are crafted to bring joy to every child's lunch box while ensuring parents get value for their money.</p>
-  </div>
-
-  <div class="about-section">
-    <h2>Why Choose CatFat?</h2>
-    <div class="values-grid">
-      <div class="value-card">
-        <div class="value-icon">Top</div>
-        <h3>Premium Quality</h3>
-        <p>Durable materials that last long</p>
+<section class="catfat-about" aria-labelledby="CatfatAboutTitle-{{ section.id }}">
+  <div class="catfat-about__inner">
+    <div class="catfat-about__grid">
+      <div class="catfat-about__intro">
+        <h1 id="CatfatAboutTitle-{{ section.id }}" class="catfat-about__title">
+          <span>ABOUT</span>
+          <span>US</span>
+        </h1>
+        <span class="catfat-about__accent" aria-hidden="true"></span>
+        <div class="catfat-about__lead">
+          <p class="catfat-about__lead-strong">Built from real routines.</p>
+          <p>Designed for everyday joy.</p>
+        </div>
+        <p class="catfat-about__copy">
+          Catfat India creates lunchware and hydration essentials that make school, work, and family meals feel simpler and better designed.
+        </p>
       </div>
-      <div class="value-card">
-        <div class="value-icon">Design</div>
-        <h3>Attractive Designs</h3>
-        <p>Fun colors that kids love</p>
+
+      <div class="catfat-about__team-media">
+        {%- if section.settings.team_image != blank -%}
+          {{
+            section.settings.team_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'catfat-about__team-image',
+              widths: '480, 720, 960, 1200',
+              loading: 'eager',
+              alt: section.settings.team_image_alt
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'catfat-about-team.jpg' | asset_url }}"
+            alt="{{ section.settings.team_image_alt | escape }}"
+            class="catfat-about__team-image"
+            loading="eager"
+            width="738"
+            height="494"
+          >
+        {%- endif -%}
       </div>
-      <div class="value-card">
-        <div class="value-icon">Safe</div>
-        <h3>Safe Materials</h3>
-        <p>BPA-free, food-safe plastics</p>
+
+      <aside class="catfat-about__founders" aria-label="Our founders">
+        <div class="catfat-about__founder-media">
+          {%- if section.settings.founder_image != blank -%}
+            {{
+              section.settings.founder_image
+              | image_url: width: 720
+              | image_tag:
+                class: 'catfat-about__founder-image',
+                widths: '360, 540, 720',
+                loading: 'lazy',
+                alt: section.settings.founder_image_alt
+            }}
+          {%- else -%}
+            <img
+              src="{{ 'catfat-founders.jpg' | asset_url }}"
+              alt="{{ section.settings.founder_image_alt | escape }}"
+              class="catfat-about__founder-image"
+              loading="lazy"
+              width="738"
+              height="850"
+            >
+          {%- endif -%}
+        </div>
+
+        <p class="catfat-about__label">OUR FOUNDERS</p>
+
+        <div class="catfat-about__founder">
+          <h2>Gaurav Goyal</h2>
+          <p class="catfat-about__role">CO-FOUNDER</p>
+          <p>Leads Catfat India's product direction with a focus on practical, family-ready lunchware.</p>
+        </div>
+
+        <div class="catfat-about__divider" aria-hidden="true"></div>
+
+        <div class="catfat-about__founder">
+          <h2>Sarita Sharma Goyal</h2>
+          <p class="catfat-about__role">CO-FOUNDER</p>
+          <p>Shapes the brand experience around everyday use, thoughtful details, and customer trust.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="catfat-about__vision">
+      <div class="catfat-about__vision-main">
+        <span class="catfat-about__vision-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M4 12c4.5-7 11.5-7 16 0-4.5 7-11.5 7-16 0Z"></path>
+            <path d="M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z"></path>
+          </svg>
+        </span>
+        <div>
+          <p class="catfat-about__vision-title">We're redefining India's mealtime experience</p>
+          <p class="catfat-about__vision-copy">by merging style, functionality, and safety into one product ecosystem.</p>
+        </div>
       </div>
-      <div class="value-card">
-        <div class="value-icon">Fast</div>
-        <h3>Fast Delivery</h3>
-        <p>Free shipping above Rs. 499</p>
-      </div>
+      <p class="catfat-about__trust">
+        CatfatIndia has built one of India's largest organic lifestyle communities in the mealtime & hydration category.
+      </p>
     </div>
   </div>
-
-  <div class="about-section">
-    <h2>Our Products</h2>
-    <p>We specialize in:</p>
-    <p><strong>Lunch Boxes</strong> - Insulated, leak-proof, and fun designs<br>
-    <strong>Water Bottles</strong> - BPA-free, easy to carry<br>
-    <strong>Cutlery Sets</strong> - Safe and colorful<br>
-    <strong>Accessories</strong> - Bags, napkins, and more</p>
-  </div>
-
-  <div class="about-section">
-    <h2>Our Mission</h2>
-    <p>To make every child's lunch time a delightful experience by providing high-quality, attractive, and affordable lunch solutions. We aim to encourage healthy eating habits by making meal times something children look forward to!</p>
-  </div>
-
-  <div class="about-section">
-    <h2>Customer First</h2>
-    <p>Your satisfaction is our priority. We offer easy returns, responsive customer support via WhatsApp, and quality products that you can trust. Join thousands of happy families who've made the switch to CatFat!</p>
-  </div>
-
-  <div class="cta-section">
-    <h2>Join the CatFat Family</h2>
-    <p>Explore our collection and find the perfect lunch box for your child.</p>
-    <a href="{{ routes.all_products_collection_url }}" class="cta-btn">Shop Now</a>
-  </div>
-</div>
+</section>
 
 {% schema %}
 {
   "name": "About Page",
-  "presets": [{ "name": "About Page" }]
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "team_image",
+      "label": "Team image"
+    },
+    {
+      "type": "text",
+      "id": "team_image_alt",
+      "label": "Team image alt text",
+      "default": "Catfat India team"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder image"
+    },
+    {
+      "type": "text",
+      "id": "founder_image_alt",
+      "label": "Founder image alt text",
+      "default": "Catfat India founders"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Page"
+    }
+  ]
 }
 {% endschema %}
-

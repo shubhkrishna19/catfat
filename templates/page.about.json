@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-about",
+      "settings": {
+        "team_image_alt": "Catfat India team",
+        "founder_image_alt": "Catfat India founders"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,112 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign primary_media = current_variant.featured_media | default: product.featured_media
+  assign review_value = product.metafields.reviews.rating.value | default: 0 | plus: 0
+  assign rounded_rating = review_value | round: 1
+  assign display_price = current_variant.price | default: product.price_min
+  assign compare_at_price = current_variant.compare_at_price | default: product.compare_at_price_max
+  assign product_form_id = 'market-shelf-card-form-' | append: section_id | append: '-' | append: product.id
+
+  if compare_at_price <= display_price
+    assign compare_at_price = blank
+  endif
+
+  assign savings_percent = 0
+  if compare_at_price != blank
+    assign savings_amount = compare_at_price | minus: display_price
+    assign savings_percent = savings_amount | times: 100 | divided_by: compare_at_price
+  endif
+-%}
+
+<article
+  class="market-shelf-card{% unless product.available %} is-sold-out{% endunless %}"
+  data-card-depth
+  data-product-id="{{ product.id }}"
+  data-product-handle="{{ product.handle }}"
+>
+  <div class="market-shelf-card__media">
+    {%- if savings_percent > 0 -%}
+      <span class="market-shelf-card__badge">Save {{ savings_percent }}%</span>
+    {%- endif -%}
+
+    <a href="{{ product.url }}" class="market-shelf-card__image-link">
+      {%- if primary_media != blank -%}
+        {{
+          primary_media
+          | image_url: width: 840
+          | image_tag:
+            class: 'market-shelf-card__image',
+            widths: '280, 420, 560, 840',
+            loading: 'lazy',
+            alt: product.title
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'market-shelf-card__image market-shelf-card__image--placeholder' }}
+      {%- endif -%}
+    </a>
+  </div>
+
+  <div class="market-shelf-card__body">
+    {%- if review_value > 0 -%}
+      <div class="market-shelf-card__rating" aria-label="Rated {{ rounded_rating }} out of 5">
+        <span class="market-shelf-card__rating-star" aria-hidden="true">★</span>
+        <span>{{ rounded_rating }}</span>
+      </div>
+    {%- endif -%}
+
+    <h3 class="market-shelf-card__title">
+      <a href="{{ product.url }}">{{ product.title | escape }}</a>
+    </h3>
+
+    <div class="market-shelf-card__footer">
+      <div class="market-shelf-card__price-stack">
+        <span class="market-shelf-card__price">
+          {%- if product.price_varies -%}
+            {{ product.price_min | money }}
+          {%- else -%}
+            {{ display_price | money }}
+          {%- endif -%}
+        </span>
+
+        {%- if compare_at_price != blank -%}
+          <span class="market-shelf-card__compare">{{ compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if product.available and current_variant != blank -%}
+      <product-form class="market-shelf-card__form">
+        {%- form 'product', product, id: product_form_id, class: 'market-shelf-card__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          <button
+            type="submit"
+            name="add"
+            class="market-shelf-card__action"
+            aria-label="Add {{ product.title | escape }} to cart"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3.5 5.5h2.1l1.2 8.1h9.4l1.6-6.3H7.4"></path>
+              <circle cx="10" cy="18.2" r="1.2"></circle>
+              <circle cx="16.4" cy="18.2" r="1.2"></circle>
+            </svg>
+            <span>Add to Cart</span>
+          </button>
+        {%- endform -%}
+      </product-form>
+    {%- else -%}
+      <button
+        type="button"
+        class="market-shelf-card__action market-shelf-card__action--disabled"
+        aria-label="{{ product.title | escape }} is sold out"
+        disabled
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3.5 5.5h2.1l1.2 8.1h9.4l1.6-6.3H7.4"></path>
+          <circle cx="10" cy="18.2" r="1.2"></circle>
+          <circle cx="16.4" cy="18.2" r="1.2"></circle>
+        </svg>
+        <span>Sold out</span>
+      </button>
+    {%- endif -%}
+  </div>
+</article>

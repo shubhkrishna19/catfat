@@ -1,0 +1,244 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- paginate customer.addresses by 10 -%}
+  <section class="customer-page section-{{ section.id }}-padding">
+    <div class="page-width customer-shell" data-customer-addresses>
+      {% render 'customer-account-nav', current_page: 'addresses', customer: customer %}
+
+      <div class="customer-main">
+        <div class="customer-addresses__header">
+          <span class="customer-section__eyebrow">Addresses</span>
+          <h1 class="customer-addresses__title">Keep delivery details organised.</h1>
+          <p class="customer-panel__copy">Save home, office, or gifting addresses so checkout stays faster every time.</p>
+        </div>
+
+        <div class="customer-card">
+          <div class="customer-card__header">
+            <div>
+              <h2 class="customer-card__title">Add a new address</h2>
+              <p class="customer-card__meta">Create a fresh address for daily deliveries or gifting orders.</p>
+            </div>
+            <button type="button" class="customer-button--secondary" aria-expanded="false" aria-controls="AddAddress">Add address</button>
+          </div>
+
+          <div id="AddAddress" class="customer-address-form">
+            {%- form 'customer_address', customer.new_address, class: 'customer-form' -%}
+              <div class="customer-address-grid">
+                <div class="customer-form__group">
+                  <label class="customer-form__label" for="AddressFirstNameNew">First name</label>
+                  <input class="customer-form__input" type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+                </div>
+                <div class="customer-form__group">
+                  <label class="customer-form__label" for="AddressLastNameNew">Last name</label>
+                  <input class="customer-form__input" type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+                </div>
+              </div>
+
+              <div class="customer-form__group">
+                <label class="customer-form__label" for="AddressCompanyNew">Company</label>
+                <input class="customer-form__input" type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}" autocomplete="organization">
+              </div>
+
+              <div class="customer-form__group">
+                <label class="customer-form__label" for="AddressAddress1New">Address line 1</label>
+                <input class="customer-form__input" type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1">
+              </div>
+
+              <div class="customer-form__group">
+                <label class="customer-form__label" for="AddressAddress2New">Address line 2</label>
+                <input class="customer-form__input" type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2">
+              </div>
+
+              <div class="customer-address-grid">
+                <div class="customer-form__group">
+                  <label class="customer-form__label" for="AddressCityNew">City</label>
+                  <input class="customer-form__input" type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" autocomplete="address-level2">
+                </div>
+                <div class="customer-form__group">
+                  <label class="customer-form__label" for="AddressZipNew">PIN code</label>
+                  <input class="customer-form__input" type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code">
+                </div>
+              </div>
+
+              <div class="customer-address-grid">
+                <div class="customer-form__group">
+                  <label class="customer-form__label" for="AddressCountryNew">Country</label>
+                  <select class="customer-form__select" id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}" autocomplete="country">{{ all_country_option_tags }}</select>
+                </div>
+                <div class="customer-form__group" id="AddressProvinceContainerNew" style="display:none;">
+                  <label class="customer-form__label" for="AddressProvinceNew">State</label>
+                  <select class="customer-form__select" id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}" autocomplete="address-level1"></select>
+                </div>
+              </div>
+
+              <div class="customer-form__group">
+                <label class="customer-form__label" for="AddressPhoneNew">Phone</label>
+                <input class="customer-form__input" type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" autocomplete="tel">
+              </div>
+
+              <label class="customer-checkbox">
+                {{ form.set_as_default_checkbox }}
+                <span>Set as default address</span>
+              </label>
+
+              <div class="customer-address-card__actions">
+                <button class="customer-button" type="submit">Save address</button>
+                <button class="customer-button--secondary" type="reset">Cancel</button>
+              </div>
+            {%- endform -%}
+          </div>
+        </div>
+
+        <div class="customer-address-list">
+          {%- for address in customer.addresses -%}
+            <article class="customer-address-card" data-address>
+              <div class="customer-card__header">
+                <div>
+                  <h2 class="customer-address-card__title">{{ address.name }}</h2>
+                  <p class="customer-card__meta">
+                    {%- if address == customer.default_address -%}Default address{%- else -%}Saved delivery address{%- endif -%}
+                  </p>
+                </div>
+                {%- if address == customer.default_address -%}
+                  <span class="customer-status customer-status--success">Default</span>
+                {%- endif -%}
+              </div>
+
+              <div class="customer-address-card__meta">
+                <span>{{ address.address1 }}</span>
+                {%- if address.address2 != blank -%}<span>{{ address.address2 }}</span>{%- endif -%}
+                <span>{{ address.city }}, {{ address.province }} {{ address.zip }}</span>
+                <span>{{ address.country }}</span>
+                {%- if address.phone != blank -%}<span>{{ address.phone }}</span>{%- endif -%}
+              </div>
+
+              <div class="customer-address-card__actions">
+                <button type="button" class="customer-button--secondary" id="EditFormButton_{{ address.id }}" aria-label="Edit address {{ forloop.index }}" aria-controls="EditAddress_{{ address.id }}" aria-expanded="false">Edit</button>
+                <button type="button" class="customer-button--secondary" data-target="{{ address.url }}" data-confirm-message="Delete this address permanently?">Delete</button>
+              </div>
+
+              <div id="EditAddress_{{ address.id }}" class="customer-address-form">
+                {%- form 'customer_address', address, class: 'customer-form' -%}
+                  <div class="customer-address-grid">
+                    <div class="customer-form__group">
+                      <label class="customer-form__label" for="AddressFirstName_{{ form.id }}">First name</label>
+                      <input class="customer-form__input" type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+                    </div>
+                    <div class="customer-form__group">
+                      <label class="customer-form__label" for="AddressLastName_{{ form.id }}">Last name</label>
+                      <input class="customer-form__input" type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+                    </div>
+                  </div>
+
+                  <div class="customer-form__group">
+                    <label class="customer-form__label" for="AddressCompany_{{ form.id }}">Company</label>
+                    <input class="customer-form__input" type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{ form.company }}" autocomplete="organization">
+                  </div>
+
+                  <div class="customer-form__group">
+                    <label class="customer-form__label" for="AddressAddress1_{{ form.id }}">Address line 1</label>
+                    <input class="customer-form__input" type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1">
+                  </div>
+
+                  <div class="customer-form__group">
+                    <label class="customer-form__label" for="AddressAddress2_{{ form.id }}">Address line 2</label>
+                    <input class="customer-form__input" type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2">
+                  </div>
+
+                  <div class="customer-address-grid">
+                    <div class="customer-form__group">
+                      <label class="customer-form__label" for="AddressCity_{{ form.id }}">City</label>
+                      <input class="customer-form__input" type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2">
+                    </div>
+                    <div class="customer-form__group">
+                      <label class="customer-form__label" for="AddressZip_{{ form.id }}">PIN code</label>
+                      <input class="customer-form__input" type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code">
+                    </div>
+                  </div>
+
+                  <div class="customer-address-grid">
+                    <div class="customer-form__group">
+                      <label class="customer-form__label" for="AddressCountry_{{ form.id }}">Country</label>
+                      <select class="customer-form__select" id="AddressCountry_{{ form.id }}" name="address[country]" data-address-country-select data-default="{{ form.country }}" data-form-id="{{ form.id }}" autocomplete="country">{{ all_country_option_tags }}</select>
+                    </div>
+                    <div class="customer-form__group" id="AddressProvinceContainer_{{ form.id }}" style="display:none;">
+                      <label class="customer-form__label" for="AddressProvince_{{ form.id }}">State</label>
+                      <select class="customer-form__select" id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}" autocomplete="address-level1"></select>
+                    </div>
+                  </div>
+
+                  <div class="customer-form__group">
+                    <label class="customer-form__label" for="AddressPhone_{{ form.id }}">Phone</label>
+                    <input class="customer-form__input" type="tel" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ form.phone }}" autocomplete="tel">
+                  </div>
+
+                  <label class="customer-checkbox">
+                    {{ form.set_as_default_checkbox }}
+                    <span>Set as default address</span>
+                  </label>
+
+                  <div class="customer-address-card__actions">
+                    <button class="customer-button" type="submit">Update address</button>
+                    <button class="customer-button--secondary" type="reset">Cancel</button>
+                  </div>
+                {%- endform -%}
+              </div>
+            </article>
+          {%- else -%}
+            <div class="customer-empty-state">
+              <h3 class="customer-empty-state__title">No saved addresses yet</h3>
+              <p class="customer-empty-state__copy">Add your first address to speed up future Catfat checkouts.</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Customer addresses",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,57 @@
+{%- liquid
+  assign reel_video = blank
+  if product != blank and product.media != blank
+    for media in product.media
+      if media.media_type == 'video'
+        assign reel_video = media
+        break
+      endif
+    endfor
+  endif
+-%}
+
+<article
+  class="instagram-strip__card{% if reel_video != blank %} instagram-strip__card--video{% endif %}"
+  {% if reel_video != blank %}data-reel-card{% endif %}
+>
+  <a href="{{ product.url }}" class="instagram-strip__media-link" aria-label="Shop {{ product.title | escape }}">
+    <div class="instagram-strip__media">
+      {%- if product.featured_media != blank -%}
+        {{
+          product.featured_media
+          | image_url: width: 860
+          | image_tag:
+            class: 'instagram-strip__image',
+            widths: '260, 360, 520, 860',
+            loading: 'lazy',
+            alt: product.title
+        }}
+      {%- else -%}
+        <span class="instagram-strip__placeholder-label">Catfat inspiration</span>
+      {%- endif -%}
+
+      {%- if reel_video != blank -%}
+        {{
+          reel_video
+          | video_tag:
+            class: 'instagram-strip__video',
+            image_size: '860x',
+            autoplay: false,
+            loop: true,
+            muted: true,
+            controls: false,
+            preload: 'none',
+            playsinline: true
+        }}
+      {%- endif -%}
+
+      <div class="instagram-strip__hover">
+        <span class="instagram-strip__hover-button">{{ button_label | default: 'Shop this look' }}</span>
+      </div>
+    </div>
+  </a>
+  <div class="instagram-strip__body">
+    <p class="instagram-strip__caption">{{ caption }}</p>
+    <a href="{{ product.url }}" class="instagram-strip__product">{{ product.title | escape }}</a>
+  </div>
+</article>
