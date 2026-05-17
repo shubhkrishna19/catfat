@@ -1,0 +1,133 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign primary_media = current_variant.featured_media | default: product.featured_media
+  assign review_value = product.metafields.reviews.rating.value | default: 0 | plus: 0
+  assign rounded_rating = review_value | round: 1
+  assign rounded_stars = review_value | round
+  assign display_price = current_variant.price | default: product.price_min
+
+  assign swatch_values = blank
+  assign swatch_count = 0
+
+  for option in product.options_with_values
+    assign option_name = option.name | strip | downcase
+    if option_name contains 'color' or option_name contains 'colour'
+      assign swatch_values = option.values
+      assign swatch_count = option.values.size
+      break
+    endif
+  endfor
+
+  if swatch_values == blank
+    for option in product.options_with_values
+      if option.values.size > 1
+        assign swatch_values = option.values
+        assign swatch_count = option.values.size
+        break
+      endif
+    endfor
+  endif
+-%}
+
+<article class="new-arrivals-card" data-card-depth data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
+  <div class="new-arrivals-card__media">
+    <span class="new-arrivals-card__badge">New</span>
+
+    <a href="{{ product.url }}" class="new-arrivals-card__quick-view" aria-label="View {{ product.title | escape }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="5.5"></circle>
+        <path d="m16 16 4 4"></path>
+      </svg>
+    </a>
+
+    <a href="{{ product.url }}" class="new-arrivals-card__image-link">
+      {%- if primary_media != blank -%}
+        {{
+          primary_media
+          | image_url: width: 840
+          | image_tag:
+            class: 'new-arrivals-card__image',
+            widths: '280, 420, 560, 840',
+            loading: 'lazy',
+            alt: product.title
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'new-arrivals-card__image new-arrivals-card__image--placeholder' }}
+      {%- endif -%}
+    </a>
+  </div>
+
+  <div class="new-arrivals-card__body">
+    {%- if review_value > 0 -%}
+      <div class="new-arrivals-card__rating" aria-label="Rated {{ rounded_rating }} out of 5">
+        <span class="new-arrivals-card__stars" aria-hidden="true">
+          {%- for index in (1..5) -%}
+            <svg class="{% if index <= rounded_stars %}is-filled{% endif %}" viewBox="0 0 20 20">
+              <path d="M10 3.5l1.74 3.52 3.89.57-2.82 2.75.66 3.88L10 12.39 6.53 14.22l.66-3.88L4.37 7.59l3.89-.57L10 3.5z"></path>
+            </svg>
+          {%- endfor -%}
+        </span>
+        <span class="new-arrivals-card__rating-value">{{ rounded_rating }}</span>
+      </div>
+    {%- endif -%}
+
+    <h3 class="new-arrivals-card__title">
+      <a href="{{ product.url }}">{{ product.title | escape }}</a>
+    </h3>
+
+    {%- if swatch_values != blank -%}
+      <div class="new-arrivals-card__swatches" aria-label="Available variants">
+        {%- for value in swatch_values limit: 5 -%}
+          {%- assign swatch_key = value | strip | downcase -%}
+          {%- assign swatch_color = '#e8dff3' -%}
+          {%- case swatch_key -%}
+            {%- when 'black', 'charcoal', 'graphite' -%}
+              {%- assign swatch_color = '#2d2a32' -%}
+            {%- when 'white', 'ivory', 'cream' -%}
+              {%- assign swatch_color = '#f7f0e6' -%}
+            {%- when 'pink', 'blush', 'rose' -%}
+              {%- assign swatch_color = '#ffb3c7' -%}
+            {%- when 'purple', 'lavender', 'lilac' -%}
+              {%- assign swatch_color = '#b697df' -%}
+            {%- when 'blue', 'sky', 'navy', 'teal' -%}
+              {%- assign swatch_color = '#7fb4d9' -%}
+            {%- when 'green', 'mint', 'sage', 'olive' -%}
+              {%- assign swatch_color = '#9dc98c' -%}
+            {%- when 'orange', 'peach', 'coral' -%}
+              {%- assign swatch_color = '#ffb06f' -%}
+            {%- when 'yellow', 'mustard' -%}
+              {%- assign swatch_color = '#ffd561' -%}
+            {%- when 'red', 'maroon' -%}
+              {%- assign swatch_color = '#f08e83' -%}
+            {%- when 'brown', 'mocha', 'tan' -%}
+              {%- assign swatch_color = '#b98e70' -%}
+            {%- else -%}
+              {%- case forloop.index0 -%}
+                {%- when 0 -%}{%- assign swatch_color = '#ffb06f' -%}
+                {%- when 1 -%}{%- assign swatch_color = '#b697df' -%}
+                {%- when 2 -%}{%- assign swatch_color = '#9dc98c' -%}
+                {%- when 3 -%}{%- assign swatch_color = '#ffd561' -%}
+                {%- when 4 -%}{%- assign swatch_color = '#f0a1b8' -%}
+              {%- endcase -%}
+          {%- endcase -%}
+
+          <span class="new-arrivals-card__swatch" style="--swatch-color: {{ swatch_color }};" title="{{ value | escape }}"></span>
+        {%- endfor -%}
+
+        {%- if swatch_count > 5 -%}
+          <span class="new-arrivals-card__swatch-count">+{{ swatch_count | minus: 5 }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="new-arrivals-card__footer">
+      <span class="new-arrivals-card__price">
+        {%- if product.price_varies -%}
+          {{ product.price_min | money }}
+        {%- else -%}
+          {{ display_price | money }}
+        {%- endif -%}
+      </span>
+    </div>
+  </div>
+</article>

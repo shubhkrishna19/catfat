@@ -1,25 +1,66 @@
 {{ 'section-footer.css' | asset_url | stylesheet_tag }}
+{{ 'catfat-theme-mode.css' | asset_url | stylesheet_tag }}
+{{ 'catfat-animations.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'catfat-theme-mode.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'catfat-animations.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%} WhatsApp floating button {%- endcomment -%}
+<a
+  href="https://wa.me/918178136702"
+  class="catfat-whatsapp-float"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chat with us on WhatsApp"
+  title="Chat on WhatsApp"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+  </svg>
+</a>
+
+{%- comment -%} Scroll-to-top button {%- endcomment -%}
+<button id="catfat-scroll-top" type="button" aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+{%- liquid
+  assign shop_all_url = routes.all_products_collection_url
+  assign lunch_collection = collections['lunch-box']
+  assign bottles_collection = collections['bottles-flasks']
+  assign kids_collection = collections['kids-collections']
+  assign sale_collection = collections['india-s-biggest-lunch-sale-upto-80']
+  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+
+  assign lunch_url = lunch_collection.url | default: routes.collections_url
+  assign bottles_url = bottles_collection.url | default: routes.collections_url
+  assign kids_url = kids_collection.url | default: routes.collections_url
+  assign sale_url = sale_collection.url | default: routes.collections_url
+  assign gifting_url = gifting_collection.url | default: routes.collections_url
+-%}
 
 <footer class="catfat-footer">
   <div class="page-width catfat-footer__inner">
-    <span class="catfat-footer__topline">Smart lunchware. Better deals.</span>
+    <span class="catfat-footer__topline">Smart lunchware for every Indian school day.</span>
 
     <div class="catfat-footer__grid">
       <div class="catfat-footer__brand">
-        <h2 class="catfat-footer__brand-title">CatfatIndia for bold lunch picks and gifting wins.</h2>
+        <h2 class="catfat-footer__brand-title">India's favourite lunch boxes & bottles for kids.</h2>
         <p class="catfat-footer__brand-text">
-          Bigger visuals, stronger value cues, and playful lunchware that helps shoppers compare fast and buy with confidence.
+          BPA-free, microwave-safe, leak-proof lunchware designed for everyday Indian school life. Free delivery above ₹499. COD available.
         </p>
 
         <div class="catfat-footer__trust">
-          <span class="catfat-footer__trust-pill">Personalised picks</span>
-          <span class="catfat-footer__trust-pill">Visible sale pricing</span>
-          <span class="catfat-footer__trust-pill">Gift-friendly themes</span>
+          <span class="catfat-footer__trust-pill">BPA Free</span>
+          <span class="catfat-footer__trust-pill">Microwave Safe</span>
+          <span class="catfat-footer__trust-pill">Leak Proof</span>
+          <span class="catfat-footer__trust-pill">COD Available</span>
         </div>
 
         <div class="catfat-footer__contact-list">
-          <a class="catfat-footer__contact-link" href="tel:+918383013068">
-            <span>Call</span> +91 8383013068
+          <a class="catfat-footer__contact-link" href="https://wa.me/918178136702">
+            <span>WhatsApp</span> +91 81781 36702
           </a>
           <a class="catfat-footer__contact-link" href="mailto:support@catfatindia.com">
             <span>Email</span> support@catfatindia.com
@@ -30,11 +71,11 @@
       <div>
         <h3 class="catfat-footer__heading">Shop</h3>
         <ul class="catfat-footer__links">
-          <li><a href="/collections/all-products">All Products</a></li>
-          <li><a href="/collections/lunch-box">Lunch Boxes</a></li>
-          <li><a href="/collections/bottles-flasks">Bottles and Flasks</a></li>
-          <li><a href="/collections/kids-collections">Kids Picks</a></li>
-          <li><a href="/collections/india-s-biggest-lunch-sale-upto-80">Live Sale</a></li>
+          <li><a href="{{ shop_all_url }}">All Products</a></li>
+          <li><a href="{{ lunch_url }}">Lunch Boxes</a></li>
+          <li><a href="{{ bottles_url }}">Bottles and Flasks</a></li>
+          <li><a href="{{ kids_url }}">Kids Picks</a></li>
+          <li><a href="{{ sale_url }}">Live Sale</a></li>
         </ul>
       </div>
 
@@ -42,66 +83,211 @@
         <h3 class="catfat-footer__heading">Support</h3>
         <ul class="catfat-footer__links">
           <li><a href="/pages/contact-us">Contact Us</a></li>
-          <li><a href="/collections/corporate-gifting-bulk-gifting">Bulk Gifting</a></li>
+          <li><a href="{{ gifting_url }}">Bulk Gifting</a></li>
           <li><a href="/pages/terms-and-conditions">Terms and Conditions</a></li>
           <li><a href="{{ routes.account_url }}">My Account</a></li>
         </ul>
       </div>
 
       <div class="catfat-footer__signup">
-        <h3 class="catfat-footer__heading">Get Coupons First</h3>
-        <p class="catfat-footer__support-copy">
-          Share your email for discount coupons, latest product updates, and early access to Catfat launches before the best products sell out.
-        </p>
+        <div class="catfat-footer__signup-card">
+          <span class="catfat-footer__signup-eyebrow">Coupons inbox</span>
+          <h3 class="catfat-footer__heading catfat-footer__signup-title">Get Coupons First</h3>
+          <p class="catfat-footer__support-copy">
+            Discount codes, latest product updates, and early access to launches — before they sell out.
+          </p>
 
-        {%- form 'customer', class: 'catfat-footer__newsletter-form' -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <div class="catfat-footer__newsletter-fields">
-            <input
-              type="email"
-              name="contact[email]"
-              class="catfat-footer__newsletter-input"
-              value="{{ form.email }}"
-              placeholder="Enter your email"
-              autocorrect="off"
-              autocapitalize="off"
-              autocomplete="email"
-              required
-            >
-            <button type="submit" class="catfat-footer__newsletter-button">Unlock updates</button>
-          </div>
+          {%- form 'customer', class: 'catfat-footer__newsletter-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="catfat-footer__newsletter-fields">
+              <input
+                type="email"
+                name="contact[email]"
+                class="catfat-footer__newsletter-input"
+                value="{{ form.email }}"
+                placeholder="you@email.com"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                required
+              >
+              <button type="submit" class="catfat-footer__newsletter-button">
+                <span>Unlock 10% off</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
 
-          {%- if form.posted_successfully? -%}
-            <p class="catfat-footer__newsletter-message">
-              You are in. Watch your inbox for coupons and new-drop updates.
-            </p>
-          {%- elsif form.errors -%}
-            <ul class="catfat-footer__newsletter-errors" role="alert">
-              {%- for field in form.errors -%}
-                <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
-        {%- endform -%}
+            {%- if form.posted_successfully? -%}
+              <p class="catfat-footer__newsletter-message">
+                You are in. Watch your inbox for coupons and new-drop updates.
+              </p>
+            {%- elsif form.errors -%}
+              <ul class="catfat-footer__newsletter-errors" role="alert">
+                {%- for field in form.errors -%}
+                  <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          {%- endform -%}
 
-        <div class="catfat-footer__social">
-          <a href="https://wa.me/918383013068">WhatsApp</a>
-          <a href="https://instagram.com/catfatindia">Instagram</a>
-          <a href="https://facebook.com/catfatindia">Facebook</a>
+          <ul class="catfat-footer__signup-perks">
+            <li><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Welcome 10% off</li>
+            <li><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Early-access drops</li>
+            <li><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> No spam ever</li>
+          </ul>
         </div>
       </div>
     </div>
 
+    {%- comment -%} Social platforms — icons placed above We accept {%- endcomment -%}
+    <div class="catfat-footer__social-row">
+      <span class="catfat-footer__social-label">Follow us</span>
+      <div class="catfat-footer__social-icons">
+        <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="catfat-footer__social-icon" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://facebook.com/catfatindia" target="_blank" rel="noopener" class="catfat-footer__social-icon" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+        <a href="https://wa.me/918178136702" target="_blank" rel="noopener" class="catfat-footer__social-icon" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com/@catfatindia" target="_blank" rel="noopener" class="catfat-footer__social-icon" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.4.6a3 3 0 0 0-2.1 2.1A31.4 31.4 0 0 0 0 12c0 1.9.2 3.8.5 5.8a3 3 0 0 0 2.1 2.1c2 .6 9.4.6 9.4.6s7.4 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-2 .5-3.9.5-5.8 0-1.9-.2-3.8-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="catfat-footer__payments">
+      <span class="catfat-footer__payments-label">We accept</span>
+      <div class="catfat-footer__payment-icons">
+        <span class="catfat-footer__payment-pill">UPI</span>
+        <span class="catfat-footer__payment-pill">Visa</span>
+        <span class="catfat-footer__payment-pill">Mastercard</span>
+        <span class="catfat-footer__payment-pill">Razorpay</span>
+        <span class="catfat-footer__payment-pill">COD</span>
+        <span class="catfat-footer__payment-pill">Net Banking</span>
+      </div>
+    </div>
+
     <div class="catfat-footer__bottom">
-      <p class="catfat-footer__bottom-copy">Copyright 2026 CatfatIndia. All rights reserved.</p>
-      <p class="catfat-footer__bottom-note">Secure checkout for lunchware, gifting, and themed favourites.</p>
+      <p class="catfat-footer__bottom-copy">© {{ 'now' | date: '%Y' }} CatfatIndia. All rights reserved.</p>
+      <div class="catfat-footer__bottom-side">
+        <p class="catfat-footer__bottom-note">100% Secure Checkout · Free delivery above ₹499 · 7-Day Returns</p>
+        {%- if section.settings.show_theme_toggle -%}
+          <button
+            type="button"
+            class="catfat-footer__mode-button"
+            data-catfat-theme-toggle
+            data-default-mode="{{ section.settings.default_theme_mode }}"
+            data-light-label="{{ section.settings.light_mode_label }}"
+            data-dark-label="{{ section.settings.dark_mode_label }}"
+            aria-label="Switch to dark mode"
+            title="Switch to dark mode"
+            aria-pressed="false"
+          >
+            <span class="catfat-footer__mode-icon catfat-footer__mode-icon--moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M14.5 2.5c-2.2.8-3.8 2.9-3.8 5.4 0 3.2 2.6 5.8 5.8 5.8 2.1 0 4-.9 5.1-2.5-.5 5-4.7 8.8-9.8 8.8-5.5 0-10-4.5-10-10 0-4.9 3.5-9 8.3-9.8a6.3 6.3 0 0 0-.6 2.3c0 0 0 0 0 0z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="catfat-footer__mode-icon catfat-footer__mode-icon--sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M12 4.5a1 1 0 0 1 1 1v1.4a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1Zm0 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5-4.5a1 1 0 0 1 1 1 1 1 0 0 1-1 1h-1.4a1 1 0 1 1 0-2h1.4ZM6.9 11a1 1 0 1 1 0 2H5.5a1 1 0 1 1 0-2h1.4Zm9.17-4.76a1 1 0 0 1 1.41 0l.99.99a1 1 0 1 1-1.41 1.41l-.99-.99a1 1 0 0 1 0-1.41Zm-9.56 9.56a1 1 0 0 1 1.41 0l.99.99a1 1 0 1 1-1.41 1.41l-.99-.99a1 1 0 0 1 0-1.41Zm10.97.99a1 1 0 0 1 0 1.41l-.99.99a1 1 0 1 1-1.41-1.41l.99-.99a1 1 0 0 1 1.41 0Zm-9.56-9.56a1 1 0 0 1 0 1.41l-.99.99A1 1 0 1 1 5.52 7.8l.99-.99a1 1 0 0 1 1.41 0Z" fill="currentColor"/>
+              </svg>
+            </span>
+          </button>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </footer>
 
+<script>
+  (() => {
+    const initFooterWhatsappCollisionGuard = () => {
+      const footer = document.querySelector('.catfat-footer');
+      const whatsappButton = document.querySelector('.custom_bottom_whatsapp_btn');
+
+      if (!footer || !whatsappButton || !('IntersectionObserver' in window)) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            whatsappButton.classList.toggle('is-hidden-near-footer', entry.isIntersecting);
+          });
+        },
+        {
+          rootMargin: '0px 0px -40px 0px',
+          threshold: 0.1
+        }
+      );
+
+      observer.observe(footer);
+    };
+
+    document.addEventListener('DOMContentLoaded', initFooterWhatsappCollisionGuard);
+    document.addEventListener('shopify:section:load', initFooterWhatsappCollisionGuard);
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Footer",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_theme_toggle",
+      "default": true,
+      "label": "Show light/dark toggle"
+    },
+    {
+      "type": "select",
+      "id": "default_theme_mode",
+      "label": "Default theme mode",
+      "default": "light",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" },
+        { "value": "system", "label": "Match device" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "theme_toggle_heading",
+      "default": "View mode",
+      "label": "Toggle heading"
+    },
+    {
+      "type": "textarea",
+      "id": "theme_toggle_copy",
+      "default": "Switch between light and dark storefront views while you review the build.",
+      "label": "Toggle copy"
+    },
+    {
+      "type": "text",
+      "id": "light_mode_label",
+      "default": "Light",
+      "label": "Light button label"
+    },
+    {
+      "type": "text",
+      "id": "dark_mode_label",
+      "default": "Dark",
+      "label": "Dark button label"
+    }
+  ]
 }
 {% endschema %}

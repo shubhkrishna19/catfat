@@ -20,12 +20,6 @@
     assign gifting_count = gifting_collection.all_products_count
   endif
 
-  assign logo_url = blank
-  if settings.logo != blank
-    assign logo_url = settings.logo | image_url: width: 360
-  else
-    assign logo_url = 'https://catfatindia.com/cdn/shop/files/catfat.png?v=1728204199&width=500'
-  endif
 -%}
 
 <section class="brand-story page-width">
@@ -34,12 +28,24 @@
       <span class="brand-story__eyebrow">Why Catfat</span>
 
       <div class="brand-story__logo-plate">
-        <img src="{{ logo_url }}" alt="{{ shop.name }}" class="brand-story__logo" loading="lazy">
+        {%- if settings.logo != blank -%}
+          {{
+            settings.logo
+            | image_url: width: 360
+            | image_tag:
+              class: 'brand-story__logo',
+              widths: '180, 240, 320, 360',
+              loading: 'lazy',
+              alt: shop.name
+          }}
+        {%- else -%}
+          <img src="{{ 'catfat-wordmark.png' | asset_url }}" alt="{{ shop.name }}" class="brand-story__logo" loading="lazy" width="500" height="500">
+        {%- endif -%}
       </div>
 
-      <h2 class="brand-story__title">Playful for kids. Practical for parents.</h2>
+      <h2 class="brand-story__title">Playful enough for kids. Clear enough for confident buying.</h2>
       <p class="brand-story__description">
-        Catfat brings school-ready lunchware, visible pricing, and gifting-friendly picks into one cleaner storefront so customers can decide faster.
+        Catfat brings school-ready lunchware, original product photos, and gifting-friendly picks into one cleaner storefront so shoppers can compare faster without the marketplace clutter.
       </p>
 
       <div class="brand-story__signals">
@@ -65,7 +71,7 @@
           <strong class="brand-story__card-title">
             {% if lunch_count > 0 %}{{ lunch_count }} lunch-ready picks{% else %}Lunch-ready picks{% endif %}
           </strong>
-          <p class="brand-story__card-copy">Compartment lunch boxes, stainless steel builds, and simpler daily-use choices.</p>
+          <p class="brand-story__card-copy">Compartment lunch boxes, stainless steel builds, and more confident daily-use choices.</p>
         </a>
       {%- endif -%}
 
@@ -75,7 +81,7 @@
           <strong class="brand-story__card-title">
             {% if bottle_count > 0 %}{{ bottle_count }} insulated carry picks{% else %}Insulated carry picks{% endif %}
           </strong>
-          <p class="brand-story__card-copy">Bottles and thermos options that stay practical while still feeling giftable.</p>
+          <p class="brand-story__card-copy">Bottles and thermos options that stay practical while still feeling polished enough to gift.</p>
         </a>
       {%- endif -%}
 
@@ -85,7 +91,7 @@
           <strong class="brand-story__card-title">
             {% if gifting_count > 0 %}{{ gifting_count }} gifting-friendly options{% else %}Gifting-friendly options{% endif %}
           </strong>
-          <p class="brand-story__card-copy">Personalised and theme-led products that work for return gifts and bulk orders.</p>
+          <p class="brand-story__card-copy">Personalised and theme-led picks that work for return gifts, birthdays, and larger orders.</p>
         </a>
       {%- endif -%}
     </div>

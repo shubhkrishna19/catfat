@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-faq",
+      "settings": {}
+    },
+    "faq_lane": {
+      "type": "marketplace-faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "faq_lane"
+  ]
+}

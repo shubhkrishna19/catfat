@@ -1,101 +1,126 @@
-<!-- Floating Trust Badges Bar -->
 {%- style -%}
-.floating-trust-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-  padding: 12px 0;
-  z-index: 999;
-  display: none;
-}
-
-.floating-trust-bar.visible {
-  display: block;
-  animation: slideUp 0.4s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
+  body.has-floating-trust-bar {
+    padding-bottom: var(--floating-trust-bar-offset, 7.6rem);
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+
+  body.has-floating-trust-bar .custom_bottom_whatsapp_btn {
+    bottom: calc(var(--floating-trust-bar-offset, 7.6rem) + 20px);
   }
-}
 
-.floating-trust-bar .trust-badges-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+  .floating-trust-bar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1200;
+    border-top: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.12);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 -12px 28px rgba(var(--catfat-brand-purple-rgb), 0.08);
+    backdrop-filter: blur(16px);
+  }
 
-.floating-trust-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #333;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.floating-trust-badge svg {
-  width: 24px;
-  height: 24px;
-  color: #e84a7f;
-}
-
-.floating-trust-badge .badge-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.floating-trust-badge .badge-label {
-  font-size: 0.75rem;
-  color: #666;
-}
-
-.floating-trust-badge .badge-value {
-  font-weight: 700;
-  color: #333;
-}
-
-@media (max-width: 768px) {
   .floating-trust-bar .trust-badges-container {
-    gap: 20px;
-    justify-content: space-around;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.6rem, 2.6vw, 3.6rem);
+    max-width: 1380px;
+    min-height: 7.4rem;
+    margin: 0 auto;
+    padding: 1.1rem clamp(1.8rem, 3vw, 3.2rem);
   }
-  
+
   .floating-trust-badge {
-    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 0 0 auto;
+    color: #2f2740;
   }
-  
+
   .floating-trust-badge svg {
-    width: 20px;
-    height: 20px;
+    width: 2.4rem;
+    height: 2.4rem;
+    flex-shrink: 0;
+    color: #642878;
   }
-}
+
+  .floating-trust-badge .badge-text {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .floating-trust-badge .badge-label {
+    color: #6f6580;
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+  }
+
+  .floating-trust-badge .badge-value {
+    color: #2f2740;
+    font-size: 1.36rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+
+  @media (max-width: 990px) {
+    .floating-trust-bar .trust-badges-container {
+      gap: 2rem;
+      min-height: 6.8rem;
+      padding-inline: 2rem;
+      justify-content: flex-start;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .floating-trust-bar .trust-badges-container::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body.has-floating-trust-bar .custom_bottom_whatsapp_btn {
+      bottom: calc(var(--floating-trust-bar-offset, 7.2rem) + 12px);
+    }
+
+    .floating-trust-bar .trust-badges-container {
+      gap: 1.6rem;
+      min-height: 6.4rem;
+      padding: 1rem 1.6rem;
+    }
+
+    .floating-trust-badge {
+      gap: 0.8rem;
+    }
+
+    .floating-trust-badge svg {
+      width: 2.1rem;
+      height: 2.1rem;
+    }
+
+    .floating-trust-badge .badge-label {
+      font-size: 1.05rem;
+    }
+
+    .floating-trust-badge .badge-value {
+      font-size: 1.24rem;
+    }
+  }
 {%- endstyle -%}
 
-<div class="floating-trust-bar" id="floatingTrustBar">
+<div class="floating-trust-bar" id="floatingTrustBar" aria-label="Store trust highlights">
   <div class="trust-badges-container">
     <div class="floating-trust-badge">
       {% render 'icon-truck' %}
       <div class="badge-text">
         <span class="badge-label">Free Shipping</span>
-        <span class="badge-value">Above ₹499</span>
+        <span class="badge-value">Above Rs. 499</span>
       </div>
     </div>
-    
+
     <div class="floating-trust-badge">
       {% render 'icon-checkmark' %}
       <div class="badge-text">
@@ -103,7 +128,7 @@
         <span class="badge-value">100% Original</span>
       </div>
     </div>
-    
+
     <div class="floating-trust-badge">
       {% render 'icon-chat' %}
       <div class="badge-text">
@@ -111,7 +136,7 @@
         <span class="badge-value">Support Available</span>
       </div>
     </div>
-    
+
     <div class="floating-trust-badge">
       {% render 'icon-success' %}
       <div class="badge-text">
@@ -119,7 +144,7 @@
         <span class="badge-value">7 Days Return</span>
       </div>
     </div>
-    
+
     <div class="floating-trust-badge">
       {% render 'icon-credit-card' %}
       <div class="badge-text">
@@ -131,27 +156,25 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const floatingBar = document.getElementById('floatingTrustBar');
-    let lastScroll = 0;
-    
-    window.addEventListener('scroll', function() {
-      const currentScroll = window.pageYOffset;
-      
-      // Show after scrolling 500px, hide when at top
-      if (currentScroll > 500) {
-        if (currentScroll > lastScroll) {
-          // Scrolling down - show the bar
-          floatingBar.classList.add('visible');
-        }
-      } else {
-        // At top - hide the bar
-        floatingBar.classList.remove('visible');
-      }
-      
-      lastScroll = currentScroll;
-    });
-  });
+  (() => {
+    const updateFloatingTrustBar = () => {
+      const floatingBar = document.getElementById('floatingTrustBar');
+      if (!floatingBar || !document.body) return;
+
+      const floatingBarHeight = Math.ceil(floatingBar.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--floating-trust-bar-offset', `${floatingBarHeight}px`);
+      document.body.classList.add('has-floating-trust-bar');
+    };
+
+    const initializeFloatingTrustBar = () => {
+      updateFloatingTrustBar();
+      window.addEventListener('resize', updateFloatingTrustBar);
+    };
+
+    document.addEventListener('DOMContentLoaded', initializeFloatingTrustBar);
+    document.addEventListener('shopify:section:load', updateFloatingTrustBar);
+    document.addEventListener('shopify:section:reorder', updateFloatingTrustBar);
+  })();
 </script>
 
 {% schema %}
@@ -160,7 +183,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "This floating trust badges bar appears at the bottom of the screen when user scrolls down."
+      "content": "Fixed trust bar displayed at the bottom of the screen."
     }
   ],
   "presets": [

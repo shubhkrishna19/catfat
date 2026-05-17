@@ -1,0 +1,339 @@
+{%- liquid
+  assign active_orders = 0
+  assign refunded_orders = 0
+  assign default_address = customer.default_address
+
+  for order in customer.orders
+    if order.total_refunded_amount > 0 or order.cancelled
+      assign refunded_orders = refunded_orders | plus: 1
+    endif
+
+    unless order.cancelled or order.fulfillment_status == 'fulfilled'
+      assign active_orders = active_orders | plus: 1
+    endunless
+  endfor
+-%}
+
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{%- if customer -%}
+  <section class="customer-page">
+    <div class="page-width customer-shell" data-account-shell data-default-panel="profile">
+      {% render 'customer-account-nav', current_page: 'profile', customer: customer %}
+
+      <div class="customer-main">
+        <section class="customer-panel is-active" data-account-panel="profile">
+          <div class="customer-panel__header">
+            <span class="customer-section__eyebrow">Profile</span>
+            <h1 class="customer-panel__title">Your Catfat profile, designed for quick order access.</h1>
+            <p class="customer-panel__copy">This preview route now opens a usable account dashboard instead of a broken 404 screen.</p>
+          </div>
+
+          <div class="customer-stats">
+            <div class="customer-stat">
+              <span class="customer-stat__label">Total orders</span>
+              <strong class="customer-stat__value">{{ customer.orders_count }}</strong>
+            </div>
+            <div class="customer-stat">
+              <span class="customer-stat__label">Active orders</span>
+              <strong class="customer-stat__value">{{ active_orders }}</strong>
+            </div>
+            <div class="customer-stat">
+              <span class="customer-stat__label">Returns</span>
+              <strong class="customer-stat__value">{{ refunded_orders }}</strong>
+            </div>
+          </div>
+
+          <div class="customer-panel__grid">
+            <div class="customer-card">
+              <div class="customer-card__header">
+                <div>
+                  <h2 class="customer-card__title">Account details</h2>
+                  <p class="customer-card__meta">The core identity and contact info tied to your Catfat orders.</p>
+                </div>
+              </div>
+              <div class="customer-summary__list">
+                <div class="customer-summary__item"><span>Name</span><strong>{{ customer.name | default: customer.first_name }}</strong></div>
+                <div class="customer-summary__item"><span>Email</span><strong>{{ customer.email }}</strong></div>
+                {%- if customer.phone != blank -%}
+                  <div class="customer-summary__item"><span>Phone</span><strong>{{ customer.phone }}</strong></div>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="customer-card">
+              <div class="customer-card__header">
+                <div>
+                  <h2 class="customer-card__title">Default address</h2>
+                  <p class="customer-card__meta">The delivery address you’re most likely to use next.</p>
+                </div>
+                <a class="customer-inline-link" href="{{ routes.account_addresses_url }}">Manage</a>
+              </div>
+              {%- if default_address != blank -%}
+                <div class="customer-address-card__meta">
+                  <span>{{ default_address.name }}</span>
+                  <span>{{ default_address.address1 }}</span>
+                  {%- if default_address.address2 != blank -%}<span>{{ default_address.address2 }}</span>{%- endif -%}
+                  <span>{{ default_address.city }}, {{ default_address.province }} {{ default_address.zip }}</span>
+                  <span>{{ default_address.country }}</span>
+                </div>
+              {%- else -%}
+                <p class="customer-card__copy">No address saved yet. Add one from the Addresses panel when you want faster checkout.</p>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="customer-card">
+            <div class="customer-card__header">
+              <div>
+                <h2 class="customer-card__title">Recent orders</h2>
+                <p class="customer-card__meta">The latest purchases from your account.</p>
+              </div>
+            </div>
+            {%- if customer.orders_count > 0 -%}
+              <div class="customer-order-list">
+                {%- for order in customer.orders limit: 3 -%}
+                  {%- assign first_item = order.line_items | first -%}
+                  {%- assign order_image = first_item.image | default: first_item.product.featured_image -%}
+                  <article class="customer-order-card">
+                    <div class="customer-card__header">
+                      <div>
+                        <h3 class="customer-order-card__title">{{ first_item.title }}</h3>
+                        <p class="customer-order-card__caption">{{ order.name }} • {{ order.created_at | date: '%d %b %Y' }}</p>
+                      </div>
+                      <span class="customer-status {% if order.fulfillment_status == 'fulfilled' %}customer-status--success{% elsif order.cancelled %}customer-status--neutral{% endif %}">
+                        {{ order.fulfillment_status_label | default: order.financial_status_label }}
+                      </span>
+                    </div>
+                    <div class="customer-order-card__body">
+                      <div class="customer-product-thumb">
+                        {%- if order_image != blank -%}
+                          {{ order_image | image_url: width: 176 | image_tag: loading: 'lazy', widths: '88,176', alt: first_item.title }}
+                        {%- endif -%}
+                      </div>
+                      <div>
+                        <p class="customer-order-card__meta">{{ order.line_items.size }} item{% if order.line_items.size != 1 %}s{% endif %}</p>
+                        <p class="customer-order-card__price">{{ order.total_net_amount | money_with_currency }}</p>
+                      </div>
+                    </div>
+                    <div class="customer-order-card__actions">
+                      <a class="customer-button--secondary" href="{{ order.customer_url }}">View details</a>
+                    </div>
+                  </article>
+                {%- endfor -%}
+              </div>
+            {%- else -%}
+              <div class="customer-empty-state">
+                <h3 class="customer-empty-state__title">No orders yet</h3>
+                <p class="customer-empty-state__copy">Once you place a Catfat order, your profile dashboard will surface it here.</p>
+              </div>
+            {%- endif -%}
+          </div>
+        </section>
+
+        <section class="customer-panel" data-account-panel="orders">
+          <div class="customer-panel__header">
+            <span class="customer-section__eyebrow">Orders</span>
+            <h2 class="customer-panel__title">Every order, easy to scan.</h2>
+            <p class="customer-panel__copy">This keeps the order history quick and uncluttered while the preview route stays usable.</p>
+          </div>
+          <div class="customer-order-list">
+            {%- for order in customer.orders -%}
+              {%- assign first_item = order.line_items | first -%}
+              <article class="customer-order-card">
+                <div class="customer-card__header">
+                  <div>
+                    <h3 class="customer-order-card__title">{{ first_item.title }}</h3>
+                    <p class="customer-order-card__caption">{{ order.name }} • {{ order.created_at | date: '%d %b %Y' }}</p>
+                  </div>
+                  <span class="customer-status {% if order.fulfillment_status == 'fulfilled' %}customer-status--success{% elsif order.cancelled %}customer-status--neutral{% endif %}">
+                    {{ order.fulfillment_status_label | default: order.financial_status_label }}
+                  </span>
+                </div>
+                <p class="customer-order-card__price">{{ order.total_net_amount | money_with_currency }}</p>
+                <div class="customer-order-card__actions">
+                  <a class="customer-button--secondary" href="{{ order.customer_url }}">View details</a>
+                </div>
+              </article>
+            {%- else -%}
+              <div class="customer-empty-state">
+                <h3 class="customer-empty-state__title">Orders will appear here</h3>
+                <p class="customer-empty-state__copy">This panel is ready once your first Catfat purchase is placed.</p>
+              </div>
+            {%- endfor -%}
+          </div>
+        </section>
+
+        <section class="customer-panel" data-account-panel="returns">
+          <div class="customer-panel__header">
+            <span class="customer-section__eyebrow">Returns</span>
+            <h2 class="customer-panel__title">Clear return status, without the clutter.</h2>
+            <p class="customer-panel__copy">Refunded or eligible orders can be reviewed here quickly.</p>
+          </div>
+          <div class="customer-return-list">
+            {%- for order in customer.orders limit: 8 -%}
+              <article class="customer-return-card">
+                <div class="customer-card__header">
+                  <div>
+                    <h3 class="customer-return-card__title">{{ order.name }}</h3>
+                    <p class="customer-card__meta">{{ order.created_at | date: '%d %b %Y' }}</p>
+                  </div>
+                  {%- if order.total_refunded_amount > 0 -%}
+                    <span class="customer-status customer-status--success">Refunded</span>
+                  {%- elsif order.fulfillment_status == 'fulfilled' -%}
+                    <span class="customer-status">Eligible</span>
+                  {%- else -%}
+                    <span class="customer-status customer-status--neutral">Pending</span>
+                  {%- endif -%}
+                </div>
+                <p class="customer-card__copy">Use this area to review refund outcomes and reach support when a return is needed.</p>
+              </article>
+            {%- else -%}
+              <div class="customer-empty-state">
+                <h3 class="customer-empty-state__title">No returns yet</h3>
+                <p class="customer-empty-state__copy">Return status cards will show up here when needed.</p>
+              </div>
+            {%- endfor -%}
+          </div>
+        </section>
+
+        <section class="customer-panel" data-account-panel="support">
+          <div class="customer-panel__header">
+            <span class="customer-section__eyebrow">Support</span>
+            <h2 class="customer-panel__title">Fast help from Catfat support.</h2>
+            <p class="customer-panel__copy">Professional account UX should always keep help visible and low-friction.</p>
+          </div>
+          <div class="customer-support-grid">
+            <article class="customer-support-card">
+              <h3 class="customer-support-card__title">WhatsApp support</h3>
+              <p class="customer-support-card__copy">Best for quick order and return help.</p>
+              <div class="customer-support-card__meta">
+                <span>918178136702</span>
+                <span>Mon - Sat, 10:00 AM - 7:00 PM</span>
+              </div>
+              <a class="customer-support-link" href="https://api.whatsapp.com/send?phone=918178136702">Open WhatsApp</a>
+            </article>
+            <article class="customer-support-card">
+              <h3 class="customer-support-card__title">Email support</h3>
+              <p class="customer-support-card__copy">Best for detailed questions.</p>
+              <div class="customer-support-card__meta">
+                <span>support@catfatindia.com</span>
+                <span>Within 24 hours</span>
+              </div>
+              <a class="customer-support-link" href="mailto:support@catfatindia.com">Send an email</a>
+            </article>
+            <article class="customer-support-card">
+              <h3 class="customer-support-card__title">Phone support</h3>
+              <p class="customer-support-card__copy">Direct help during support hours.</p>
+              <div class="customer-support-card__meta">
+                <span>918178136702</span>
+                <span>Mon - Sat, 10:00 AM - 7:00 PM</span>
+              </div>
+              <a class="customer-support-link" href="tel:918178136702">Call support</a>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+{%- else -%}
+  <section class="customer-auth" data-auth-shell data-default-tab="login">
+    <div class="customer-auth__frame">
+      <div class="customer-auth__card">
+        <div class="customer-auth__brand">
+          <span class="customer-auth__eyebrow">Catfat account</span>
+          <h1 class="customer-auth__title">Login or create your account without leaving the theme preview.</h1>
+          <p class="customer-auth__copy">This account preview route is designed to stay usable even when Shopify preview routing falls back through 404.</p>
+        </div>
+
+        <div class="customer-auth__tabs" role="tablist" aria-label="Account access">
+          <button type="button" class="customer-auth__tab is-active" data-auth-tab-trigger="login" role="tab" aria-selected="true">Login</button>
+          <button type="button" class="customer-auth__tab" data-auth-tab-trigger="signup" role="tab" aria-selected="false">Signup</button>
+        </div>
+
+        <div class="customer-auth__panel is-active" data-auth-panel="login">
+          {%- form 'customer_login', class: 'customer-form js-customer-validate', novalidate: 'novalidate' -%}
+            {%- if form.errors -%}
+              <ul class="customer-form__error-list" role="alert">
+                {%- for field in form.errors -%}
+                  <li>
+                    {%- if field == 'form' -%}
+                      {{ form.errors.messages[field] }}
+                    {%- else -%}
+                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            <div class="customer-form__group">
+              <label class="customer-form__label" for="FallbackCustomerEmail">Email</label>
+              <div class="customer-form__control">
+                <input class="customer-form__input js-validate-input" type="email" name="customer[email]" id="FallbackCustomerEmail" autocomplete="email" placeholder="Email address" required>
+              </div>
+              <p class="customer-field-error js-field-error"></p>
+            </div>
+
+            <div class="customer-form__group">
+              <label class="customer-form__label" for="FallbackCustomerPassword">Password</label>
+              <div class="customer-form__control">
+                <input class="customer-form__input customer-form__password js-validate-input" type="password" name="customer[password]" id="FallbackCustomerPassword" autocomplete="current-password" placeholder="Enter your password" minlength="5" required>
+                <button type="button" class="customer-password-toggle" aria-controls="FallbackCustomerPassword" data-password-toggle>Show</button>
+              </div>
+              <p class="customer-field-error js-field-error"></p>
+            </div>
+
+            <button class="customer-button" type="submit">Login</button>
+          {%- endform -%}
+        </div>
+
+        <div class="customer-auth__panel" data-auth-panel="signup">
+          {%- form 'create_customer', class: 'customer-form js-customer-validate', novalidate: 'novalidate' -%}
+            {%- if form.errors -%}
+              <ul class="customer-form__error-list" role="alert">
+                {%- for field in form.errors -%}
+                  <li>
+                    {%- if field == 'form' -%}
+                      {{ form.errors.messages[field] }}
+                    {%- else -%}
+                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            <div class="customer-form__group">
+              <label class="customer-form__label" for="FallbackRegisterName">Name</label>
+              <div class="customer-form__control">
+                <input class="customer-form__input js-validate-input" type="text" name="customer[first_name]" id="FallbackRegisterName" autocomplete="given-name" placeholder="Your name" required>
+              </div>
+              <p class="customer-field-error js-field-error"></p>
+            </div>
+
+            <div class="customer-form__group">
+              <label class="customer-form__label" for="FallbackRegisterEmail">Email</label>
+              <div class="customer-form__control">
+                <input class="customer-form__input js-validate-input" type="email" name="customer[email]" id="FallbackRegisterEmail" autocomplete="email" placeholder="Email address" required>
+              </div>
+              <p class="customer-field-error js-field-error"></p>
+            </div>
+
+            <div class="customer-form__group">
+              <label class="customer-form__label" for="FallbackRegisterPassword">Password</label>
+              <div class="customer-form__control">
+                <input class="customer-form__input customer-form__password js-validate-input" type="password" name="customer[password]" id="FallbackRegisterPassword" autocomplete="new-password" placeholder="Create a password" minlength="5" required>
+                <button type="button" class="customer-password-toggle" aria-controls="FallbackRegisterPassword" data-password-toggle>Show</button>
+              </div>
+              <p class="customer-field-error js-field-error"></p>
+            </div>
+
+            <button class="customer-button" type="submit">Create account</button>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}

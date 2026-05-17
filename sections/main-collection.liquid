@@ -2,65 +2,223 @@
 
 <style>
   .collection-template {
-    padding: 32px 0 56px;
+    padding: clamp(2.8rem, 3.6vw, 4.2rem) 0 clamp(4.8rem, 5.8vw, 6.4rem);
   }
 
   .collection-template__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 40%) minmax(0, 60%);
+    align-items: center;
     position: relative;
+    min-height: 28rem;
+    height: clamp(28rem, 30vw, 32rem);
+    max-height: 34rem;
     overflow: hidden;
-    border-radius: 28px;
-    margin-bottom: 32px;
-    background: linear-gradient(135deg, #fff5f8, #fff7ef);
-  }
-
-  .collection-template__hero-image {
-    display: block;
-    width: 100%;
-    height: clamp(240px, 36vw, 420px);
-    object-fit: cover;
+    border-radius: 1.8rem;
+    margin-bottom: clamp(1.4rem, 2.2vw, 1.8rem);
+    background:
+      radial-gradient(circle at 7% 12%, rgba(var(--catfat-brand-orange-rgb), 0.1), transparent 12%),
+      radial-gradient(circle at 12% 10%, rgba(var(--catfat-brand-orange-rgb), 0.06), transparent 11%),
+      radial-gradient(circle at 38% 82%, rgba(var(--catfat-brand-orange-rgb), 0.05), transparent 18%),
+      linear-gradient(135deg, #fffaf1 0%, #fffdf9 46%, #fff7ea 100%);
+    border: 1px solid rgba(var(--catfat-brand-orange-rgb), 0.16);
+    box-shadow: 0 18px 34px rgba(var(--catfat-brand-orange-rgb), 0.08);
   }
 
   .collection-template__hero-copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    height: 100%;
+    padding: clamp(3.2rem, 3vw, 4rem) clamp(3.2rem, 3vw, 4.8rem);
+    min-width: 0;
+    max-width: 52rem;
+  }
+
+  .collection-template__hero-copy::after {
+    content: '';
     position: absolute;
-    inset: auto 0 0;
-    padding: 28px;
-    color: #fff;
-    background: linear-gradient(180deg, rgba(30, 16, 28, 0) 0%, rgba(30, 16, 28, 0.78) 100%);
+    right: clamp(1.2rem, 2vw, 2.4rem);
+    bottom: 2rem;
+    width: 16rem;
+    height: 11rem;
+    border: 2px dashed rgba(var(--catfat-brand-orange-rgb), 0.15);
+    border-color: rgba(var(--catfat-brand-orange-rgb), 0.15) transparent transparent transparent;
+    border-radius: 50% 50% 50% 50%;
+    transform: rotate(-18deg);
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  .collection-template__hero-media {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+    align-self: stretch;
+  }
+
+  .collection-template__hero-media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-top-left-radius: clamp(13rem, 18vw, 21rem) clamp(15rem, 22vw, 28rem);
+    border-bottom-left-radius: clamp(13rem, 18vw, 21rem) clamp(15rem, 22vw, 28rem);
+    border-top-right-radius: 1.8rem;
+    border-bottom-right-radius: 1.8rem;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+  }
+
+  .collection-template__hero-visual {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: clamp(13rem, 18vw, 21rem) clamp(15rem, 22vw, 28rem);
+    border-bottom-left-radius: clamp(13rem, 18vw, 21rem) clamp(15rem, 22vw, 28rem);
+    border-top-right-radius: 1.8rem;
+    border-bottom-right-radius: 1.8rem;
+    overflow: hidden;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .collection-template__hero-image,
+  .collection-template__hero-placeholder {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center right;
+    margin: 0;
+    transform: none;
+  }
+
+  .collection-template__hero-image-backdrop {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center right;
+    filter: blur(24px) saturate(0.92);
+    opacity: 0.22;
+    transform: scale(1.08);
+  }
+
+  .collection-template__hero-visual--portrait-fit::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(255, 250, 241, 0.04) 0%, rgba(255, 250, 241, 0) 24%, rgba(255, 250, 241, 0) 100%);
+    pointer-events: none;
+  }
+
+  .collection-template__hero-visual--portrait-fit .collection-template__hero-image {
+    z-index: 2;
+    object-fit: cover;
+    object-position: 68% center;
+  }
+
+  .collection-template__hero-visual--portrait-fit .collection-template__hero-placeholder {
+    z-index: 2;
+  }
+
+  .collection-template__hero-placeholder {
+    width: 100%;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.22), transparent 24%),
+      linear-gradient(135deg, rgba(var(--catfat-brand-orange-rgb), 0.16) 0%, rgba(var(--catfat-brand-orange-rgb), 0.08) 100%);
   }
 
   .collection-template__eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.18);
-    font-size: 12px;
+    justify-content: center;
+    width: fit-content;
+    padding: 0;
+    color: rgba(157, 107, 27, 0.72);
+    font-size: 1.08rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
   .collection-template__title {
-    margin: 16px 0 10px;
-    font-size: clamp(32px, 5vw, 56px);
-    line-height: 0.96;
-    color: #2c1830;
+    margin: 1.2rem 0 0;
+    max-width: 48rem;
+    font-size: clamp(3.6rem, 3.15rem + 0.7vw, 4.4rem);
+    line-height: 1.08;
+    color: #2f2416;
+    letter-spacing: -0.04em;
+    font-weight: 800;
   }
 
-  .collection-template__hero-copy .collection-template__title {
-    color: #fff;
+  .collection-template__title-accent {
+    background: linear-gradient(180deg, #ffb13a 0%, #ff9800 54%, #f28700 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .collection-template__hero-count {
+    margin: 0.8rem 0 0;
+    font-size: 1.45rem;
+    line-height: 1.4;
+    color: #6f6251;
+    font-weight: 700;
+  }
+
+  .collection-template__hero-count-value {
+    color: var(--catfat-brand-orange);
+    font-weight: 800;
   }
 
   .collection-template__description {
-    max-width: 720px;
-    font-size: 16px;
-    line-height: 1.65;
-    color: #6f5c68;
+    max-width: 48rem;
+    margin: 0.8rem 0 0;
+    font-size: 1.45rem;
+    line-height: 1.55;
+    color: #6f6251;
+    font-weight: 500;
   }
 
-  .collection-template__hero-copy .collection-template__description {
-    color: rgba(255, 255, 255, 0.92);
+  .collection-template__hero-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 4.8rem;
+    margin-top: 1.6rem;
+    padding: 0 2.1rem;
+    border-radius: 1.2rem;
+    background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.45rem;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 14px 28px rgba(var(--catfat-brand-purple-rgb), 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .collection-template__hero-action:hover,
+  .collection-template__hero-action:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 34px rgba(var(--catfat-brand-purple-rgb), 0.28);
   }
 
   .collection-template__summary {
@@ -68,7 +226,7 @@
     gap: 20px;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: end;
-    margin-bottom: 28px;
+    margin-bottom: clamp(2.4rem, 3vw, 3.2rem);
   }
 
   .collection-template__toolbar {
@@ -76,47 +234,47 @@
     flex-wrap: wrap;
     gap: 12px;
     align-items: center;
-    justify-content: space-between;
-    padding: 18px 20px;
-    border: 1px solid rgba(232, 74, 127, 0.12);
-    border-radius: 20px;
-    background: linear-gradient(180deg, #ffffff 0%, #fff8fb 100%);
-    box-shadow: 0 12px 30px rgba(232, 74, 127, 0.08);
-    margin-bottom: 24px;
+    justify-content: flex-end;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    margin-bottom: clamp(1.4rem, 2vw, 1.8rem);
   }
 
   .collection-template__count {
     font-size: 15px;
-    color: #5f4d59;
+    color: var(--catfat-copy-body);
   }
 
   .collection-template__count strong {
-    color: #e84a7f;
+    color: var(--catfat-brand-purple);
   }
 
   .collection-template__sort {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: #5f4d59;
+    color: var(--catfat-copy-body);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .collection-template__sort select {
     min-width: 220px;
     padding: 12px 40px 12px 16px;
-    border: 1px solid rgba(232, 74, 127, 0.18);
-    border-radius: 999px;
-    background: #fff;
-    color: #2c1830;
+    border: 1px solid var(--catfat-card-border);
+    border-radius: 10px;
+    background: var(--catfat-surface-soft);
+    color: var(--catfat-copy-strong);
     font: inherit;
   }
 
   .collection-template__grid {
     display: grid;
     grid-template-columns: repeat(var(--collection-grid-columns), minmax(0, 1fr));
-    gap: 20px;
+    gap: 2.4rem;
   }
 
   .collection-template__item {
@@ -130,7 +288,7 @@
   }
 
   .collection-template__pagination {
-    margin-top: 32px;
+    margin-top: clamp(3rem, 4vw, 4rem);
   }
 
   .collection-template__pagination .pagination {
@@ -138,25 +296,72 @@
   }
 
   .collection-template__empty {
-    padding: 48px 24px;
+    padding: 52px 26px;
     text-align: center;
-    border-radius: 24px;
-    background: linear-gradient(180deg, #fff8fb 0%, #fff 100%);
-    border: 1px solid rgba(232, 74, 127, 0.12);
+    border-radius: 16px;
+    background: var(--catfat-card-gradient);
+    border: 1px solid var(--catfat-card-border);
   }
 
   .collection-template__empty h2 {
     margin: 0 0 12px;
-    color: #2c1830;
+    color: var(--catfat-copy-strong);
     font-size: 28px;
   }
 
   .collection-template__empty p {
     margin: 0;
-    color: #6f5c68;
+    color: var(--catfat-copy-body);
   }
 
   @media screen and (max-width: 989px) {
+    .collection-template__hero {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      max-height: none;
+    }
+
+    .collection-template__hero-media {
+      flex: none;
+      order: -1;
+      width: 100%;
+      min-height: 22rem;
+    }
+
+    .collection-template__hero-media::before {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 1.8rem;
+      border-top-left-radius: 1.8rem;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .collection-template__hero-visual {
+      border-top-left-radius: 1.8rem;
+      border-top-right-radius: 1.8rem;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .collection-template__hero-image,
+    .collection-template__hero-placeholder {
+      min-height: 22rem;
+      max-height: none;
+      object-position: center center;
+    }
+
+    .collection-template__hero-copy {
+      flex: none;
+      padding: 1.9rem 1.8rem 2rem;
+      max-width: none;
+    }
+
+    .collection-template__hero-copy::after {
+      display: none;
+    }
+
     .collection-template__summary {
       grid-template-columns: 1fr;
       align-items: start;
@@ -169,19 +374,32 @@
 
   @media screen and (max-width: 749px) {
     .collection-template {
-      padding: 24px 0 44px;
-    }
-
-    .collection-template__hero {
-      border-radius: 22px;
+      padding: 2.4rem 0 4.4rem;
     }
 
     .collection-template__hero-copy {
-      padding: 20px;
+      padding: 1.6rem 1.4rem 1.8rem;
+    }
+
+    .collection-template__hero-media {
+      min-height: 20rem;
     }
 
     .collection-template__toolbar {
-      padding: 16px;
+      margin-bottom: 1.8rem;
+    }
+
+    .collection-template__title {
+      max-width: none;
+      font-size: clamp(2.8rem, 7vw, 3.3rem);
+    }
+
+    .collection-template__description {
+      font-size: 1.4rem;
+    }
+
+    .collection-template__hero-action {
+      width: 100%;
     }
 
     .collection-template__sort {
@@ -205,55 +423,118 @@
 {%- liquid
   assign current_sort = collection.sort_by | default: collection.default_sort_by
   assign products_per_page = section.settings.products_per_page
+  assign banner_label = 'CATFAT COLLECTION'
+  assign banner_title = collection.title
+  assign banner_title_prefix = ''
+  assign banner_title_highlight = collection.title
+  assign banner_title_suffix = ''
+  assign banner_description = collection.description | strip_html
+  assign banner_image = collection.image
+  assign banner_image_is_tall = false
+
+  if banner_image == blank and collection.products.first != blank
+    assign banner_image = collection.products.first.featured_media
+  endif
+
+  if banner_image != blank and banner_image.preview_image != blank and banner_image.preview_image.aspect_ratio < 1.15
+    assign banner_image_is_tall = true
+  endif
+
+  case collection.handle
+    when 'lunch-box'
+      assign banner_title = 'Lunch Boxes for Everyday Meals'
+      assign banner_title_highlight = 'Lunch Boxes'
+      assign banner_title_suffix = ' for Everyday Meals'
+      assign banner_description = 'Leak-proof, durable lunch boxes built for school and daily routines'
+    when 'bottles-flasks'
+      assign banner_title = 'Stay Hydrated Anywhere'
+      assign banner_title_prefix = 'Stay '
+      assign banner_title_highlight = 'Hydrated'
+      assign banner_title_suffix = ' Anywhere'
+      assign banner_description = 'Insulated bottles and flasks for school, travel, and everyday use'
+    when 'kids-collections'
+      assign banner_title = 'Fun Picks Kids Love'
+      assign banner_title_prefix = 'Fun Picks '
+      assign banner_title_highlight = 'Kids'
+      assign banner_title_suffix = ' Love'
+      assign banner_description = 'Colorful, playful lunchware designed for joyful everyday meals'
+    when 'india-s-biggest-lunch-sale-upto-80'
+      assign banner_title = 'Big Savings on Everyday Essentials'
+      assign banner_title_prefix = 'Big '
+      assign banner_title_highlight = 'Savings'
+      assign banner_title_suffix = ' on Everyday Essentials'
+      assign banner_description = 'Explore limited-time offers across lunch boxes, bottles, and more'
+    when 'corporate-gifting-bulk-gifting'
+      assign banner_title = 'Smart Gifting Made Easy'
+      assign banner_title_prefix = 'Smart '
+      assign banner_title_highlight = 'Gifting'
+      assign banner_title_suffix = ' Made Easy'
+      assign banner_description = 'Bulk-ready lunchware solutions for schools, teams, and corporate gifting'
+    when 'new-arrivals'
+      assign banner_title = 'Fresh Picks for Everyday Meals'
+      assign banner_title_highlight = 'Fresh Picks'
+      assign banner_title_suffix = ' for Everyday Meals'
+      assign banner_description = 'New Catfat arrivals across lunch boxes, bottles, and daily-carry essentials'
+  endcase
 -%}
+
+{% render 'breadcrumb' %}
 
 <section
   class="collection-template page-width"
   style="--collection-grid-columns: {{ section.settings.columns_desktop }};"
 >
-  {%- if section.settings.show_collection_image and collection.image != blank -%}
-    <div class="collection-template__hero">
-      {{
-        collection.image
-        | image_url: width: 1800
-        | image_tag:
-          class: 'collection-template__hero-image',
-          widths: '750, 1100, 1500, 1800',
-          loading: 'eager',
-          alt: collection.title
-      }}
-      <div class="collection-template__hero-copy">
-        <span class="collection-template__eyebrow">CatFat Collection</span>
-        <h1 class="collection-template__title">{{ collection.title | escape }}</h1>
-        {%- if section.settings.show_collection_description and collection.description != blank -%}
-          <div class="collection-template__description rte">
-            {{ collection.description }}
-          </div>
+  <div class="collection-template__hero">
+    <div class="collection-template__hero-copy">
+      <span class="collection-template__eyebrow">{{ banner_label }}</span>
+      <h1 class="collection-template__title">
+        {{ banner_title_prefix | escape }}<span class="collection-template__title-accent">{{ banner_title_highlight | escape }}</span>{{ banner_title_suffix | escape }}
+      </h1>
+      <p class="collection-template__hero-count">
+        <span class="collection-template__hero-count-value">{{ collection.products_count }}</span>
+        products in this collection
+      </p>
+      {%- if section.settings.show_collection_description -%}
+        <p class="collection-template__description">{{ banner_description | default: collection.title | escape }}</p>
+      {%- endif -%}
+      <a href="#CollectionProductGrid-{{ section.id }}" class="collection-template__hero-action">
+        <span>Shop Collection</span>
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="collection-template__hero-media">
+      <div class="collection-template__hero-visual{% if banner_image_is_tall %} collection-template__hero-visual--portrait-fit{% endif %}">
+        {%- if section.settings.show_collection_image and banner_image != blank -%}
+          {%- if banner_image_is_tall -%}
+            {{
+              banner_image
+              | image_url: width: 1800
+              | image_tag:
+                class: 'collection-template__hero-image-backdrop',
+                widths: '750, 1100, 1500, 1800',
+                loading: 'eager',
+                alt: ''
+            }}
+          {%- endif -%}
+          {{
+            banner_image
+            | image_url: width: 1800
+            | image_tag:
+              class: 'collection-template__hero-image',
+              widths: '750, 1100, 1500, 1800',
+              loading: 'eager',
+              alt: banner_title
+          }}
+        {%- else -%}
+          <div class="collection-template__hero-placeholder" aria-hidden="true"></div>
         {%- endif -%}
       </div>
     </div>
-  {%- else -%}
-    <div class="collection-template__summary">
-      <div>
-        <span class="collection-template__eyebrow">CatFat Collection</span>
-        <h1 class="collection-template__title">{{ collection.title | escape }}</h1>
-        {%- if section.settings.show_collection_description and collection.description != blank -%}
-          <div class="collection-template__description rte">
-            {{ collection.description }}
-          </div>
-        {%- endif -%}
-      </div>
-    </div>
-  {%- endif -%}
+  </div>
 
   {%- paginate collection.products by products_per_page -%}
     <div class="collection-template__toolbar">
-      <p class="collection-template__count">
-        <strong>{{ collection.products_count }}</strong>
-        products for
-        <strong>{{ collection.title | escape }}</strong>
-      </p>
-
       <form class="collection-template__sort" method="get" action="{{ collection.url }}">
         <label for="CollectionSort-{{ section.id }}">Sort by</label>
         <select
@@ -271,7 +552,7 @@
     </div>
 
     {%- if collection.products_count > 0 -%}
-      <div class="collection-template__grid">
+      <div class="collection-template__grid" id="CollectionProductGrid-{{ section.id }}">
         {%- for product in collection.products -%}
           <div class="collection-template__item">
             {% render 'product-card', product: product %}

@@ -1,14 +1,14 @@
 .marketplace-faq {
-  padding: 20px 0 18px;
+  padding: clamp(3rem, 4vw, 4.6rem) 0 clamp(2.4rem, 3vw, 3.2rem);
 }
 
 .marketplace-faq__shell {
   padding: clamp(24px, 3vw, 34px);
-  border-radius: 24px;
-  border: 1px solid rgba(232, 74, 127, 0.12);
+  border-radius: 14px;
+  border: 1px solid var(--catfat-card-border);
   background:
-    radial-gradient(circle at top right, rgba(255, 217, 61, 0.16), transparent 26%),
-    linear-gradient(180deg, #ffffff 0%, #fff8fb 100%);
+    radial-gradient(circle at top right, rgba(var(--catfat-brand-purple-soft-rgb), 0.14), transparent 26%),
+    var(--catfat-shell-gradient);
   box-shadow: 0 18px 50px rgba(97, 77, 89, 0.08);
 }
 
@@ -24,9 +24,9 @@
   align-items: center;
   min-height: 32px;
   padding: 7px 12px;
-  border-radius: 10px;
-  background: rgba(255, 107, 157, 0.1);
-  color: #d73d72;
+  border-radius: 6px;
+  background: var(--catfat-chip-bg);
+  color: var(--catfat-brand-purple-deep);
   font-size: 1.1rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -35,7 +35,7 @@
 
 .marketplace-faq__title {
   margin: 14px 0 10px;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: clamp(2.8rem, 2.4rem + 0.8vw, 4.2rem);
   line-height: 0.98;
   font-weight: 900;
@@ -45,7 +45,7 @@
 .marketplace-faq__description,
 .marketplace-faq__note {
   margin: 0;
-  color: #685661;
+  color: var(--catfat-copy-body);
   font-size: 1.5rem;
   line-height: 1.72;
 }
@@ -58,10 +58,10 @@
 }
 
 .marketplace-faq__item {
-  border: 1px solid rgba(232, 74, 127, 0.12);
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 14px 28px rgba(215, 61, 114, 0.06);
+  border: 1px solid var(--catfat-card-border);
+  border-radius: 10px;
+  background: var(--catfat-card-gradient);
+  box-shadow: 0 14px 28px rgba(63, 40, 79, 0.06);
   overflow: hidden;
 }
 
@@ -69,7 +69,7 @@
   position: relative;
   list-style: none;
   padding: 18px 48px 18px 18px;
-  color: #241520;
+  color: var(--catfat-copy-strong);
   font-size: 1.65rem;
   line-height: 1.38;
   font-weight: 900;
@@ -85,7 +85,7 @@
   position: absolute;
   right: 18px;
   top: 18px;
-  color: #d73d72;
+  color: var(--catfat-brand-purple-deep);
   font-size: 2rem;
   line-height: 1;
 }
@@ -97,7 +97,7 @@
 .marketplace-faq__answer {
   margin: 0;
   padding: 0 18px 18px;
-  color: #5e4b57;
+  color: var(--catfat-copy-body);
   font-size: 1.4rem;
   line-height: 1.72;
   font-weight: 700;
@@ -111,7 +111,7 @@
   gap: 14px;
   margin-top: 22px;
   padding-top: 18px;
-  border-top: 1px solid rgba(232, 74, 127, 0.1);
+  border-top: 1px solid rgba(var(--catfat-brand-purple-rgb), 0.1);
 }
 
 .marketplace-faq__contact {
@@ -120,13 +120,13 @@
   justify-content: center;
   min-height: 48px;
   padding: 0 18px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f 58%, #ff8e53);
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--catfat-brand-purple-soft), var(--catfat-brand-purple) 58%, var(--catfat-brand-purple-deep));
   color: #ffffff;
   text-decoration: none;
   font-size: 1.3rem;
   font-weight: 900;
-  box-shadow: 0 14px 28px rgba(232, 74, 127, 0.18);
+  box-shadow: 0 14px 28px rgba(var(--catfat-brand-purple-rgb), 0.18);
 }
 
 @media screen and (max-width: 989px) {
@@ -139,6 +139,6 @@
 @media screen and (max-width: 749px) {
   .marketplace-faq__shell {
     padding: 20px;
-    border-radius: 18px;
+    border-radius: 12px;
   }
 }

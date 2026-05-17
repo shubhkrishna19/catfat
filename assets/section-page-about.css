@@ -1,0 +1,337 @@
+.catfat-about {
+  position: relative;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 142, 83, 0.10) 0%, transparent 38%),
+    radial-gradient(circle at 100% 100%, rgba(255, 107, 157, 0.10) 0%, transparent 38%),
+    linear-gradient(180deg, #fff9fb 0%, #faf3ff 100%);
+  color: #1a0926;
+  font-family: Poppins, Inter, var(--font-family, sans-serif);
+  padding: clamp(7rem, 10vw, 12rem) var(--catfat-page-gutter, 3.2rem);
+  overflow: hidden;
+}
+
+.catfat-about::before {
+  content: '';
+  position: absolute;
+  top: 6%;
+  right: -8rem;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 217, 61, 0.32) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.catfat-about__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.catfat-about__inner {
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.catfat-about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.4fr) minmax(0, 0.3fr);
+  align-items: center;
+  gap: 6.4rem;
+}
+
+.catfat-about__intro,
+.catfat-about__founders {
+  min-width: 0;
+}
+
+.catfat-about__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: #2a1140;
+  font-size: clamp(4.4rem, 3.6rem + 1.6vw, 6.4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #2a1140 0%, #c93070 60%, #ff8e53 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.catfat-about__accent {
+  display: block;
+  width: 7rem;
+  height: 0.5rem;
+  margin-top: 2.8rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff6b9d 0%, #ff8e53 100%);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.32);
+}
+
+.catfat-about__lead {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 3rem;
+  color: #2a1140;
+}
+
+.catfat-about__lead p {
+  margin: 0;
+  font-size: clamp(1.4rem, 1.25rem + 0.3vw, 1.7rem);
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.catfat-about__lead-strong {
+  font-size: clamp(1.6rem, 1.35rem + 0.5vw, 2rem) !important;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #c93070;
+}
+
+.catfat-about__copy {
+  max-width: 36rem;
+  margin: 1.6rem 0 0;
+  color: #5a4569;
+  font-size: clamp(1.4rem, 1.25rem + 0.2vw, 1.55rem);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.catfat-about__team-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2.8rem;
+  aspect-ratio: 4 / 5;
+  background: #eee8f1;
+  box-shadow:
+    0 30px 60px rgba(42, 17, 64, 0.18),
+    0 2px 0 rgba(255, 255, 255, 0.4) inset;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.catfat-about__team-media::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 4px solid transparent;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff8e53 50%, #ffd93d 100%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+.catfat-about__team-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.catfat-about__founders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.catfat-about__founder-media {
+  overflow: hidden;
+  border-radius: 2rem;
+  aspect-ratio: 5 / 4;
+  background: #eee8f1;
+  box-shadow: 0 1.4rem 3rem rgba(34, 26, 42, 0.07);
+}
+
+.catfat-about__founder-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.catfat-about__image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  background:
+    linear-gradient(135deg, rgba(255, 138, 0, 0.08), rgba(247, 243, 249, 0.96)),
+    #f3edf5;
+  color: #7c7184;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.catfat-about__image-placeholder--founders {
+  background:
+    linear-gradient(135deg, rgba(255, 138, 0, 0.07), rgba(247, 243, 249, 0.94)),
+    #f1ebf3;
+}
+
+.catfat-about__label {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 107, 157, 0.12);
+  color: #c93070;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.catfat-about__founder h2 {
+  margin: 0;
+  color: #2a1140;
+  font-size: clamp(1.7rem, 1.4rem + 0.5vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.catfat-about__role {
+  margin: 0.4rem 0 0;
+  color: #ff6b9d;
+  font-size: 1.18rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.catfat-about__founder p:not(.catfat-about__role) {
+  margin: 0.8rem 0 0;
+  color: #6c6274;
+  font-size: 1.45rem;
+  line-height: 1.55;
+}
+
+.catfat-about__divider {
+  width: 100%;
+  height: 0.1rem;
+  background: rgba(32, 25, 39, 0.12);
+}
+
+.catfat-about__vision {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(28rem, 0.44fr);
+  align-items: center;
+  gap: 4.8rem;
+  margin-top: clamp(5rem, 6vw, 8rem);
+  padding: clamp(2.4rem, 3vw, 3.6rem) clamp(2.4rem, 3.5vw, 4.4rem);
+  border: 1px solid rgba(116, 28, 177, 0.12);
+  border-radius: 2.4rem;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 217, 61, 0.18), transparent 38%),
+    linear-gradient(180deg, #ffffff 0%, rgba(255, 249, 251, 0.95) 100%);
+  box-shadow: 0 24px 48px rgba(42, 17, 64, 0.08);
+}
+
+.catfat-about__vision-main {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.catfat-about__vision-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 999px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff8e53 0%, #ff6b9d 100%);
+  box-shadow: 0 12px 24px rgba(255, 107, 157, 0.32);
+}
+
+.catfat-about__vision-icon svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.catfat-about__vision-title {
+  margin: 0;
+  color: #2a1140;
+  font-size: clamp(1.55rem, 1.3rem + 0.35vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.catfat-about__vision-copy,
+.catfat-about__trust {
+  margin: 0.5rem 0 0;
+  color: #5a4569;
+  font-size: clamp(1.32rem, 1.22rem + 0.18vw, 1.5rem);
+  line-height: 1.55;
+}
+
+.catfat-about__trust {
+  margin: 0;
+}
+
+@media screen and (max-width: 989px) {
+  .catfat-about {
+    padding: 6.4rem var(--catfat-page-gutter, 2.4rem);
+  }
+
+  .catfat-about__grid {
+    grid-template-columns: 1fr;
+    gap: 4.8rem;
+  }
+
+  .catfat-about__title {
+    font-size: clamp(6.4rem, 16vw, 8rem);
+  }
+
+  .catfat-about__copy {
+    max-width: 48rem;
+  }
+
+  .catfat-about__team-media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .catfat-about__vision {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .catfat-about {
+    padding: 4.8rem var(--catfat-page-gutter, 1.6rem);
+  }
+
+  .catfat-about__grid {
+    gap: 3.2rem;
+  }
+
+  .catfat-about__vision {
+    margin-top: 4.8rem;
+    padding: 2.4rem;
+  }
+
+  .catfat-about__vision-main {
+    align-items: flex-start;
+  }
+}

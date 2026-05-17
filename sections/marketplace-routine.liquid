@@ -1,150 +1,118 @@
 {{ 'section-marketplace-routine.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign lunch_collection = collections['lunch-box']
-  assign bottle_collection = collections['bottles-flasks']
-  assign gifting_collection = collections['corporate-gifting-bulk-gifting']
+  assign school_collection = collections['lunch-box']
+  assign carry_collection = collections['bottles-flasks']
+  assign family_collection = collections['corporate-gifting-bulk-gifting']
 
-  assign lunch_product = blank
-  if lunch_collection != blank
-    for product in lunch_collection.products
-      if product.available
-        assign lunch_product = product
-        break
-      endif
-    endfor
-    if lunch_product == blank
-      assign lunch_product = lunch_collection.products.first
-    endif
+  assign school_url = routes.collections_url
+  if school_collection != blank and school_collection.url != blank
+    assign school_url = school_collection.url
   endif
 
-  assign bottle_product = blank
-  if bottle_collection != blank
-    for product in bottle_collection.products
-      if product.available
-        assign bottle_product = product
-        break
-      endif
-    endfor
-    if bottle_product == blank
-      assign bottle_product = bottle_collection.products.first
-    endif
+  assign carry_url = routes.collections_url
+  if carry_collection != blank and carry_collection.url != blank
+    assign carry_url = carry_collection.url
   endif
 
-  assign gifting_product = blank
-  if gifting_collection != blank
-    for product in gifting_collection.products
-      if product.available
-        assign gifting_product = product
-        break
-      endif
-    endfor
-    if gifting_product == blank
-      assign gifting_product = gifting_collection.products.first
-    endif
+  assign family_url = routes.collections_url
+  if family_collection != blank and family_collection.url != blank
+    assign family_url = family_collection.url
   endif
+
+  # Priority: theme editor upload > bundled brand fallback. Collection
+  # auto-fetch removed because it was pulling plain product shots with no
+  # background, which didn't read as routine moments.
+  assign school_media = section.settings.school_image
+  assign school_alt = 'Schoolgirl heading out with Catfat bottle'
+
+  assign carry_media = section.settings.carry_image
+  assign carry_alt = 'Catfat lunch box flat-lay with bottle'
+
+  assign family_media = section.settings.family_image
+  assign family_alt = 'Catfat premium gift moments'
 -%}
 
-<section class="routine-story page-width">
-  <div class="routine-story__shell">
-    <div class="routine-story__copy">
-      <span class="routine-story__eyebrow">One brand, many routines</span>
-      <h2 class="routine-story__title">Lunch boxes first. Everything else made to match.</h2>
-      <p class="routine-story__description">
-        Start with Catfat lunch-box bestsellers, add bottles and thermos for daily carry, and keep personalised gifting picks ready for birthdays, return gifts, and bulk orders.
-      </p>
-
-      <div class="routine-story__signals">
-        <span class="routine-story__signal">Lunch-box bestsellers</span>
-        <span class="routine-story__signal">Bottles that match</span>
-        <span class="routine-story__signal">Bulk gifting available</span>
+<section class="routine-story">
+  <div class="page-width">
+    <div class="routine-story__inner">
+      <div class="routine-story__header" data-scrub data-scrub-y="28" data-scrub-opacity-from="0">
+        <h2 class="routine-story__title">Made for every lunch moment</h2>
+        <p class="routine-story__description">
+          From school tiffins to family outings, Catfat makes everyday meals easier, safer, and more joyful.
+        </p>
       </div>
 
-      {%- if lunch_collection != blank -%}
-        <a href="{{ lunch_collection.url }}" class="routine-story__button">Shop bestsellers</a>
-      {%- endif -%}
+      <div class="routine-story__grid">
+        <a href="{{ school_url }}" class="routine-story__item" data-card-depth data-scrub-from="0.05">
+          <div class="routine-story__media">
+            {%- if school_media != blank -%}
+              {{
+                school_media
+                | image_url: width: 960
+                | image_tag:
+                  class: 'routine-story__image',
+                  widths: '360, 540, 720, 960',
+                  loading: 'lazy',
+                  alt: school_alt
+              }}
+            {%- else -%}
+              <img src="{{ 'catfat-routine-school.jpg' | asset_url }}" class="routine-story__image" alt="Schoolgirl heading out with Catfat bottle" loading="lazy" width="720" height="960">
+            {%- endif -%}
+          </div>
+          <span class="routine-story__caption">For school days</span>
+        </a>
+
+        <a href="{{ carry_url }}" class="routine-story__item" data-card-depth data-scrub-from="0.12">
+          <div class="routine-story__media">
+            {%- if carry_media != blank -%}
+              {{
+                carry_media
+                | image_url: width: 960
+                | image_tag:
+                  class: 'routine-story__image',
+                  widths: '360, 540, 720, 960',
+                  loading: 'lazy',
+                  alt: carry_alt
+              }}
+            {%- else -%}
+              <img src="{{ 'catfat-smart-lunch-flatlay.jpg' | asset_url }}" class="routine-story__image" alt="Catfat lunch box flat-lay with bottle" loading="lazy" width="960" height="640">
+            {%- endif -%}
+          </div>
+          <span class="routine-story__caption">For everyday carry</span>
+        </a>
+
+        <a href="{{ family_url }}" class="routine-story__item" data-card-depth data-scrub-from="0.2">
+          <div class="routine-story__media">
+            {%- if family_media != blank -%}
+              {{
+                family_media
+                | image_url: width: 960
+                | image_tag:
+                  class: 'routine-story__image',
+                  widths: '360, 540, 720, 960',
+                  loading: 'lazy',
+                  alt: family_alt
+              }}
+            {%- else -%}
+              <img src="{{ 'catfat-corporate-gift.jpg' | asset_url }}" class="routine-story__image" alt="Catfat premium gift box" loading="lazy" width="960" height="720">
+            {%- endif -%}
+          </div>
+          <span class="routine-story__caption">For family moments</span>
+        </a>
+      </div>
     </div>
-
-    <div class="routine-story__stage">
-      <div class="routine-story__stage-base"></div>
-      <div class="routine-story__orb routine-story__orb--one"></div>
-      <div class="routine-story__orb routine-story__orb--two"></div>
-
-      {%- if lunch_product != blank and lunch_product.featured_media != blank -%}
-        <div class="routine-story__float routine-story__float--lunch">
-          {{
-            lunch_product.featured_media
-            | image_url: width: 900
-            | image_tag:
-              class: 'routine-story__product-image',
-              widths: '320, 480, 680, 900',
-              loading: 'lazy',
-              alt: lunch_product.title
-          }}
-        </div>
-      {%- endif -%}
-
-      {%- if bottle_product != blank and bottle_product.featured_media != blank -%}
-        <div class="routine-story__float routine-story__float--bottle">
-          {{
-            bottle_product.featured_media
-            | image_url: width: 900
-            | image_tag:
-              class: 'routine-story__product-image',
-              widths: '320, 480, 680, 900',
-              loading: 'lazy',
-              alt: bottle_product.title
-          }}
-        </div>
-      {%- endif -%}
-
-      {%- if gifting_product != blank and gifting_product.featured_media != blank -%}
-        <div class="routine-story__float routine-story__float--gift">
-          {{
-            gifting_product.featured_media
-            | image_url: width: 900
-            | image_tag:
-              class: 'routine-story__product-image',
-              widths: '320, 480, 680, 900',
-              loading: 'lazy',
-              alt: gifting_product.title
-          }}
-        </div>
-      {%- endif -%}
-    </div>
-  </div>
-
-  <div class="routine-story__grid">
-    {%- if lunch_collection != blank -%}
-      <a href="{{ lunch_collection.url }}" class="routine-story__card">
-        <span class="routine-story__card-label">Best sellers</span>
-        <strong class="routine-story__card-title">Lunch boxes shoppers can compare at a glance.</strong>
-        <p class="routine-story__card-copy">Compartment-first picks with strong visuals and faster everyday decision making.</p>
-      </a>
-    {%- endif -%}
-
-    {%- if bottle_collection != blank -%}
-      <a href="{{ bottle_collection.url }}" class="routine-story__card">
-        <span class="routine-story__card-label">Complete the carry</span>
-        <strong class="routine-story__card-title">Insulated bottles and thermos to finish the set.</strong>
-        <p class="routine-story__card-copy">Hydration products that feel coordinated with the lunch-box range, not separated from it.</p>
-      </a>
-    {%- endif -%}
-
-    {%- if gifting_collection != blank -%}
-      <a href="{{ gifting_collection.url }}" class="routine-story__card">
-        <span class="routine-story__card-label">Beyond school use</span>
-        <strong class="routine-story__card-title">Bulk gifting and personalised picks for bigger moments.</strong>
-        <p class="routine-story__card-copy">A cleaner path for return gifts, customisation, and larger gifting enquiries.</p>
-      </a>
-    {%- endif -%}
   </div>
 </section>
 
 {% schema %}
 {
   "name": "Marketplace Routine",
-  "settings": [],
+  "settings": [
+    { "type": "image_picker", "id": "school_image", "label": "School-days image (override)" },
+    { "type": "image_picker", "id": "carry_image", "label": "Everyday-carry image (override)" },
+    { "type": "image_picker", "id": "family_image", "label": "Family-moments image (override)" }
+  ],
   "presets": [
     {
       "name": "Marketplace Routine"

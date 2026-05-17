@@ -1,0 +1,379 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign active_orders = 0
+  assign refunded_orders = 0
+
+  for order in customer.orders
+    if order.total_refunded_amount > 0 or order.cancelled
+      assign refunded_orders = refunded_orders | plus: 1
+    endif
+
+    unless order.cancelled or order.fulfillment_status == 'fulfilled'
+      assign active_orders = active_orders | plus: 1
+    endunless
+  endfor
+
+  assign default_address = customer.default_address
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="customer-page section-{{ section.id }}-padding">
+  <div class="page-width customer-shell" data-account-shell data-default-panel="profile">
+    {% render 'customer-account-nav', current_page: 'profile', customer: customer %}
+
+    <div class="customer-main">
+      <section class="customer-panel is-active" data-account-panel="profile">
+        <div class="customer-panel__header">
+          <span class="customer-section__eyebrow">Dashboard</span>
+          <h1 class="customer-panel__title">Welcome back, {{ customer.first_name | default: customer.name | default: 'Catfat customer' }}.</h1>
+          <p class="customer-panel__copy">See your latest lunchware orders, saved details, and support options in one place.</p>
+        </div>
+
+        <div class="customer-stats">
+          <div class="customer-stat">
+            <span class="customer-stat__label">Total orders</span>
+            <strong class="customer-stat__value">{{ customer.orders_count }}</strong>
+          </div>
+          <div class="customer-stat">
+            <span class="customer-stat__label">Active orders</span>
+            <strong class="customer-stat__value">{{ active_orders }}</strong>
+          </div>
+          <div class="customer-stat">
+            <span class="customer-stat__label">Returns</span>
+            <strong class="customer-stat__value">{{ refunded_orders }}</strong>
+          </div>
+        </div>
+
+        <div class="customer-panel__grid">
+          <div class="customer-card">
+            <div class="customer-card__header">
+              <div>
+                <h2 class="customer-card__title">Profile</h2>
+                <p class="customer-card__meta">Your saved Catfat contact details.</p>
+              </div>
+              <a class="customer-inline-link" href="{{ routes.account_addresses_url }}">Edit profile</a>
+            </div>
+            <div class="customer-summary__list">
+              <div class="customer-summary__item"><span>Name</span><strong>{{ customer.name | default: customer.first_name }}</strong></div>
+              <div class="customer-summary__item"><span>Email</span><strong>{{ customer.email }}</strong></div>
+              {%- if customer.phone != blank -%}
+                <div class="customer-summary__item"><span>Phone</span><strong>{{ customer.phone }}</strong></div>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="customer-card">
+            <div class="customer-card__header">
+              <div>
+                <h2 class="customer-card__title">Primary address</h2>
+                <p class="customer-card__meta">Shipping details used most often.</p>
+              </div>
+              <a class="customer-inline-link" href="{{ routes.account_addresses_url }}">Manage addresses</a>
+            </div>
+            {%- if default_address != blank -%}
+              <div class="customer-address-card__meta">
+                <span>{{ default_address.name }}</span>
+                <span>{{ default_address.address1 }}</span>
+                {%- if default_address.address2 != blank -%}<span>{{ default_address.address2 }}</span>{%- endif -%}
+                <span>{{ default_address.city }}, {{ default_address.province }} {{ default_address.zip }}</span>
+                <span>{{ default_address.country }}</span>
+                {%- if default_address.phone != blank -%}<span>{{ default_address.phone }}</span>{%- endif -%}
+              </div>
+            {%- else -%}
+              <p class="customer-card__copy">Add a delivery address so checkout stays faster next time.</p>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="customer-card">
+          <div class="customer-card__header">
+            <div>
+              <h2 class="customer-card__title">Recent orders</h2>
+              <p class="customer-card__meta">Your last few Catfat purchases, ready to revisit.</p>
+            </div>
+            <a class="customer-inline-link" href="{{ routes.account_url }}#orders">See all orders</a>
+          </div>
+
+          {%- if customer.orders_count > 0 -%}
+            <div class="customer-order-list">
+              {%- for order in customer.orders limit: 3 -%}
+                {%- assign first_item = order.line_items | first -%}
+                {%- assign order_image = first_item.image | default: first_item.product.featured_image -%}
+                <article class="customer-order-card">
+                  <div class="customer-card__header">
+                    <div>
+                      <h3 class="customer-order-card__title">{{ order.name }}</h3>
+                      <p class="customer-order-card__caption">{{ order.created_at | date: '%d %b %Y' }}</p>
+                    </div>
+                    <span class="customer-status {% if order.fulfillment_status == 'fulfilled' %}customer-status--success{% elsif order.cancelled %}customer-status--neutral{% endif %}">
+                      {{ order.fulfillment_status_label | default: order.financial_status_label }}
+                    </span>
+                  </div>
+                  <div class="customer-order-card__body">
+                    <div class="customer-product-thumb">
+                      {%- if order_image != blank -%}
+                        {{ order_image | image_url: width: 176 | image_tag: loading: 'lazy', widths: '88,176', alt: first_item.title }}
+                      {%- endif -%}
+                    </div>
+                    <div>
+                      <p class="customer-order-card__title">{{ first_item.title }}</p>
+                      <p class="customer-order-card__meta">
+                        {%- if order.line_items.size > 1 -%}
+                          +{{ order.line_items.size | minus: 1 }} more item{% if order.line_items.size > 2 %}s{% endif %}
+                        {%- else -%}
+                          1 item
+                        {%- endif -%}
+                      </p>
+                      <p class="customer-order-card__price">{{ order.total_net_amount | money_with_currency }}</p>
+                    </div>
+                  </div>
+                  <div class="customer-order-card__actions">
+                    <a class="customer-button--secondary" href="{{ order.customer_url }}">View details</a>
+                    {%- if first_item.variant_id -%}
+                      <a class="customer-button--secondary" href="{{ routes.cart_url }}/{{ first_item.variant_id }}:1">Reorder</a>
+                    {%- endif -%}
+                  </div>
+                </article>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <div class="customer-empty-state">
+              <h3 class="customer-empty-state__title">No orders yet</h3>
+              <p class="customer-empty-state__copy">Your future lunch boxes and bottles will show up here once you place an order.</p>
+            </div>
+          {%- endif -%}
+        </div>
+      </section>
+
+      <section class="customer-panel" data-account-panel="orders">
+        <div class="customer-panel__header">
+          <span class="customer-section__eyebrow">My orders</span>
+          <h2 class="customer-panel__title">Track every Catfat order in one view.</h2>
+          <p class="customer-panel__copy">Review statuses, reorder favourites, or jump into detailed tracking anytime.</p>
+        </div>
+
+        {%- if customer.orders_count > 0 -%}
+          <div class="customer-order-list">
+            {%- for order in customer.orders -%}
+              {%- assign first_item = order.line_items | first -%}
+              {%- assign order_image = first_item.image | default: first_item.product.featured_image -%}
+              {%- assign tracking_link = first_item.fulfillment.tracking_url -%}
+              <article class="customer-order-card">
+                <div class="customer-card__header">
+                  <div>
+                    <h3 class="customer-order-card__title">{{ first_item.title }}</h3>
+                    <p class="customer-order-card__caption">{{ order.name }} • {{ order.created_at | date: '%d %b %Y' }}</p>
+                  </div>
+                  <span class="customer-status {% if order.fulfillment_status == 'fulfilled' %}customer-status--success{% elsif order.cancelled %}customer-status--neutral{% endif %}">
+                    {{ order.fulfillment_status_label | default: order.financial_status_label }}
+                  </span>
+                </div>
+                <div class="customer-order-card__body">
+                  <div class="customer-product-thumb">
+                    {%- if order_image != blank -%}
+                      {{ order_image | image_url: width: 176 | image_tag: loading: 'lazy', widths: '88,176', alt: first_item.title }}
+                    {%- endif -%}
+                  </div>
+                  <div>
+                    <p class="customer-order-card__meta">
+                      {{ order.line_items.size }} item{% if order.line_items.size != 1 %}s{% endif %} • {{ order.total_net_amount | money_with_currency }}
+                    </p>
+                    <p class="customer-order-card__price">{{ first_item.final_line_price | default: order.total_net_amount | money }}</p>
+                  </div>
+                </div>
+                <div class="customer-order-card__actions">
+                  <a class="customer-button--secondary" href="{{ order.customer_url }}">View details</a>
+                  {%- if tracking_link != blank -%}
+                    <a class="customer-button--secondary" href="{{ tracking_link }}">Track order</a>
+                  {%- endif -%}
+                  {%- if first_item.variant_id -%}
+                    <a class="customer-button--secondary" href="{{ routes.cart_url }}/{{ first_item.variant_id }}:1">Reorder</a>
+                  {%- endif -%}
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div class="customer-empty-state">
+            <h3 class="customer-empty-state__title">Your orders will appear here</h3>
+            <p class="customer-empty-state__copy">Once you shop Catfat products, every order card will be easy to revisit from this page.</p>
+          </div>
+        {%- endif -%}
+      </section>
+
+      <section class="customer-panel" data-account-panel="returns">
+        <div class="customer-panel__header">
+          <span class="customer-section__eyebrow">Returns & refunds</span>
+          <h2 class="customer-panel__title">Simple return visibility without the clutter.</h2>
+          <p class="customer-panel__copy">See what has been refunded already and which delivered orders are ready for a return request.</p>
+        </div>
+
+        <div class="customer-return-list">
+          {%- if customer.orders_count > 0 -%}
+            {%- for order in customer.orders limit: 8 -%}
+              {%- assign first_item = order.line_items | first -%}
+              {%- capture return_link -%}https://api.whatsapp.com/send?phone=918178136702&text=Hi%20Catfat%2C%20I%20need%20help%20with%20a%20return%20for%20order%20{{ order.name | url_encode }}.{%- endcapture -%}
+              <article class="customer-return-card">
+                <div class="customer-card__header">
+                  <div>
+                    <h3 class="customer-return-card__title">{{ order.name }}</h3>
+                    <p class="customer-card__meta">{{ first_item.title }} • {{ order.created_at | date: '%d %b %Y' }}</p>
+                  </div>
+                  {%- if order.total_refunded_amount > 0 -%}
+                    <span class="customer-status customer-status--success">Refunded</span>
+                  {%- elsif order.cancelled -%}
+                    <span class="customer-status customer-status--neutral">In review</span>
+                  {%- elsif order.fulfillment_status == 'fulfilled' -%}
+                    <span class="customer-status">Eligible</span>
+                  {%- else -%}
+                    <span class="customer-status customer-status--neutral">After delivery</span>
+                  {%- endif -%}
+                </div>
+                <p class="customer-card__copy">
+                  {%- if order.total_refunded_amount > 0 -%}
+                    Refunded amount: {{ order.total_refunded_amount | money_with_currency }}.
+                  {%- elsif order.cancelled -%}
+                    We’re already reviewing this order outcome. Reach out if you need an update.
+                  {%- elsif order.fulfillment_status == 'fulfilled' -%}
+                    Delivered orders can be reviewed for return support within the standard support window.
+                  {%- else -%}
+                    Return requests open once the order is marked delivered.
+                  {%- endif -%}
+                </p>
+                <div class="customer-order-card__actions">
+                  {%- if order.fulfillment_status == 'fulfilled' and order.total_refunded_amount == 0 -%}
+                    <a class="customer-button--secondary" href="{{ return_link }}">Request return</a>
+                  {%- endif -%}
+                  <a class="customer-button--secondary" href="{{ order.customer_url }}">View order</a>
+                </div>
+              </article>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="customer-empty-state">
+              <h3 class="customer-empty-state__title">No returns to manage</h3>
+              <p class="customer-empty-state__copy">Any refund or return activity will be easy to follow from here.</p>
+            </div>
+          {%- endif -%}
+        </div>
+      </section>
+
+      <section class="customer-panel" data-account-panel="support">
+        <div class="customer-panel__header">
+          <span class="customer-section__eyebrow">Help & support</span>
+          <h2 class="customer-panel__title">Get help without leaving your account.</h2>
+          <p class="customer-panel__copy">Use whichever support channel feels fastest for your order or product question.</p>
+        </div>
+
+        <div class="customer-support-grid">
+          <article class="customer-support-card">
+            <h3 class="customer-support-card__title">WhatsApp support</h3>
+            <p class="customer-support-card__copy">Quickest route for order updates and return help.</p>
+            <div class="customer-support-card__meta">
+              <span>918178136702</span>
+              <span>Mon - Sat, 10:00 AM - 7:00 PM</span>
+            </div>
+            <a class="customer-support-link" href="https://api.whatsapp.com/send?phone=918178136702">Open WhatsApp</a>
+          </article>
+          <article class="customer-support-card">
+            <h3 class="customer-support-card__title">Email support</h3>
+            <p class="customer-support-card__copy">Best for detailed product or order requests.</p>
+            <div class="customer-support-card__meta">
+              <span>support@catfatindia.com</span>
+              <span>Typical response time: within 24 hours</span>
+            </div>
+            <a class="customer-support-link" href="mailto:support@catfatindia.com">Send an email</a>
+          </article>
+          <article class="customer-support-card">
+            <h3 class="customer-support-card__title">Phone support</h3>
+            <p class="customer-support-card__copy">Talk through delivery or product questions directly.</p>
+            <div class="customer-support-card__meta">
+              <span>918178136702</span>
+              <span>Mon - Sat, 10:00 AM - 7:00 PM</span>
+            </div>
+            <a class="customer-support-link" href="tel:918178136702">Call support</a>
+          </article>
+        </div>
+
+        <div class="customer-card" data-accordion-group>
+          <div class="customer-card__header">
+            <div>
+              <h3 class="customer-card__title">Frequently asked questions</h3>
+              <p class="customer-card__meta">Short answers for the most common delivery, return, and order questions.</p>
+            </div>
+          </div>
+
+          <details class="customer-accordion" open>
+            <summary class="customer-accordion__summary">
+              <span class="customer-accordion__question">How do I track my latest order?</span>
+              <span class="customer-accordion__icon">+</span>
+            </summary>
+            <div class="customer-accordion__answer">Open the order card and use the tracking link if shipment tracking is already available for that package.</div>
+          </details>
+
+          <details class="customer-accordion">
+            <summary class="customer-accordion__summary">
+              <span class="customer-accordion__question">Where do I request a return or refund?</span>
+              <span class="customer-accordion__icon">+</span>
+            </summary>
+            <div class="customer-accordion__answer">Visit the Returns & refunds section and use the request link on delivered orders that are eligible for review.</div>
+          </details>
+
+          <details class="customer-accordion">
+            <summary class="customer-accordion__summary">
+              <span class="customer-accordion__question">Can I update my delivery address?</span>
+              <span class="customer-accordion__icon">+</span>
+            </summary>
+            <div class="customer-accordion__answer">Saved addresses can be added or edited from the Addresses page in your account whenever you need to update them.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer account",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    }
+  ]
+}
+{% endschema %}

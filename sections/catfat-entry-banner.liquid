@@ -1,0 +1,103 @@
+{{ 'section-catfat-entry-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow | default: 'Welcome to Catfat India'
+  assign heading = section.settings.heading | default: 'Lunch, packed with love.'
+  assign sub = section.settings.sub | default: 'Smart, leak-proof lunch boxes & bottles built for everyday Indian routines — kids and adults alike.'
+  assign cta_label = section.settings.cta_label | default: 'Shop the collection'
+  assign cta_link = section.settings.cta_link | default: routes.collections_url
+  assign cta2_label = section.settings.cta2_label
+  assign cta2_link = section.settings.cta2_link
+  assign image = section.settings.image
+  assign image_alt = section.settings.image_alt | default: heading
+  assign rotate = section.settings.rotate_angle | default: -3
+-%}
+
+<section class="catfat-entry-banner" aria-label="{{ heading | escape }}">
+  <div class="catfat-entry-banner__atmosphere" aria-hidden="true">
+    <span class="catfat-entry-banner__orb catfat-entry-banner__orb--a" data-scrub data-scrub-layer="0.45" data-scrub-opacity-from="0.5"></span>
+    <span class="catfat-entry-banner__orb catfat-entry-banner__orb--b" data-scrub data-scrub-layer="-0.35" data-scrub-opacity-from="0.6"></span>
+    <span class="catfat-entry-banner__grain"></span>
+  </div>
+
+  <div class="page-width catfat-entry-banner__inner">
+    <div class="catfat-entry-banner__copy">
+      <span class="catfat-entry-banner__eyebrow" data-scrub data-scrub-y="20" data-scrub-opacity-from="0">{{ eyebrow }}</span>
+      <h2 class="catfat-entry-banner__heading" data-scrub data-scrub-y="36" data-scrub-opacity-from="0" data-scrub-from="0.05">{{ heading }}</h2>
+      <p class="catfat-entry-banner__sub" data-scrub data-scrub-y="30" data-scrub-opacity-from="0" data-scrub-from="0.14">{{ sub }}</p>
+      <div class="catfat-entry-banner__cta-row" data-scrub data-scrub-y="24" data-scrub-opacity-from="0" data-scrub-from="0.22">
+        {%- if cta_label != blank -%}
+          <a class="catfat-entry-banner__cta catfat-entry-banner__cta--primary" href="{{ cta_link }}">{{ cta_label }}</a>
+        {%- endif -%}
+        {%- if cta2_label != blank -%}
+          <a class="catfat-entry-banner__cta catfat-entry-banner__cta--ghost" href="{{ cta2_link }}">{{ cta2_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div
+      class="catfat-entry-banner__stage"
+      data-scrub
+      data-scrub-y="56"
+      data-scrub-scale="0.92"
+      data-scrub-rotate-x="6"
+      data-scrub-opacity-from="0.3"
+      data-scrub-layer="0.12"
+      style="--catfat-entry-tilt: {{ rotate }}deg;"
+    >
+      <div class="catfat-entry-banner__card">
+        {%- if image != blank -%}
+          {{
+            image
+            | image_url: width: 1400
+            | image_tag:
+              class: 'catfat-entry-banner__image',
+              widths: '480, 720, 960, 1200, 1400',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: image_alt
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'catfat-entry-portrait.jpg' | asset_url }}"
+            class="catfat-entry-banner__image"
+            alt="{{ image_alt }}"
+            loading="eager"
+            fetchpriority="high"
+            width="1856" height="2304">
+        {%- endif -%}
+        <div class="catfat-entry-banner__chip catfat-entry-banner__chip--top">
+          <span class="catfat-entry-banner__chip-dot"></span>
+          <span class="catfat-entry-banner__chip-text">BPA Free · Leak Proof</span>
+        </div>
+        <div class="catfat-entry-banner__chip catfat-entry-banner__chip--bottom">
+          <strong>620+</strong>
+          <span>Verified Reviews</span>
+        </div>
+      </div>
+      <div class="catfat-entry-banner__shadow" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Entry banner",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "default": "Welcome to Catfat India", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "default": "Lunch, packed with love.", "label": "Heading" },
+    { "type": "textarea", "id": "sub", "default": "Smart, leak-proof lunch boxes & bottles built for everyday Indian routines — kids and adults alike.", "label": "Sub-copy" },
+    { "type": "text", "id": "cta_label", "default": "Shop the collection", "label": "Primary CTA label" },
+    { "type": "url", "id": "cta_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta2_label", "default": "View the lookbook", "label": "Secondary CTA label" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary CTA link" },
+    { "type": "image_picker", "id": "image", "label": "Banner image" },
+    { "type": "text", "id": "image_alt", "label": "Banner image alt" },
+    { "type": "range", "id": "rotate_angle", "min": -10, "max": 10, "step": 1, "default": -3, "label": "3D tilt angle" }
+  ],
+  "presets": [
+    { "name": "Entry banner" }
+  ]
+}
+{% endschema %}

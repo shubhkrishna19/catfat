@@ -1,4 +1,4 @@
-<style>
+﻿<style>
 .shop-by-category {
   padding: 60px 0;
   background: #fff9fb;
@@ -12,7 +12,7 @@
 .shop-by-category .section-title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #e84a7f;
+  color: #642878;
   margin: 0;
   position: relative;
   display: inline-block;
@@ -26,7 +26,7 @@
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, #ff6b9d, #e84a7f);
+  background: linear-gradient(90deg, #741CB1, #642878);
   border-radius: 2px;
 }
 
@@ -79,7 +79,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff6b9d20, #e84a7f20);
+  background: linear-gradient(135deg, #741CB120, #64287820);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +99,7 @@
 }
 
 .shop-by-category .category-icon svg {
-  color: #e84a7f;
+  color: #642878;
 }
 
 .shop-by-category .category-name {
@@ -140,10 +140,14 @@
         
         <a href="{{ section.settings[cat_link] }}" class="category-card">
           {%- if section.settings[cat_image] != blank -%}
-            <img src="{{ section.settings[cat_image] | img_url: '80x80' }}" 
-                 alt="{{ section.settings[cat_name] }}"
-                 class="category-image"
-                 loading="lazy">
+            {{
+              section.settings[cat_image]
+              | image_url: width: 80
+              | image_tag:
+                class: 'category-image',
+                alt: section.settings[cat_name],
+                loading: 'lazy'
+            }}
           {%- else -%}
             <div class="category-icon">
               {%- case section.settings[cat_icon] -%}
@@ -538,3 +542,4 @@
   ]
 }
 {% endschema %}
+

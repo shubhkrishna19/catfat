@@ -1,13 +1,51 @@
-/* Announcement Bar */
 .announcement-bar {
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  font-weight: 600;
+  position: relative;
+  background: var(--announcement-background, #6d4a8d);
+  color: var(--announcement-text, #ffffff);
+  font-family: 'Inter', 'Poppins', var(--font-body-family), sans-serif;
 }
 
-.announcement-bar a {
-  color: white;
+.announcement-bar[hidden] {
+  display: none;
+}
+
+.announcement-bar__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.8rem;
+  padding: 0.9rem 1.8rem;
+}
+
+.announcement-bar__text {
+  margin: 0;
+  color: inherit;
+  text-align: center;
   text-decoration: none;
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+
+.announcement-bar__text:hover,
+.announcement-bar__text:focus-visible {
+  color: inherit;
+  text-decoration: none;
+}
+
+.announcement-bar__close {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .announcement-bar__inner {
+    min-height: 3.6rem;
+    padding: 0.8rem 1.4rem;
+  }
+
+  .announcement-bar__text {
+    font-size: 1.05rem;
+  }
 }

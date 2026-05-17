@@ -2,12 +2,30 @@
   "name": "Footer",
   "type": "footer",
   "sections": {
+    "social_proof": {
+      "type": "catfat-social-proof",
+      "settings": {
+        "enabled": true,
+        "position": "bottom-left",
+        "source_mode": "auto",
+        "max_entries": 12,
+        "interval_ms": 9000,
+        "display_ms": 5500,
+        "start_delay_ms": 4000
+      }
+    },
     "footer": {
       "type": "footer",
+      "settings": {}
+    },
+    "floating_trust_badges": {
+      "type": "floating-trust-badges",
       "settings": {}
     }
   },
   "order": [
-    "footer"
+    "social_proof",
+    "footer",
+    "floating_trust_badges"
   ]
 }

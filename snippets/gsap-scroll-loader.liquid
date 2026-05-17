@@ -1,0 +1,49 @@
+{%- comment -%}
+  GSAP + ScrollTrigger Loader
+  Deduped singleton that loads GSAP 3.12.x and ScrollTrigger plugin
+  Only loads once per session, regardless of how many sections request it
+{%- endcomment -%}
+
+{%- liquid
+  assign gsap_loaded = 'gsap-scroll-loader-active'
+-%}
+
+<script>
+{%- # Dedup check: only load once -%}
+if (!window.gsapScrollLoaded) {
+  window.gsapScrollLoaded = true;
+
+  {%- # Load GSAP 3.12.x from Shopify CDN -%}
+  const gsapScript = document.createElement('script');
+  gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+  gsapScript.async = true;
+  
+  gsapScript.onload = function() {
+    {%- # Load ScrollTrigger plugin after GSAP -%}
+    const scrollTriggerScript = document.createElement('script');
+    scrollTriggerScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+    scrollTriggerScript.async = true;
+    
+    scrollTriggerScript.onload = function() {
+      {%- # Register ScrollTrigger with GSAP -%}
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        
+        {%- # Respect prefers-reduced-motion -%}
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) {
+          ScrollTrigger.defaults({ paused: true, immediateRender: false });
+          gsap.globalTimeline.pause();
+        }
+        
+        {%- # Dispatch event for sections waiting on GSAP -%}
+        window.dispatchEvent(new CustomEvent('gsap-ready', { detail: { gsap, ScrollTrigger } }));
+      }
+    };
+    
+    document.head.appendChild(scrollTriggerScript);
+  };
+  
+  document.head.appendChild(gsapScript);
+}
+</script>

@@ -1,0 +1,166 @@
+/* CatfatIndia — Product tutorial popup */
+
+.catfat-tutorial__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  margin-top: 1.6rem;
+  padding: 1.2rem 1.6rem;
+  border: 1px dashed rgba(255, 107, 157, 0.35);
+  border-radius: 1.4rem;
+  background: rgba(255, 107, 157, 0.06);
+  color: #c93070;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.24s ease, border-color 0.24s ease, transform 0.24s ease;
+}
+
+.catfat-tutorial__trigger:hover {
+  background: rgba(255, 107, 157, 0.12);
+  border-color: rgba(255, 107, 157, 0.55);
+  transform: translateY(-2px);
+}
+
+.catfat-tutorial__trigger-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8e53 0%, #ff6b9d 100%);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(232, 74, 127, 0.32);
+  flex-shrink: 0;
+}
+
+.catfat-tutorial__trigger-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  line-height: 1.3;
+}
+
+.catfat-tutorial__trigger-text strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2a1140;
+}
+
+.catfat-tutorial__trigger-text span {
+  font-size: 1.22rem;
+  color: #5a4569;
+}
+
+/* Popup */
+
+.catfat-tutorial {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.catfat-tutorial[hidden] {
+  display: none;
+}
+
+.catfat-tutorial__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 6, 28, 0.7);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.catfat-tutorial.is-open .catfat-tutorial__backdrop {
+  opacity: 1;
+}
+
+.catfat-tutorial__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 42rem);
+  max-height: 92vh;
+  border-radius: 2.2rem;
+  background: #0d0418;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+  transform: scale(0.96) translateY(12px);
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+}
+
+.catfat-tutorial.is-open .catfat-tutorial__dialog {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.catfat-tutorial__close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 2;
+  width: 3.6rem;
+  height: 3.6rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease;
+}
+
+.catfat-tutorial__close:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.catfat-tutorial__media-wrap {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  background: #000;
+}
+
+.catfat-tutorial__video,
+.catfat-tutorial__iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.catfat-tutorial__caption {
+  padding: 1.6rem 2rem;
+  background: linear-gradient(180deg, #1a0926 0%, #2a1140 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.catfat-tutorial__caption strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.catfat-tutorial__caption span {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catfat-tutorial__backdrop,
+  .catfat-tutorial__dialog {
+    transition: none;
+  }
+}

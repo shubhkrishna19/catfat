@@ -1,0 +1,59 @@
+{%- liquid
+  # Product JSON-LD for Google rich snippets.
+  # Renders: name, image[], description, brand, sku, offers[], aggregateRating (if Judge.me data present)
+  assign product_description = product.description | strip_html | strip | escape | truncate: 5000
+  if product_description == blank
+    assign product_description = product.title | escape
+  endif
+
+  assign sku = product.selected_or_first_available_variant.sku | default: product.variants.first.sku
+  assign brand_name = shop.name
+
+  assign rating_value = product.metafields.reviews.rating.value | default: shop.metafields.judgeme.shop_reviews_average_score
+  assign review_count = product.metafields.reviews.rating_count | default: shop.metafields.judgeme.all_reviews_count
+-%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "image": [
+    {%- for media in product.media limit: 6 -%}
+      {%- if media.media_type == 'image' -%}
+        "https:{{ media | image_url: width: 1200 }}"{%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ],
+  "description": {{ product_description | json }},
+  "sku": {{ sku | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ brand_name | json }}
+  },
+  "url": {{ shop.url | append: product.url | json }},
+  "offers": [
+    {%- for variant in product.variants -%}
+    {
+      "@type": "Offer",
+      "url": {{ shop.url | append: product.url | append: '?variant=' | append: variant.id | json }},
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": {{ variant.price | money_without_currency | replace: ',', '' | json }},
+      "availability": "{% if variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+      "itemCondition": "https://schema.org/NewCondition"{%- if variant.sku != blank -%},
+      "sku": {{ variant.sku | json }}{%- endif -%}
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+  {%- if rating_value != blank and review_count != blank and review_count != 0 -%}
+  ,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ rating_value | json }},
+    "reviewCount": {{ review_count | json }},
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+  {%- endif -%}
+}
+</script>

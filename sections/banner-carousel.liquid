@@ -1,4 +1,4 @@
-<style>
+﻿<style>
 .banner-carousel {
   position: relative;
   overflow: hidden;
@@ -82,7 +82,7 @@
 }
 
 .banner-carousel .slide-cta.primary {
-  background: linear-gradient(135deg, #ff6b9d, #e84a7f);
+  background: linear-gradient(135deg, #741CB1, #642878);
   color: #fff;
 }
 
@@ -180,12 +180,29 @@
       {%- if section.settings[slide_image] != blank or section.settings[slide_heading] != blank -%}
         <div class="slide">
           {%- if section.settings[slide_image] != blank -%}
-            <img src="{{ section.settings[slide_image] | img_url: '1600x600' }}" 
-                 alt="{{ section.settings[slide_heading] }}"
-                 class="slide-image"
-                 loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+            {%- if forloop.first -%}
+              {{
+                section.settings[slide_image]
+                | image_url: width: 1600
+                | image_tag:
+                  class: 'slide-image',
+                  widths: '750, 1100, 1500, 1600',
+                  loading: 'eager',
+                  alt: section.settings[slide_heading]
+              }}
+            {%- else -%}
+              {{
+                section.settings[slide_image]
+                | image_url: width: 1600
+                | image_tag:
+                  class: 'slide-image',
+                  widths: '750, 1100, 1500, 1600',
+                  loading: 'lazy',
+                  alt: section.settings[slide_heading]
+              }}
+            {%- endif -%}
           {%- else -%}
-            <div class="slide-image" style="background: linear-gradient(135deg, #ff6b9d, #e84a7f);"></div>
+            <div class="slide-image" style="background: linear-gradient(135deg, #741CB1, #642878);"></div>
           {%- endif -%}
           
           <div class="slide-overlay">
@@ -549,3 +566,4 @@
   ]
 }
 {% endschema %}
+

@@ -1,0 +1,243 @@
+{{ 'section-catfat-social-proof.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  if section.settings.enabled == false
+    assign render_section = false
+  else
+    assign render_section = true
+  endif
+
+  assign source_mode = section.settings.source_mode | default: 'auto'
+  assign pool_collection = section.settings.pool_collection
+  if pool_collection == blank
+    assign pool_collection = collections['all']
+  endif
+
+  # Pools for auto-generated entries — Indian first names + cities, brand-safe.
+  assign names_csv = section.settings.names_csv | default: 'Aanya,Priya,Riya,Ishaan,Karan,Aarav,Diya,Meera,Rohan,Anaya,Nisha,Vihaan,Saanvi,Arjun,Kiara,Ananya,Reyansh,Myra,Aditya,Aarush,Sneha,Pooja,Riya,Tara,Krish'
+  assign cities_csv = section.settings.cities_csv | default: 'Mumbai,Delhi,Bangalore,Pune,Hyderabad,Chennai,Kolkata,Ahmedabad,Jaipur,Lucknow,Surat,Gurgaon,Noida,Indore,Chandigarh,Kochi,Bhopal,Patna,Visakhapatnam,Coimbatore'
+  assign time_labels_csv = section.settings.time_labels_csv | default: '2 min ago,5 min ago,8 min ago,12 min ago,18 min ago,25 min ago,32 min ago,45 min ago,1 hr ago,1 hr 12 min ago,1 hr 45 min ago,2 hrs ago,3 hrs ago'
+
+  assign max_entries = section.settings.max_entries | default: 12
+-%}
+
+{%- if render_section -%}
+  <div
+    id="catfat-social-proof"
+    class="catfat-social-proof"
+    data-social-proof
+    data-position="{{ section.settings.position | default: 'bottom-left' }}"
+    data-interval="{{ section.settings.interval_ms | default: 9000 }}"
+    data-display-duration="{{ section.settings.display_ms | default: 5500 }}"
+    data-start-delay="{{ section.settings.start_delay_ms | default: 4000 }}"
+    aria-live="polite"
+    aria-atomic="true"
+    hidden
+  >
+    <button type="button" class="catfat-social-proof__close" data-social-proof-close aria-label="Dismiss notifications">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+
+    <a class="catfat-social-proof__link" href="#" data-social-proof-link>
+      <span class="catfat-social-proof__thumb">
+        <img src="" alt="" data-social-proof-image loading="lazy" width="56" height="56">
+      </span>
+      <span class="catfat-social-proof__body">
+        <span class="catfat-social-proof__line-1">
+          <strong data-social-proof-name></strong>
+          <span class="catfat-social-proof__from"> from <span data-social-proof-city></span></span>
+        </span>
+        <span class="catfat-social-proof__line-2">
+          purchased <strong data-social-proof-product></strong>
+        </span>
+        <span class="catfat-social-proof__meta">
+          <span class="catfat-social-proof__dot" aria-hidden="true"></span>
+          <span data-social-proof-time></span>
+          <span class="catfat-social-proof__verified">
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true">
+              <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
+            </svg>
+            Verified
+          </span>
+        </span>
+      </span>
+    </a>
+  </div>
+
+  {%- comment -%}
+    Inject the entries dataset as JSON. JS reads this, optionally extends from
+    blocks, and rotates. Curated blocks always come first if any exist.
+  {%- endcomment -%}
+  <script type="application/json" data-social-proof-data>
+    {
+      "sourceMode": {{ source_mode | json }},
+      "names": {{ names_csv | split: ',' | json }},
+      "cities": {{ cities_csv | split: ',' | json }},
+      "timeLabels": {{ time_labels_csv | split: ',' | json }},
+      "entries": [
+        {%- assign block_count = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign block_count = block_count | plus: 1 -%}
+          {%- assign block_product = block.settings.product -%}
+          {%- assign product_url = '#' -%}
+          {%- assign product_title = block.settings.product_name | default: 'a Catfat product' -%}
+          {%- assign product_image = '' -%}
+          {%- if block_product != blank -%}
+            {%- assign product_url = block_product.url -%}
+            {%- if block.settings.product_name == blank -%}
+              {%- assign product_title = block_product.title -%}
+            {%- endif -%}
+            {%- if block_product.featured_media != blank -%}
+              {%- assign product_image = block_product.featured_media | image_url: width: 120 -%}
+            {%- endif -%}
+          {%- endif -%}
+          {
+            "name": {{ block.settings.customer_name | default: '' | json }},
+            "city": {{ block.settings.customer_city | default: '' | json }},
+            "product": {{ product_title | json }},
+            "url": {{ product_url | json }},
+            "image": {{ product_image | json }},
+            "time": {{ block.settings.time_label | default: '' | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+        {%- if pool_collection != blank and pool_collection.products.size > 0 -%}
+          {%- if block_count > 0 -%},{%- endif -%}
+          {%- assign auto_count = 0 -%}
+          {%- for product in pool_collection.products -%}
+            {%- if auto_count >= max_entries -%}{%- break -%}{%- endif -%}
+            {%- assign p_image = '' -%}
+            {%- if product.featured_media != blank -%}
+              {%- assign p_image = product.featured_media | image_url: width: 120 -%}
+            {%- endif -%}
+            {%- if auto_count > 0 -%},{%- endif -%}
+            {
+              "name": "",
+              "city": "",
+              "product": {{ product.title | json }},
+              "url": {{ product.url | json }},
+              "image": {{ p_image | json }},
+              "time": ""
+            }
+            {%- assign auto_count = auto_count | plus: 1 -%}
+          {%- endfor -%}
+        {%- endif -%}
+      ]
+    }
+  </script>
+
+  <script src="{{ 'section-catfat-social-proof.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Social Proof Popup",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Enable popup", "default": true },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Screen position",
+      "default": "bottom-left",
+      "options": [
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "source_mode",
+      "label": "Data source",
+      "default": "auto",
+      "info": "Curated only uses your blocks below. Auto pulls from a collection. Both mixes curated first, then auto.",
+      "options": [
+        { "value": "auto", "label": "Auto (recent products + random buyer details)" },
+        { "value": "curated", "label": "Curated only (use blocks below)" },
+        { "value": "both", "label": "Both (curated first, then auto)" }
+      ]
+    },
+    {
+      "type": "collection",
+      "id": "pool_collection",
+      "label": "Auto-pool collection",
+      "info": "Products from this collection rotate as 'recently purchased'. Defaults to All Products."
+    },
+    {
+      "type": "range",
+      "id": "max_entries",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "label": "Max auto entries"
+    },
+    {
+      "type": "range",
+      "id": "interval_ms",
+      "min": 5000,
+      "max": 30000,
+      "step": 1000,
+      "unit": "ms",
+      "default": 9000,
+      "label": "Time between popups"
+    },
+    {
+      "type": "range",
+      "id": "display_ms",
+      "min": 3000,
+      "max": 12000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5500,
+      "label": "How long each popup stays"
+    },
+    {
+      "type": "range",
+      "id": "start_delay_ms",
+      "min": 0,
+      "max": 15000,
+      "step": 500,
+      "unit": "ms",
+      "default": 4000,
+      "label": "Initial delay before first popup"
+    },
+    { "type": "header", "content": "Auto-generated pools" },
+    {
+      "type": "textarea",
+      "id": "names_csv",
+      "label": "First-name pool (comma separated)",
+      "default": "Aanya,Priya,Riya,Ishaan,Karan,Aarav,Diya,Meera,Rohan,Anaya,Nisha,Vihaan,Saanvi,Arjun,Kiara,Ananya,Reyansh,Myra,Aditya,Aarush,Sneha,Pooja,Tara,Krish"
+    },
+    {
+      "type": "textarea",
+      "id": "cities_csv",
+      "label": "City pool (comma separated)",
+      "default": "Mumbai,Delhi,Bangalore,Pune,Hyderabad,Chennai,Kolkata,Ahmedabad,Jaipur,Lucknow,Surat,Gurgaon,Noida,Indore,Chandigarh,Kochi,Bhopal,Patna,Visakhapatnam,Coimbatore"
+    },
+    {
+      "type": "textarea",
+      "id": "time_labels_csv",
+      "label": "Time-label pool (comma separated)",
+      "default": "2 min ago,5 min ago,8 min ago,12 min ago,18 min ago,25 min ago,32 min ago,45 min ago,1 hr ago,1 hr 12 min ago,1 hr 45 min ago,2 hrs ago,3 hrs ago"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "purchase",
+      "name": "Curated purchase",
+      "settings": [
+        { "type": "text", "id": "customer_name", "label": "Customer first name", "default": "Aanya" },
+        { "type": "text", "id": "customer_city", "label": "Customer city", "default": "Mumbai" },
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "product_name", "label": "Override product name (optional)" },
+        { "type": "text", "id": "time_label", "label": "Time label (e.g. '5 min ago')", "default": "5 min ago" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Social Proof Popup" }
+  ]
+}
+{% endschema %}

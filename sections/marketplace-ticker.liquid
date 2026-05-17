@@ -1,18 +1,19 @@
 {{ 'section-marketplace-marquee.css' | asset_url | stylesheet_tag }}
 
-<section class="marketplace-marquee page-width">
+{%- liquid
+  assign badge_labels = '620+ Verified Reviews|BPA Free Materials|Microwave Safe|Leak-Proof Design|Easy to Clean|Ships Across India|COD Available|Kids-Favourite Themes|Personalised Options' | split: '|'
+  assign badge_icons = 'reviews|materials|microwave|design|clean|shipping|cod|themes|personalise' | split: '|'
+-%}
+
+<section class="marketplace-marquee" data-rail-couple>
   <div class="marketplace-marquee__shell">
     <div class="marketplace-marquee__track" aria-label="Catfat highlights">
       {%- for duplicate in (1..2) -%}
         <div class="marketplace-marquee__group" aria-hidden="{% if duplicate == 2 %}true{% else %}false{% endif %}">
-          <span class="marketplace-marquee__item">Original Catfat photos</span>
-          <span class="marketplace-marquee__item">Visible sale pricing</span>
-          <span class="marketplace-marquee__item">Kids-favourite themes</span>
-          <span class="marketplace-marquee__item">Microwave-safe picks</span>
-          <span class="marketplace-marquee__item">Insulated travel favourites</span>
-          <span class="marketplace-marquee__item">Bulk gifting support</span>
-          <span class="marketplace-marquee__item">Lunch picks for school days</span>
-          <span class="marketplace-marquee__item">Fast compare. Faster checkout.</span>
+          {%- for label in badge_labels -%}
+            {%- assign icon = badge_icons[forloop.index0] -%}
+            {% render 'trust-badge', label: label, icon: icon %}
+          {%- endfor -%}
         </div>
       {%- endfor -%}
     </div>

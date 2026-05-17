@@ -1,0 +1,258 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="customer-auth section-{{ section.id }}-padding" data-auth-shell data-default-tab="{{ section.settings.default_tab }}">
+  <div class="customer-auth__frame">
+    <div class="customer-auth__card">
+      <div class="customer-auth__brand">
+        <span class="customer-auth__eyebrow">Catfat account</span>
+        <h1 class="customer-auth__title">Track orders, manage addresses, and get support faster.</h1>
+        <p class="customer-auth__copy">Keep your Catfat orders, returns, and support in one calm, easy-to-use account space.</p>
+      </div>
+
+      <div class="customer-auth__tabs" role="tablist" aria-label="Account access">
+        <button type="button" class="customer-auth__tab {% if section.settings.default_tab == 'login' %}is-active{% endif %}" data-auth-tab-trigger="login" role="tab" aria-selected="{% if section.settings.default_tab == 'login' %}true{% else %}false{% endif %}">Login</button>
+        <button type="button" class="customer-auth__tab {% if section.settings.default_tab == 'signup' %}is-active{% endif %}" data-auth-tab-trigger="signup" role="tab" aria-selected="{% if section.settings.default_tab == 'signup' %}true{% else %}false{% endif %}">Signup</button>
+      </div>
+
+      <div class="customer-auth__panel {% if section.settings.default_tab == 'login' %}is-active{% endif %}" data-auth-panel="login">
+        {%- form 'customer_login', class: 'customer-form js-customer-validate', novalidate: 'novalidate' -%}
+          {%- if form.errors -%}
+            <ul class="customer-form__error-list" role="alert">
+              {%- for field in form.errors -%}
+                <li>
+                  {%- if field == 'form' -%}
+                    {{ form.errors.messages[field] }}
+                  {%- else -%}
+                    {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          <div class="customer-form__group">
+            <label class="customer-form__label" for="CustomerEmail">Email</label>
+            <div class="customer-form__control">
+              <input
+                class="customer-form__input js-validate-input"
+                type="email"
+                name="customer[email]"
+                id="CustomerEmail"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                placeholder="Email address"
+                required
+              >
+            </div>
+            <p class="customer-field-error js-field-error"></p>
+          </div>
+
+          {%- if form.password_needed -%}
+            <div class="customer-form__group">
+              <label class="customer-form__label" for="CustomerPassword">Password</label>
+              <div class="customer-form__control">
+                <input
+                  class="customer-form__input customer-form__password js-validate-input"
+                  type="password"
+                  name="customer[password]"
+                  id="CustomerPassword"
+                  autocomplete="current-password"
+                  placeholder="Enter your password"
+                  minlength="5"
+                  required
+                >
+                <button type="button" class="customer-password-toggle" aria-controls="CustomerPassword" data-password-toggle>Show</button>
+              </div>
+              <p class="customer-field-error js-field-error"></p>
+            </div>
+          {%- endif -%}
+
+          <button class="customer-button" type="submit">Login</button>
+
+          <div class="customer-auth__footer">
+            <a class="customer-auth__link" href="#" data-recover-toggle>Forgot password?</a>
+            <a class="customer-inline-link" href="{{ routes.account_register_url }}">Create account</a>
+          </div>
+        {%- endform -%}
+
+        <div class="customer-auth__recover" data-recover-panel>
+          <p class="customer-form__help">Enter the email linked to your Catfat orders and we’ll send a reset link.</p>
+          {%- form 'recover_customer_password', class: 'customer-form js-customer-validate', novalidate: 'novalidate' -%}
+            {%- if form.errors -%}
+              <ul class="customer-form__error-list" role="alert">
+                {%- for field in form.errors -%}
+                  <li>
+                    {%- if field == 'form' -%}
+                      {{ form.errors.messages[field] }}
+                    {%- else -%}
+                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if form.posted_successfully? -%}
+              <p class="customer-note">Reset instructions are on the way. Check your inbox and spam folder.</p>
+            {%- endif -%}
+
+            <div class="customer-form__group">
+              <label class="customer-form__label" for="RecoverEmail">Email</label>
+              <div class="customer-form__control">
+                <input
+                  class="customer-form__input js-validate-input"
+                  type="email"
+                  value=""
+                  name="email"
+                  id="RecoverEmail"
+                  autocomplete="email"
+                  placeholder="your@email.com"
+                  required
+                >
+              </div>
+              <p class="customer-field-error js-field-error"></p>
+            </div>
+
+            <button class="customer-button--secondary" type="submit">Send reset link</button>
+          {%- endform -%}
+        </div>
+      </div>
+
+      <div class="customer-auth__panel {% if section.settings.default_tab == 'signup' %}is-active{% endif %}" data-auth-panel="signup">
+        {%- form 'create_customer', class: 'customer-form js-customer-validate', novalidate: 'novalidate' -%}
+          {%- if form.errors -%}
+            <ul class="customer-form__error-list" role="alert">
+              {%- for field in form.errors -%}
+                <li>
+                  {%- if field == 'form' -%}
+                    {{ form.errors.messages[field] }}
+                  {%- else -%}
+                    {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          <div class="customer-form__group">
+            <label class="customer-form__label" for="RegisterFirstName">Name</label>
+            <div class="customer-form__control">
+              <input
+                class="customer-form__input js-validate-input"
+                type="text"
+                name="customer[first_name]"
+                id="RegisterFirstName"
+                value="{{ form.first_name }}"
+                autocomplete="given-name"
+                placeholder="Your name"
+                required
+              >
+            </div>
+            <p class="customer-field-error js-field-error"></p>
+          </div>
+
+          <div class="customer-form__group">
+            <label class="customer-form__label" for="RegisterEmail">Email</label>
+            <div class="customer-form__control">
+              <input
+                class="customer-form__input js-validate-input"
+                type="email"
+                name="customer[email]"
+                id="RegisterEmail"
+                value="{{ form.email }}"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                placeholder="Email address"
+                required
+              >
+            </div>
+            <p class="customer-field-error js-field-error"></p>
+          </div>
+
+          <div class="customer-form__group">
+            <label class="customer-form__label" for="RegisterPassword">Password</label>
+            <div class="customer-form__control">
+              <input
+                class="customer-form__input customer-form__password js-validate-input"
+                type="password"
+                name="customer[password]"
+                id="RegisterPassword"
+                autocomplete="new-password"
+                placeholder="Create a password"
+                minlength="5"
+                required
+              >
+              <button type="button" class="customer-password-toggle" aria-controls="RegisterPassword" data-password-toggle>Show</button>
+            </div>
+            <p class="customer-field-error js-field-error"></p>
+          </div>
+
+          <button class="customer-button" type="submit">Create account</button>
+
+          <div class="customer-auth__footer">
+            <a class="customer-inline-link" href="{{ routes.account_login_url }}">Already have an account? Login</a>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer onboarding",
+  "settings": [
+    {
+      "type": "select",
+      "id": "default_tab",
+      "label": "Default tab",
+      "default": "login",
+      "options": [
+        { "value": "login", "label": "Login" },
+        { "value": "signup", "label": "Signup" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 56
+    }
+  ]
+}
+{% endschema %}

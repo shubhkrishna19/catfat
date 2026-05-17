@@ -1,0 +1,111 @@
+{%- liquid
+  # Read tutorial source from product metafields.
+  #   product.metafields.catfat.tutorial_video — Shopify video file
+  #   product.metafields.catfat.tutorial_url   — URL to MP4 / IG reel mp4
+  #   product.metafields.catfat.tutorial_embed — full embed URL (e.g. Instagram embed iframe URL)
+  assign tutorial_video = product.metafields.catfat.tutorial_video
+  assign tutorial_url = product.metafields.catfat.tutorial_url
+  assign tutorial_embed = product.metafields.catfat.tutorial_embed
+  assign tutorial_poster = product.metafields.catfat.tutorial_poster
+
+  assign has_tutorial = false
+  if tutorial_video != blank or tutorial_url != blank or tutorial_embed != blank
+    assign has_tutorial = true
+  endif
+
+  assign popup_id = 'catfat-tutorial-' | append: product.id
+-%}
+
+{%- if has_tutorial -%}
+  {{ 'component-catfat-tutorial-popup.css' | asset_url | stylesheet_tag }}
+
+  <button type="button" class="catfat-tutorial__trigger" data-tutorial-open="{{ popup_id }}" aria-haspopup="dialog">
+    <span class="catfat-tutorial__trigger-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    </span>
+    <span class="catfat-tutorial__trigger-text">
+      <strong>How to use it</strong>
+      <span>60-second tutorial from @catfatindia</span>
+    </span>
+  </button>
+
+  <div class="catfat-tutorial" id="{{ popup_id }}" data-tutorial-popup hidden aria-modal="true" role="dialog" aria-label="Product tutorial">
+    <div class="catfat-tutorial__backdrop" data-tutorial-close></div>
+    <div class="catfat-tutorial__dialog">
+      <button type="button" class="catfat-tutorial__close" data-tutorial-close aria-label="Close tutorial">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+          <path d="M6 6l12 12M18 6l-6 6-6 6"/>
+        </svg>
+      </button>
+
+      <div class="catfat-tutorial__media-wrap">
+        {%- if tutorial_embed != blank -%}
+          <iframe
+            class="catfat-tutorial__iframe"
+            src="{{ tutorial_embed }}"
+            title="Catfat tutorial"
+            loading="lazy"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        {%- else -%}
+          <video
+            class="catfat-tutorial__video"
+            controls
+            playsinline
+            preload="metadata"
+            {% if tutorial_poster != blank %}poster="{{ tutorial_poster | image_url: width: 900 }}"{% endif %}
+          >
+            {%- if tutorial_video != blank -%}
+              {%- for source in tutorial_video.value.sources -%}
+                <source src="{{ source.url }}" type="{{ source.mime_type }}">
+              {%- endfor -%}
+            {%- elsif tutorial_url != blank -%}
+              <source src="{{ tutorial_url }}" type="video/mp4">
+            {%- endif -%}
+          </video>
+        {%- endif -%}
+      </div>
+
+      <div class="catfat-tutorial__caption">
+        <strong>{{ product.title | escape }}</strong>
+        <span>See how it fits a real lunch routine.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const popup = document.getElementById('{{ popup_id }}');
+      if (!popup) return;
+      const trigger = document.querySelector('[data-tutorial-open="{{ popup_id }}"]');
+      const closers = popup.querySelectorAll('[data-tutorial-close]');
+      const video = popup.querySelector('video');
+
+      const open = () => {
+        popup.hidden = false;
+        requestAnimationFrame(() => popup.classList.add('is-open'));
+        document.body.style.overflow = 'hidden';
+        if (video) {
+          const playPromise = video.play();
+          if (playPromise && playPromise.catch) playPromise.catch(() => {});
+        }
+      };
+      const close = () => {
+        popup.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (video) {
+          video.pause();
+          try { video.currentTime = 0; } catch (e) {}
+        }
+        setTimeout(() => { popup.hidden = true; }, 280);
+      };
+
+      if (trigger) trigger.addEventListener('click', open);
+      closers.forEach(el => el.addEventListener('click', close));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !popup.hidden) close();
+      });
+    })();
+  </script>
+{%- endif -%}

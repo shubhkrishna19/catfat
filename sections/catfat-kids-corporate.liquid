@@ -1,0 +1,118 @@
+{{ 'section-catfat-kids-corporate.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign kids_collection = section.settings.kids_collection
+  if kids_collection != blank and kids_collection.url == blank
+    assign kids_collection = collections[section.settings.kids_collection]
+  endif
+  if kids_collection == blank
+    assign kids_collection = collections['kids-collections']
+  endif
+
+  assign corporate_collection = section.settings.corporate_collection
+  if corporate_collection != blank and corporate_collection.url == blank
+    assign corporate_collection = collections[section.settings.corporate_collection]
+  endif
+  if corporate_collection == blank
+    assign corporate_collection = collections['corporate-gifting-bulk-gifting']
+  endif
+
+  assign kids_image = section.settings.kids_image
+  if kids_image == blank and kids_collection != blank and kids_collection.image != blank
+    assign kids_image = kids_collection.image
+  endif
+  if kids_image == blank and kids_collection != blank and kids_collection.products.first.featured_media != blank
+    assign kids_image = kids_collection.products.first.featured_media
+  endif
+
+  assign corp_image = section.settings.corporate_image
+  if corp_image == blank and corporate_collection != blank and corporate_collection.image != blank
+    assign corp_image = corporate_collection.image
+  endif
+  if corp_image == blank and corporate_collection != blank and corporate_collection.products.first.featured_media != blank
+    assign corp_image = corporate_collection.products.first.featured_media
+  endif
+
+  assign kids_url = kids_collection.url | default: routes.collections_url
+  assign corp_url = corporate_collection.url | default: routes.collections_url
+-%}
+
+<section class="catfat-kc">
+  <div class="page-width">
+    <div class="catfat-kc__header" data-scrub data-scrub-y="28" data-scrub-opacity-from="0">
+      <h2 class="catfat-kc__title">{{ section.settings.heading | default: 'Designs for kids. Built for corporate gifting.' }}</h2>
+      <p class="catfat-kc__sub">{{ section.settings.sub | default: 'Two distinct ranges — playful school favorites and elevated bulk gifting essentials.' }}</p>
+    </div>
+
+    <div class="catfat-kc__grid">
+      <a class="catfat-kc__panel catfat-kc__panel--kids" href="{{ kids_url }}" data-scrub data-scrub-y="40" data-scrub-scale="0.96" data-scrub-opacity-from="0.3" data-scrub-from="0.05" data-scrub-layer="0.08">
+        <div class="catfat-kc__media">
+          {%- if kids_image != blank -%}
+            {{ kids_image | image_url: width: 1200 | image_tag: class: 'catfat-kc__image', widths: '480, 720, 960, 1200', loading: 'lazy', alt: section.settings.kids_alt | default: 'Catfat Kids Collection' }}
+          {%- else -%}
+            <img src="{{ 'catfat-kids-panel.jpg' | asset_url }}" class="catfat-kc__image" alt="Indian school kids opening Catfat lunch boxes" loading="lazy" width="1200" height="900">
+          {%- endif -%}
+          <span class="catfat-kc__sticker catfat-kc__sticker--kids">FOR KIDS</span>
+        </div>
+        <div class="catfat-kc__body">
+          <h3 class="catfat-kc__panel-title">{{ section.settings.kids_title | default: 'Kids Collection' }}</h3>
+          <p class="catfat-kc__panel-copy">{{ section.settings.kids_copy | default: 'Bright themes, leak-proof locks, and fun shapes — designed for school, snacks, and lunch routines.' }}</p>
+          <ul class="catfat-kc__tags">
+            <li>BPA Free</li>
+            <li>Microwave Safe</li>
+            <li>Personalised Names</li>
+          </ul>
+          <span class="catfat-kc__cta">Shop kids range →</span>
+        </div>
+      </a>
+
+      <a class="catfat-kc__panel catfat-kc__panel--corporate" href="{{ corp_url }}" data-scrub data-scrub-y="40" data-scrub-scale="0.96" data-scrub-opacity-from="0.3" data-scrub-from="0.15" data-scrub-layer="0.08">
+        <div class="catfat-kc__media">
+          {%- if corp_image != blank -%}
+            {{ corp_image | image_url: width: 1200 | image_tag: class: 'catfat-kc__image', widths: '480, 720, 960, 1200', loading: 'lazy', alt: section.settings.corporate_alt | default: 'Catfat Corporate Gifting' }}
+          {%- else -%}
+            <img src="{{ 'catfat-corporate-gift.jpg' | asset_url }}" class="catfat-kc__image" alt="Premium Catfat corporate gift box with bottle and lunch container" loading="lazy" width="1200" height="900">
+          {%- endif -%}
+          <span class="catfat-kc__sticker catfat-kc__sticker--corp">FOR CORPORATES</span>
+        </div>
+        <div class="catfat-kc__body">
+          <h3 class="catfat-kc__panel-title">{{ section.settings.corporate_title | default: 'Corporate Gifting' }}</h3>
+          <p class="catfat-kc__panel-copy">{{ section.settings.corporate_copy | default: 'Premium finishes, bulk-friendly packaging, and personalised branding for teams, clients, and events.' }}</p>
+          <ul class="catfat-kc__tags">
+            <li>Logo Branding</li>
+            <li>Bulk MOQ</li>
+            <li>Custom Curated Boxes</li>
+          </ul>
+          <span class="catfat-kc__cta">Talk to gifting team →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kids vs Corporate",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "default": "Category Spotlight", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "default": "Designs for kids. Built for corporate gifting.", "label": "Heading" },
+    { "type": "textarea", "id": "sub", "default": "Two distinct ranges — playful school favorites and elevated bulk gifting essentials.", "label": "Sub-copy" },
+    { "type": "header", "content": "Kids panel" },
+    { "type": "text", "id": "kids_title", "default": "Kids Collection", "label": "Kids title" },
+    { "type": "textarea", "id": "kids_copy", "default": "Bright themes, leak-proof locks, and fun shapes — designed for school, snacks, and lunch routines.", "label": "Kids copy" },
+    { "type": "collection", "id": "kids_collection", "label": "Kids collection" },
+    { "type": "image_picker", "id": "kids_image", "label": "Kids image" },
+    { "type": "text", "id": "kids_alt", "label": "Kids alt text" },
+    { "type": "header", "content": "Corporate panel" },
+    { "type": "text", "id": "corporate_title", "default": "Corporate Gifting", "label": "Corporate title" },
+    { "type": "textarea", "id": "corporate_copy", "default": "Premium finishes, bulk-friendly packaging, and personalised branding for teams, clients, and events.", "label": "Corporate copy" },
+    { "type": "collection", "id": "corporate_collection", "label": "Corporate collection" },
+    { "type": "image_picker", "id": "corporate_image", "label": "Corporate image" },
+    { "type": "text", "id": "corporate_alt", "label": "Corporate alt text" }
+  ],
+  "presets": [
+    { "name": "Kids vs Corporate" }
+  ]
+}
+{% endschema %}

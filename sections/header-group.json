@@ -1,15 +1,1 @@
-{
-  "name": "Header",
-  "type": "header",
-  "sections": {
-    "header": {
-      "type": "header",
-      "settings": {
-        "menu": "main-menu"
-      }
-    }
-  },
-  "order": [
-    "header"
-  ]
-}
+{"name":"Header","type":"header","sections":{"header":{"type":"header","settings":{}}},"order":["header"]}

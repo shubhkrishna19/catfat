@@ -23,3 +23,26 @@ theme_check*.txt
 .env
 .env.*
 !.env.example
+
+# Local Claude/agent state
+.claude/
+
+# Internal review docs and tools (not for public repo)
+reviews/
+tools/
+
+# Duplicate/staging build dirs
+latest theme dev export/
+latestTheme/
+
+# Heavy raw product photo bundles (not bundled into theme)
+assets/CATFAT PRODUCTS PHOTOS*
+assets/higgsfield-ready-references/
+assets/latestproductphotos/
+assets/hf_*.png
+assets/*-source.png
+assets/catfat-hero-minimax-*.jpeg
+assets/catfat-hero-minimax-*.jpg
+
+# Local theme-dev pid/state
+*.pid

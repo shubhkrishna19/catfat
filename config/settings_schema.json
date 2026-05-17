@@ -163,5 +163,34 @@
         "label": "Cart type"
       }
     ]
+  },
+  {
+    "name": "Brand & Sharing",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand identity"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "header",
+        "content": "Social sharing"
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Default share image (OG / Twitter)",
+        "info": "Used when a page-specific image isn't set. Recommended size: 1200×630px."
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_link",
+        "label": "Twitter / X profile URL"
+      }
+    ]
   }
 ]

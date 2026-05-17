@@ -1,5 +1,4 @@
-{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
-{{ 'section-market-shelf.css' | asset_url | stylesheet_tag }}
+﻿{{ 'section-market-shelf.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign collection = section.settings.collection
@@ -12,40 +11,27 @@
     assign shelf_title = collection.title
   endif
 
-  assign shelf_title_downcase = shelf_title | downcase
-  assign shelf_eyebrow = 'Shop by category'
   assign shelf_description = section.settings.description
-
-  if shelf_title_downcase contains 'best sellers'
-    assign shelf_eyebrow = 'Best sellers'
-  endif
 
   if collection != blank
     case collection.handle
       when 'lunch-box'
-        unless shelf_title_downcase contains 'best sellers'
-          assign shelf_eyebrow = 'Lunch boxes'
-        endunless
         if shelf_description == blank
-          assign shelf_description = 'School-ready lunch boxes with clear pricing and simpler comparison.'
+          assign shelf_description = 'A tighter shortlist of Catfat lunch boxes shoppers keep coming back to.'
         endif
       when 'bottles-flasks'
-        assign shelf_eyebrow = 'Bottles & thermos'
         if shelf_description == blank
           assign shelf_description = 'Insulated hydration picks with cleaner browsing and clearer value.'
         endif
       when 'kids-collections'
-        assign shelf_eyebrow = 'Kids themes'
         if shelf_description == blank
           assign shelf_description = 'Theme-led favourites for gifting and everyday school use.'
         endif
       when 'india-s-biggest-lunch-sale-upto-80'
-        assign shelf_eyebrow = 'Sale picks'
         if shelf_description == blank
           assign shelf_description = 'Sale-first picks where the savings are visible at a glance.'
         endif
       when 'new-arrivals'
-        assign shelf_eyebrow = 'New arrivals'
         if shelf_description == blank
           assign shelf_description = 'Recent additions presented in a cleaner, easier-to-scan shelf.'
         endif
@@ -60,57 +46,117 @@
   if products_limit == blank
     assign products_limit = 8
   endif
+
+  assign carousel_id = 'market-shelf-rail-' | append: section.id
 -%}
 
-<section class="market-shelf page-width">
-  <div class="market-shelf__header">
-    <div>
-      <span class="market-shelf__eyebrow">{{ shelf_eyebrow }}</span>
-      <h2 class="market-shelf__title">{{ shelf_title | escape }}</h2>
-      <p class="market-shelf__description">{{ shelf_description }}</p>
+<section class="market-shelf">
+  <div class="page-width">
+    <div class="market-shelf__header">
+      <div class="market-shelf__copy" data-scrub data-scrub-y="28" data-scrub-opacity-from="0">
+        <h2 class="market-shelf__title">{{ shelf_title | escape }}</h2>
+        <p class="market-shelf__description">{{ shelf_description }}</p>
+      </div>
+
+      <div class="market-shelf__toolbar">
+        <div class="market-shelf__controls" aria-label="{{ shelf_title | escape }} navigation">
+          <button
+            type="button"
+            class="market-shelf__arrow"
+            data-market-shelf-prev
+            aria-controls="{{ carousel_id }}"
+            aria-label="Scroll {{ shelf_title | escape }} left"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14.5 6.5 9 12l5.5 5.5"></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="market-shelf__arrow"
+            data-market-shelf-next
+            aria-controls="{{ carousel_id }}"
+            aria-label="Scroll {{ shelf_title | escape }} right"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9.5 6.5 15 12l-5.5 5.5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
 
-    {%- if collection != blank and collection.url != blank -%}
-      <a href="{{ collection.url }}" class="market-shelf__link">View all</a>
-    {%- endif -%}
-  </div>
+    {%- assign shown_count = 0 -%}
 
-  {%- assign shown_count = 0 -%}
-
-  {%- if collection != blank and collection.products.size > 0 -%}
-    <div class="market-shelf__grid">
-      {%- for product in collection.products -%}
-        {%- if product.available -%}
-          <div class="market-shelf__item">
-            {% render 'product-card', product: product %}
-          </div>
-          {%- assign shown_count = shown_count | plus: 1 -%}
-          {%- if shown_count >= products_limit -%}
-            {%- break -%}
-          {%- endif -%}
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- if shown_count < products_limit -%}
+    {%- if collection != blank and collection.products.size > 0 -%}
+      <div class="market-shelf__rail" id="{{ carousel_id }}" data-market-shelf-rail>
         {%- for product in collection.products -%}
-          {%- unless product.available -%}
-            <div class="market-shelf__item">
-              {% render 'product-card', product: product %}
-            </div>
+          {%- if product.available -%}
+            {% render 'market-shelf-card', product: product, section_id: section.id %}
             {%- assign shown_count = shown_count | plus: 1 -%}
             {%- if shown_count >= products_limit -%}
               {%- break -%}
             {%- endif -%}
-          {%- endunless -%}
+          {%- endif -%}
         {%- endfor -%}
-      {%- endif -%}
-    </div>
-  {%- else -%}
-    <div class="market-shelf__empty">
-      This shelf is waiting for products from the selected Catfat collection.
-    </div>
-  {%- endif -%}
+
+        {%- if shown_count < products_limit -%}
+          {%- for product in collection.products -%}
+            {%- unless product.available -%}
+              {% render 'market-shelf-card', product: product, section_id: section.id %}
+              {%- assign shown_count = shown_count | plus: 1 -%}
+              {%- if shown_count >= products_limit -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="market-shelf__empty">
+        This shelf is waiting for products from the selected Catfat collection.
+      </div>
+    {%- endif -%}
+  </div>
 </section>
+
+<script>
+  (() => {
+    const section = document.currentScript?.previousElementSibling;
+    if (!section) return;
+
+    const rail = section.querySelector('[data-market-shelf-rail]');
+    const previousButton = section.querySelector('[data-market-shelf-prev]');
+    const nextButton = section.querySelector('[data-market-shelf-next]');
+    if (!rail || !previousButton || !nextButton) return;
+
+    const getStep = () => {
+      const card = rail.querySelector('.market-shelf-card');
+      if (!card) return rail.clientWidth * 0.85;
+
+      const styles = window.getComputedStyle(rail);
+      const gap = parseFloat(styles.gap || styles.columnGap || 0);
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const syncButtons = () => {
+      previousButton.disabled = rail.scrollLeft <= 4;
+      nextButton.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+    };
+
+    previousButton.addEventListener('click', () => {
+      rail.scrollBy({ left: getStep() * -1, behavior: 'smooth' });
+    });
+
+    nextButton.addEventListener('click', () => {
+      rail.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+
+    rail.addEventListener('scroll', syncButtons, { passive: true });
+    window.addEventListener('resize', syncButtons);
+    syncButtons();
+  })();
+</script>
 
 {% schema %}
 {

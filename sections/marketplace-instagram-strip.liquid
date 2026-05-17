@@ -1,67 +1,96 @@
 {{ 'section-marketplace-instagram-strip.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'section-marketplace-instagram-strip.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign lunch_collection = collections['lunch-box']
-  assign kids_collection = collections['kids-collections']
-  assign product_pool = lunch_collection.products
-  if product_pool == blank or product_pool.size == 0
-    assign product_pool = kids_collection.products
-  endif
+  assign reel_collection = collections['all']
 -%}
 
-<section class="instagram-strip page-width">
+<section class="instagram-strip page-width" data-instagram-strip>
   <div class="instagram-strip__header">
-    <div>
-      <span class="instagram-strip__eyebrow">Pack love from Instagram</span>
-      <h2 class="instagram-strip__title">See how Catfat fits into real lunch routines.</h2>
+    <div class="instagram-strip__intro">
+      <h2 class="instagram-strip__title">See how Catfat fits into real lunch routines</h2>
       <p class="instagram-strip__description">
-        A scroll of lunch-box favourites, school packing moments, and gifting-ready picks inspired by the Catfat community of 750K+ followers.
+        Real-life lunchbox, bottle, and outing picks styled as a cleaner shoppable inspiration feed.
       </p>
     </div>
 
-    <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="instagram-strip__link">Follow @catfatindia</a>
+    <div class="instagram-strip__actions">
+      <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="instagram-strip__link">Shop from Instagram</a>
+
+      <div class="instagram-strip__nav" aria-label="Instagram inspiration feed controls">
+        <button type="button" class="instagram-strip__arrow" data-direction="prev" aria-label="Scroll Instagram feed left">
+          <span aria-hidden="true">&#8249;</span>
+        </button>
+        <button type="button" class="instagram-strip__arrow" data-direction="next" aria-label="Scroll Instagram feed right">
+          <span aria-hidden="true">&#8250;</span>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div class="instagram-strip__rail">
-    {%- assign shown_count = 0 -%}
-    {%- for product in product_pool limit: 6 -%}
-      {%- if product.featured_media != blank -%}
-        <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="instagram-strip__card">
-          {{
-            product.featured_media
-            | image_url: width: 800
-            | image_tag:
-              class: 'instagram-strip__image',
-              widths: '280, 420, 620, 800',
-              loading: 'lazy',
-              alt: product.title
-          }}
-          <div class="instagram-strip__overlay">
-            <span class="instagram-strip__handle">@catfatindia • 750K+</span>
-            <strong class="instagram-strip__caption">
-              {%- case forloop.index -%}
-                {%- when 1 -%}School lunch setup
-                {%- when 2 -%}Theme pick of the week
-                {%- when 3 -%}Lunch-box unboxing
-                {%- when 4 -%}Bottle and box pairing
-                {%- when 5 -%}Gift-ready lunchware
-                {%- else -%}Packed with Catfat
-              {%- endcase -%}
-            </strong>
-            <span class="instagram-strip__product">{{ product.title | escape }}</span>
-          </div>
-        </a>
-        {%- assign shown_count = shown_count | plus: 1 -%}
-      {%- endif -%}
-    {%- endfor -%}
+  <div class="instagram-strip__viewport" data-instagram-viewport>
+    <div class="instagram-strip__rail" data-instagram-rail>
+      {%- assign shown_count = 0 -%}
 
-    {%- if shown_count == 0 -%}
-      {%- for i in (1..5) -%}
-        <a href="https://instagram.com/catfatindia" target="_blank" rel="noopener" class="instagram-strip__card instagram-strip__card--placeholder">
-          <span class="instagram-strip__placeholder-label">Catfat community post {{ i }}</span>
-        </a>
-      {%- endfor -%}
-    {%- endif -%}
+      {%- if reel_collection != blank and reel_collection.products_count > 0 -%}
+        {%- for product in reel_collection.products -%}
+          {%- if shown_count >= 6 -%}
+            {%- break -%}
+          {%- endif -%}
+
+          {%- if product != blank and product.featured_media != blank -%}
+            {%- case shown_count -%}
+              {%- when 0 -%}
+                {%- assign reel_caption = 'School lunch routine' -%}
+              {%- when 1 -%}
+                {%- assign reel_caption = 'Packed for snack breaks' -%}
+              {%- when 2 -%}
+                {%- assign reel_caption = 'Lunchbox reveal moment' -%}
+              {%- when 3 -%}
+                {%- assign reel_caption = 'Carry routine inspiration' -%}
+              {%- when 4 -%}
+                {%- assign reel_caption = 'Everyday bottle setup' -%}
+              {%- else -%}
+                {%- assign reel_caption = 'Family meal prep look' -%}
+            {%- endcase -%}
+
+            {% render 'instagram-reel-card',
+              product: product,
+              caption: reel_caption,
+              button_label: 'Shop this look'
+            %}
+            {%- assign shown_count = shown_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if shown_count == 0 -%}
+        {%- for i in (1..4) -%}
+          <article class="instagram-strip__card instagram-strip__card--placeholder">
+            <div class="instagram-strip__media instagram-strip__media--placeholder">
+              <span class="instagram-strip__placeholder-label">Catfat inspiration {{ i }}</span>
+            </div>
+            <div class="instagram-strip__body">
+              <p class="instagram-strip__caption">Everyday lunch ideas</p>
+              <span class="instagram-strip__product">Shoppable looks coming soon</span>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- elsif shown_count < 4 -%}
+        {%- assign filler_needed = 4 | minus: shown_count -%}
+        {%- for i in (1..filler_needed) -%}
+          <article class="instagram-strip__card instagram-strip__card--placeholder">
+            <div class="instagram-strip__media instagram-strip__media--placeholder">
+              <span class="instagram-strip__placeholder-label">More looks soon</span>
+            </div>
+            <div class="instagram-strip__body">
+              <p class="instagram-strip__caption">Catfat inspiration</p>
+              <span class="instagram-strip__product">Fresh routines coming soon</span>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
   </div>
 </section>
 

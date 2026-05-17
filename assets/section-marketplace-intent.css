@@ -1,147 +1,276 @@
 .marketplace-intent {
-  padding: 18px 0 14px;
+  padding: clamp(6rem, 7vw, 9rem) 0;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(205, 185, 236, 0.18), transparent 24%),
+    linear-gradient(180deg, #fcfafd 0%, #f4eef8 100%);
 }
 
-.marketplace-intent__header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.marketplace-intent__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 6px 10px;
-  border-radius: 7px;
-  background: rgba(255, 107, 157, 0.08);
-  color: #d73d72;
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.marketplace-intent__title {
-  margin: 12px 0 8px;
-  color: #241520;
-  font-size: clamp(2.6rem, 2.2rem + 0.8vw, 4rem);
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-}
-
-.marketplace-intent__description {
-  max-width: 68rem;
-  margin: 0;
-  color: #65525e;
-  font-size: 1.45rem;
-  line-height: 1.65;
-  font-weight: 700;
-}
-
-.marketplace-intent__grid {
+.marketplace-intent__layout {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(2rem, 2.5vw, 3.2rem);
+  align-items: stretch;
 }
 
-.marketplace-intent__card {
+/* ─── Hero card (left) ────────────────────────────────────────────────── */
+
+.marketplace-intent__hero {
   position: relative;
-  overflow: hidden;
-  display: grid;
-  gap: 10px;
-  min-height: 240px;
-  padding: 20px;
-  border: 1px solid rgba(232, 74, 127, 0.1);
-  border-radius: 10px;
-  background: linear-gradient(180deg, #ffffff 0%, #fffafc 100%);
-  box-shadow: 0 14px 24px rgba(85, 62, 75, 0.06);
-  text-decoration: none;
-}
-
-.marketplace-intent__label {
-  display: inline-flex;
-  align-items: center;
-  justify-self: start;
-  min-height: 28px;
-  padding: 6px 10px;
-  border-radius: 7px;
-  background: rgba(255, 217, 61, 0.18);
-  color: #6f4e08;
-  font-size: 0.98rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.marketplace-intent__card-title {
-  margin: 0;
-  color: #241520;
-  font-size: 2.05rem;
-  line-height: 1.04;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-}
-
-.marketplace-intent__card-copy {
-  max-width: 24rem;
-  margin: 0;
-  color: #63505c;
-  font-size: 1.22rem;
-  line-height: 1.6;
-  font-weight: 700;
-}
-
-.marketplace-intent__card-link {
-  margin-top: auto;
-  color: #d73d72;
-  font-size: 1.15rem;
-  line-height: 1.4;
-  font-weight: 900;
-}
-
-.marketplace-intent__media {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-  background: linear-gradient(180deg, #fff5f9 0%, #fff8ef 100%);
-  border: 1px solid rgba(232, 74, 127, 0.08);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  min-height: clamp(42rem, 48vw, 58rem);
+  overflow: hidden;
+  border-radius: 2.4rem;
+  text-decoration: none;
+  background: #2a1140;
+  box-shadow: 0 24px 44px rgba(73, 51, 101, 0.14);
 }
 
-.marketplace-intent__media img {
+.marketplace-intent__hero-media,
+.marketplace-intent__hero-image,
+.marketplace-intent__hero-placeholder {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 10px;
 }
 
-@media screen and (max-width: 1080px) {
-  .marketplace-intent__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.marketplace-intent__hero-image {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.marketplace-intent__hero-placeholder {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.26), transparent 24%),
+    linear-gradient(135deg, #e7daf5 0%, #cdb7ea 42%, #9c85c6 100%);
+}
+
+.marketplace-intent__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(20, 9, 32, 0.82) 0%, rgba(20, 9, 32, 0.4) 38%, rgba(20, 9, 32, 0) 70%),
+    linear-gradient(110deg, rgba(129, 95, 179, 0.18) 0%, rgba(129, 95, 179, 0) 32%);
+}
+
+.marketplace-intent__hero-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 38rem;
+  padding: clamp(2.8rem, 3vw, 4rem);
+}
+
+.marketplace-intent__hero-title {
+  margin: 0;
+  color: #ffffff;
+  max-width: 12ch;
+  font-size: clamp(3.6rem, 2.6rem + 2vw, 5.6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+.marketplace-intent__hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 5rem;
+  padding: 0 2.4rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
+  color: #ffffff;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 14px 30px rgba(232, 74, 127, 0.32);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.marketplace-intent__hero:hover .marketplace-intent__hero-button,
+.marketplace-intent__hero:focus-visible .marketplace-intent__hero-button {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(232, 74, 127, 0.42);
+}
+
+/* ─── Right panel (Explore Our Range) ────────────────────────────────── */
+
+.marketplace-intent__panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(42rem, 48vw, 58rem);
+  gap: 2rem;
+  align-self: stretch;
+}
+
+.marketplace-intent__heading {
+  max-width: 38rem;
+  padding: 0;
+}
+
+.marketplace-intent__panel-title {
+  margin: 0;
+  color: #2a1140;
+  font-size: clamp(2.8rem, 1.8rem + 2vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 900;
+}
+
+.marketplace-intent__panel-copy {
+  margin: 1rem 0 0;
+  color: #5a4569;
+  font-size: clamp(1.5rem, 1.3rem + 0.3vw, 1.7rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.marketplace-intent__category-grid {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 2rem;
+}
+
+/* CATEGORY CARDS — vertical layout: full image canvas + title below */
+
+.marketplace-intent__category-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 1.2rem;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 1.2rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(116, 28, 177, 0.08);
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(76, 58, 103, 0.08);
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease, border-color 0.24s ease;
+}
+
+.marketplace-intent__category-card:hover,
+.marketplace-intent__category-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(255, 107, 157, 0.32);
+  box-shadow: 0 24px 44px rgba(76, 58, 103, 0.14);
+}
+
+.marketplace-intent__category-media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  /* Slightly taller frame so portraits show heads + product fully */
+  aspect-ratio: 4 / 3;
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(224, 209, 244, 0.32), transparent 26%),
+    linear-gradient(180deg, #fcf9fe 0%, #f3ecf9 100%);
+}
+
+.marketplace-intent__category-image,
+.marketplace-intent__category-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.marketplace-intent__category-image {
+  display: block;
+  /* COVER fills the frame, anchored top so faces stay in view and the lunch
+   * box/bottle doesn't get clipped from the top. */
+  object-fit: cover;
+  object-position: center 25%;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.marketplace-intent__category-card:hover .marketplace-intent__category-image,
+.marketplace-intent__category-card:focus-visible .marketplace-intent__category-image {
+  transform: scale(1.06);
+}
+
+.marketplace-intent__category-placeholder {
+  display: block;
+  background:
+    radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.6), transparent 20%),
+    linear-gradient(135deg, #eee5f8 0%, #ddceef 100%);
+}
+
+.marketplace-intent__category-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0 0.4rem 0.6rem;
+  color: #2a1140;
+  font-size: clamp(1.55rem, 1.3rem + 0.4vw, 1.9rem);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+@media screen and (max-width: 989px) {
+  .marketplace-intent__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .marketplace-intent__hero {
+    min-height: 38rem;
+  }
+
+  .marketplace-intent__panel {
+    min-height: auto;
   }
 }
 
 @media screen and (max-width: 749px) {
-  .marketplace-intent__grid {
-    grid-template-columns: 1fr;
+  .marketplace-intent {
+    padding: 4.8rem 0;
   }
 
-  .marketplace-intent__card {
-    min-height: 220px;
+  .marketplace-intent__layout {
+    gap: 1.8rem;
   }
 
-  .marketplace-intent__media {
-    width: 96px;
-    height: 96px;
+  .marketplace-intent__hero {
+    min-height: 32rem;
+    border-radius: 1.8rem;
+  }
+
+  .marketplace-intent__hero-copy {
+    max-width: 26rem;
+    gap: 1.4rem;
+    padding: 2rem;
+  }
+
+  .marketplace-intent__hero-title {
+    font-size: clamp(2.8rem, 7vw, 3.6rem);
+  }
+
+  .marketplace-intent__panel {
+    gap: 1.6rem;
+  }
+
+  .marketplace-intent__category-grid {
+    gap: 1.4rem;
+  }
+
+  .marketplace-intent__category-card {
+    min-height: 17rem;
+    padding: 1.1rem;
+    border-radius: 1.6rem;
+  }
+
+  .marketplace-intent__category-title {
+    font-size: 1.5rem;
   }
 }

@@ -706,3 +706,303 @@ Verification after this pass:
   - `jdgm-preview-badge`
   - `judgeme_product_reviews`
   - `catfat-product__reviews-card`
+
+## Append: March 23 Purple/Orange + Review Distribution Pass
+
+This pass pushed the Catfat V2 direction further toward a premium-clean and playful storefront, using the official Catfat purple/orange palette and spreading real review proof more strategically through the homepage, cards, and PDP.
+
+Files changed:
+
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\base.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\component-product-card.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-footer.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-main-product.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-market-shelf.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-hero.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-intent.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-marquee.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-reviews.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-trust.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\main-product.liquid`
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\marketplace-reviews.liquid`
+- `C:\Users\shubh\Downloads\CatfatIndia\snippets\product-card.liquid`
+
+What changed:
+
+- official Catfat palette variables were reinforced in `base.css`
+  - working purple: `#741CB1`
+  - secondary purple: `#5C34BA`
+  - deep purple/plum: `#642878`
+  - orange accent: `#F9A519`
+- homepage key sections were recolored and sharpened:
+  - hero
+  - shopper-intent grid
+  - marquee/proof row
+  - bestseller shelf accents
+  - reviews lane
+  - trust section
+  - footer CTA styling
+- shared product cards were cleaned further:
+  - added a compact real review line on cards when review data exists
+  - kept the cards minimal: eyebrow, title, price, CTA
+  - CTA label for multi-variant products now uses `Choose options`
+- PDP now has the intended proof carousel styling and behavior:
+  - utility facts + theme/gifting emotion cards
+  - horizontal scroll/Prev/Next controls
+  - storewide review proof can appear in the final trust card via Judge.me count
+- homepage reviews lane now shows stronger real-review proof:
+  - dynamic title using storewide review count
+  - micro proof pills including review count and rating
+  - Judge.me stars recolored to Catfat orange
+
+Actual live-store proof captured during this pass:
+
+- `catfatindia.com` homepage showed `from 606 reviews` on March 23, 2026
+- the local Catfat dev preview also rendered `606+ verified reviews`
+
+Verification performed after restart:
+
+- local dev preview restarted successfully on `http://127.0.0.1:9292`
+- shared preview remained:
+  - `https://c54bad-2.myshopify.com/?preview_theme_id=150185345207`
+- checked routes:
+  - `/` -> `200`
+  - `/collections/all-products` -> `200`
+  - `/products/panda-travel-insulated-vacuum-jug-500ml` -> `200`
+- checked render expectations:
+  - homepage contains `Trusted by ... verified Catfat reviews`
+  - homepage contains `Start with why they came`
+  - homepage/collection HTML contains `market-card__review-line`
+  - PDP contains `catfat-product__proof-carousel`
+  - PDP contains `judgeme_product_reviews`
+  - no `Liquid error` / `Liquid syntax error` on those checked routes
+
+Known caveat:
+
+- `shopify theme check` is still noisy because of legacy missing assets/templates from the broken export and from the `latest crave theme export` subfolder. The new March 23 pass did not introduce a route-breaking Liquid error, but the old export debt still exists and should be cleaned in a separate pass rather than mixed into visual work.
+
+## Append: March 23 Purple-Only Stabilization
+
+This follow-up pass tightened the palette further after the user asked for purple-only gradients, much less white/default surfacing, and removal of lingering pink styling.
+
+Files changed in this pass:
+
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\base.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\component-product-card.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-main-product.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-hero.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-discount-popup.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-trust.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-reviews.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-routine.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-brand-story.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-faq.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-instagram-strip.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-marketplace-marquee.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-footer.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\component-menu-drawer.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-multicolumn.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-slideshow.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\header.liquid`
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\main-collection.liquid`
+- `C:\Users\shubh\Downloads\CatfatIndia\snippets\pagination.liquid`
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\marketplace-discount-popup.liquid`
+
+What changed:
+
+- moved shared gradients to purple-only across the actively reviewed storefront
+- changed global secondary/accent variables away from orange so old generic UI stops leaking orange text unexpectedly
+- reduced pure white/default backgrounds on:
+  - shared cards
+  - PDP service/trust blocks
+  - hero chips
+  - popup close/visual cubes
+  - shared slideshow/multicolumn legacy sections
+- ran a broader hardcoded-hex cleanup to replace old pink/coral hex values in theme files with Catfat purple-family values
+
+Important incident and fix:
+
+- the broad cleanup accidentally rewrote `config/settings_schema.json` with a UTF-8 BOM
+- Shopify CLI then returned `Failed to Upload Theme Files` and the local proxy served a `500`
+- the actual reported error was:
+  - `Invalid JSON in config/settings_schema.json`
+- fixed by restoring the schema file cleanly without BOM and without introducing schema logic changes
+
+Final verification after recovery:
+
+- restarted local dev server again with:
+  - `reviews/start-theme-dev.ps1 -Store c54bad-2.myshopify.com -Port 9292`
+- checked routes:
+  - `/` -> `200`
+  - `/collections/all-products` -> `200`
+  - `/products/panda-travel-insulated-vacuum-jug-500ml` -> `200`
+- checked render expectations:
+  - homepage contains `marketplace-hero__shell`
+  - homepage contains `Trusted by`
+  - collection contains `market-card__review-line`
+  - PDP contains `catfat-product__proof-carousel`
+  - PDP contains `judgeme_product_reviews`
+  - none of the checked routes show:
+    - `Failed to Upload Theme Files`
+    - `Liquid error`
+    - `Liquid syntax error`
+
+## Append: Footer Theme Toggle + Header Promo Simplification
+
+User asked for:
+- a light/dark mode toggle in the footer
+- Shopify-editable functionality for dual light/dark theme behavior
+- removal of the extra stacked top promo lines, keeping only one purple sales line
+
+Files added:
+
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\catfat-theme-mode.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\catfat-theme-mode.js`
+
+Files changed:
+
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\footer.liquid`
+- `C:\Users\shubh\Downloads\CatfatIndia\assets\section-footer.css`
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\header.liquid`
+- `C:\Users\shubh\Downloads\CatfatIndia\sections\announcement-bar.liquid`
+
+What changed:
+
+- footer now loads a dedicated theme-mode stylesheet and JS asset
+- footer includes a new `View mode` control with Light / Dark buttons
+- footer schema now exposes Shopify-editor settings for:
+  - show/hide toggle
+  - default mode (`light`, `dark`, `system`)
+  - heading/copy
+  - light button label
+  - dark button label
+- theme-mode JS persists the chosen mode in localStorage under `catfat-theme-mode`
+- dark mode applies through `data-catfat-theme="dark"` on the root element and targeted overrides for:
+  - header
+  - homepage hero / intent / routine / brand story / reviews / trust / FAQ / popup
+  - collection page shell
+  - shared product cards
+  - PDP shells/cards
+  - cart drawer / cart page
+  - pickup / variant-picker surfaces
+- top-of-site promo was simplified:
+  - removed the extra secondary header notice from rendered markup
+  - kept one purple primary line only
+  - current live text:
+    - `Free shipping above Rs. 499 | COD available | Sweet Cat sale live | Get extra 20% off with SWEETCAT20`
+- standalone `announcement-bar.liquid` default text was also corrected so it no longer carries the old mojibake/corrupted string if that section is activated later
+
+Verification completed:
+
+- `/` -> `200`
+- `/products/panda-travel-insulated-vacuum-jug-500ml` -> `200`
+- homepage HTML contains:
+  - `catfat-theme-mode.css`
+  - `catfat-theme-mode.js`
+  - `data-catfat-theme-toggle`
+  - `data-theme-value="light"`
+  - `data-theme-value="dark"`
+  - `SWEETCAT20`
+- homepage rendered markup count:
+  - `catfat-header__notice catfat-header__notice--primary` -> `1`
+  - `catfat-header__notice catfat-header__notice--secondary` -> `0`
+- no upload-failure page and no Liquid errors on checked routes
+
+Remaining test caveat:
+
+- browser-level click interaction of the Light / Dark buttons was not automated in this shell because there is no browser automation tool preinstalled here
+- HTML/assets/schema wiring is verified, but the visual interaction itself still benefits from manual review in the live preview
+
+## 2026-03-23 - Compact Footer Mode Toggle + Dark Contrast Pass
+- Replaced the larger footer light/dark selector block with a compact single icon button in the footer bottom row to keep footer height stable.
+- Rewrote `assets/catfat-theme-mode.js` so the new button toggles between light and dark, persists to localStorage key `catfat-theme-mode`, and updates aria/title state correctly.
+- Rebalanced `assets/catfat-theme-mode.css` with deeper purple shell backgrounds and brighter text contrast for dark mode.
+- Hero title in `sections/slideshow.liquid` now reads `Packed for school smiles.`
+- Verified local preview routes after the pass:
+  - `/` -> 200
+  - `/products/panda-travel-insulated-vacuum-jug-500ml` -> 200
+  - `/cart` -> 200
+  - no `Failed to Upload Theme Files`
+  - no `Liquid error` / `Liquid syntax error`
+
+## 2026-03-23 - Purple Palette System Cleanup
+- Centralized the light/dark palette more aggressively in `assets/base.css` and `assets/catfat-theme-mode.css` so the theme reads as one purple-led system instead of separate light and dark layers.
+- Updated Catfat purple values to cooler, less pink-leaning tones while keeping the brand purple primary intact.
+- Reworked the most visible surfaces to use the shared tokens instead of scattered hardcoded lavender/white values:
+  - `sections/header.liquid`
+  - `assets/section-marketplace-hero.css`
+  - `assets/section-marketplace-marquee.css`
+  - `assets/component-product-card.css`
+  - `assets/section-main-product.css`
+  - `assets/section-marketplace-brand-story.css`
+  - `assets/section-footer.css`
+- Also normalized generic secondary-page component gradients in `assets/base.css` so old white/lavender cards do not reappear on less-visible pages.
+- Added dark-mode header-specific overrides in `assets/catfat-theme-mode.css` for nav links, subtitle contrast, header shell, and cart badge so the sticky header no longer falls back to muddy light-mode text values.
+- Verification after the pass:
+  - `/` -> 200
+  - `/products/panda-travel-insulated-vacuum-jug-500ml` -> 200
+  - `/cart` -> 200
+  - homepage HTML still contains:
+    - `marketplace-hero__shell`
+    - `marketplace-marquee__shell`
+    - `catfat-footer__mode-button`
+  - product HTML still contains:
+    - `catfat-product__price-row`
+    - `catfat-product__proof-carousel`
+    - `catfat-theme-mode.css`
+  - no Liquid errors on checked routes
+
+## 2026-03-23 - Section Spacing and Footer Framing Pass
+- Added a shared `--catfat-page-gutter` token in `assets/base.css` and moved `.page-width` to use it so sections have stronger side breathing room across the storefront.
+- Increased vertical spacing on the homepage section wrappers to stop sections from stacking too tightly:
+  - `assets/section-marketplace-hero.css`
+  - `assets/section-marketplace-marquee.css`
+  - `assets/section-marketplace-intent.css`
+  - `assets/section-market-shelf.css`
+  - `assets/section-marketplace-routine.css`
+  - `assets/section-marketplace-brand-story.css`
+  - `assets/section-marketplace-reviews.css`
+  - `assets/section-marketplace-trust.css`
+  - `assets/section-marketplace-faq.css`
+  - `assets/section-marketplace-instagram-strip.css`
+- Reframed the footer in `assets/section-footer.css` with outer margin, rounded outer corners, and safer mobile spacing so it no longer feels glued to the viewport edges.
+- Verified after spacing pass:
+  - `/` -> 200
+  - `/products/panda-travel-insulated-vacuum-jug-500ml` -> 200
+  - `/cart` -> 200
+  - no Liquid errors on checked routes
+
+## 2026-03-23 - Collection / Cart Shell Cleanup
+- Reworked `sections/main-collection.liquid` inline CSS so collection pages follow the same spacing and shell style as the newer homepage:
+  - stronger top/bottom spacing
+  - tokenized hero shell / toolbar / empty state
+  - cleaner collection toolbar spacing
+- Reworked `sections/cart-template.liquid` toward the same system:
+  - stronger page spacing
+  - cleaner cart header and empty state
+  - tokenized shipping / discount / totals / recommendations shells
+  - cleaner quantity controls and recommendations cards
+  - removed visible mojibake from the main cart experience (`Continue shopping`, `FREE shipping unlocked`, `Rs. 499+`, etc.)
+- Updated overlay surfaces too:
+  - `assets/component-menu-drawer.css`
+  - `assets/section-marketplace-discount-popup.css`
+- Verified after the pass:
+  - `/` -> 200
+  - `/collections/all-products` -> 200
+  - `/cart` -> 200
+  - no Liquid errors on those routes
+
+## 2026-03-23 - Broken Export Text Cleanup
+- Removed remaining mojibake / broken currency / broken icon strings from visible user-facing templates:
+  - `snippets/cart-drawer.liquid`
+  - `sections/floating-trust-badges.liquid`
+  - `sections/multicolumn.liquid`
+  - `sections/page-about.liquid`
+  - `sections/page-contact.liquid`
+  - `sections/page-faq.liquid`
+  - `sections/page-shipping.liquid`
+  - `sections/page-returns.liquid`
+  - `sections/as-seen-in.liquid`
+  - `sections/customer-photos-gallery.liquid`
+  - `snippets/size-guide.liquid`
+- Final fixed-string scan for `â`, `ð`, and `Â` in `sections/`, `snippets/`, `assets/`, and `templates/` returned clean at the end of this pass.

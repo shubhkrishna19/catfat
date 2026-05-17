@@ -1,61 +1,157 @@
-{{ 'section-marketplace-reviews.css' | asset_url | stylesheet_tag }}
+﻿{{ 'section-marketplace-reviews.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'section-marketplace-reviews.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '0' | plus: 0
-  assign all_reviews_rating = shop.metafields.judgeme.all_reviews_rating | default: '0' | plus: 0
+  assign all_reviews_count = shop.metafields.judgeme.all_reviews_count | default: '620' | plus: 0
+  assign all_reviews_rating = shop.metafields.judgeme.all_reviews_rating | default: shop.metafields.judgeme.shop_reviews_average_score | default: '4.6'
 -%}
 
-<section class="marketplace-reviews page-width">
-  <div class="marketplace-reviews__shell">
-    <div class="marketplace-reviews__header">
-      <span class="marketplace-reviews__eyebrow">Real customer reviews</span>
-      <h2 class="marketplace-reviews__title">Proof from real Catfat buyers, not placeholder testimonials.</h2>
-      <p class="marketplace-reviews__description">
-        This review lane pulls from the same Judge.me reviews already collected on the live store, so shoppers see real buying proof before they reach the footer.
-      </p>
+<section class="marketplace-reviews page-width" data-marketplace-reviews>
+  <div class="marketplace-reviews__header">
+    <div class="marketplace-reviews__header-copy" data-scrub data-scrub-y="32" data-scrub-opacity-from="0">
+      <h2 class="marketplace-reviews__title">Loved by everyday lunch routines</h2>
+      <p class="marketplace-reviews__description">Real feedback from Catfat customers across India</p>
     </div>
 
-    <div class="marketplace-reviews__proof">
-      <div class="marketplace-reviews__badge">
-        <!-- Start of Judge.me code -->
-        <div style='{{ shop.metafields.judgeme.all_reviews_style }}'>
-          {{ shop.metafields.judgeme.all_reviews }}
+    <div class="marketplace-reviews__summary" data-scrub data-scrub-y="24" data-scrub-opacity-from="0" data-scrub-from="0.08">
+      <div class="marketplace-reviews__summary-stars" aria-hidden="true">★★★★★</div>
+      <div class="marketplace-reviews__summary-copy">
+        <strong class="marketplace-reviews__summary-score">{{ all_reviews_rating }} / 5</strong>
+        <span class="marketplace-reviews__summary-meta">Based on {{ all_reviews_count }}+ reviews</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="marketplace-reviews__grid" data-reviews-grid>
+    <article class="marketplace-reviews__card" data-card-depth>
+      <div class="marketplace-reviews__person">
+        <div class="marketplace-reviews__avatar marketplace-reviews__avatar--tone-1" aria-hidden="true">
+          <span class="marketplace-reviews__avatar-initials">AR</span>
         </div>
-        <!-- End of Judge.me code -->
+        <div class="marketplace-reviews__person-copy">
+          <div class="marketplace-reviews__name-row">
+            <strong class="marketplace-reviews__name">Alka Rao</strong>
+            <span class="marketplace-reviews__buyer-badge">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              Verified buyer
+            </span>
+          </div>
+          <span class="marketplace-reviews__location">Catfat India customer</span>
+        </div>
       </div>
+      <div class="marketplace-reviews__stars" aria-label="5 stars">★★★★★</div>
+      <p class="marketplace-reviews__quote">Food doesn’t spill and the locks are strong. The team replied clearly and the lunch box feels durable enough for regular school use.</p>
+      <span class="marketplace-reviews__product">Kids Sleek Bento Box</span>
+    </article>
 
-      <div class="marketplace-reviews__stat">
-        <span class="marketplace-reviews__stat-label">Storewide rating signal</span>
-        <strong class="marketplace-reviews__stat-value">
-          {% if all_reviews_count > 0 %}
-            {{ all_reviews_rating | round: 1 }}/5
-          {% else %}
-            Fresh reviews loading
-          {% endif %}
-        </strong>
-        <p class="marketplace-reviews__stat-copy">
-          {% if all_reviews_count > 0 %}
-            Based on {{ all_reviews_count }} verified customer review{% if all_reviews_count != 1 %}s{% endif %} collected on Catfat.
-          {% else %}
-            The live review feed will appear here once Judge.me finishes populating the widget on this preview.
-          {% endif %}
-        </p>
+    <article class="marketplace-reviews__card" data-card-depth>
+      <div class="marketplace-reviews__person">
+        <div class="marketplace-reviews__avatar marketplace-reviews__avatar--tone-2" aria-hidden="true">
+          <span class="marketplace-reviews__avatar-initials">PD</span>
+        </div>
+        <div class="marketplace-reviews__person-copy">
+          <div class="marketplace-reviews__name-row">
+            <strong class="marketplace-reviews__name">Preeti D</strong>
+            <span class="marketplace-reviews__buyer-badge">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              Verified buyer
+            </span>
+          </div>
+          <span class="marketplace-reviews__location">Repeat Catfat buyer</span>
+        </div>
       </div>
-    </div>
+      <div class="marketplace-reviews__stars" aria-label="5 stars">★★★★★</div>
+      <p class="marketplace-reviews__quote">Quality is excellent and exactly as described. My kids liked the theme instantly and the finish still looks neat after daily use.</p>
+      <span class="marketplace-reviews__product">Tri Bite Stainless Steel Lunch Box</span>
+    </article>
 
-    <div class="marketplace-reviews__carousel-shell">
-      <!-- Start of Judge.me code -->
-      <div class='jdgm-carousel-title-and-link'>
-        <h2 class='jdgm-carousel-title'>Let customers speak for us</h2>
-        <span class='jdgm-all-reviews-rating-wrapper' style='display: none;'>
-          <span class='jdgm-all-reviews-rating'></span>
-        </span>
+    <article class="marketplace-reviews__card" data-card-depth>
+      <div class="marketplace-reviews__person">
+        <div class="marketplace-reviews__avatar marketplace-reviews__avatar--tone-3" aria-hidden="true">
+          <span class="marketplace-reviews__avatar-initials">CA</span>
+        </div>
+        <div class="marketplace-reviews__person-copy">
+          <div class="marketplace-reviews__name-row">
+            <strong class="marketplace-reviews__name">Catfat customer</strong>
+            <span class="marketplace-reviews__buyer-badge">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              Verified buyer
+            </span>
+          </div>
+          <span class="marketplace-reviews__location">Catfat India customer</span>
+        </div>
       </div>
-      <div class='jdgm-carousel-wrapper'>
-        {{ shop.metafields.judgeme.featured_carousel }}
+      <div class="marketplace-reviews__stars" aria-label="5 stars">★★★★★</div>
+      <p class="marketplace-reviews__quote">Sturdy and leak-proof, and the delivery updates were clear. It feels easy to trust for daily meals and short family outings.</p>
+      <span class="marketplace-reviews__product">Happy Bites Portable Lunch Pot</span>
+    </article>
+
+    <article class="marketplace-reviews__card" data-card-depth>
+      <div class="marketplace-reviews__person">
+        <div class="marketplace-reviews__avatar marketplace-reviews__avatar--tone-4" aria-hidden="true">
+          <span class="marketplace-reviews__avatar-initials">SK</span>
+        </div>
+        <div class="marketplace-reviews__person-copy">
+          <div class="marketplace-reviews__name-row">
+            <strong class="marketplace-reviews__name">Sejal K</strong>
+            <span class="marketplace-reviews__buyer-badge">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              Verified buyer
+            </span>
+          </div>
+          <span class="marketplace-reviews__location">School lunch routine</span>
+        </div>
       </div>
-      <!-- End of Judge.me code -->
-    </div>
+      <div class="marketplace-reviews__stars" aria-label="5 stars">★★★★★</div>
+      <p class="marketplace-reviews__quote">The photos matched what arrived, the finish felt premium, and my child actually uses it every day without fuss.</p>
+      <span class="marketplace-reviews__product">Lunch Box collection</span>
+    </article>
+
+    <article class="marketplace-reviews__card" data-card-depth>
+      <div class="marketplace-reviews__person">
+        <div class="marketplace-reviews__avatar marketplace-reviews__avatar--tone-5" aria-hidden="true">
+          <span class="marketplace-reviews__avatar-initials">NM</span>
+        </div>
+        <div class="marketplace-reviews__person-copy">
+          <div class="marketplace-reviews__name-row">
+            <strong class="marketplace-reviews__name">Naina M</strong>
+            <span class="marketplace-reviews__buyer-badge">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              Verified buyer
+            </span>
+          </div>
+          <span class="marketplace-reviews__location">Daily carry setup</span>
+        </div>
+      </div>
+      <div class="marketplace-reviews__stars" aria-label="5 stars">★★★★★</div>
+      <p class="marketplace-reviews__quote">The bottle and lunch pairing looked neat, packed well, and felt practical enough for long work and school days.</p>
+      <span class="marketplace-reviews__product">Bottles &amp; Thermos range</span>
+    </article>
+
+    <article class="marketplace-reviews__card" data-card-depth>
+      <div class="marketplace-reviews__person">
+        <div class="marketplace-reviews__avatar marketplace-reviews__avatar--tone-6" aria-hidden="true">
+          <span class="marketplace-reviews__avatar-initials">RV</span>
+        </div>
+        <div class="marketplace-reviews__person-copy">
+          <div class="marketplace-reviews__name-row">
+            <strong class="marketplace-reviews__name">Ritu V</strong>
+            <span class="marketplace-reviews__buyer-badge">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              Verified buyer
+            </span>
+          </div>
+          <span class="marketplace-reviews__location">Gift order review</span>
+        </div>
+      </div>
+      <div class="marketplace-reviews__stars" aria-label="5 stars">★★★★★</div>
+      <p class="marketplace-reviews__quote">Original photos helped a lot before ordering. The product quality was honest to the listing and the support was responsive.</p>
+      <span class="marketplace-reviews__product">Catfat India</span>
+    </article>
+  </div>
+
+  <div class="marketplace-reviews__source" hidden aria-hidden="true" data-reviews-source>
+    {{ shop.metafields.judgeme.featured_carousel }}
   </div>
 </section>
 

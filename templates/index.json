@@ -3,21 +3,49 @@
     "slideshow": {
       "type": "slideshow",
       "settings": {
-        "auto_rotate": true,
-        "change_slides_speed": 5
+        "eyebrow": "",
+        "heading": "Lunch, packed with care.",
+        "description": "Smart lunch boxes, bottles, and essentials designed",
+        "description_line_2": "for everyday Indian life.",
+        "primary_button_label": "Shop Lunch Boxes",
+        "secondary_button_label": "Shop All Products"
       }
     },
     "marketplace_ticker": {
       "type": "marketplace-ticker",
       "settings": {}
     },
+    "entry_banner": {
+      "type": "catfat-entry-banner",
+      "settings": {
+        "eyebrow": "Welcome to Catfat India",
+        "heading": "Lunch, packed with love.",
+        "sub": "Smart, leak-proof lunch boxes & bottles built for everyday Indian routines — kids and adults alike.",
+        "cta_label": "Shop the collection",
+        "cta2_label": "View the lookbook",
+        "rotate_angle": -3
+      }
+    },
     "intent_lane": {
       "type": "marketplace-intent",
       "settings": {}
     },
-    "brand_story": {
-      "type": "marketplace-brand-story",
-      "settings": {}
+    "kids_corporate": {
+      "type": "catfat-kids-corporate",
+      "settings": {
+        "eyebrow": "Category Spotlight",
+        "heading": "Designs for kids. Built for corporate gifting.",
+        "sub": "Two distinct ranges — playful school favorites and elevated bulk gifting essentials."
+      }
+    },
+    "new_arrivals": {
+      "type": "new-arrivals",
+      "settings": {
+        "title": "New Arrivals",
+        "subtitle": "Fresh picks for everyday meals",
+        "collection": "new-arrivals",
+        "products_to_show": 8
+      }
     },
     "discount_popup": {
       "type": "marketplace-discount-popup",
@@ -27,11 +55,18 @@
       "type": "marketplace-routine",
       "settings": {}
     },
+    "about_us": {
+      "type": "page-about",
+      "settings": {
+        "team_image_alt": "Catfat India team",
+        "founder_image_alt": "Catfat India founders"
+      }
+    },
     "lunch_boxes": {
       "type": "featured-collection",
       "settings": {
-        "title": "Best sellers",
-        "description": "Lunch-box favourites that lead the Catfat range right now.",
+        "title": "Most-loved lunch boxes",
+        "description": "A tighter shortlist of Catfat lunch boxes shoppers keep coming back to.",
         "collection": "lunch-box",
         "products_to_show": 4
       }
@@ -40,6 +75,14 @@
       "type": "marketplace-instagram-strip",
       "settings": {}
     },
+    "post_wall": {
+      "type": "catfat-post-wall",
+      "settings": {
+        "heading": "@catfatindia",
+        "sub": "Real lunches, real bottles, real routines — straight from our community.",
+        "handle": "catfatindia"
+      }
+    },
     "reviews_lane": {
       "type": "marketplace-reviews",
       "settings": {}
@@ -47,23 +90,22 @@
     "trust_strip": {
       "type": "marketplace-trust",
       "settings": {}
-    },
-    "faq_lane": {
-      "type": "marketplace-faq",
-      "settings": {}
     }
   },
   "order": [
     "slideshow",
     "marketplace_ticker",
+    "entry_banner",
+    "new_arrivals",
     "intent_lane",
-    "brand_story",
-    "discount_popup",
-    "routine_story",
+    "kids_corporate",
     "lunch_boxes",
-    "reviews_lane",
+    "routine_story",
     "instagram_strip",
+    "post_wall",
+    "reviews_lane",
+    "about_us",
     "trust_strip",
-    "faq_lane"
+    "discount_popup"
   ]
 }

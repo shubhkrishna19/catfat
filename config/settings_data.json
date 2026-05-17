@@ -1,13 +1,12 @@
 {
   "current": {
-    "logo_width": 140,
     "colors_text": "#333333",
     "colors_background_1": "#FFFFFF",
     "colors_background_2": "#F3F3F3",
     "colors_solid_button_labels": "#FFFFFF",
     "colors_outline_button_labels": "#333333",
-    "colors_accent_1": "#ff6b9d",
-    "colors_accent_2": "#ff8e53",
+    "colors_accent_1": "#741CB1",
+    "colors_accent_2": "#F9A519",
     "type_header_font": "assistant_n4",
     "type_body_font": "assistant_n4",
     "page_width": 1400,
@@ -16,38 +15,15 @@
     "spacing_grid_vertical": 8,
     "header__icon_color": "#333333",
     "cart_type": "drawer",
-    "sections": {
-      "header": {
-        "type": "header",
-        "settings": {
-          "primary_color": "#ff6b9d",
-          "accent_color": "#e84a7f",
-          "hover_color": "#ff8e53",
-          "header_background": "#ff6b9d",
-          "text_color": "#ffffff",
-          "menu": "main-menu"
-        }
-      },
-      "footer": {
-        "type": "footer",
-        "settings": {
-          "primary_color": "#ff6b9d",
-          "accent_color": "#e84a7f",
-          "hover_color": "#ff8e53",
-          "background_color": "#1a1a2e",
-          "text_color": "#ffffff",
-          "columns_desktop": 4
-        }
-      }
-    }
+    "logo_width": 140
   },
   "presets": {
     "Default": {
       "colors": {
         "background-1": "#FFFFFF",
         "background-2": "#F3F3F3",
-        "accent-1": "#ff6b9d",
-        "accent-2": "#ff8e53"
+        "accent-1": "#741CB1",
+        "accent-2": "#F9A519"
       }
     }
   }
