@@ -44,7 +44,7 @@
       </div>
 
       <div class="routine-story__grid">
-        <a href="{{ school_url }}" class="routine-story__item" data-card-depth data-scrub-from="0.05">
+        <a href="{{ school_url }}" class="routine-story__item routine-story__item--school" data-card-depth data-scrub-from="0.05">
           <div class="routine-story__media">
             {%- if school_media != blank -%}
               {{
@@ -63,7 +63,7 @@
           <span class="routine-story__caption">For school days</span>
         </a>
 
-        <a href="{{ carry_url }}" class="routine-story__item" data-card-depth data-scrub-from="0.12">
+        <a href="{{ carry_url }}" class="routine-story__item routine-story__item--carry" data-card-depth data-scrub-from="0.12">
           <div class="routine-story__media">
             {%- if carry_media != blank -%}
               {{
@@ -82,7 +82,7 @@
           <span class="routine-story__caption">For everyday carry</span>
         </a>
 
-        <a href="{{ family_url }}" class="routine-story__item" data-card-depth data-scrub-from="0.2">
+        <a href="{{ family_url }}" class="routine-story__item routine-story__item--family" data-card-depth data-scrub-from="0.2">
           <div class="routine-story__media">
             {%- if family_media != blank -%}
               {{

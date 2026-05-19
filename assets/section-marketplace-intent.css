@@ -138,43 +138,33 @@
   gap: 2rem;
 }
 
-/* CATEGORY CARDS — vertical layout: full image canvas + title below */
+/* CATEGORY CARDS — full-bleed image background with text overlay on top */
 
 .marketplace-intent__category-card {
   position: relative;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 1.2rem;
+  display: block;
   flex: 1 1 0;
   min-width: 0;
-  padding: 1.2rem;
+  min-height: clamp(20rem, 22vw, 26rem);
   border-radius: 2rem;
-  border: 1px solid rgba(116, 28, 177, 0.08);
-  background: #ffffff;
-  box-shadow: 0 14px 32px rgba(76, 58, 103, 0.08);
-  text-decoration: none;
   overflow: hidden;
-  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease, border-color 0.24s ease;
+  text-decoration: none;
+  background: #1a0926;
+  box-shadow: 0 14px 32px rgba(76, 58, 103, 0.12);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease;
 }
 
 .marketplace-intent__category-card:hover,
 .marketplace-intent__category-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: rgba(255, 107, 157, 0.32);
-  box-shadow: 0 24px 44px rgba(76, 58, 103, 0.14);
+  transform: translateY(-4px);
+  box-shadow: 0 28px 48px rgba(76, 58, 103, 0.2);
 }
 
 .marketplace-intent__category-media {
-  position: relative;
+  position: absolute;
+  inset: 0;
   display: block;
   overflow: hidden;
-  width: 100%;
-  /* Slightly taller frame so portraits show heads + product fully */
-  aspect-ratio: 4 / 3;
-  border-radius: 1.5rem;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(224, 209, 244, 0.32), transparent 26%),
-    linear-gradient(180deg, #fcf9fe 0%, #f3ecf9 100%);
 }
 
 .marketplace-intent__category-image,
@@ -187,11 +177,9 @@
 
 .marketplace-intent__category-image {
   display: block;
-  /* COVER fills the frame, anchored top so faces stay in view and the lunch
-   * box/bottle doesn't get clipped from the top. */
   object-fit: cover;
-  object-position: center 25%;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  object-position: center center;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .marketplace-intent__category-card:hover .marketplace-intent__category-image,
@@ -202,20 +190,65 @@
 .marketplace-intent__category-placeholder {
   display: block;
   background:
-    radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.6), transparent 20%),
-    linear-gradient(135deg, #eee5f8 0%, #ddceef 100%);
+    radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.4), transparent 20%),
+    linear-gradient(135deg, #ff6b9d 0%, #c93070 100%);
+}
+
+/* Gradient scrim at bottom for text legibility */
+.marketplace-intent__category-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 6, 28, 0.78) 0%,
+    rgba(15, 6, 28, 0.42) 38%,
+    rgba(15, 6, 28, 0.02) 72%,
+    rgba(15, 6, 28, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .marketplace-intent__category-title {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 0 0.4rem 0.6rem;
-  color: #2a1140;
-  font-size: clamp(1.55rem, 1.3rem + 0.4vw, 1.9rem);
-  line-height: 1.2;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 1.8rem 1.6rem;
+  color: #ffffff;
+  font-size: clamp(1.85rem, 1.4rem + 0.6vw, 2.3rem);
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.36);
+}
+
+.marketplace-intent__category-title::after {
+  content: '→';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  font-size: 1.6rem;
   font-weight: 800;
-  letter-spacing: -0.01em;
+  flex-shrink: 0;
+  transition: transform 0.24s ease, background 0.24s ease;
+}
+
+.marketplace-intent__category-card:hover .marketplace-intent__category-title::after,
+.marketplace-intent__category-card:focus-visible .marketplace-intent__category-title::after {
+  transform: translateX(4px);
+  background: linear-gradient(135deg, #ff6b9d 0%, #e84a7f 100%);
 }
 
 @media screen and (max-width: 989px) {
@@ -266,11 +299,17 @@
 
   .marketplace-intent__category-card {
     min-height: 17rem;
-    padding: 1.1rem;
     border-radius: 1.6rem;
   }
 
   .marketplace-intent__category-title {
-    font-size: 1.5rem;
+    padding: 1.1rem 1.3rem 1.3rem;
+    font-size: 1.7rem;
+  }
+
+  .marketplace-intent__category-title::after {
+    width: 2.8rem;
+    height: 2.8rem;
+    font-size: 1.4rem;
   }
 }

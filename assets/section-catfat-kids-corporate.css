@@ -65,8 +65,9 @@
 
 .catfat-kc__media {
   position: relative;
-  /* Wider 3:2 frame — lets the subject fill horizontally with no edge crop */
-  aspect-ratio: 3 / 2;
+  /* 4:3 — taller frame so kids + bags / corporate product show with breathing
+   * room. Wider crops were chopping off the bag in hands and the box top. */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 107, 157, 0.14), transparent 60%),
@@ -78,16 +79,29 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  /* COVER fills frame edge-to-edge. Image is anchored to top so faces stay
-   * in view; subject sits centered horizontally. Subtle scale-up on hover. */
   object-fit: cover;
-  object-position: center 30%;
+  /* Default — overridden per panel below */
+  object-position: center 35%;
   transform: scale(1.02);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* KIDS panel: source image has children holding bags/lunch boxes lower in
+ * the frame. Anchor to center-bottom so the hands + bag remain visible. */
+.catfat-kc__panel--kids .catfat-kc__image {
+  object-position: center 65%;
+  transform: scale(1);
+}
+
+/* CORPORATE panel: gift box / product is the hero. Anchor center so the
+ * product fills the visible area, no top/bottom crop on the box itself. */
+.catfat-kc__panel--corporate .catfat-kc__image {
+  object-position: center center;
+  transform: scale(1);
+}
+
 .catfat-kc__panel:hover .catfat-kc__image {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
 .catfat-kc__placeholder {
