@@ -134,13 +134,17 @@
 
     {% section 'announcement-bar' %}
 
-    {% sections 'header-group' %}
+    {% section 'header' %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
 
-    {% sections 'footer-group' %}
+    {% section 'footer' %}
+
+    {% section 'catfat-social-proof' %}
+
+    {% section 'floating-trust-badges' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
